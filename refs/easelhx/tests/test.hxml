@@ -1,0 +1,9 @@
+# JavaScript
+-main TestMain
+-lib munit
+-lib hamcrest
+-lib xirsys_stdjs
+-cp ../externs/0.4.2
+
+-cp test
+-js build/js_test.js

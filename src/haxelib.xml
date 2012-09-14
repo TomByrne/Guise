@@ -1,0 +1,14 @@
+<project name="GuiseUI" url="http://github.com/TomByrne/composure-hx" license="GPL">
+    <user name="tbyrne"/>
+    <tag v="cross"/>
+    <tag v="gui"/>
+    <tag v="ui"/>
+    <tag v="skinnable"/>
+    <description>A GUI library where UI logic is seperated from skinning/drawing logic, allowing for a completely cross-platform UI library. The first set of skin classes will target the EaselJS Canvas DisplayList library. The library is based heavily on a composition design pattern, overcoming many of the issues encountered by sprawling chains of inheritance common to other UI libraries.</description>
+    <version name="0.1">Early development.</version>
+
+    <depends name="composure-hx"/>
+    <depends name="msignal"/>
+
+    <!--<depends name="xirsys_stdjs"/> <!-- This is a dependency of easelhx-->
+</project>

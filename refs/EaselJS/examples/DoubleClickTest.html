@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>EaselJS Example: Double Click Example</title>
+
+	<link href="assets/demoStyles.css" rel="stylesheet" type="text/css" />
+
+	<script type="text/javascript" src="../src/easeljs/utils/UID.js"></script>
+	<script type="text/javascript" src="../src/easeljs/geom/Matrix2D.js"></script>
+	<script type="text/javascript" src="../src/easeljs/display/DisplayObject.js"></script>
+	<script type="text/javascript" src="../src/easeljs/display/Container.js"></script>
+	<script type="text/javascript" src="../src/easeljs/display/Stage.js"></script>
+	<script type="text/javascript" src="../src/easeljs/events/MouseEvent.js"></script>
+	<script type="text/javascript" src="../src/easeljs/display/Shape.js"></script>
+	<script type="text/javascript" src="../src/easeljs/display/Graphics.js"></script>
+	<script type="text/javascript" src="../src/easeljs/display/Text.js"></script>
+
+	<!-- We also provide hosted minified versions of all CreateJS libraries.
+	  http://code.createjs.com -->
+
+	<script>
+	function init() {
+		//find canvas and load images, wait for last image to load
+		var canvas = document.getElementById("testCanvas");
+		var stage = new createjs.Stage(canvas);
+
+		// Create a new Text object and a rectangle Shape object, and position them inside a container:
+		var container = new createjs.Container();
+		container.x = 100;
+		container.y = 80;
+
+		var target = new createjs.Shape();
+		target.graphics.beginFill("#F00").drawRect(-10,-10,300,60).beginFill("#FFF");
+		container.addChild(target);
+
+		var txt = new createjs.Text("Double Click Me!", "36px Arial", "#FFF");
+		txt.textBaseline = "top";
+		container.addChild(txt);
+
+		stage.addChild(container);
+
+		container.onDoubleClick = function(evt) { alert("Double Clicked the container object"); }
+
+		stage.update();
+	}
+
+	</script>
+</head>
+	
+<body onload="init();">
+	<header id="header" class="EaselJS">
+	    <h1><span class="text-product">Easel<strong>JS</strong></span> Double Click Example</h1>
+	    <p>An example to show how to use the <strong>onDoubleClick()</strong> callback.</p>
+	</header>
+
+	<div class="canvasHolder">
+		<canvas id="testCanvas" width="960" height="400"></canvas>
+	</div>
+</body>
+</html>
