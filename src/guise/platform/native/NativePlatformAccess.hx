@@ -13,7 +13,7 @@ class NativePlatformAccess
 {
 	public static function install(within:ComposeItem){
 		
-		#if (html5 || html)
+		#if js
 			guise.platform.html.HtmlPlatformAccess.install(within);
 		#elseif nme
 			// NME fallback
