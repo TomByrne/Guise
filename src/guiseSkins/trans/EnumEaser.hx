@@ -5,10 +5,12 @@ package guiseSkins.trans;
  * @author Tom Byrne
  */
 
-class EnumEaser extends PropEaser
+class EnumEaser implements IPropEaser
 {
 	private static var _pool:Array<EnumEaser>;
-	public static function getNew(enumVal:Enum, params:Array, parent:Dynamic, prop:String):EnumEaser {
+	public static function getNew(enumVal:Dynamic, params:Array<Dynamic>, parent:Dynamic, prop:String):EnumEaser {
+		if (params.length == 0) params = null;
+		
 		if (_pool == null) {
 			_pool = [];
 			return new EnumEaser(enumVal, params, parent, prop);
@@ -25,11 +27,15 @@ class EnumEaser extends PropEaser
 	}
 	
 	public var enumVal:Dynamic;
-	public var params:Array;
+	public var params:Array<Dynamic>;
 	public var parent:Dynamic;
 	public var prop:String;
+	
+	private var inited:Bool;
+	private var enumType:Enum<Dynamic>;
+	private var enumConst:String;
 
-	public function new(enumVal:Dynamic, params:Array, parent:Dynamic, prop:String) 
+	public function new(enumVal:Dynamic, params:Array<Dynamic>, parent:Dynamic, prop:String) 
 	{
 		this.enumVal = enumVal;
 		this.params = params;
@@ -41,8 +47,14 @@ class EnumEaser extends PropEaser
 		parent = null;
 		enumVal = null;
 		_pool.push(this);
+		inited = false;
 	}
 	public function update(fract:Float):Void {
-		Reflect.setField(Type.createEnum(Type.getEnum(enumVal), Type.enumConstructor(enumVal), params);
+		if (!inited) {
+			inited = true;
+			enumType = Type.getEnum(enumVal);
+			enumConst = Type.enumConstructor(enumVal);
+		}
+		Reflect.setField(parent, prop, Type.createEnum(enumType, enumConst, params));
 	}
 }

@@ -173,6 +173,9 @@ class StyleTransitioner implements ITransitioner
 						for (i in 0 ... destParams.length) {
 							checkSpan(bundle, span, destParams, i, fromParams[i], destParams[i], findEaserFact(dest,i));
 						}
+						if (parent) {
+							addEnumEaser(span, parent, prop, destEnumVal, destParams);
+						}
 					}
 				}
 				return destEnumVal;
@@ -223,12 +226,11 @@ class StyleTransitioner implements ITransitioner
 	private function enumConstMatch(enum1:EnumValue, enum2:EnumValue ):Bool {
 		return Type.enumIndex(enum1) == Type.enumIndex(enum2);
 	}
+	private function addEnumEaser(span:TransSpan, parent:Dynamic, prop:String, enumVal:Dynamic, params:Array<Dynamic>):Void {
+		if (span.easeProps == null) span.easeProps = [];
+		span.easeProps.push(EnumEaser.getNew(enumVal, params, parent, prop));
+	}
 	
-	/**
-	 * 
-	 * Enums are imutable so we need to add in EnumEasers which will recompose the enum and set it into it's parent object
-	 * 
-	 */
 	private function doSwitch(bundle:TransTracker, span:TransSpan, switchInfoList:Array<SwitchSpanInfo>, style1Match:Dynamic, style2Match:Dynamic, direction:Bool, parent:Dynamic, prop:Dynamic):Dynamic {
 		
 		if (switchInfoList.length > 1) {
@@ -248,22 +250,26 @@ class StyleTransitioner implements ITransitioner
 						childSpan.easeProps = [PropSetter.getNew(parent,prop,switchInfo.via)];
 					}
 				}
-				doSwitch2(bundle, childSpan, switchInfo.via, switchInfo.toParams, switchInfo.easerFuncs);
+				var viaParams:Array<Dynamic> = Type.enumParameters(switchInfo.via);
+				if(parent!=null)addEnumEaser(childSpan, parent, prop, switchInfo.via, viaParams);
+				doSwitch2(bundle, childSpan, switchInfo.via, viaParams, switchInfo.toParams, switchInfo.easerFuncs);
 			}
 			return switchInfoList[0].via;
 		}else if (switchInfoList.length == 1) {
 			var switchInfo = switchInfoList[0];
-			if(prop!=null)UtilFunctions.setProperty(parent, prop, switchInfo.via);
-			doSwitch2(bundle, span, switchInfo.via, switchInfo.toParams, switchInfo.easerFuncs);
+			if (prop != null) UtilFunctions.setProperty(parent, prop, switchInfo.via);
+			
+			var viaParams:Array<Dynamic> = Type.enumParameters(switchInfo.via);
+			if(parent!=null)addEnumEaser(span, parent, prop, switchInfo.via, viaParams);
+			doSwitch2(bundle, span, switchInfo.via, viaParams, switchInfo.toParams, switchInfo.easerFuncs);
 			return switchInfo.via;
 		}else {
 			return direction?style1Match:style2Match;
 		}
 		
 	}
-	private function doSwitch2(bundle:TransTracker, span:TransSpan, via:Dynamic, destParams:Array<Dynamic>, easerFuncs:Array<EaserFactFunc>):Void {
+	private function doSwitch2(bundle:TransTracker, span:TransSpan, via:Dynamic, viaParams:Array<Dynamic>, destParams:Array<Dynamic>, easerFuncs:Array<EaserFactFunc>):Void {
 	
-		var viaParams:Array<Dynamic> = Type.enumParameters(via);
 		for (i in 0 ... destParams.length) {
 			var easerFact:EaserFactFunc;
 			if (easerFuncs != null) easerFact = easerFuncs[i];
