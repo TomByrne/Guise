@@ -66,9 +66,13 @@ class AbsPlatformAccess<ContInfoType, LayerInfoType> extends AbstractTrait, impl
 		return layerAccess?_typeToCreateLayer.exists(cast accessType):_typeToCreate.exists(cast accessType);
 	}
 	
-	public function requestAccess < AccessType : IAccessType > (context:ComposeItem, accessType:Class<AccessType>, ?layerName:String):AccessType {
-		if (!accessTypeSupported(layerName!=null, cast accessType)) {
-			throw "This Platform does not yet support access type: "+accessType;
+	public function requestAccess < AccessType : IAccessType > (context:ComposeItem, accessType:Class<AccessType>, ?layerName:Null<String>):AccessType {
+		if (!accessTypeSupported(layerName != null, cast accessType)) {
+			if(layerName!=null){
+				throw Type.getClassName(Type.getClass(this)) + " Platform does not yet support access type: " + Type.getClassName(accessType)+" for layers";
+			}else {
+				throw Type.getClassName(Type.getClass(this)) + " Platform does not yet support access type: " + Type.getClassName(accessType)+" for containers";
+			}
 		}
 		
 		var contBundle = _contextToBundle.get(context);

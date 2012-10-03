@@ -24,7 +24,7 @@ import guise.platform.types.InteractionAccessTypes;
 import cmtc.ds.hash.ObjectHash;
 import guise.platform.nme.input.KeyboardAccess;
 import guise.platform.nme.display.FilterableAccess;
-import guise.platform.nme.display.StageSkin;
+import guise.platform.nme.display.StageTrait;
 import guise.traits.tags.CoreTags;
 import composure.utilTraits.Furnisher;
 import guise.platform.nme.core.FrameTicker;
@@ -39,7 +39,7 @@ class NmePlatformAccess extends AbsPlatformAccess<ContInfo, LayerInfo>
 {
 	public static function install(within:ComposeItem){
 		within.addTrait(new NmePlatformAccess());
-		within.addTrait(new Furnisher(StageTag,	[TType(StageSkin)]));
+		within.addTrait(new Furnisher(StageTag,	[TType(StageTrait)]));
 	}
 	
 	
@@ -71,10 +71,10 @@ class NmePlatformAccess extends AbsPlatformAccess<ContInfo, LayerInfo>
 	}
 	
 	@inject({asc:true})
-	public var stageSkin(default, set_stageSkin):StageSkin;
-	private function set_stageSkin(value:StageSkin):StageSkin {
-		stageSkin = value;
-		if (_keyboardAccess != null && _keyboardAccess.interactiveObject==null)_keyboardAccess.interactiveObject = (stageSkin == null?null:stageSkin.stage);
+	public var stageTrait(default, set_stageTrait):StageTrait;
+	private function set_stageTrait(value:StageTrait):StageTrait {
+		stageTrait = value;
+		if (_keyboardAccess != null && _keyboardAccess.interactiveObject==null)_keyboardAccess.interactiveObject = (stageTrait == null?null:stageTrait.stage);
 		return value;
 	}
 	
@@ -86,7 +86,7 @@ class NmePlatformAccess extends AbsPlatformAccess<ContInfo, LayerInfo>
 	
 	private function getKeyAccess(cont:ContInfo):KeyboardAccess {
 		//return new KeyboardAccess(cont.container);
-		if (_keyboardAccess == null)_keyboardAccess = new KeyboardAccess(stageSkin==null?null:stageSkin.stage);
+		if (_keyboardAccess == null)_keyboardAccess = new KeyboardAccess(stageTrait==null?null:stageTrait.stage);
 		return _keyboardAccess;
 	}
 	private function returnKeyAccess(layer:ContInfo, access:KeyboardAccess):Void {

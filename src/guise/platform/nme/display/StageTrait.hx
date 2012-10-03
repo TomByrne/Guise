@@ -1,4 +1,5 @@
 package guise.platform.nme.display;
+import composure.traits.AbstractTrait;
 import guise.core.AbsPosSizeAwareTrait;
 import nme.display.GradientType;
 import nme.display.Shape;
@@ -13,7 +14,7 @@ import guise.platform.nme.core.FrameTicker;
  * @author Tom Byrne
  */
 
-class StageSkin extends AbsPosSizeAwareTrait
+class StageTrait extends AbstractTrait
 {
 	public var stage(get_stage, null):Stage;
 	private function get_stage():Stage {
@@ -42,7 +43,7 @@ class StageSkin extends AbsPosSizeAwareTrait
 		
 	}
 	
-	override private function posChanged():Void {
+	/*override private function posChanged():Void {
 		// ContainerSkin will handle this
 	}
 	/*override private function sizeChanged():Void {
