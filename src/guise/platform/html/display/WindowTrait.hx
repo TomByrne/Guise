@@ -18,7 +18,7 @@ import msignal.Signal;
  * @author Tom Byrne
  */
 
-class WindowTrait extends DomContainerTrait, implements IScreenInfo
+class WindowTrait extends AbsPosSizeAwareTrait, implements IScreenInfo
 {
 	public var availSizeChanged(default, null):Signal1<IScreenInfo>;
 	
@@ -29,7 +29,7 @@ class WindowTrait extends DomContainerTrait, implements IScreenInfo
 
 	public function new() 
 	{
-		super(Lib.document.body);
+		super();
 		
 		availSizeChanged = new Signal1();
 		

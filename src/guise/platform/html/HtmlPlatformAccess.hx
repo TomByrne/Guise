@@ -5,6 +5,7 @@ import guise.controls.logic.input.TextInputPrompt;
 import guise.platform.AbsPlatformAccess;
 import guise.platform.html.display.DomContainerTrait;
 import guise.platform.html.display.DomElementTrait;
+import guise.platform.html.display.DomDocumentTrait;
 import guise.platform.html.display.TextInputTrait;
 import guise.platform.html.input.MouseClickable;
 import guise.platform.IPlatformAccess;
@@ -31,8 +32,9 @@ import guise.traits.tags.ControlTags;
  
 class HtmlPlatformAccess extends AbsPlatformAccess<ContInfo, LayerInfo>
 {
-	public static function install(within:ComposeItem){
-		within.addTrait(new Furnisher(StageTag,	[TType(WindowTrait)]));
+	public static function install(within:ComposeItem) {
+		within.addTrait(new Furnisher(WindowTag,	[TType(WindowTrait)]));
+		within.addTrait(new Furnisher(StageTag,		[TType(DomDocumentTrait)]));
 		within.addTrait(new Furnisher(TextButtonTag,	[TType(ButtonElementTrait)]));
 		within.addTrait(new Furnisher(TextInputTag,	[TType(TextInputTrait), TType(TextInputPrompt)]));
 		within.addTrait(new HtmlPlatformAccess());
@@ -48,7 +50,6 @@ class HtmlPlatformAccess extends AbsPlatformAccess<ContInfo, LayerInfo>
 		registerLayerAccess(MouseClickable, [IMouseClickable], getMouseClickLayerAccess, returnMouseClickLayerAccess);
 	}
 	private function getMouseClickAccess(cont:ContInfo):MouseClickable {
-		trace("clickckc");
 		return new MouseClickable(cont.container);
 	}
 	private function returnMouseClickAccess(cont:ContInfo, access:MouseClickable):Void {
@@ -90,8 +91,6 @@ class ContInfo {
 		
 		this.context = context;
 		container = Lib.document.createElement("div");
-		
-		trace("hm: "+context.getTrait(DomElementTrait));
 		
 		_contSkin = new DomContainerTrait(container);
 		context.addTrait(_contSkin);

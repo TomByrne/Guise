@@ -62,11 +62,11 @@ class GraphicsComparisonTest
 		addControls(10, nmeStage);
 		
 		// Native
-		/*var nativeStage = new ComposeGroup();
+		var nativeStage = new ComposeGroup();
 		nativeStage.addTrait(new StageTag());
 		window.addChild(nativeStage);
 		NativePlatformAccess.install(nativeStage);
-		addControls(170, nativeStage);*/
+		addControls(170, nativeStage);
 	}
 	public function addControls(x:Float, parent:ComposeGroup):Void{
 		
