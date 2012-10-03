@@ -97,7 +97,6 @@ class StyleTransitioner implements ITransitioner
 				default: return dest;
 			}
 		}
-		
 		switch(Type.typeof(checkVar)) {
 			case TEnum(e):
 				var destEnumVal:EnumValue = cast dest;
@@ -225,6 +224,11 @@ class StyleTransitioner implements ITransitioner
 		return Type.enumIndex(enum1) == Type.enumIndex(enum2);
 	}
 	
+	/**
+	 * 
+	 * Enums are imutable so we need to add in EnumEasers which will recompose the enum and set it into it's parent object
+	 * 
+	 */
 	private function doSwitch(bundle:TransTracker, span:TransSpan, switchInfoList:Array<SwitchSpanInfo>, style1Match:Dynamic, style2Match:Dynamic, direction:Bool, parent:Dynamic, prop:Dynamic):Dynamic {
 		
 		if (switchInfoList.length > 1) {
@@ -283,6 +287,7 @@ class StyleTransitioner implements ITransitioner
 				ret.push(createSwitchInfo(paramsTypes, true, style2,style2Match,style1,style1Match));
 				ret.push(createSwitchInfo(paramsTypes, false, style1,style1Match,style2,style2Match));
 			}
+			
 			return ret;
 		}
 	}
@@ -290,9 +295,7 @@ class StyleTransitioner implements ITransitioner
 	
 		var destParams:Array<Dynamic> = [];
 		var easers:Array<EaserFactFunc> = [];
-		var via:Dynamic = Clone.clone(style1);
-		var ret = { via:via, toParams:destParams, easerFuncs:easers};
-		var viaParams:Array<Dynamic> = Type.enumParameters(via);
+		var viaParams:Array<Dynamic> = Type.enumParameters(style1);
 		
 		var params = Type.enumParameters(style1Match);
 		var otherParams = Type.enumParameters(style2Match);
@@ -324,7 +327,8 @@ class StyleTransitioner implements ITransitioner
 					}
 			}
 		}
-		return ret;
+		var via:Dynamic = Clone.cloneEnum(style1,viaParams);
+		return { via:via, toParams:destParams, easerFuncs:easers};
 	}
 	
 	private function findEaserFact(enumVal:Dynamic, paramIndex:Int):EaserFactFunc {
@@ -456,7 +460,6 @@ private class TransTracker implements ITransTracker {
 		_tween = new Tween(fract, to, Std.int(time * 1000), easing, onUpdate, onComplete, true);
 	}
 	private function onUpdate(fract:Float):Void {
-		trace("ye: "+fract);
 		this.fract = fract;
 	}
 	private function onComplete():Void {

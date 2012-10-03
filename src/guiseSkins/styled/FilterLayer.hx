@@ -26,7 +26,7 @@ class FilterLayer extends AbsStyledLayer<Array<FilterType>>
 	}
 	override private function _drawStyle():Void {
 		if (_filterable == null) return;
-		
+		trace(currentStyle);
 		_filterable.setFilters(currentStyle);
 	}
 	
