@@ -21,6 +21,7 @@ import guiseSkins.trans.StyleTransitioner;
 import guiseSkins.trans.TransStyle;
 import nme.Lib;
 import guise.traits.states.ControlStates;
+import nme.text.TextField;
 import org.tbyrne.logging.LoggerList;
 import guiseSkins.styled.styles.ChutzpahStyle;
 import guise.platform.nme.NmePlatformAccess;
@@ -61,11 +62,11 @@ class GraphicsComparisonTest
 		addControls(10, nmeStage);
 		
 		// Native
-		var nativeStage = new ComposeGroup();
+		/*var nativeStage = new ComposeGroup();
 		nativeStage.addTrait(new StageTag());
 		window.addChild(nativeStage);
 		NativePlatformAccess.install(nativeStage);
-		addControls(170, nativeStage);
+		addControls(170, nativeStage);*/
 	}
 	public function addControls(x:Float, parent:ComposeGroup):Void{
 		

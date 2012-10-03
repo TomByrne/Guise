@@ -134,7 +134,8 @@ class TextAccess implements ITextInputAccess, implements ITextOutputAccess
 				text = wrapInAlign(align, text);
 		}
 		_textField.defaultTextFormat = format;
-		_textField.htmlText = text;
+		if (text.indexOf("<") == -1)_textField.text = text; // jeash has issues with 'htmlText'
+		else _textField.htmlText = text;
 		_ignoreChanges = true;
 		_textField.dispatchEvent(new Event(Event.CHANGE));
 		_ignoreChanges = false;

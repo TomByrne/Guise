@@ -1,7 +1,11 @@
 package guise.platform.html;
 import composure.core.ComposeItem;
 import guise.controls.ControlLayers;
+import guise.controls.logic.input.TextInputPrompt;
 import guise.platform.AbsPlatformAccess;
+import guise.platform.html.display.DomContainerTrait;
+import guise.platform.html.display.DomElementTrait;
+import guise.platform.html.display.TextInputTrait;
 import guise.platform.html.input.MouseClickable;
 import guise.platform.IPlatformAccess;
 import guise.platform.types.TextAccessTypes;
@@ -13,6 +17,11 @@ import cmtc.ds.hash.ObjectHash;
 import guise.traits.tags.CoreTags;
 import composure.utilTraits.Furnisher;
 import guise.platform.nme.core.FrameTicker;
+import js.Dom;
+import js.Lib;
+import guise.platform.html.display.ButtonElementTrait;
+import guise.platform.html.display.WindowTrait;
+import guise.traits.tags.ControlTags;
 
 /**
  * ...
@@ -23,8 +32,10 @@ import guise.platform.nme.core.FrameTicker;
 class HtmlPlatformAccess extends AbsPlatformAccess<ContInfo, LayerInfo>
 {
 	public static function install(within:ComposeItem){
+		within.addTrait(new Furnisher(StageTag,	[TType(WindowTrait)]));
+		within.addTrait(new Furnisher(TextButtonTag,	[TType(ButtonElementTrait)]));
+		within.addTrait(new Furnisher(TextInputTag,	[TType(TextInputTrait), TType(TextInputPrompt)]));
 		within.addTrait(new HtmlPlatformAccess());
-		//within.addTrait(new Furnisher(StageTag,	[TType(StageSkin)]));
 	}
 	
 	
@@ -32,7 +43,16 @@ class HtmlPlatformAccess extends AbsPlatformAccess<ContInfo, LayerInfo>
 	{
 		super(ContInfo.create, ContInfo.destroy, LayerInfo.create, LayerInfo.destroy);
 		
+		registerAccess(MouseClickable, [IMouseClickable], getMouseClickAccess, returnMouseClickAccess);
+		
 		registerLayerAccess(MouseClickable, [IMouseClickable], getMouseClickLayerAccess, returnMouseClickLayerAccess);
+	}
+	private function getMouseClickAccess(cont:ContInfo):MouseClickable {
+		trace("clickckc");
+		return new MouseClickable(cont.container);
+	}
+	private function returnMouseClickAccess(cont:ContInfo, access:MouseClickable):Void {
+		access.domElement = null;
 	}
 	
 	private function getMouseClickLayerAccess(layer:LayerInfo):MouseClickable {
@@ -40,7 +60,7 @@ class HtmlPlatformAccess extends AbsPlatformAccess<ContInfo, LayerInfo>
 		return new MouseClickable(layer.container);
 	}
 	private function returnMouseClickLayerAccess(layer:LayerInfo, access:MouseClickable):Void {
-		access.interactiveObject = null;
+		access.domElement = null;
 	}
 }
 class ContInfo {
@@ -58,12 +78,23 @@ class ContInfo {
 	private function set_context(value:ComposeItem):ComposeItem {
 		context = value;
 		return value;
+		
 	}
+	
+	private var _contSkin:DomContainerTrait;
+	
+	public var container:HtmlDom;
 	
 	public function new(context:ComposeItem){
 		//super();
 		
 		this.context = context;
+		container = Lib.document.createElement("div");
+		
+		trace("hm: "+context.getTrait(DomElementTrait));
+		
+		_contSkin = new DomContainerTrait(container);
+		context.addTrait(_contSkin);
 	}
 }
 class LayerInfo{
@@ -79,11 +110,18 @@ class LayerInfo{
 	
 	public var contInfo(default, set_contInfo):ContInfo;
 	private function set_contInfo(value:ContInfo):ContInfo {
+		if (contInfo != null) {
+			if (container != null) contInfo.container.removeChild(container);
+		}
 		contInfo = value;
+		if (contInfo != null) {
+			if (container != null) contInfo.container.appendChild(container);
+		}
 		return value;
 	}
 	
 	public var layerName:String;
+	public var container:HtmlDom;
 	
 	public function new(contInfo:ContInfo, layerName:String) 
 	{
@@ -94,10 +132,10 @@ class LayerInfo{
 	
 	public function createContainer():Void {
 		if (container == null) {
-			container = new Sprite();
-			container.name = layerName;
+			container = Lib.document.createElement("div");
+			container.id = layerName;
 			
-			assessDisplayObject();
+			if(contInfo!=null)contInfo.container.appendChild(container);
 		}
 	}
 }

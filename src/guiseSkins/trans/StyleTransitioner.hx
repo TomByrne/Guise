@@ -1,9 +1,8 @@
 package guiseSkins.trans;
 
+import feffects.Tween;
 import guiseSkins.trans.ITransitioner;
 import guise.utils.Clone;
-import com.eclecticdesignstudio.motion.Actuate;
-import com.eclecticdesignstudio.motion.easing.Quad;
 import guiseSkins.trans.PropEaser;
 
 /**
@@ -60,15 +59,23 @@ class StyleTransitioner implements ITransitioner
 		bundle.curr = checkSpan(bundle, rootSpan, subject, prop, from, dest);
 		
 		var easing;
+		/*switch(bundle.transStyle.easing) {
+			case EaseIn:
+				easing = com.eclecticdesignstudio.motion.easing.Quad.easeIn;
+			case EaseInOut:
+				easing = com.eclecticdesignstudio.motion.easing.Quad.easeInOut;
+			case EaseOut:
+				easing = com.eclecticdesignstudio.motion.easing.Quad.easeOut;
+		}*/
 		switch(bundle.transStyle.easing) {
 			case EaseIn:
-				easing = Quad.easeIn;
+				easing = feffects.easing.Quad.easeIn;
 			case EaseInOut:
-				easing = Quad.easeInOut;
+				easing = feffects.easing.Quad.easeInOut;
 			case EaseOut:
-				easing = Quad.easeOut;
+				easing = feffects.easing.Quad.easeOut;
 		}
-		Actuate.tween(bundle,bundle.transStyle.time,{fract:1}).ease(easing);
+		bundle.tweenFract(1, bundle.transStyle.time, easing);
 		
 		return bundle;
 	}
@@ -392,12 +399,18 @@ private class TransTracker implements ITransTracker {
 	
 	public var transSpans:Array<TransSpan>;
 	
+	private var _tween:Tween;
+	
 	public function new(stopHandler:TransTracker->Void) {
 		this.stopHandler = stopHandler;
 	}
 	
 	public function stopTrans(gotoEnd:Bool):Void {
-		Actuate.stop(this);
+		//com.eclecticdesignstudio.motion.Actuate.stop(this);
+		if (_tween != null) {
+			_tween.stop();
+			_tween = null;
+		}
 		if (gotoEnd) fract = 1;
 		else stopHandler(this);
 	}
@@ -432,6 +445,22 @@ private class TransTracker implements ITransTracker {
 		}
 		
 		return value;
+	}
+	public function tweenFract(to:Float, time:Float, easing):Void {
+		//com.eclecticdesignstudio.motion.Actuate.tween(this,time,{fract:1}).ease(easing);
+		
+		if (_tween != null) {
+			_tween.stop();
+			_tween = null;
+		}
+		_tween = new Tween(fract, to, Std.int(time * 1000), easing, onUpdate, onComplete, true);
+	}
+	private function onUpdate(fract:Float):Void {
+		trace("ye: "+fract);
+		this.fract = fract;
+	}
+	private function onComplete():Void {
+		_tween = null;
 	}
 }
 private class TransSpan {

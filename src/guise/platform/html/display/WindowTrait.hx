@@ -3,7 +3,7 @@ package guise.platform.html.display;
 import guise.traits.core.IPosition;
 import guise.traits.core.Position;
 import guise.traits.core.Size;
-import guise.traits.skinAPIs.IScreenInfo;
+import guise.platform.types.DisplayAccessTypes;
 import guise.core.AbsPosSizeAwareTrait;
 
 import js.Lib;
@@ -18,7 +18,7 @@ import msignal.Signal;
  * @author Tom Byrne
  */
 
-class WindowSkin extends DomContainerTrait, implements IScreenInfo
+class WindowTrait extends DomContainerTrait, implements IScreenInfo
 {
 	public var availSizeChanged(default, null):Signal1<IScreenInfo>;
 	

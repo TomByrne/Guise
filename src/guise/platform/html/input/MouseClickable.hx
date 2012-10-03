@@ -19,7 +19,8 @@ class MouseClickable implements IMouseClickable
 		}
 		domElement = value;
 		if (domElement != null) {
-			domElement.onclick = onClicked;
+			if(_clicked!=null && _clicked.numListeners>0)domElement.onclick = onClicked;
+			if (_doubleClicked != null && _doubleClicked.numListeners>0)domElement.ondblclick = onDoubleClicked;
 		}
 		return value;
 	}
@@ -59,7 +60,7 @@ class MouseClickable implements IMouseClickable
 	private function get_clicked():Signal1<ClickInfo> {
 		if (_clicked == null) {
 			_clicked = new Signal1();
-			if(domElement!=null)domElement.addEventListener(MouseEvent.CLICK, onClicked);
+			if(domElement!=null)domElement.onclick = onClicked;
 		}
 		return _clicked;
 	}
@@ -69,7 +70,7 @@ class MouseClickable implements IMouseClickable
 	private function get_doubleClicked():Signal1<ClickInfo> {
 		if (_doubleClicked == null) {
 			_doubleClicked = new Signal1();
-			if (domElement != null) domElement.addEventListener(MouseEvent.DOUBLE_CLICK, onDoubleClicked);
+			if (domElement != null) domElement.ondblclick = onDoubleClicked;
 		}
 		return _doubleClicked;
 	}
