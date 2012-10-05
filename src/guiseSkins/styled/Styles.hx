@@ -11,7 +11,7 @@ class Styles
 {
 	
 }
-typedef GradPoint = { fract:Float, c:Int, ?a:Float };
+typedef GradPoint = { fract:Float, c:Int, a:Float };
 enum FillStyle {
 	FsNone;
 	FsMulti(fs:Array<FillStyle>);

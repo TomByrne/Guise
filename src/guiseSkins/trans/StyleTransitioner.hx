@@ -138,7 +138,8 @@ class StyleTransitioner implements ITransitioner
 								}
 								if (check!=null && !check(style1Match,params1,style2Match,params2)) break;
 								
-								var switchInfoList = direction?switchFact(bundle.subject, direction,style1, style1Match, style2, style2Match):switchFact(bundle.subject, direction, style2, style2Match, style1, style1Match);
+								//var switchInfoList = direction?switchFact(bundle.subject, direction,style1, style1Match, style2, style2Match):switchFact(bundle.subject, direction, style2, style2Match, style1, style1Match);
+								var switchInfoList = switchFact(bundle.subject, direction,style1, style1Match, style2, style2Match);
 								return doSwitch(bundle, span, switchInfoList,  style1Match, style2Match, direction, parent, prop);
 								
 							case EnumTypeSwitch(switchFact, enum1, enum2, check):
@@ -227,6 +228,7 @@ class StyleTransitioner implements ITransitioner
 		return Type.enumIndex(enum1) == Type.enumIndex(enum2);
 	}
 	private function addEnumEaser(span:TransSpan, parent:Dynamic, prop:String, enumVal:Dynamic, params:Array<Dynamic>):Void {
+		if (params.length == 0 || params == null) return;
 		if (span.easeProps == null) span.easeProps = [];
 		span.easeProps.push(EnumEaser.getNew(enumVal, params, parent, prop));
 	}
@@ -251,8 +253,8 @@ class StyleTransitioner implements ITransitioner
 					}
 				}
 				var viaParams:Array<Dynamic> = Type.enumParameters(switchInfo.via);
-				if(parent!=null)addEnumEaser(childSpan, parent, prop, switchInfo.via, viaParams);
 				doSwitch2(bundle, childSpan, switchInfo.via, viaParams, switchInfo.toParams, switchInfo.easerFuncs);
+				if(parent!=null)addEnumEaser(childSpan, parent, prop, switchInfo.via, viaParams);
 			}
 			return switchInfoList[0].via;
 		}else if (switchInfoList.length == 1) {
@@ -260,8 +262,8 @@ class StyleTransitioner implements ITransitioner
 			if (prop != null) UtilFunctions.setProperty(parent, prop, switchInfo.via);
 			
 			var viaParams:Array<Dynamic> = Type.enumParameters(switchInfo.via);
-			if(parent!=null)addEnumEaser(span, parent, prop, switchInfo.via, viaParams);
 			doSwitch2(bundle, span, switchInfo.via, viaParams, switchInfo.toParams, switchInfo.easerFuncs);
+			if(parent!=null)addEnumEaser(span, parent, prop, switchInfo.via, viaParams);
 			return switchInfo.via;
 		}else {
 			return direction?style1Match:style2Match;

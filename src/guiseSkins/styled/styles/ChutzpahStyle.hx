@@ -59,15 +59,15 @@ class ChutzpahStyle
 		
 			_styleTransitioner = new DefaultStyleTrans() ;
 		
-			_buttonBackNorm = BsCapsule(		FsHLinearGradient([ { c:0xffffff, fract:0 }, { c:0xeeeeee, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, fract:0 }, { c:0xdddddd, fract:1 } ])));
-			_buttonBackOver = BsCapsule(		FsHLinearGradient([ { c:0xffffff, fract:0 }, { c:0xeeeeee, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, fract:0 }, { c:0xdddddd, fract:1 } ])));
-			_buttonBackDownUnsel = BsCapsule(	FsHLinearGradient([ { c:0xdadada, fract:0 }, { c:0xececec, fract:1 } ]), SsNone);
+			_buttonBackNorm = BsCapsule(		FsHLinearGradient([ { c:0xffffff, a:1, fract:0 }, { c:0xeeeeee, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])));
+			_buttonBackOver = BsCapsule(		FsHLinearGradient([ { c:0xffffff, a:1, fract:0 }, { c:0xeeeeee, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])));
+			_buttonBackDownUnsel = BsCapsule(	FsHLinearGradient([ { c:0xdadada, a:1, fract:0 }, { c:0xececec, a:1, fract:1 } ]), SsNone);
 			
-			_buttonBackSelNorm = BsCapsule(		FsHLinearGradient([ { c:0xdadada, fract:0 }, { c:0xececec, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, fract:0 }, { c:0xdddddd, fract:1 } ])));
-			_buttonBackSelOver = BsCapsule(		FsHLinearGradient([ { c:0xdadada, fract:0 }, { c:0xececec, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, fract:0 }, { c:0xdddddd, fract:1 } ])));
+			_buttonBackSelNorm = BsCapsule(		FsHLinearGradient([ { c:0xdadada, a:1, fract:0 }, { c:0xececec, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])));
+			_buttonBackSelOver = BsCapsule(		FsHLinearGradient([ { c:0xdadada, a:1, fract:0 }, { c:0xececec, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])));
 		
-			_inputBackNorm = BsRectComplex(		FsHLinearGradient([ { c:0xffffff, fract:0 }, { c:0xeeeeee, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, fract:0 }, { c:0xdddddd, fract:1 } ])), CSame(CsCirc(5)));
-			_inputBackFocus = BsRectComplex(	FsHLinearGradient([ { c:0xdadada, fract:0 }, { c:0xececec, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, fract:0 }, { c:0xdddddd, fract:1 } ])), CSame(CsCirc(5)));
+			_inputBackNorm = BsRectComplex(		FsHLinearGradient([ { c:0xffffff, a:1, fract:0 }, { c:0xeeeeee, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), CSame(CsCirc(5)));
+			_inputBackFocus = BsRectComplex(	FsHLinearGradient([ { c:0xdadada, a:1, fract:0 }, { c:0xececec, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), CSame(CsCirc(5)));
 			
 			
 			_buttonFiltNorm = [DropShadow(1, Math.PI/2, 2, 0x000000, 0.56)];

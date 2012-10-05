@@ -9,8 +9,6 @@ class EnumEaser implements IPropEaser
 {
 	private static var _pool:Array<EnumEaser>;
 	public static function getNew(enumVal:Dynamic, params:Array<Dynamic>, parent:Dynamic, prop:String):EnumEaser {
-		if (params.length == 0) params = null;
-		
 		if (_pool == null) {
 			_pool = [];
 			return new EnumEaser(enumVal, params, parent, prop);
