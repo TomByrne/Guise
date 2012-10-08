@@ -29,11 +29,11 @@ class Guise
 		}
 		
 		window = new GuiseItem();
-		window.addTrait(new WindowTag());
+		window.addTrait(WindowTag);
 		_parent.addChild(window);
 		
 		stage = new GuiseItem();
-		stage.addTrait(new StageTag());
+		stage.addTrait(StageTag);
 		window.addChild(stage);
 	}
 	

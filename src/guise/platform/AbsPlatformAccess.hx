@@ -1,5 +1,6 @@
 package guise.platform;
 import composure.core.ComposeItem;
+import composure.injectors.Injector;
 import composure.traits.AbstractTrait;
 import guise.platform.IPlatformAccess;
 import cmtc.ds.hash.ObjectHash;
@@ -50,6 +51,10 @@ class AbsPlatformAccess<ContInfoType, LayerInfoType> extends AbstractTrait, impl
 		//_accessToLayer = new ObjectHash();
 		//_contextToContInfo = new ObjectHash();
 	}
+	private function addContainerFurnisher<TagType>(tagType:Dynamic, onCreate:ContInfoType->TagType-> Array<Dynamic>, ?onDestroy:Null<ContInfoType->TagType-> Array<Dynamic>->Void>):Void {
+		var bundle:FurnisherBundle<ContInfoType, LayerInfoType, TagType> = new FurnisherBundle(tagType, onCreate, onDestroy, getContBundle, assessBundle);
+		addInjector(bundle.getInjector());
+	}
 	private function registerAccess < AccessClass > (klass:Class<AccessClass>, types:Array<Class<IAccessType>>, createHandler:ContInfoType-> AccessClass, destroyHandler:ContInfoType->AccessClass-> Void):Void {
 		for(type in types){
 			_typeToCreate.set(type, cast createHandler);
@@ -75,6 +80,17 @@ class AbsPlatformAccess<ContInfoType, LayerInfoType> extends AbstractTrait, impl
 			}
 		}
 		
+		var contBundle = getContBundle(context);
+		var ret:AccessType;
+		if (layerName == null) {
+			ret = contBundle.requestAccess(accessType);
+		}else {
+			ret = contBundle.requestLayerAccess(layerName, accessType);
+		}
+		_accessToDetails.set(ret, { context:context, layerName:layerName} );
+		return ret;
+	}
+	private function getContBundle(context:ComposeItem):ContBundle<ContInfoType,LayerInfoType> {
 		var contBundle = _contextToBundle.get(context);
 		if (contBundle == null) {
 			contBundle = new ContBundle<ContInfoType,LayerInfoType>(_createContInfo(context), _createLayerInfo, _destroyLayerInfo);
@@ -84,15 +100,7 @@ class AbsPlatformAccess<ContInfoType, LayerInfoType> extends AbstractTrait, impl
 			contBundle.accessToDestroyLayer = _typeToDestroyLayer;
 			_contextToBundle.set(context, contBundle);
 		}
-		
-		var ret:AccessType;
-		if (layerName == null) {
-			ret = contBundle.requestAccess(accessType);
-		}else {
-			ret = contBundle.requestLayerAccess(layerName, accessType);
-		}
-		_accessToDetails.set(ret, { context:context, layerName:layerName} );
-		return ret;
+		return contBundle;
 	}
 	public function returnAccess(access:IAccessType):Void {
 		var reqDetails = _accessToDetails.get(access);
@@ -106,11 +114,7 @@ class AbsPlatformAccess<ContInfoType, LayerInfoType> extends AbstractTrait, impl
 			bundle.returnLayerAccess(reqDetails.layerName, access);
 		}
 		
-		if (bundle.isEmpty()) {
-			_contextToBundle.delete(reqDetails.context);
-			_destroyContInfo(bundle.contInfo);
-			bundle.cleanup();
-		}
+		assessBundle(bundle, reqDetails.context);
 		
 		/*var layer = _accessToLayer.get(access);
 		layer.returnAccess(access);
@@ -129,6 +133,13 @@ class AbsPlatformAccess<ContInfoType, LayerInfoType> extends AbstractTrait, impl
 			}
 		}*/
 	}
+	private function assessBundle(bundle:ContBundle<ContInfoType,LayerInfoType>, context:ComposeItem):Void {
+		if (bundle.isEmpty()) {
+			_contextToBundle.delete(context);
+			_destroyContInfo(bundle.contInfo);
+			bundle.cleanup();
+		}
+	}
 	/*private function removeContext(context:ComposeItem):Void {
 		// override me
 	}*/
@@ -146,6 +157,7 @@ class ContBundle<ContInfoType, LayerInfoType> extends AbsBundle<ContInfoType>{
 	private var _destroyLayerInfo:LayerInfoType-> Void;
 	
 	private var _layerCount:Int = 0;
+	private var _dependencyCount:Int = 0;
 	
 	public var accessToCreateLayer:ObjectHash<Dynamic, LayerInfoType -> IAccessType>;
 	public var accessToDestroyLayer:ObjectHash<Dynamic, LayerInfoType -> IAccessType-> Void>;
@@ -161,6 +173,12 @@ class ContBundle<ContInfoType, LayerInfoType> extends AbsBundle<ContInfoType>{
 		_destroyLayerInfo = destroyLayerInfo;
 		
 		layers = new Hash();
+	}
+	public function addDependency():Void {
+		++_dependencyCount;
+	}
+	public function removeDependency():Void {
+		--_dependencyCount;
 	}
 	
 	public function requestLayerAccess < AccessType : IAccessType > (layerName:String, accessType:Class<AccessType>):AccessType {
@@ -187,7 +205,7 @@ class ContBundle<ContInfoType, LayerInfoType> extends AbsBundle<ContInfoType>{
 		}
 	}
 	override public function isEmpty():Bool {
-		return super.isEmpty() && _layerCount==0;
+		return super.isEmpty() && _layerCount==0 && _dependencyCount==0;
 	}
 	public function cleanup():Void {
 		contInfo = null;
@@ -267,5 +285,57 @@ class AbsBundle<InfoType> {
 	}
 	public function isEmpty():Bool {
 		return _totalCount == 0;
+	}
+}
+
+import cmtc.ds.hash.ObjectHash;
+
+class FurnisherBundle < ContInfoType, LayerInfoType, TagType > {
+	
+	public function getInjector():Injector {
+		return _injector;
+	}
+	
+	private var _injector:Injector;
+	private var _tagType:Dynamic;
+	private var _onCreate:ContInfoType->TagType-> Array<Dynamic>;
+	private var _onDestroy:Null<ContInfoType->TagType-> Array<Dynamic>->Void>;
+	private var _getContBundle:ComposeItem->ContBundle<ContInfoType,LayerInfoType>;
+	private var _assessBundle:ContBundle<ContInfoType,LayerInfoType>->ComposeItem-> Void;
+	private var _tagToTraits:ObjectHash<TagType, Array<Dynamic>>;
+	
+	public function new(tagType:Dynamic, onCreate:ContInfoType->TagType-> Array<Dynamic>, onDestroy:Null<ContInfoType->TagType-> Array<Dynamic>->Void>, getContBundle:ComposeItem->ContBundle<ContInfoType,LayerInfoType>, assessBundle:ContBundle<ContInfoType,LayerInfoType>->ComposeItem->Void) {
+		_tagType = tagType;
+		_onCreate = onCreate;
+		_onDestroy = onDestroy;
+		_getContBundle = getContBundle;
+		_assessBundle = assessBundle;
+		
+		_tagToTraits = new ObjectHash();
+		
+		_injector = new Injector(tagType, onAdd, onRemove, true, true);
+		_injector.passThroughItem = true;
+	}
+	private function onAdd(tag:TagType, context:ComposeItem):Void {
+		var contBundle = _getContBundle(context);
+		contBundle.addDependency();
+		var traits:Array<Dynamic> = _onCreate(contBundle.contInfo, tag);
+		if (traits != null) {
+			context.addTraits(traits);
+			_tagToTraits.set(tag, traits);
+		}
+	}
+	private function onRemove(tag:TagType, context:ComposeItem):Void {
+		var contBundle = _getContBundle(context);
+		contBundle.removeDependency();
+		var traits:Array<Dynamic> = _tagToTraits.get(tag);
+		if (traits != null) {
+			context.removeTraits(traits);
+			_tagToTraits.delete(tag);
+		}
+		if (_onDestroy != null) {
+			_onDestroy(contBundle.contInfo, tag, traits);
+		}
+		_assessBundle(contBundle, context);
 	}
 }

@@ -16,11 +16,11 @@ class NormalLayering
 	public static function install(within:ComposeItem) 
 	{
 		var furnisher:Furnisher = new Furnisher(TextButtonTag);
-		furnisher.addTrait(TFact(function() { return new LayerOrderer([ControlLayers.BACKING, ControlLayers.LABEL_TEXT]);}) );
+		furnisher.addTrait(TFact(function(tag:Dynamic) { return new LayerOrderer([ControlLayers.BACKING, ControlLayers.LABEL_TEXT]);}) );
 		within.addTrait(furnisher);
 		
 		furnisher = new Furnisher(TextInputTag);
-		furnisher.addTrait(TFact(function() { return new LayerOrderer([ControlLayers.BACKING, ControlLayers.INPUT_TEXT]);} ));
+		furnisher.addTrait(TFact(function(tag:Dynamic) { return new LayerOrderer([ControlLayers.BACKING, ControlLayers.INPUT_TEXT]);} ));
 		within.addTrait(furnisher);
 	}
 	

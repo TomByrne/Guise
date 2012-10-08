@@ -22,7 +22,7 @@ class ControlLogic
 		var furnisher = new Furnisher(TextButtonTag, [TType(MouseOverTrait), TType(ButtonStateMapper), TType(SelectableStateMapper), TType(ButtonClickTrait)]);
 		//furnisher.addTrait(TType(TextLabel, [UnlessHas(TextLabel)]));
 		within.addTrait(furnisher);
-		
+		Furnisher.fact(function (tag:Dynamic):Void { } );
 		var furnisher = new Furnisher(TextInputTag, [TType(TextInputPrompt), Furnisher.fact(new FocusStateMapper(ControlLayers.INPUT_TEXT))]);
 		//furnisher.addTrait(TType(TextLabel, [UnlessHas(TextLabel)]));
 		within.addTrait(furnisher);

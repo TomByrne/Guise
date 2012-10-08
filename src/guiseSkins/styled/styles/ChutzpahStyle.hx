@@ -93,7 +93,7 @@ class ChutzpahStyle
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 	}
-	private static function buttonBacking():BoxLayer {
+	private static function buttonBacking(tag:Dynamic):BoxLayer {
 		var boxLayer:BoxLayer = new BoxLayer(ControlLayers.BACKING);
 		boxLayer.normalStyle = _buttonBackNorm;
 		boxLayer.addStyle([ButtonOverState.OVER, SelectedState.UNSELECTED], _buttonBackOver);
@@ -102,40 +102,40 @@ class ChutzpahStyle
 		boxLayer.addStyle([SelectedState.SELECTED, ButtonOverState.OVER], _buttonBackSelOver);
 		return boxLayer;
 	}
-	private static function labelText():TextStyleLayer {
+	private static function labelText(tag:Dynamic):TextStyleLayer {
 		return new TextStyleLayer(ControlLayers.LABEL_TEXT, _labelTextStyle);
 	}
-	private static function inputText():TextStyleLayer {
+	private static function inputText(tag:Dynamic):TextStyleLayer {
 		return new TextStyleLayer(ControlLayers.INPUT_TEXT, _inputTextStyle);
 	}
-	private static function textFilt(layerName:String):Void->FilterLayer {
-		return function():FilterLayer{
+	private static function textFilt(layerName:String):Dynamic->FilterLayer {
+		return function(tag:Dynamic):FilterLayer{
 			var boxFilterLayer:FilterLayer = new FilterLayer(layerName);
 			boxFilterLayer.normalStyle = _buttonTextFiltNorm;
 			return boxFilterLayer;
 		}
 	}
-	private static function buttonFilter():FilterLayer {
+	private static function buttonFilter(tag:Dynamic):FilterLayer {
 		var boxFilterLayer:FilterLayer = new FilterLayer(ControlLayers.BACKING);
 		boxFilterLayer.normalStyle = _buttonFiltNorm;
 		boxFilterLayer.addStyle([ButtonDownState.DOWN], _buttonFiltDown);
 		return boxFilterLayer;
 	}
 	
-	private static function inputTextAlign():FramingLayer {
+	private static function inputTextAlign(tag:Dynamic):FramingLayer {
 		return new FramingLayer(ControlLayers.INPUT_TEXT, _inputTextAlign);
 	}
-	private static function labelTextAlign():FramingLayer {
+	private static function labelTextAlign(tag:Dynamic):FramingLayer {
 		return new FramingLayer(ControlLayers.LABEL_TEXT, _labelTextAlign);
 	}
 	
-	private static function inputBacking():BoxLayer {
+	private static function inputBacking(tag:Dynamic):BoxLayer {
 		var boxLayer:BoxLayer = new BoxLayer(ControlLayers.BACKING);
 		boxLayer.normalStyle = _inputBackNorm;
 		boxLayer.addStyle([FocusState.FOCUSED], _inputBackFocus);
 		return boxLayer;
 	}
-	private static function inputFilter():FilterLayer {
+	private static function inputFilter(tag:Dynamic):FilterLayer {
 		var boxFilterLayer:FilterLayer = new FilterLayer(ControlLayers.BACKING);
 		boxFilterLayer.normalStyle = _buttonFiltNorm;
 		boxFilterLayer.addStyle([FocusState.FOCUSED], _buttonFiltDown);

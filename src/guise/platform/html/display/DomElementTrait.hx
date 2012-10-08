@@ -31,7 +31,7 @@ class DomElementTrait extends AbsPosSizeAwareTrait, implements IPositionable
 		if (_parent != null) return;
 		
 		_parent = parent;
-		if(domElement!=null && parent.domElement!=null){
+		if (domElement != null && parent.domElement != null) {
 			parent.domElement.appendChild(domElement);
 		}
 	}
@@ -57,10 +57,14 @@ class DomElementTrait extends AbsPosSizeAwareTrait, implements IPositionable
 		_setPosition(x, y);
 		_setSize(w, h);
 	}
+	public function setAllowSizing(value:Bool):Void {
+		_allowSizing = value;
+		if(size!=null)sizeChanged();
+	}
 	private function _setPosition(x:Float, y:Float):Void {
 		if (!Math.isNaN(y) && !Math.isNaN(x)) {
-			trace("pos: "+x+" "+y+" "+domElement);
-			domElement.style.position = "relative";
+			trace("pos: "+x+" "+y+" "+domElement+" "+Type.getClassName(Type.getClass(this)));
+			domElement.style.position = "absolute";
 			domElement.style.top = Std.int(y) + "px";
 			domElement.style.left = Std.int(x) + "px";
 		}else {

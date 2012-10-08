@@ -1,4 +1,5 @@
 package guise.platform.html.display;
+import composure.traits.AbstractTrait;
 import guise.controls.data.ITextLabel;
 import guise.controls.data.ISelected;
 import js.Lib;
@@ -9,7 +10,7 @@ import js.Dom;
  * @author Tom Byrne
  */
 
-class ButtonElementTrait extends DomElementTrait
+class ButtonElementTrait extends AbstractTrait
 {
 	@inject
 	public var textLabel(default, set_textLabel):ITextLabel;
@@ -34,15 +35,16 @@ class ButtonElementTrait extends DomElementTrait
 		if (selected != null) {
 			_checkbox = Lib.document.createElement("input");
 			_checkbox.setAttribute("type", "checkbox");
+			_checkbox.onclick = onCheckboxClick;
 			_button.appendChild(_checkbox);
 			
-			_innerElement = _checkbox;
+			//_innerElement = _checkbox;
 			selected.selectedChanged.add(onSelectedChanged);
 			onSelectedChanged(selected);
 		}else if (_checkbox != null) {
 			_button.removeChild(_checkbox);
 			_checkbox = null;
-			_innerElement = _button;
+			//_innerElement = _button;
 		}
 		if (textLabel != null) onTextChanged(textLabel);
 		return value;
@@ -50,23 +52,26 @@ class ButtonElementTrait extends DomElementTrait
 	
 	private var _button:HtmlDom;
 	private var _checkbox:HtmlDom;
-	private var _innerElement:HtmlDom;
+	//private var _innerElement:HtmlDom;
+	private var _labelElement:HtmlDom;
 
-	public function new() 
+	public function new(domElement:HtmlDom) 
 	{
-		_button = Lib.document.createElement("button");
-		_button.setAttribute("type", "button");
-		_innerElement = _button;
-		super(_button);
-		
-		_allowSizing = true;
+		super();
+		_button = domElement;
+		_labelElement = Lib.document.createElement("label");
+		_button.appendChild(_labelElement);
 	}
 	
 	private function onTextChanged(from:ITextLabel):Void {
-		_innerElement.innerHTML = from.text;
+		_labelElement.innerHTML = from.text;
 	}
 	
 	private function onSelectedChanged(from:ISelected):Void {
-		_checkbox.setAttribute("checked", selected.selected?"true":"false");
+		//_checkbox.setAttribute("checked", selected.selected?"true":"false");
+		trace("onSelectedChanged: "+_checkbox.getAttribute("checked"));
+	}
+	private function onCheckboxClick(e:Event):Void {
+		onSelectedChanged(selected);
 	}
 }

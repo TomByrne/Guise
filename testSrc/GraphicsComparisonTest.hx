@@ -50,12 +50,12 @@ class GraphicsComparisonTest
 		root.addTrait(new PositionManager());
 		
 		window = new GuiseItem();
-		window.addTrait(new WindowTag());
+		window.addTrait(WindowTag);
 		root.addChild(window);
 		
 		// NME
 		var nmeStage = new ComposeGroup();
-		nmeStage.addTrait(new StageTag());
+		nmeStage.addTrait(StageTag);
 		window.addChild(nmeStage);
 		NmePlatformAccess.install(nmeStage);
 		ChutzpahStyle.install(nmeStage);
@@ -63,7 +63,7 @@ class GraphicsComparisonTest
 		
 		// Native
 		var nativeStage = new ComposeGroup();
-		nativeStage.addTrait(new StageTag());
+		nativeStage.addTrait(StageTag);
 		window.addChild(nativeStage);
 		NativePlatformAccess.install(nativeStage);
 		addControls(170, nativeStage);
