@@ -1,0 +1,6 @@
+#Mon Sep 17 11:45:51 EST 2012
+eclipse.preferences.version=1
+hxmlPath=compile.hxml
+sdkPath=C\:\\Motion-Twin\\haxe
+sdkPathOverride=false
+useHaxeCompilerServer=true
