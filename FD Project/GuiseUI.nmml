@@ -17,6 +17,7 @@
     <haxelib name="xirsys_stdjs" />
     <haxelib name="feffects" />
     <haxelib name="mpartial" />
+    <haxelib name="waxe" />
 	
 	<assets path="../Assets" rename="assets" include="*" exclude="nme.svg" unless="target_html5"/>
 	

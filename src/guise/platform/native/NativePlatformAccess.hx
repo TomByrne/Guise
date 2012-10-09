@@ -15,6 +15,9 @@ class NativePlatformAccess
 		
 		#if js
 			guise.platform.html.HtmlPlatformAccess.install(within);
+		#elseif waxe
+			// Waxe fallback
+			//guise.platform.waxe.WaxePlatformAccess.install(within);
 		#elseif nme
 			// NME fallback
 			guise.platform.nme.NmePlatformAccess.install(within);

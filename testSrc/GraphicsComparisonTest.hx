@@ -44,7 +44,7 @@ class GraphicsComparisonTest
 
 	public function new() 
 	{
-		LoggerList.install();
+		/*LoggerList.install();
 		
 		var root:ComposeRoot = new ComposeRoot();
 		root.addTrait(new PositionManager());
@@ -66,9 +66,9 @@ class GraphicsComparisonTest
 		nativeStage.addTrait(StageTag);
 		window.addChild(nativeStage);
 		NativePlatformAccess.install(nativeStage);
-		addControls(170, nativeStage);
+		addControls(170, nativeStage);*/
 	}
-	public function addControls(x:Float, parent:ComposeGroup):Void{
+	/*public function addControls(x:Float, parent:ComposeGroup):Void{
 		
 		addButton(parent, "Test Button", x,10,150,30,false);
 		addButton(parent, "Selectable Button", x,50,150,30,true);
@@ -90,5 +90,5 @@ class GraphicsComparisonTest
 		var item:ComposeItem = new ComposeItem();
 		item.addTraits([TextInputTag, new Position(x, y, w, h), new TextLabel(), new InputPrompt(prompt) ]);
 		parent.addChild(item);
-	}
+	}*/
 }
