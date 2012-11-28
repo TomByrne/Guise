@@ -11,35 +11,6 @@ import guise.geom.Matrix;
 class StyledLayerUtils 
 {
 
-	public static function getPos(p:Pos, width:Float, height:Float, defaultValue:Float):Float 
-	{
-		if (p == null) return defaultValue;
-		switch(p) {
-			case Fixed(value):
-				return value;
-			case FromWidth(multi, offset):
-				return transform(width, multi, offset);
-			case FromHeight(multi, offset):
-				return transform(height, multi, offset);
-			case MinDimension(multi, offset):
-				return transform(width<height?width:height, multi, offset);
-			case MaxDimension(multi, offset):
-				return transform(width>height?width:height, multi, offset);
-		}
-	}
-	private inline static function transform(value:Float, multi:Float, offset:Float):Float 
-	{
-		if (!Math.isNaN(multi)) {
-			value *= multi;
-		}
-		if (!Math.isNaN(offset)) {
-			value += offset;
-		}
-		return value;
-	}
-	
-	
-	
 	public static function beginFillStrokes(graphics:IGraphics, fill:FillStyle, stroke:StrokeStyle, width:Float, height:Float, iterationHandler:Int->Void):Void {
 		var fills = [];
 		collectFills(fill, fills);

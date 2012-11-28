@@ -36,10 +36,3 @@ enum VAlign {
 	Middle;
 	Bottom;
 }
-enum Pos {
-	Fixed(value:Float);
-	FromWidth(?multi:Float, ?offset:Float);
-	FromHeight(?multi:Float, ?offset:Float);
-	MinDimension(?multi:Float, ?offset:Float);
-	MaxDimension(?multi:Float, ?offset:Float);
-}

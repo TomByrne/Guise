@@ -1,4 +1,6 @@
 package guiseSkins.styled;
+import guiseSkins.styled.values.IValue;
+import guiseSkins.styled.values.Value;
 import guiseSkins.trans.StyleTransitioner;
 import composure.traits.AbstractTrait;
 import guise.traits.core.ISize;
@@ -24,6 +26,7 @@ class DefaultStyleTrans extends StyleTransitioner
 		super();
 		
 		normalTransStyle = new TransStyle(0.15, EaseOut);
+		addStyleSwitch(TypeSwitch(valueSwitch, IValue, IValue));
 		addStyleSwitch(EnumValueSwitch(StyleTransitioner.ease([SwitchEase(), UseStyle, UseStyle]), SsSolid(0.0001, null, null),SsNone));
 		addStyleSwitch(EnumValueSwitch(StyleTransitioner.goVia([SwitchEase(), NormalEase(), SwitchEase(), NormalEase(ColorEaser.getNew), NormalEase(), UseStyle]), DropShadow(0, -1, 0, -1, -1), DropShadow(0, -1, 0, -1, -1), function(s1:Dynamic, p1:Array<Dynamic>, s2:Dynamic, p2:Array<Dynamic>):Bool { return p1[5] != p2[5]; } ));
 		addStyleSwitch(EnumValueSwitch(easeCapsuleToRoundedRect, BsCapsule(null,null), BsRectComplex(null,null,null), checkCapsultToRoundedRect));
@@ -31,6 +34,23 @@ class DefaultStyleTrans extends StyleTransitioner
 		addStyleSwitch(EnumTypeSwitch(easeFillToDiffFill,FillStyle, FillStyle, checkFillToDiffFill));
 		addStyleSwitch(EnumTypeSwitch(easeFillToFill,FillStyle, FillStyle, checkFillToFill));
 		addPropEaser(FsSolid(0, 0), 0, ColorEaser.getNew);
+	}
+	private function valueSwitch(subject:Dynamic, direction:Bool, style1:Dynamic, style2:Dynamic):Array<SwitchSpanInfo> {
+		var value1:IValue = cast style1;
+		value1.update(cast subject.item);
+		
+		var value2:IValue = cast style2;
+		value2.update(cast subject.item);
+		
+		var via:Value;
+		if (Std.is(style2, Value)) {
+			via = cast style2;
+		}else {
+			via = new Value(value2.currentValue);
+		}
+		var toParams:Hash<Dynamic> = new Hash();
+		toParams.set("value", Math.isNaN(value1.currentValue)?value2.currentValue: value1.currentValue);
+		return [{ via:via, toParams:toParams, easerFuncs:null}];
 	}
 	private function checkFillToDiffFill(style1:Dynamic, params1:Array<Dynamic>, style2:Dynamic, params2:Array<Dynamic>):Bool{
 		var const1:Int = Type.enumIndex(style1);

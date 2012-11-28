@@ -5,6 +5,7 @@ import guiseSkins.styled.Styles;
 import guise.platform.types.DrawingAccessTypes;
 import guise.platform.PlatformAccessor;
 import guise.geom.Matrix;
+import guiseSkins.styled.values.IValue;
 
 /**
  * ...
@@ -51,10 +52,10 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 		
 		switch(style) {
 			case BsRectComplex(f, s, c, w, h, x, y):
-				boxX = StyledLayerUtils.getPos(x, this.w, this.h, 0);
-				boxY = StyledLayerUtils.getPos(y, this.w, this.h, 0);
-				boxW = StyledLayerUtils.getPos(w, this.w, this.h, this.w);
-				boxH = StyledLayerUtils.getPos(h, this.w, this.h, this.h);
+				boxX = x!=null?x.currentValue:0;
+				boxY = y!=null?y.currentValue:0;
+				boxW = w!=null?w.currentValue:this.w;
+				boxH = h!=null?h.currentValue:this.h;
 				
 				fill = f;
 				stroke = s;
@@ -72,10 +73,10 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 						
 				}
 			case BsCapsule(f, s, w, h, x, y):
-				boxX = StyledLayerUtils.getPos(x, this.w, this.h, 0);
-				boxY = StyledLayerUtils.getPos(y, this.w, this.h, 0);
-				boxW = StyledLayerUtils.getPos(w, this.w, this.h, this.w);
-				boxH = StyledLayerUtils.getPos(h, this.w, this.h, this.h);
+				boxX = x!=null?x.currentValue:0;
+				boxY = y!=null?y.currentValue:0;
+				boxW = w!=null?w.currentValue:this.w;
+				boxH = h!=null?h.currentValue:this.h;
 				
 				fill = f;
 				stroke = s;
@@ -87,10 +88,10 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 				bl = CAPSULE_CORNER;
 				br = CAPSULE_CORNER;
 			case BsRect(f, s, w, h, x, y):
-				boxX = StyledLayerUtils.getPos(x, this.w, this.h, 0);
-				boxY = StyledLayerUtils.getPos(y, this.w, this.h, 0);
-				boxW = StyledLayerUtils.getPos(w, this.w, this.h, this.w);
-				boxH = StyledLayerUtils.getPos(h, this.w, this.h, this.h);
+				boxX = x!=null?x.currentValue:0;
+				boxY = y!=null?y.currentValue:0;
+				boxW = w!=null?w.currentValue:this.w;
+				boxH = h!=null?h.currentValue:this.h;
 				
 				fill = f;
 				stroke = s;
@@ -172,9 +173,9 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 	}
 }
 enum BoxStyle{
-	BsRect(f:FillStyle, s:StrokeStyle, ?w:Pos, ?h:Pos, ?x:Pos, ?y:Pos);
-	BsRectComplex(f:FillStyle, s:StrokeStyle, c:Corners, ?w:Pos, ?h:Pos, ?x:Pos, ?y:Pos);
-	BsCapsule(f:FillStyle, s:StrokeStyle, ?w:Pos, ?h:Pos, ?x:Pos, ?y:Pos);
+	BsRect(f:FillStyle, s:StrokeStyle, ?w:IValue, ?h:IValue, ?x:IValue, ?y:IValue);
+	BsRectComplex(f:FillStyle, s:StrokeStyle, c:Corners, ?w:IValue, ?h:IValue, ?x:IValue, ?y:IValue);
+	BsCapsule(f:FillStyle, s:StrokeStyle, ?w:IValue, ?h:IValue, ?x:IValue, ?y:IValue);
 }
 enum Corners{
 	CSame(cs:CornerStyle);

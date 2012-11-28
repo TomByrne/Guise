@@ -4,6 +4,7 @@ import guise.traits.core.ISize;
 import guise.platform.types.DrawingAccessTypes;
 import guise.platform.PlatformAccessor;
 import guiseSkins.styled.Styles;
+import guiseSkins.styled.values.IValue;
 /**
  * ...
  * @author Tom Byrne
@@ -43,10 +44,14 @@ class SimpleShapeLayer extends AbsStyledLayer<ShapeStyle>
 		
 		switch(style) {
 			case SsEllipse(f, s, w, h, x, y):
-				posX = StyledLayerUtils.getPos(x, this.w, this.h, 0);
-				posY = StyledLayerUtils.getPos(y, this.w, this.h, 0);
-				posW = StyledLayerUtils.getPos(w, this.w, this.h, this.w);
-				posH = StyledLayerUtils.getPos(h, this.w, this.h, this.h);
+				//posX = StyledLayerUtils.getPos(x, this.w, this.h, 0);
+				//posY = StyledLayerUtils.getPos(y, this.w, this.h, 0);
+				//posW = StyledLayerUtils.getPos(w, this.w, this.h, this.w);
+				//posH = StyledLayerUtils.getPos(h, this.w, this.h, this.h);
+				posX = x.currentValue;
+				posY = y.currentValue;
+				posW = w.currentValue;
+				posH = h.currentValue;
 				StyledLayerUtils.beginFillStrokes(_graphics, f, s, posW, posH, function(index:Int):Void{_graphics.drawEllipse(posX, posY, posW, posH);});
 		}
 		
@@ -54,5 +59,5 @@ class SimpleShapeLayer extends AbsStyledLayer<ShapeStyle>
 	}
 }
 enum ShapeStyle {
-	SsEllipse(f:FillStyle, s:StrokeStyle, ?w:Pos, ?h:Pos, ?x:Pos, ?y:Pos);
+	SsEllipse(f:FillStyle, s:StrokeStyle, ?w:IValue, ?h:IValue, ?x:IValue, ?y:IValue);
 }

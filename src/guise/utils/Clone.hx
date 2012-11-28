@@ -46,6 +46,7 @@ class Clone
 		return Type.createEnum(Type.getEnum(cast enumVal), Type.enumConstructor(cast enumVal), cloneParams);
 	}
 	public static inline function cloneObject<T>(item:T):T {
+		
 		var ret;
 		#if nme
 			if (Std.is(item, nme.display.BitmapData)) return item; // can't clone Bitmaps yet
@@ -57,6 +58,10 @@ class Clone
 			} 
 			return ret; 
 		}else if ( Type.getClass(item) == null ) {
+			if (Std.is(item, Class)) {
+				return item;
+			}
+			
 			var object = cast item;
 			
 			#if js // js has an issue with typedef cloning
@@ -72,8 +77,9 @@ class Clone
 			}else{
 			#end
 			
-			var obj : Dynamic = {}; 
-			for( ff in Reflect.fields(object) ) 
+			var obj : Dynamic = { }; 
+			var fields = Reflect.fields(object);
+			for( ff in fields ) 
 				Reflect.setField(obj, ff, clone(Reflect.field(object, ff))); 
 			return obj; 
 			
@@ -82,9 +88,15 @@ class Clone
 			#end
 		}else{ 
 			var object = cast item;
-			var obj = Type.createEmptyInstance(Type.getClass(object)); 
-			for( ff in Reflect.fields(object) ) 
-				Reflect.setProperty(obj, ff, clone(Reflect.field(object, ff))); 
+			var type = Type.getClass(object);
+			var obj = Type.createEmptyInstance(type);
+			var fields = Type.getInstanceFields(type);
+			for ( ff in fields ) {
+				var field = Reflect.field(object, ff);
+				if (!Reflect.isFunction(field)) {
+					Reflect.setProperty(obj, ff, clone(field)); 
+				}
+			}
 			return obj; 
 		}
 	}

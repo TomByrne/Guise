@@ -1,6 +1,7 @@
 package guise.traits.states;
 import composure.traits.AbstractTrait;
 import guise.utils.Clone;
+import guiseSkins.styled.values.IValue;
 import guiseSkins.trans.ITransitioner;
 
 /**
@@ -32,6 +33,7 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 	
 	private var styles:Array<{states:Array<String>,style:StyleType, priority:Int}>;
 	private var states:Array<IState<EnumValue>>;
+	private var values:Array<IValue>;
 	
 	private var transSubject:Dynamic;
 
@@ -42,7 +44,7 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 		if(isReadyToDraw!=null)this.isReadyToDraw = isReadyToDraw;
 		if (drawStyle != null) this.drawStyle = drawStyle;
 		if (transSubject != null) this.transSubject = transSubject;
-		else transSubject = this;
+		else this.transSubject = this;
 	}
 	@injectAdd
 	public function addState(state:IState<EnumValue>):Void {
@@ -84,7 +86,7 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 	private function assessStyle():Void {
 		if (currentStyle == null) {
 			if (normalStyle == null) return;
-			currentStyle = Clone.clone(normalStyle);
+			setCurrentStyle(Clone.clone(normalStyle));
 			previousStyle = normalStyle;
 			attemptDrawStyle();
 		}else {
@@ -101,7 +103,7 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 					currentTrans = injStyleTransitioner.doTrans(currentStyle, destStyle,transSubject,null, updateTrans, finishTrans);
 				}else{
 					//previousStyle = currentStyle;
-					currentStyle = destStyle;
+					setCurrentStyle(destStyle);
 					attemptDrawStyle();
 				}
 				previousStyle = destStyle;
@@ -109,15 +111,61 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 		}
 	}
 	private function updateTrans(current:StyleType):Void {
-		currentStyle = current;
+		setCurrentStyle(current);
 		attemptDrawStyle();
 	}
 	private function finishTrans(finish:StyleType):Void {
 		currentTrans = null;
-		currentStyle = finish;
+		setCurrentStyle(finish);
 		attemptDrawStyle();
 		previousStyle = finish;
 	}
+	private function setCurrentStyle(value:StyleType):Void {
+		if (currentStyle == value) return;
+		if (currentStyle!=null) {
+			// cleanup?
+			values = null;
+		}
+		currentStyle = value;
+		if (currentStyle!=null) {
+			values = [];
+			findValues(currentStyle, values);
+		}
+	}
+	private function findValues(within:Dynamic, addTo:Array<IValue>):Void {
+		if (Std.is(within, IValue)) {
+			addTo.push(cast within);
+		}else{
+			switch(Type.typeof(within)) {
+				case TEnum(e):
+					var params:Array<Dynamic> = Type.enumParameters(cast within);
+					for (param in params) {
+						findValues(param, addTo);
+					}
+				case TObject:
+					var fields = Reflect.fields(within);
+					for ( ff in fields ) {
+						findValues(Reflect.field(within, ff), addTo);
+					}
+				case TClass(c):
+					if (Std.is(within, Array)) {
+						untyped { 
+							for( ii in 0...within.length ) 
+								findValues(within[ii], addTo); 
+						}
+					}else{
+						var type = Type.getClass(within);
+						var fields = Type.getInstanceFields(type);
+						for ( ff in fields ) {
+							findValues(Reflect.field(within, ff), addTo);
+						}
+					}
+				default:
+					// ignore 
+			}
+		}
+	}
+	
 	private function findDestStyle():StyleType {
 		if (states == null || styles==null) return normalStyle;
 		
@@ -164,6 +212,9 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 	private function attemptDrawStyle():Void {
 
 		if (currentStyle != null && isReadyToDraw()) {
+			for (value in values) {
+				value.update(item);
+			}
 			drawStyle();
 		}
 	}

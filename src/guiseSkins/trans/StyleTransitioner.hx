@@ -56,7 +56,7 @@ class StyleTransitioner implements ITransitioner
 		bundle.transSpans = [rootSpan];
 		
 		var dest = Clone.clone(to);
-		bundle.curr = checkSpan(bundle, rootSpan, subject, prop, from, dest);
+		bundle.curr = checkSpan(bundle, rootSpan, null, prop, from, dest);
 		
 		var easing;
 		/*switch(bundle.transStyle.easing) {
@@ -109,8 +109,6 @@ class StyleTransitioner implements ITransitioner
 					
 					for (styleSwitch in styleSwitches) {
 						switch(styleSwitch) {
-							//case AnyEnumValueSwitch(toType, goVia, paramsTypes, toStylePropCheck):
-							
 							case EnumValueSwitch(switchFact, style1, style2, check):
 								var style1Type = Type.getEnum(style1);
 								var style2Type = Type.getEnum(style2);
@@ -168,11 +166,13 @@ class StyleTransitioner implements ITransitioner
 								
 								var switchInfoList = direction?switchFact(bundle.subject, direction,enum1, style1Match, enum2, style2Match):switchFact(bundle.subject, direction, enum1, style2Match, enum2, style1Match);
 								return doSwitch(bundle, span, switchInfoList,  style1Match, style2Match, direction, parent, prop);
+							default:
+								// ignore
 						}
 					}
 					if(enumConstMatch(destEnumVal,fromEnumVal)){
 						for (i in 0 ... destParams.length) {
-							checkSpan(bundle, span, destParams, i, fromParams[i], destParams[i], findEaserFact(dest,i));
+							checkSpan(bundle, span, destParams, i, fromParams[i], destParams[i], findEnumEaser(dest,i));
 						}
 						if (parent) {
 							addEnumEaser(span, parent, prop, destEnumVal, destParams);
@@ -199,8 +199,38 @@ class StyleTransitioner implements ITransitioner
 					for(i in 0 ... destArray.length ){
 						checkSpan(bundle, span, destArray, i, fromArray[i], destArray[i]);
 					}
-				}else{ 
-					for( i in Reflect.fields(dest) ){
+				}else { 
+				
+					for (styleSwitch in styleSwitches) {
+						switch(styleSwitch) {
+							///TypeSwitch(switchFact:TypeSwitchFact, type1:Class<Dynamic>, type2:Class<Dynamic>, ?check:EnumSwitchCheck)
+							case TypeSwitch(switchFact, type1, type2, check):
+								
+								var style1Match:Dynamic;
+								var style2Match:Dynamic;
+								var direction:Bool;
+								if (Std.is(from,type1) && Std.is(dest,type2)) {
+									style1Match = from;
+									style2Match = dest;
+									direction = true;
+								}else if (Std.is(from,type2) && Std.is(dest,type1)) {
+									style1Match = dest;
+									style2Match = from;
+									direction = false;
+								}else {
+									continue;
+								}
+								if (check!=null && !check(style1Match,style2Match)) break;
+								
+								var switchInfoList = switchFact(bundle.subject, direction, style1Match, style2Match);
+								return doSwitch(bundle, span, switchInfoList,  style1Match, style2Match, direction, parent, prop);
+							default:
+								// ignore
+						}
+					}
+					
+					var fields = Reflect.fields(dest);
+					for( i in fields ){
 						checkSpan(bundle, span, dest, i, Reflect.getProperty(from,i), Reflect.getProperty(dest,i));
 					}
 				}
@@ -252,32 +282,48 @@ class StyleTransitioner implements ITransitioner
 						childSpan.easeProps = [PropSetter.getNew(parent,prop,switchInfo.via)];
 					}
 				}
-				var viaParams:Array<Dynamic> = Type.enumParameters(switchInfo.via);
-				doSwitch2(bundle, childSpan, switchInfo.via, viaParams, switchInfo.toParams, switchInfo.easerFuncs);
-				if(parent!=null)addEnumEaser(childSpan, parent, prop, switchInfo.via, viaParams);
+				if(Std.is(switchInfo.toParams, Array)){
+					var viaParams:Array<Dynamic> = Type.enumParameters(switchInfo.via);
+					doEnumSwitch(bundle, span, switchInfo.via, viaParams, switchInfo.toParams, switchInfo.easerFuncs);
+					if(parent!=null)addEnumEaser(childSpan, parent, prop, switchInfo.via, viaParams);
+				}else {
+					doObjectSwitch(bundle, span, switchInfo.via, switchInfo.toParams, switchInfo.easerFuncs);
+				}
 			}
 			return switchInfoList[0].via;
 		}else if (switchInfoList.length == 1) {
 			var switchInfo = switchInfoList[0];
 			if (prop != null) UtilFunctions.setProperty(parent, prop, switchInfo.via);
 			
-			var viaParams:Array<Dynamic> = Type.enumParameters(switchInfo.via);
-			doSwitch2(bundle, span, switchInfo.via, viaParams, switchInfo.toParams, switchInfo.easerFuncs);
-			if(parent!=null)addEnumEaser(span, parent, prop, switchInfo.via, viaParams);
+			if(Std.is(switchInfo.toParams, Array)){
+				var viaParams:Array<Dynamic> = Type.enumParameters(switchInfo.via);
+				doEnumSwitch(bundle, span, switchInfo.via, viaParams, switchInfo.toParams, switchInfo.easerFuncs);
+				if(parent!=null)addEnumEaser(span, parent, prop, switchInfo.via, viaParams);
+			}else {
+				doObjectSwitch(bundle, span, switchInfo.via, switchInfo.toParams, switchInfo.easerFuncs);
+			}
 			return switchInfo.via;
 		}else {
 			return direction?style1Match:style2Match;
 		}
 		
 	}
-	private function doSwitch2(bundle:TransTracker, span:TransSpan, via:Dynamic, viaParams:Array<Dynamic>, destParams:Array<Dynamic>, easerFuncs:Array<EaserFactFunc>):Void {
-	
+	private function doEnumSwitch(bundle:TransTracker, span:TransSpan, via:Dynamic, viaParams:Array<Dynamic>, destParams:Array<Dynamic>, easerFuncs:Array<EaserFactFunc>):Void {
 		for (i in 0 ... destParams.length) {
 			var easerFact:EaserFactFunc;
 			if (easerFuncs != null) easerFact = easerFuncs[i];
 			else easerFact = null;
-			if (easerFact == null) easerFact = findEaserFact(via, i);
+			if (easerFact == null) easerFact = findEnumEaser(via, i);
 			UtilFunctions.setProperty(viaParams, i, checkSpan(bundle, span, viaParams, i, viaParams[i], destParams[i], easerFact));
+		}
+	}
+	private function doObjectSwitch(bundle:TransTracker, span:TransSpan, via:Dynamic, fromParams:Hash<Dynamic>, easerFuncs:Hash<EaserFactFunc>):Void {
+		for (key in fromParams.keys()) {
+			var easerFact:EaserFactFunc;
+			if (easerFuncs != null) easerFact = easerFuncs.get(key);
+			else easerFact = null;
+			if (easerFact == null) easerFact = findObjectEaser(via, key);
+			UtilFunctions.setProperty(via, key, checkSpan(bundle, span, via, key, fromParams.get(key), Reflect.getProperty(via, key), easerFact));
 		}
 	}
 	public static function ease(paramsTypes:Array<SwitchParamType>):EnumValSwitchFact {
@@ -339,12 +385,22 @@ class StyleTransitioner implements ITransitioner
 		return { via:via, toParams:destParams, easerFuncs:easers};
 	}
 	
-	private function findEaserFact(enumVal:Dynamic, paramIndex:Int):EaserFactFunc {
+	private function findEnumEaser(enumVal:Dynamic, param:Int):EaserFactFunc {
 		var enumType = Type.getEnum(enumVal);
 		var enumConstIndex:Int = Type.enumIndex(enumVal);
 		if(propEasers!=null){
 			for (easerInfo in propEasers) {
-				if (Type.getEnum(easerInfo.styleType) == enumType && Type.enumIndex(easerInfo.styleType)==enumConstIndex && easerInfo.paramIndex == paramIndex) {
+				if (Type.getEnum(easerInfo.styleType) == enumType && Type.enumIndex(easerInfo.styleType)==enumConstIndex && easerInfo.prop == param) {
+					return easerInfo.propEaserFact;
+				}
+			}
+		}
+		return null;
+	}
+	private function findObjectEaser(obj:Dynamic, prop:String):EaserFactFunc {
+		if(propEasers!=null){
+			for (easerInfo in propEasers) {
+				if (Std.is(obj, easerInfo.styleType) && easerInfo.prop == prop) {
 					return easerInfo.propEaserFact;
 				}
 			}
@@ -465,7 +521,7 @@ private class TransTracker implements ITransTracker {
 			_tween.stop();
 			_tween = null;
 		}
-		_tween = new Tween(fract, to, Std.int(time * 1000), easing, true, onUpdate, null, onComplete);
+		_tween = new Tween(fract, to, Std.int(time * 1000), easing, onUpdate, onComplete, true);
 	}
 	private function onUpdate(fract:Float):Void {
 		this.fract = fract;
@@ -505,12 +561,12 @@ private class TransSpan {
 }
 private class PropEaserInfo {
 	public var styleType:Dynamic;
-	public var paramIndex:Int;
+	public var prop:Dynamic;
 	public var propEaserFact:EaserFactFunc;
 	
-	public function new(styleType:Dynamic, paramIndex:Int, propEaserFact:EaserFactFunc) {
+	public function new(styleType:Dynamic, prop:Dynamic, propEaserFact:EaserFactFunc) {
 		this.styleType = styleType;
-		this.paramIndex = paramIndex;
+		this.prop = prop;
 		this.propEaserFact = propEaserFact;
 	}
 }
@@ -518,11 +574,18 @@ private class PropEaserInfo {
 // handler(subject:Dynamic, prop:Dynamic, start:Int, end:Int):Bool
 typedef EaserFactFunc = Dynamic->Dynamic->Dynamic->Dynamic->IPropEaser;
 
-// handler(style1:Dynamic,style2:Dynamic):Bool
-typedef SwitchCheck = Dynamic->Array<Dynamic>->Dynamic->Array<Dynamic>->Bool;
+// handler(style1:Dynamic, params1:Array<Dynamic>, style2:Dynamic, params2:Array<Dynamic>):Bool
+typedef EnumSwitchCheck = Dynamic->Array<Dynamic>->Dynamic->Array<Dynamic>->Bool;
 
-typedef SwitchSpanInfo = { via:Dynamic, toParams:Array<Dynamic>, easerFuncs:Array<EaserFactFunc> };
-// handler(subject:Dynamic, direction:Bool, style1:Dynmaic, style1Match:Dynamic, style2:Dynmaic, style2Match:Dynamic)
+// handler(style1:Dynamic, style2:Dynamic):Bool
+typedef TypeSwitchCheck = Dynamic->Dynamic->Bool;
+
+typedef SwitchSpanInfo = { via:Dynamic, toParams:Dynamic, easerFuncs:Dynamic };
+
+// handler(subject:Dynamic, direction:Bool, style1Match:Dynamic, style2Match:Dynamic)
+typedef TypeSwitchFact = Dynamic->Bool->Dynamic->Dynamic->Array<SwitchSpanInfo>;
+
+// handler(subject:Dynamic, direction:Bool, style1:Dynamic, style1Match:Dynamic, style2:Dynamic, style2Match:Dynamic)
 typedef EnumValSwitchFact = Dynamic->Bool->Dynamic->Dynamic->Dynamic->Dynamic->Array<SwitchSpanInfo>;
 
 // handler(subject:Dynamic, direction:Bool, enum1:Dynamic, enum1Match:Dynamic, enum2:Dynmaic, enum2Match:Dynamic)
@@ -532,8 +595,9 @@ typedef EnumSwitchFact = Dynamic->Bool->Enum<Dynamic>->Dynamic->Enum<Dynamic>->D
 //typedef EaseStyleViaFact = Dynamic->Dynamic->Dynamic->Dynamic->{ via1:Dynamic, toParams1:Array<Dynamic>, easerFuncs1:Array<EaserFactFunc>, via2:Dynamic, toParams2:Array<Dynamic>, easerFuncs2:Array<EaserFactFunc> };
 
 enum StyleSwitch {
-	EnumValueSwitch(switchFact:EnumValSwitchFact, enumVal1:Dynamic, enumVal2:Dynamic, ?check:SwitchCheck);
-	EnumTypeSwitch(switchFact:EnumSwitchFact, enum1:Enum<Dynamic>, enum2:Enum<Dynamic>, ?check:SwitchCheck);
+	TypeSwitch(switchFact:TypeSwitchFact, type1:Class<Dynamic>, type2:Class<Dynamic>, ?check:TypeSwitchCheck);
+	EnumValueSwitch(switchFact:EnumValSwitchFact, enumVal1:Dynamic, enumVal2:Dynamic, ?check:EnumSwitchCheck);
+	EnumTypeSwitch(switchFact:EnumSwitchFact, enum1:Enum<Dynamic>, enum2:Enum<Dynamic>, ?check:EnumSwitchCheck);
 }
 /*enum SwitchType {
 	Ease(switchFact:EaseStyleFact);

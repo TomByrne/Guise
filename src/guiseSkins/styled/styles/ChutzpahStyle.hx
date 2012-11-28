@@ -3,6 +3,7 @@ import composure.core.ComposeItem;
 import composure.utilTraits.Furnisher;
 import guise.controls.ControlLayers;
 import guise.controls.ControlTags;
+import guise.layout.Position;
 import guiseSkins.styled.BoxLayer;
 import guiseSkins.styled.FilterLayer;
 import guiseSkins.styled.FramingLayer;
@@ -11,6 +12,8 @@ import guiseSkins.styled.SimpleShapeLayer;
 import guiseSkins.styled.TextStyleLayer;
 import guise.traits.states.ControlStates;
 import guiseSkins.styled.Styles;
+import guiseSkins.styled.values.Bind;
+import guiseSkins.styled.values.Value;
 import nme.Assets;
 import nme.text.Font;
 import guise.platform.types.TextAccessTypes;
@@ -78,13 +81,13 @@ class ChutzpahStyle
 			_inputBackFocus = BsRectComplex(	FsHLinearGradient([ { c:0xdadada, a:1, fract:0 }, { c:0xececec, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), CSame(CsCirc(5)));
 			
 		
-			_toggleBackNorm = BsCapsule(		FsHLinearGradient([ { c:0xffffff, a:1, fract:0 }, { c:0xeeeeee, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), Fixed(26), Fixed(12), FromWidth(0.5,-13), FromHeight(0.5,-6));
-			_toggleBackSelNorm = BsCapsule(		FsHLinearGradient([ { c:0xdeefff, a:1, fract:0 }, { c:0xc8d7e5, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), Fixed(26), Fixed(12), FromWidth(0.5,-13), FromHeight(0.5,-6));
+			_toggleBackNorm = BsCapsule(		FsHLinearGradient([ { c:0xffffff, a:1, fract:0 }, { c:0xeeeeee, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), new Value(26), new Value(12), new Bind(Position, "w", 0.5,-13), new Bind(Position, "h",0.5,-6));
+			_toggleBackSelNorm = BsCapsule(		FsHLinearGradient([ { c:0xdeefff, a:1, fract:0 }, { c:0xc8d7e5, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), new Value(26), new Value(12), new Bind(Position, "w", 0.5,-13), new Bind(Position, "h",0.5,-6));
 			
-			_toggleNormUnsel = 	SsEllipse(	FsHLinearGradient([ { c:0xffffff, a:1, fract:0 }, { c:0xeeeeee, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), Fixed(16), Fixed(16), FromWidth(0.5,-15), FromHeight(0.5,-9));
-			_toggleOverUnsel = 	SsEllipse(	FsHLinearGradient([ { c:0xffffff, a:1, fract:0 }, { c:0xeeeeee, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), Fixed(16), Fixed(16), FromWidth(0.5,-15), FromHeight(0.5,-9));
-			_toggleNormSel = 	SsEllipse(	FsHLinearGradient([ { c:0xdadada, a:1, fract:0 }, { c:0xececec, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), Fixed(16), Fixed(16), FromWidth(0.5, -1), FromHeight(0.5,-9));
-			_toggleOverSel = 	SsEllipse(	FsHLinearGradient([ { c:0xdadada, a:1, fract:0 }, { c:0xececec, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), Fixed(16), Fixed(16), FromWidth(0.5, -1), FromHeight(0.5,-9));
+			_toggleNormUnsel = 	SsEllipse(	FsHLinearGradient([ { c:0xffffff, a:1, fract:0 }, { c:0xeeeeee, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), new Value(16), new Value(16), new Bind(Position, "w", 0.5,-15), new Bind(Position, "h", 0.5,-9));
+			_toggleOverUnsel = 	SsEllipse(	FsHLinearGradient([ { c:0xffffff, a:1, fract:0 }, { c:0xeeeeee, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), new Value(16), new Value(16), new Bind(Position, "w", 0.5,-15), new Bind(Position, "h", 0.5,-9));
+			_toggleNormSel = 	SsEllipse(	FsHLinearGradient([ { c:0xdadada, a:1, fract:0 }, { c:0xececec, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), new Value(16), new Value(16), new Bind(Position, "w", 0.5, -1), new Bind(Position, "h", 0.5,-9));
+			_toggleOverSel = 	SsEllipse(	FsHLinearGradient([ { c:0xdadada, a:1, fract:0 }, { c:0xececec, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), new Value(16), new Value(16), new Bind(Position, "w", 0.5, -1), new Bind(Position, "h", 0.5,-9));
 			
 			
 			_buttonFiltNorm = [DropShadow(1, Math.PI/2, 2, 0x000000, 0.56)];
