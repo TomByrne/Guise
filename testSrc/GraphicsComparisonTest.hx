@@ -11,8 +11,8 @@ import guise.layout.Position;
 import guise.layout.PositionManager;
 import guise.controls.logic.input.ClickToggleSelect;
 import guise.platform.native.NativePlatformAccess;
-import guise.traits.tags.CoreTags;
-import guise.traits.tags.ControlTags;
+import guise.core.CoreTags;
+import guise.controls.ControlTags;
 import guise.utils.Closures;
 import guiseSkins.styled.BoxLayer;
 import guiseSkins.styled.FilterLayer;
@@ -44,7 +44,7 @@ class GraphicsComparisonTest
 
 	public function new() 
 	{
-		/*LoggerList.install();
+		LoggerList.install();
 		
 		var root:ComposeRoot = new ComposeRoot();
 		root.addTrait(new PositionManager());
@@ -66,14 +66,15 @@ class GraphicsComparisonTest
 		nativeStage.addTrait(StageTag);
 		window.addChild(nativeStage);
 		NativePlatformAccess.install(nativeStage);
-		addControls(170, nativeStage);*/
+		addControls(170, nativeStage);
 	}
-	/*public function addControls(x:Float, parent:ComposeGroup):Void{
+	public function addControls(x:Float, parent:ComposeGroup):Void{
 		
 		addButton(parent, "Test Button", x,10,150,30,false);
 		addButton(parent, "Selectable Button", x,50,150,30,true);
 		addLabel(parent, "Test Label", x,90,150,30);
 		addTextInput(parent, "Test Input", x,130,150,30);
+		addToggleButton(parent, x,165,150,30);
 	}
 	private function addButton(parent:ComposeGroup, text:String, x:Float, y:Float, w:Float, h:Float, selectable:Bool):Void {
 		var item:ComposeItem = new ComposeItem();
@@ -90,5 +91,10 @@ class GraphicsComparisonTest
 		var item:ComposeItem = new ComposeItem();
 		item.addTraits([TextInputTag, new Position(x, y, w, h), new TextLabel(), new InputPrompt(prompt) ]);
 		parent.addChild(item);
-	}*/
+	}
+	private function addToggleButton(parent:ComposeGroup, x:Float, y:Float, w:Float, h:Float):Void {
+		var item:ComposeItem = new ComposeItem();
+		item.addTraits([ToggleButtonTag, new Position(x, y, w, h)]);
+		parent.addChild(item);
+	}
 }

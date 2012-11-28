@@ -24,6 +24,10 @@ class TextLabelTrait extends AbstractTrait
 		}
 		return value;
 	}
+	public var domElement(get_domElement, null):HtmlDom;
+	private function get_domElement():HtmlDom {
+		return _domElement;
+	}
 	
 	
 	private var _domElement:HtmlDom;
@@ -34,7 +38,6 @@ class TextLabelTrait extends AbstractTrait
 	}
 	
 	private function onTextChanged(from:ITextLabel):Void {
-		trace("onTextChanged: "+from.text);
 		_domElement.innerHTML = from.text;
 	}
 }

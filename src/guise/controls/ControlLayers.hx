@@ -12,4 +12,6 @@ class ControlLayers
 	
 	public static var INPUT_TEXT:String = "inputText";
 	
+	public static var CONTROL_HANDLE:String = "controlHandle";
+	
 }

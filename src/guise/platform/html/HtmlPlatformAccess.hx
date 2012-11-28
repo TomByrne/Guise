@@ -16,14 +16,14 @@ import guise.platform.types.CoreAccessTypes;
 import guise.platform.types.DrawingAccessTypes;
 import guise.platform.types.InteractionAccessTypes;
 import cmtc.ds.hash.ObjectHash;
-import guise.traits.tags.CoreTags;
+import guise.core.CoreTags;
 import composure.utilTraits.Furnisher;
 import guise.platform.nme.core.FrameTicker;
 import js.Dom;
 import js.Lib;
 import guise.platform.html.display.ButtonElementTrait;
 import guise.platform.html.display.WindowTrait;
-import guise.traits.tags.ControlTags;
+import guise.controls.ControlTags;
 
 /**
  * ...
@@ -54,6 +54,7 @@ class HtmlPlatformAccess extends AbsPlatformAccess<ContInfo, LayerInfo>
 		registerAccess(MouseClickable, [IMouseClickable], getMouseClickAccess, returnMouseClickAccess);
 		
 		registerLayerAccess(MouseClickable, [IMouseClickable], getMouseClickLayerAccess, returnMouseClickLayerAccess);
+		registerLayerAccess(InputFocusTrait, [IFocusableAccess], getFocusableAccess, returnFocusableAccess);
 	}
 	private function getWindow(tag:CoreTags):WindowTrait {
 		if (_window==null) {
@@ -79,7 +80,7 @@ class HtmlPlatformAccess extends AbsPlatformAccess<ContInfo, LayerInfo>
 		cont.elementType = "input";
 		cont.domElement.setAttribute("type", "text");
 		cont.trait.setAllowSizing(true);
-		return [new TextLabelTrait(cont.domElement), new InputFocusTrait(cont.domElement), new TextInputPrompt()];
+		return [new TextLabelTrait(cont.domElement), new TextInputPrompt()];
 	}
 	private function getMouseClickAccess(cont:ContInfo):MouseClickable {
 		return new MouseClickable(cont.domElement);
@@ -94,6 +95,14 @@ class HtmlPlatformAccess extends AbsPlatformAccess<ContInfo, LayerInfo>
 	}
 	private function returnMouseClickLayerAccess(layer:LayerInfo, access:MouseClickable):Void {
 		access.domElement = null;
+	}
+	private function getFocusableAccess(layer:LayerInfo):InputFocusTrait{
+		var access:InputFocusTrait = new InputFocusTrait();
+		layer.contInfo.context.addTrait(access);
+		return access;
+	}
+	private function returnFocusableAccess(layer:LayerInfo, access:InputFocusTrait):Void {
+		layer.contInfo.context.removeTrait(access);
 	}
 }
 class ContInfo {

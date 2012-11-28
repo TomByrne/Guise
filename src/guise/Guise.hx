@@ -1,6 +1,6 @@
 package guise;
 import guise.core.GuiseItem;
-import guise.traits.tags.CoreTags;
+import guise.core.CoreTags;
 import composure.core.ComposeGroup;
 import composure.core.ComposeRoot;
 

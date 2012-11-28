@@ -1,5 +1,6 @@
 package guise.platform;
 import composure.injectors.Injector;
+import composure.injectors.PropInjector;
 import composure.traits.AbstractTrait;
 import guise.platform.IPlatformAccess;
 
@@ -11,7 +12,6 @@ import guise.platform.IPlatformAccess;
 class PlatformAccessor<AccessType : IAccessType> extends AbstractTrait
 {
 	
-	@inject({asc:true})
 	public var platformAccess(default, set_platformAccess):IPlatformAccess;
 	private function set_platformAccess(value:IPlatformAccess):IPlatformAccess {
 		if(_injected==null)returnAccess();
@@ -45,6 +45,7 @@ class PlatformAccessor<AccessType : IAccessType> extends AbstractTrait
 		if (inject) {
 			addInjector(new Injector(accessType, onInjectAdd, onInjectRemove));
 		}
+		addInjector(new PropInjector(IPlatformAccess, this, "platformAccess", true, false, true));
 	}
 	override private function onItemAdd():Void {
 		super.onItemAdd();
@@ -60,9 +61,11 @@ class PlatformAccessor<AccessType : IAccessType> extends AbstractTrait
 	}
 	private function onInjectAdd(access:AccessType):Void {
 		super.onItemAdd();
-		returnAccess();
 		_injected = access;
-		onAccessAdd(_injected);
+		if (access != _access) {
+			returnAccess();
+			onAccessAdd(_injected);
+		}
 	}
 	private function onInjectRemove(access:AccessType):Void {
 		onAccessRemove(_injected);

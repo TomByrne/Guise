@@ -62,7 +62,9 @@ class LayerOrderer extends AbstractTrait
 					var layer2 = layers[depth2];
 					var index2 = Lambda.indexOf(sorting, layer2);
 					
-					if (index2 != -1 && index1 > index2) _layerOrderAccess.swapDepths(layer1, layer2);
+					if (index2 != -1 && index1 > index2) {
+						_layerOrderAccess.swapDepths(layer1, layer2);
+					}
 					
 					++depth2;
 				}

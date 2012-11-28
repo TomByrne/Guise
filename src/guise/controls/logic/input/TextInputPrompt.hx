@@ -47,7 +47,7 @@ class TextInputPrompt extends AbstractTrait
 	public function new(){
 		super();
 		
-		addSiblingTrait(new PlatformAccessor(ITextInputAccess, ControlLayers.INPUT_TEXT, onInputAdd, onInputRemove));
+		addSiblingTrait(new PlatformAccessor(ITextInputAccess, ControlLayers.INPUT_TEXT, onInputAdd, onInputRemove, true));
 		addSiblingTrait(new PlatformAccessor(IFocusableAccess, ControlLayers.INPUT_TEXT, onFocusAdd, onFocusRemove, true));
 	}
 	

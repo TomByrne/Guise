@@ -25,7 +25,7 @@ import cmtc.ds.hash.ObjectHash;
 import guise.platform.nme.input.KeyboardAccess;
 import guise.platform.nme.display.FilterableAccess;
 import guise.platform.nme.display.StageTrait;
-import guise.traits.tags.CoreTags;
+import guise.core.CoreTags;
 import composure.utilTraits.Furnisher;
 import guise.platform.nme.core.FrameTicker;
 
@@ -291,16 +291,3 @@ class LayerInfo{
 		}
 	}
 }
-/*import guise.platform.nme.display.DisplaySkin;
-class DisplaySkinSettable extends DisplaySkin {
-	public function new(?displayObject:DisplayObject) {
-		super(displayObject);
-	}
-	
-	override public function setDisplayObject(displayObject:DisplayObject):Void {
-		super.setDisplayObject(displayObject);
-	}
-	override private function assumeDisplayObject():Void {
-		//ignore
-	}
-}*/

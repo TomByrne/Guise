@@ -5637,14 +5637,14 @@
 			<m n=":autoBuild"><e>'???'</e></m>
 		</meta>
 	</class>
-	<enum path="guise.traits.tags.ControlTags" params="" file="../src/guise/traits/tags/ControlTags.hx">
+	<enum path="guise.controls.ControlTags" params="" file="../src/guise/traits/tags/ControlTags.hx">
 		<TextLabelTag/>
 		<TextInputTag/>
 		<TextButtonTag/>
 		<haxe_doc>* ...
  * @author Tom Byrne</haxe_doc>
 	</enum>
-	<enum path="guise.traits.tags.CoreTags" params="" file="../src/guise/traits/tags/CoreTags.hx">
+	<enum path="guise.core.CoreTags" params="" file="../src/guise/traits/tags/CoreTags.hx">
 		<WindowTag/>
 		<StageTag/>
 		<CursorTag/>

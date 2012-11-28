@@ -16,14 +16,32 @@ import js.Dom;
 @:build(LazyInst.check())
 class InputFocusTrait implements IFocusableAccess
 {
-	
-	private var _domElement:HtmlDom;
-
-	public function new(domElement:HtmlDom){
-		_domElement = domElement;
+	@inject
+	private var textTrait(default, set_textTrait):TextLabelTrait;
+	private function set_textTrait(value:TextLabelTrait):TextLabelTrait {
+		if (textTrait != null) {
+			textTrait.domElement.onfocus = null;
+			textTrait.domElement.onblur = null;
+		}
 		
-		_domElement.onfocus = onFocusIn;
-		_domElement.onblur = onFocusOut;
+		this.textTrait = value;
+		
+		var newFoc:Bool;
+		if (textTrait != null) {
+			textTrait.domElement.onfocus = onFocusIn;
+			textTrait.domElement.onblur = onFocusOut;
+			newFoc = Lib.document.activeElement == textTrait.domElement;
+		}else {
+			newFoc = false;
+		}
+		if (focused != newFoc) {
+			this.focused = newFoc;
+			LazyInst.exec(focusedChanged.dispatch(this));
+		}
+		return value;
+	}
+
+	public function new(){
 	}
 	
 	private function onFocusIn(e:Event):Void {

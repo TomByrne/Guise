@@ -184,7 +184,7 @@ class DefaultStyleTrans extends StyleTransitioner
 	}
 	private function checkCapsultToRoundedRect(style1:BoxStyle, params1:Array<Dynamic>, style2:BoxStyle, params2:Array<Dynamic>):Bool {
 		switch(style2) {
-			case BsRectComplex(f,s,c,exW,exH):
+			case BsRectComplex(f,s,c,w,h,x,y):
 				var circIndex:Int = Type.enumIndex(CsCirc(0));
 				var squaIndex:Int = Type.enumIndex(CsSquare);
 				switch(c) {

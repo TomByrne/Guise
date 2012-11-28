@@ -1,4 +1,4 @@
-package guise.traits.tags;
+package guise.controls;
 
 /**
  * ...
@@ -9,4 +9,5 @@ enum ControlTags {
 	TextButtonTag;
 	TextLabelTag;
 	TextInputTag;
+	ToggleButtonTag;
 }

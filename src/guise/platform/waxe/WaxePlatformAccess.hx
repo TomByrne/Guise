@@ -17,12 +17,12 @@ import guise.platform.types.CoreAccessTypes;
 import guise.platform.types.DrawingAccessTypes;
 import guise.platform.types.InteractionAccessTypes;
 import cmtc.ds.hash.ObjectHash;
-import guise.traits.tags.CoreTags;
+import guise.core.CoreTags;
 import composure.utilTraits.Furnisher;
 import guise.platform.nme.core.FrameTicker;
 import guise.platform.waxe.display.TextButtonTrait;
 import guise.platform.waxe.display.WindowTrait;
-import guise.traits.tags.ControlTags;
+import guise.controls.ControlTags;
 
 /**
  * ...

@@ -2,11 +2,12 @@ package guiseSkins.styled.styles;
 import composure.core.ComposeItem;
 import composure.utilTraits.Furnisher;
 import guise.controls.ControlLayers;
-import guise.traits.tags.ControlTags;
+import guise.controls.ControlTags;
 import guiseSkins.styled.BoxLayer;
 import guiseSkins.styled.FilterLayer;
 import guiseSkins.styled.FramingLayer;
 import guiseSkins.styled.DefaultStyleTrans;
+import guiseSkins.styled.SimpleShapeLayer;
 import guiseSkins.styled.TextStyleLayer;
 import guise.traits.states.ControlStates;
 import guiseSkins.styled.Styles;
@@ -35,6 +36,13 @@ class ChutzpahStyle
 	private static var _buttonBackDownUnsel:BoxStyle;
 	private static var _buttonBackSelNorm:BoxStyle;
 	private static var _buttonBackSelOver:BoxStyle;
+	
+	private static var _toggleBackNorm:BoxStyle;
+	private static var _toggleBackSelNorm:BoxStyle;
+	private static var _toggleNormUnsel:ShapeStyle;
+	private static var _toggleOverUnsel:ShapeStyle;
+	private static var _toggleNormSel:ShapeStyle;
+	private static var _toggleOverSel:ShapeStyle;
 	
 	private static var _inputBackNorm:BoxStyle;
 	private static var _inputBackFocus:BoxStyle;
@@ -69,6 +77,15 @@ class ChutzpahStyle
 			_inputBackNorm = BsRectComplex(		FsHLinearGradient([ { c:0xffffff, a:1, fract:0 }, { c:0xeeeeee, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), CSame(CsCirc(5)));
 			_inputBackFocus = BsRectComplex(	FsHLinearGradient([ { c:0xdadada, a:1, fract:0 }, { c:0xececec, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), CSame(CsCirc(5)));
 			
+		
+			_toggleBackNorm = BsCapsule(		FsHLinearGradient([ { c:0xffffff, a:1, fract:0 }, { c:0xeeeeee, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), Fixed(26), Fixed(12), FromWidth(0.5,-13), FromHeight(0.5,-6));
+			_toggleBackSelNorm = BsCapsule(		FsHLinearGradient([ { c:0xdeefff, a:1, fract:0 }, { c:0xc8d7e5, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), Fixed(26), Fixed(12), FromWidth(0.5,-13), FromHeight(0.5,-6));
+			
+			_toggleNormUnsel = 	SsEllipse(	FsHLinearGradient([ { c:0xffffff, a:1, fract:0 }, { c:0xeeeeee, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), Fixed(16), Fixed(16), FromWidth(0.5,-15), FromHeight(0.5,-9));
+			_toggleOverUnsel = 	SsEllipse(	FsHLinearGradient([ { c:0xffffff, a:1, fract:0 }, { c:0xeeeeee, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), Fixed(16), Fixed(16), FromWidth(0.5,-15), FromHeight(0.5,-9));
+			_toggleNormSel = 	SsEllipse(	FsHLinearGradient([ { c:0xdadada, a:1, fract:0 }, { c:0xececec, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), Fixed(16), Fixed(16), FromWidth(0.5, -1), FromHeight(0.5,-9));
+			_toggleOverSel = 	SsEllipse(	FsHLinearGradient([ { c:0xdadada, a:1, fract:0 }, { c:0xececec, a:1, fract:1 } ]), SsSolid(1, FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ])), Fixed(16), Fixed(16), FromWidth(0.5, -1), FromHeight(0.5,-9));
+			
 			
 			_buttonFiltNorm = [DropShadow(1, Math.PI/2, 2, 0x000000, 0.56)];
 			_buttonFiltDown = [DropShadow(1, Math.PI / 2, 4, 0x000000, 0.42, true)];
@@ -92,6 +109,10 @@ class ChutzpahStyle
 		furnisher = new Furnisher(TextInputTag, [TFact(inputBacking), TFact(inputFilter), TFact(inputText), TFact(inputTextAlign), TFact(textFilt(ControlLayers.INPUT_TEXT))]);
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
+		
+		furnisher = new Furnisher(ToggleButtonTag, [TFact(toggleBacking), TFact(toggleFilter), TFact(toggleHandle), TFact(toggleHandleFilter)]);
+		furnisher.addTrait(TInst(_styleTransitioner));
+		within.addTrait(furnisher);
 	}
 	private static function buttonBacking(tag:Dynamic):BoxLayer {
 		var boxLayer:BoxLayer = new BoxLayer(ControlLayers.BACKING);
@@ -102,6 +123,12 @@ class ChutzpahStyle
 		boxLayer.addStyle([SelectedState.SELECTED, ButtonOverState.OVER], _buttonBackSelOver);
 		return boxLayer;
 	}
+	private static function toggleBacking(tag:Dynamic):BoxLayer {
+		var boxLayer:BoxLayer = new BoxLayer(ControlLayers.BACKING);
+		boxLayer.normalStyle = _toggleBackNorm;
+		boxLayer.addStyle([SelectedState.SELECTED], _toggleBackSelNorm);
+		return boxLayer;
+	}
 	private static function labelText(tag:Dynamic):TextStyleLayer {
 		return new TextStyleLayer(ControlLayers.LABEL_TEXT, _labelTextStyle);
 	}
@@ -110,16 +137,27 @@ class ChutzpahStyle
 	}
 	private static function textFilt(layerName:String):Dynamic->FilterLayer {
 		return function(tag:Dynamic):FilterLayer{
-			var boxFilterLayer:FilterLayer = new FilterLayer(layerName);
-			boxFilterLayer.normalStyle = _buttonTextFiltNorm;
-			return boxFilterLayer;
+			var filterLayer:FilterLayer = new FilterLayer(layerName);
+			filterLayer.normalStyle = _buttonTextFiltNorm;
+			return filterLayer;
 		}
 	}
 	private static function buttonFilter(tag:Dynamic):FilterLayer {
-		var boxFilterLayer:FilterLayer = new FilterLayer(ControlLayers.BACKING);
-		boxFilterLayer.normalStyle = _buttonFiltNorm;
-		boxFilterLayer.addStyle([ButtonDownState.DOWN], _buttonFiltDown);
-		return boxFilterLayer;
+		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.BACKING);
+		filterLayer.normalStyle = _buttonFiltNorm;
+		filterLayer.addStyle([ButtonDownState.DOWN], _buttonFiltDown);
+		return filterLayer;
+	}
+	private static function toggleFilter(tag:Dynamic):FilterLayer {
+		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.BACKING);
+		filterLayer.normalStyle = _buttonFiltDown;
+		return filterLayer;
+	}
+	private static function toggleHandleFilter(tag:Dynamic):FilterLayer {
+		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.CONTROL_HANDLE);
+		filterLayer.normalStyle = _buttonFiltNorm;
+		filterLayer.addStyle([ButtonDownState.DOWN], _buttonFiltDown);
+		return filterLayer;
 	}
 	
 	private static function inputTextAlign(tag:Dynamic):FramingLayer {
@@ -140,5 +178,14 @@ class ChutzpahStyle
 		boxFilterLayer.normalStyle = _buttonFiltNorm;
 		boxFilterLayer.addStyle([FocusState.FOCUSED], _buttonFiltDown);
 		return boxFilterLayer;
+	}
+	
+	private static function toggleHandle(tag:Dynamic):SimpleShapeLayer {
+		var shape:SimpleShapeLayer = new SimpleShapeLayer(ControlLayers.CONTROL_HANDLE);
+		shape.normalStyle = _toggleNormUnsel;
+		shape.addStyle([ButtonOverState.OVER, SelectedState.UNSELECTED], _toggleOverUnsel);
+		shape.addStyle([SelectedState.SELECTED, ButtonOverState.OUT], _toggleNormSel);
+		shape.addStyle([SelectedState.SELECTED, ButtonOverState.OVER], _toggleOverSel);
+		return shape;
 	}
 }

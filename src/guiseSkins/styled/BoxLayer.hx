@@ -43,12 +43,19 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 		var tr:CornerStyle;
 		var bl:CornerStyle;
 		var br:CornerStyle;
-		var extW:Float;
-		var extH:Float;
+		
+		var boxX:Float;
+		var boxY:Float;
+		var boxW:Float;
+		var boxH:Float;
+		
 		switch(style) {
-			case BsRectComplex(f, s, c, exW, exH):
-				extW = exW;
-				extH = exH;
+			case BsRectComplex(f, s, c, w, h, x, y):
+				boxX = StyledLayerUtils.getPos(x, this.w, this.h, 0);
+				boxY = StyledLayerUtils.getPos(y, this.w, this.h, 0);
+				boxW = StyledLayerUtils.getPos(w, this.w, this.h, this.w);
+				boxH = StyledLayerUtils.getPos(h, this.w, this.h, this.h);
+				
 				fill = f;
 				stroke = s;
 				switch(c) {
@@ -64,9 +71,12 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 						bl = c4;
 						
 				}
-			case BsCapsule(f, s, exW, exH):
-				extW = exW;
-				extH = exH;
+			case BsCapsule(f, s, w, h, x, y):
+				boxX = StyledLayerUtils.getPos(x, this.w, this.h, 0);
+				boxY = StyledLayerUtils.getPos(y, this.w, this.h, 0);
+				boxW = StyledLayerUtils.getPos(w, this.w, this.h, this.w);
+				boxH = StyledLayerUtils.getPos(h, this.w, this.h, this.h);
+				
 				fill = f;
 				stroke = s;
 				if (CAPSULE_CORNER == null) {
@@ -76,9 +86,12 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 				tr = CAPSULE_CORNER;
 				bl = CAPSULE_CORNER;
 				br = CAPSULE_CORNER;
-			case BsRect(f, s, exW, exH):
-				extW = exW;
-				extH = exH;
+			case BsRect(f, s, w, h, x, y):
+				boxX = StyledLayerUtils.getPos(x, this.w, this.h, 0);
+				boxY = StyledLayerUtils.getPos(y, this.w, this.h, 0);
+				boxW = StyledLayerUtils.getPos(w, this.w, this.h, this.w);
+				boxH = StyledLayerUtils.getPos(h, this.w, this.h, this.h);
+				
 				fill = f;
 				stroke = s;
 				if (SQUARE_CORNER == null) {
@@ -89,91 +102,19 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 				bl = SQUARE_CORNER;
 				br = SQUARE_CORNER;
 		}
-		var width:Float = w;
-		var height:Float = h;
-		if (!Math.isNaN(extW)) width += extW;
-		if (!Math.isNaN(extH)) height += extH;
 		
-		var fills = [];
-		collectFills(fill, fills);
-		var strokeFills;
-		switch(stroke) {
-			case SsSolid(th, sFill, joints):
-				if (joints == null) joints = JointStyle.JoRound;
-				_graphics.lineStyle(th, true, null, joints);
-				strokeFills = [];
-				collectFills(sFill, strokeFills);
-			case SsNone:
-				strokeFills = null;
-				//ignore
-		}
-		var drawRuns:Int = (strokeFills == null || fills.length > strokeFills.length?fills.length:strokeFills.length);
-		var centerX:Float = w / 2;
-		var centerY:Float = h / 2;
-		for (i in 0 ... drawRuns) {
-			if (i < fills.length) {
-				switch(fills[i]) {
-					case FsSolid(c, a):
-						if (Math.isNaN(a) || a==null) a = 1.0;
-						_graphics.beginFill(c, a);
-					case FsLinearGradient(gp, mat):
-						_graphics.beginGradientFill(Linear, gp, mat);
-					case FsHLinearGradient(gp):
-						_graphics.beginGradientFill(Linear, gp, createBoxMatrix(Math.PI/2, width, height));
-					case FsVLinearGradient(gp):
-						_graphics.beginGradientFill(Linear, gp, createBoxMatrix(0, width, height));
-					case FsRadialGradient(gp, mat, fp):
-						_graphics.beginGradientFill(Radial(fp), gp, mat);
-					case FsTransparent:
-						_graphics.beginFill(0, 0);
-					default:
-						// ignore
-				}
-			}
-			if(strokeFills!=null && i<strokeFills.length){
-				switch(strokeFills[i]) {
-					case FsSolid(c, a):
-						if (Math.isNaN(a) || a==null) a = 1.0;
-						_graphics.beginStroke(c, a);
-					case FsLinearGradient(gp, mat):
-						_graphics.beginGradientStroke(Linear, gp, mat);
-					case FsHLinearGradient(gp):
-						_graphics.beginGradientStroke(Linear, gp, createBoxMatrix(Math.PI/2, width, height));
-					case FsVLinearGradient(gp):
-						_graphics.beginGradientStroke(Linear, gp, createBoxMatrix(0, width, height));
-					case FsRadialGradient(gp, mat, focal):
-						_graphics.beginGradientStroke(Radial(focal), gp, mat);
-					default:
-						// ignore
-				}
-			}
-			
-			drawCorner(tl, false, false, -Math.PI/2, true, width, height, centerX, centerY);
-			drawCorner(tr, true, false, 0, false, width, height, centerX, centerY);
-			drawCorner(br, true, true, Math.PI/2, false, width, height, centerX, centerY);
-			drawCorner(bl, false, true, Math.PI, false, width, height, centerX, centerY);
-		}
+		var centerX:Float = boxX + boxW / 2;
+		var centerY:Float = boxY + boxH / 2;
+		StyledLayerUtils.beginFillStrokes(_graphics, fill, stroke, boxW, boxH, function(index:Int):Void {
+			drawCorner(tl, false, false, -Math.PI/2, true, boxW, boxH, centerX, centerY);
+			drawCorner(tr, true, false, 0, false, boxW, boxH, centerX, centerY);
+			drawCorner(br, true, true, Math.PI/2, false, boxW, boxH, centerX, centerY);
+			drawCorner(bl, false, true, Math.PI, false, boxW, boxH, centerX, centerY);
+		});
 		_graphics.endFill();
-	}
-	private function collectFills(fill:FillStyle, fills:Array<FillStyle>):Void {
-		switch(fill) {
-			case FsMulti(fills2):
-				for (fill2 in fills2) {
-					collectFills(fill2,fills);
-				}
-			case FsNone:
-			default:
-				fills.push(fill);
-		}
 	}
 	static var SQUARE_CORNER:CornerStyle;
 	static var CAPSULE_CORNER:CornerStyle;
-	
-	private function createBoxMatrix(rotation:Float, width:Float, height:Float):Matrix {
-		var ret:Matrix = new Matrix();
-		ret.createGradientBox(width, height, rotation, 0, 0);
-		return ret;
-	}
 	
 	private function drawCorner(cs:CornerStyle, flipH:Bool, flipV:Bool, angle:Float, isInitial:Bool, width:Float, height:Float, cX:Float, cY:Float):Void {
 		var hW:Float = width / 2;
@@ -231,9 +172,9 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 	}
 }
 enum BoxStyle{
-	BsRect(f:FillStyle, s:StrokeStyle, ?extraW:Float, ?extraH:Float);
-	BsRectComplex(f:FillStyle, s:StrokeStyle, c:Corners, ?extraW:Float, ?extraH:Float);
-	BsCapsule(f:FillStyle, s:StrokeStyle, ?extraW:Float, ?extraH:Float);
+	BsRect(f:FillStyle, s:StrokeStyle, ?w:Pos, ?h:Pos, ?x:Pos, ?y:Pos);
+	BsRectComplex(f:FillStyle, s:StrokeStyle, c:Corners, ?w:Pos, ?h:Pos, ?x:Pos, ?y:Pos);
+	BsCapsule(f:FillStyle, s:StrokeStyle, ?w:Pos, ?h:Pos, ?x:Pos, ?y:Pos);
 }
 enum Corners{
 	CSame(cs:CornerStyle);

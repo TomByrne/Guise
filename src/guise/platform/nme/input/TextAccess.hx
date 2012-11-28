@@ -55,7 +55,7 @@ class TextAccess implements ITextInputAccess, implements ITextOutputAccess
 		}
 	}
 	public var inputEnabled(default, set_inputEnabled):Bool;
-	private function set_inputEnabled(value:Bool):Bool{
+	private function set_inputEnabled(value:Bool):Bool {
 		_textField.type = value?TextFieldType.INPUT:TextFieldType.DYNAMIC;
 		inputEnabled = value;
 		return value;

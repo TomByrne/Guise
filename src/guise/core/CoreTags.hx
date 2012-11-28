@@ -1,4 +1,4 @@
-package guise.traits.tags;
+package guise.core;
 
 /**
  * ...

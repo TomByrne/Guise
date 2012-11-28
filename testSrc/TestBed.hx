@@ -2,8 +2,8 @@ package ;
 import guise.Guise;
 import guise.controls.TextButton;
 import composure.utilTraits.Furnisher;
-import guise.traits.tags.CoreTags;
-import guise.traits.tags.ControlTags;
+import guise.core.CoreTags;
+import guise.controls.ControlTags;
 import guiseSkins.styled.controls.TextButtonSkin;
 
 /**
