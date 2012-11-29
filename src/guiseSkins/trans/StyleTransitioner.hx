@@ -521,7 +521,7 @@ private class TransTracker implements ITransTracker {
 			_tween.stop();
 			_tween = null;
 		}
-		_tween = new Tween(fract, to, Std.int(time * 1000), easing, onUpdate, onComplete, true);
+		_tween = new Tween(fract, to, Std.int(time * 1000), easing, true, onUpdate, null, onComplete);
 	}
 	private function onUpdate(fract:Float):Void {
 		this.fract = fract;

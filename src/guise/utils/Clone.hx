@@ -60,32 +60,33 @@ class Clone
 		}else if ( Type.getClass(item) == null ) {
 			if (Std.is(item, Class)) {
 				return item;
-			}
-			
-			var object = cast item;
-			
-			#if js // js has an issue with typedef cloning
-			if (object.iterator != null && object.instanceKeys != null) {
-				
-				var keys:Array<String> = cast object.instanceKeys();
-				var obj : Dynamic = { }; 
-				obj.constructor = object.constructor;
-				for (i in keys) {
-					Reflect.setField(obj, i, clone(Reflect.field(object, i)));
-				}
-				return obj;
 			}else{
-			#end
 			
-			var obj : Dynamic = { }; 
-			var fields = Reflect.fields(object);
-			for( ff in fields ) 
-				Reflect.setField(obj, ff, clone(Reflect.field(object, ff))); 
-			return obj; 
-			
-			#if js
+				var object = cast item;
+				
+				#if js // js has an issue with typedef cloning
+				if (object.iterator != null && object.instanceKeys != null) {
+					
+					var keys:Array<String> = cast object.instanceKeys();
+					var obj : Dynamic = { }; 
+					obj.constructor = object.constructor;
+					for (i in keys) {
+						Reflect.setField(obj, i, clone(Reflect.field(object, i)));
+					}
+					return obj;
+				}else{
+				#end
+				
+				var obj : Dynamic = { }; 
+				var fields = Reflect.fields(object);
+				for( ff in fields ) 
+					Reflect.setField(obj, ff, clone(Reflect.field(object, ff))); 
+				return obj; 
+				
+				#if js
+				}
+				#end
 			}
-			#end
 		}else{ 
 			var object = cast item;
 			var type = Type.getClass(object);

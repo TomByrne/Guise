@@ -4,6 +4,7 @@ import composure.core.ComposeItem;
 import composure.core.ComposeRoot;
 import guise.controls.ControlLayers;
 import guise.controls.data.IInputPrompt;
+import guise.controls.data.INumRange;
 import guise.core.GuiseItem;
 import guise.Guise;
 import composure.utilTraits.Furnisher;
@@ -75,6 +76,7 @@ class GraphicsComparisonTest
 		addLabel(parent, "Test Label", x,90,150,30);
 		addTextInput(parent, "Test Input", x,130,150,30);
 		addToggleButton(parent, x,165,150,30);
+		addSlider(parent, x,190,150,30, false);
 	}
 	private function addButton(parent:ComposeGroup, text:String, x:Float, y:Float, w:Float, h:Float, selectable:Bool):Void {
 		var item:ComposeItem = new ComposeItem();
@@ -95,6 +97,11 @@ class GraphicsComparisonTest
 	private function addToggleButton(parent:ComposeGroup, x:Float, y:Float, w:Float, h:Float):Void {
 		var item:ComposeItem = new ComposeItem();
 		item.addTraits([ToggleButtonTag, new Position(x, y, w, h)]);
+		parent.addChild(item);
+	}
+	private function addSlider(parent:ComposeGroup, x:Float, y:Float, w:Float, h:Float, vert:Bool):Void {
+		var item:ComposeItem = new ComposeItem();
+		item.addTraits([SliderTag(vert), new Position(x, y, w, h)]);
 		parent.addChild(item);
 	}
 }

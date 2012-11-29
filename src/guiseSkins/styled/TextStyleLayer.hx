@@ -1,8 +1,7 @@
 package guiseSkins.styled;
 import guise.controls.ControlLayers;
 import guise.traits.core.IPosition;
-import guise.traits.core.Position;
-import guise.traits.core.Size;
+import guise.traits.core.ISize;
 import guise.controls.data.ITextLabel;
 import guise.utils.TitleCase;
 import guiseSkins.styled.Styles;
@@ -31,14 +30,14 @@ class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>
 	}
 	
 	private var _textDisplay:ITextOutputAccess;
-	private var _textPos:Position;
-	private var _textSize:Size;
+	/*private var _textPos:Position;
+	private var _textSize:Size;*/
 
 	public function new(layerName:String, ?normalStyle:TextLabelStyle) 
 	{
 		super(normalStyle);
-		_textPos = new Position(0, 0);
-		_textSize = new Size();
+		/*_textPos = new Position(0, 0);
+		_textSize = new Size();*/
 		
 		_requireSize = true;
 		

@@ -11,14 +11,14 @@ import guise.geom.Matrix;
 class StyledLayerUtils 
 {
 
-	public static function beginFillStrokes(graphics:IGraphics, fill:FillStyle, stroke:StrokeStyle, width:Float, height:Float, iterationHandler:Int->Void):Void {
+	public static function beginFillStrokes(graphics:IGraphics, fill:FillStyle, stroke:StrokeStyle, pixelHinting:Bool, width:Float, height:Float, iterationHandler:Int->Void):Void {
 		var fills = [];
 		collectFills(fill, fills);
 		var strokeFills;
 		switch(stroke) {
 			case SsSolid(th, sFill, joints):
 				if (joints == null) joints = JointStyle.JoRound;
-				graphics.lineStyle(th, true, null, joints);
+				graphics.lineStyle(th, pixelHinting, null, joints);
 				strokeFills = [];
 				collectFills(sFill, strokeFills);
 			case SsNone:

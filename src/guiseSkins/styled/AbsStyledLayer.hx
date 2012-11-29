@@ -1,6 +1,7 @@
 package guiseSkins.styled;
 import guise.core.AbsPosSizeAwareTrait;
 import guise.layout.IPositionable;
+import guiseSkins.styled.values.IValue;
 import guiseSkins.trans.ITransitioner;
 import guise.traits.states.StateStyledTrait;
 

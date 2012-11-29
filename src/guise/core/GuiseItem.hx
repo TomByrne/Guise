@@ -4,8 +4,6 @@ import guise.traits.core.CascadingActive;
 import guise.traits.core.IActive;
 import guise.traits.core.IPosition;
 import guise.traits.core.ISize;
-import guise.traits.core.Position;
-import guise.traits.core.Size;
 import composure.core.ComposeGroup;
 
 /**

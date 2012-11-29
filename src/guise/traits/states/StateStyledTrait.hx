@@ -3,7 +3,9 @@ import composure.traits.AbstractTrait;
 import guise.utils.Clone;
 import guiseSkins.styled.values.IValue;
 import guiseSkins.trans.ITransitioner;
+import cmtc.ds.hash.ObjectHash;
 
+import msignal.Signal;
 /**
  * ...
  * @author Tom Byrne
@@ -34,6 +36,8 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 	private var styles:Array<{states:Array<String>,style:StyleType, priority:Int}>;
 	private var states:Array<IState<EnumValue>>;
 	private var values:Array<IValue>;
+	//private var _values:Array<IValue>;
+	private var _valueToSignals:ObjectHash<IValue, Array<AnySignal>>;
 	
 	private var transSubject:Dynamic;
 
@@ -45,7 +49,21 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 		if (drawStyle != null) this.drawStyle = drawStyle;
 		if (transSubject != null) this.transSubject = transSubject;
 		else this.transSubject = this;
+		
+		_valueToSignals = new ObjectHash();
+		//_values = new Array();
 	}
+	/*override private function onItemRemove():Void{
+		for (value in _values) {
+			deactivateValue(value);
+		}
+	}
+	override private function onItemAdd():Void{
+		for (value in _values) {
+			activateValue(value);
+		}
+	}*/
+	
 	@injectAdd
 	public function addState(state:IState<EnumValue>):Void {
 		if (states == null) states = [];
@@ -122,14 +140,19 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 	}
 	private function setCurrentStyle(value:StyleType):Void {
 		if (currentStyle == value) return;
-		if (currentStyle!=null) {
-			// cleanup?
+		if (currentStyle != null) {
+			for (value in values) {
+				removeValue(value);
+			}
 			values = null;
 		}
 		currentStyle = value;
 		if (currentStyle!=null) {
 			values = [];
 			findValues(currentStyle, values);
+			/*for (value in values) {
+				addValue(value);
+			}*/
 		}
 	}
 	private function findValues(within:Dynamic, addTo:Array<IValue>):Void {
@@ -165,6 +188,87 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 			}
 		}
 	}
+	
+	/*private function addValue(value:IValue):Void {
+		_values.push(value);
+		if (item!=null) {
+			activateValue(value);
+		}
+	}
+	private function removeValue(value:IValue):Void {
+		_values.remove(value);
+		if (item!=null) {
+			deactivateValue(value);
+		}
+	}*/
+	
+	/*private function activateValue(value:IValue):Void {
+		var signals:Array<AnySignal> = value.activate(item);
+		if (signals != null) {
+			for (signal in signals) {
+				signal.add(onValueChanged);
+			}
+			_valueToSignals.set(value, signals);
+		}
+	}
+	private function deactivateValue(value:IValue):Void {
+		var signals:Array<AnySignal> = _valueToSignals.get(value);
+		if (signals != null) {
+			for (signal in signals) {
+				signal.remove(onValueChanged);
+			}
+			_valueToSignals.delete(value);
+		}
+	}*/
+	private function getValue(value:IValue):Float {
+		var signals:Array<AnySignal> = _valueToSignals.get(value);
+		var newSignals:Array<AnySignal> = value.update(item);
+		
+		if (signals != null || newSignals != null) {
+			if (signals == null) {
+				for (signal in newSignals) {
+					signal.add(onValueChanged);
+				}
+				_valueToSignals.set(value, signals);
+			}else if (newSignals == null) {
+				for (signal in signals) {
+					signal.remove(onValueChanged);
+				}
+				_valueToSignals.delete(value);
+			}else {
+				var i:Int = 0;
+				while (i < signals.length) {
+					var signal = signals[i];
+					if (!Lambda.has(newSignals, signal)) {
+						signal.remove(onValueChanged);
+						signals.remove(signal);
+					}else {
+						++i;
+					}
+				}
+				for (signal in newSignals) {
+					if (!Lambda.has(signals, signal)) {
+						signals.push(signal);
+						signal.add(onValueChanged);
+					}
+				}
+			}
+		}
+		return value.currentValue;
+	}
+	private function removeValue(value:IValue):Void {
+		var signals:Array<AnySignal> = _valueToSignals.get(value);
+		if (signals != null) {
+			for (signal in signals) {
+				signal.remove(onValueChanged);
+			}
+			_valueToSignals.delete(value);
+		}
+	}
+	private function onValueChanged(?param1:Dynamic, ?param2:Dynamic):Void {
+		invalidate();
+	}
+	
 	
 	private function findDestStyle():StyleType {
 		if (states == null || styles==null) return normalStyle;
@@ -212,9 +316,9 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 	private function attemptDrawStyle():Void {
 
 		if (currentStyle != null && isReadyToDraw()) {
-			for (value in values) {
+			/*for (value in values) {
 				value.update(item);
-			}
+			}*/
 			drawStyle();
 		}
 	}

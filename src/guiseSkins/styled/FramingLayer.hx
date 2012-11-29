@@ -1,8 +1,7 @@
 package guiseSkins.styled;
 import guise.controls.ControlLayers;
 import guise.traits.core.IPosition;
-import guise.traits.core.Position;
-import guise.traits.core.Size;
+import guise.traits.core.ISize;
 import guiseSkins.styled.Styles;
 import guise.platform.types.DisplayAccessTypes;
 import guise.platform.PlatformAccessor;

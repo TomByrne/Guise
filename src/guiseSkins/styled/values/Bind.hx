@@ -1,6 +1,7 @@
 package guiseSkins.styled.values;
 import composure.core.ComposeItem;
 
+import msignal.Signal;
 /**
  * ...
  * @author Tom Byrne
@@ -15,24 +16,30 @@ class Bind implements IValue
 	
 	private var traitType:Dynamic;
 	private var prop:String;
-	private var multi:Float;
-	private var offset:Float;
+	private var changeSignal:String;
 	
 	private var _value:Float;
 
-	public function new(traitType:Dynamic, prop:String, multi:Float = 1, offset:Float = 0) {
+	public function new(traitType:Dynamic, prop:String, changeSignal:String=null) {
 		this.traitType = traitType;
 		this.prop = prop;
-		this.multi = multi;
-		this.offset = offset;
+		this.changeSignal = changeSignal;
 	}
 	
-	public function update(context:ComposeItem):Void {
+	public function update(context:ComposeItem):Array<AnySignal> {
 		var trait:Dynamic = context.getTrait(traitType);
 		if (!trait) {
 			throw "No trait of type " + Type.getClassName(traitType) + " was found for style binding";
 		}
-		_value = (Reflect.getProperty(trait, prop) * multi)+offset;
+		_value = Reflect.getProperty(trait, prop);
+		
+		if (changeSignal != null) {
+			var trait:Dynamic = context.getTrait(traitType);
+			if(trait!=null){
+				return [Reflect.getProperty(trait, changeSignal)];
+			}
+		}
+		return null;
 		
 	}
 }

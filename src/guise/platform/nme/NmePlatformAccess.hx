@@ -265,6 +265,8 @@ class LayerInfo{
 			container = new Sprite();
 			container.name = layerName;
 			
+			if (sizable != null) sizable.addDisplay(container);
+			
 			assessDisplayObject();
 		}
 	}

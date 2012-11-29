@@ -52,10 +52,10 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 		
 		switch(style) {
 			case BsRectComplex(f, s, c, w, h, x, y):
-				boxX = x!=null?x.currentValue:0;
-				boxY = y!=null?y.currentValue:0;
-				boxW = w!=null?w.currentValue:this.w;
-				boxH = h!=null?h.currentValue:this.h;
+				boxX = x!=null?getValue(x):0;
+				boxY = y!=null?getValue(y):0;
+				boxW = w!=null?getValue(w):this.w;
+				boxH = h!=null?getValue(h):this.h;
 				
 				fill = f;
 				stroke = s;
@@ -73,10 +73,10 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 						
 				}
 			case BsCapsule(f, s, w, h, x, y):
-				boxX = x!=null?x.currentValue:0;
-				boxY = y!=null?y.currentValue:0;
-				boxW = w!=null?w.currentValue:this.w;
-				boxH = h!=null?h.currentValue:this.h;
+				boxX = x!=null?getValue(x):0;
+				boxY = y!=null?getValue(y):0;
+				boxW = w!=null?getValue(w):this.w;
+				boxH = h!=null?getValue(h):this.h;
 				
 				fill = f;
 				stroke = s;
@@ -88,10 +88,10 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 				bl = CAPSULE_CORNER;
 				br = CAPSULE_CORNER;
 			case BsRect(f, s, w, h, x, y):
-				boxX = x!=null?x.currentValue:0;
-				boxY = y!=null?y.currentValue:0;
-				boxW = w!=null?w.currentValue:this.w;
-				boxH = h!=null?h.currentValue:this.h;
+				boxX = x!=null?getValue(x):0;
+				boxY = y!=null?getValue(y):0;
+				boxW = w!=null?getValue(w):this.w;
+				boxH = h!=null?getValue(h):this.h;
 				
 				fill = f;
 				stroke = s;
@@ -106,7 +106,7 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 		
 		var centerX:Float = boxX + boxW / 2;
 		var centerY:Float = boxY + boxH / 2;
-		StyledLayerUtils.beginFillStrokes(_graphics, fill, stroke, boxW, boxH, function(index:Int):Void {
+		StyledLayerUtils.beginFillStrokes(_graphics, fill, stroke, true, boxW, boxH, function(index:Int):Void {
 			drawCorner(tl, false, false, -Math.PI/2, true, boxW, boxH, centerX, centerY);
 			drawCorner(tr, true, false, 0, false, boxW, boxH, centerX, centerY);
 			drawCorner(br, true, true, Math.PI/2, false, boxW, boxH, centerX, centerY);

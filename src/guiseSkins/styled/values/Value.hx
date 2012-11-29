@@ -1,6 +1,7 @@
 package guiseSkins.styled.values;
 import composure.core.ComposeItem;
 
+import msignal.Signal;
 /**
  * ...
  * @author Tom Byrne
@@ -26,7 +27,7 @@ class Value implements IValue
 		this.value = value;
 	}
 	
-	public function update(context:ComposeItem):Void {
-		// ignore
+	public function update(context:ComposeItem):Array<AnySignal> {
+		return null;
 	}
 }

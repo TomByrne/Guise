@@ -10,4 +10,5 @@ enum ControlTags {
 	TextLabelTag;
 	TextInputTag;
 	ToggleButtonTag;
+	SliderTag(vert:Bool);
 }

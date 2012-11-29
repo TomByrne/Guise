@@ -2,6 +2,10 @@ package guise.controls;
 
 import composure.utilTraits.Furnisher;
 import composure.core.ComposeItem;
+import guise.controls.data.INumRange;
+import guise.controls.logic.input.MouseDragChangeValue;
+import guise.layout.Position;
+import guiseSkins.styled.values.Bind;
 
 import guise.controls.ControlTags;
 import guise.controls.data.ISelected;
@@ -29,6 +33,10 @@ class ControlLogic
 		within.addTrait(furnisher);
 		
 		furnisher = new Furnisher(ToggleButtonTag, [TType(MouseOverTrait), TType(ButtonStateMapper), TType(SelectableStateMapper), TType(ButtonClickTrait), TType(ClickToggleSelect), TType(Selected, [UnlessHas(ISelected)])]);
+		within.addTrait(furnisher);
+		
+		furnisher = new Furnisher(SliderTag(true), [TType(MouseOverTrait), TType(ButtonStateMapper), TType(NumRange, [UnlessHas(INumRange)]), Furnisher.fact(new MouseDragChangeValue(null,true,INumRange,"valueNorm",null,null,new Bind(Position, "w", "layoutInfoChanged")))]);
+		furnisher.checkEnumParams = [];
 		within.addTrait(furnisher);
 	}
 	

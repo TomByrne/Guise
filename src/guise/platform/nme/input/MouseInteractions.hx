@@ -51,10 +51,12 @@ class MouseInteractions implements IMouseInteractions
 			_pressed.dispatch(mouseInfo);
 		}
 		if (_released != null) {
+			interactiveObject.stage.addEventListener(MouseEvent.MOUSE_MOVE, onMoved);
 			interactiveObject.stage.addEventListener(MouseEvent.MOUSE_UP, onReleased);
 		}
 	}
 	private function onReleased(event:MouseEvent):Void {
+		interactiveObject.stage.removeEventListener(MouseEvent.MOUSE_MOVE, onMoved);
 		interactiveObject.stage.removeEventListener(MouseEvent.MOUSE_UP, onReleased);
 		if (_released != null) {
 			setMouseInfo();

@@ -26,6 +26,11 @@ class NormalLayering
 		furnisher = new Furnisher(ToggleButtonTag);
 		furnisher.addTrait(TFact(function(tag:Dynamic) { return new LayerOrderer([ControlLayers.BACKING, ControlLayers.CONTROL_HANDLE]);} ));
 		within.addTrait(furnisher);
+		
+		furnisher = new Furnisher(SliderTag(true));
+		furnisher.checkEnumParams = [];
+		furnisher.addTrait(TFact(function(tag:Dynamic) { return new LayerOrderer([ControlLayers.BACKING, ControlLayers.CONTROL_HANDLE]);} ));
+		within.addTrait(furnisher);
 	}
 	
 }
