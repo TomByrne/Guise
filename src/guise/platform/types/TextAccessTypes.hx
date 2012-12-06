@@ -28,6 +28,8 @@ interface ITextOutputAccess implements IAccessType{
 	function setAntiAliasing(type:AntiAliasType):Void;
 	function setText(run:TextRun, isHtml:Bool):Void;
 	
+	function setPos(x:Float, y:Float, w:Float, h:Float):Void;
+	
 }
 class TextRun {
 	public var style:TextStyle;

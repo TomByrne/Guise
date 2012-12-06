@@ -8,5 +8,5 @@ package guise.core;
 enum CoreTags {
 	StageTag;
 	WindowTag;
-	CursorTag;
+	ContainerTag;
 }

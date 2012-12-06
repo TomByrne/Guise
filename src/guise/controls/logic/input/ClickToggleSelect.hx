@@ -14,8 +14,22 @@ class ClickToggleSelect extends AbstractTrait
 	@inject
 	public var selected:ISelected;
 	
-	
-	private var _mouseClickable:IMouseClickable;
+	@inject
+	public var mouseClickable(default, set_mouseClickable):IMouseClickable;
+	private function set_mouseClickable(value:IMouseClickable):IMouseClickable{
+		
+		if(mouseClickable!=null){
+			mouseClickable.clicked.remove(onClicked);
+			mouseClickable = null;
+		}
+		
+		mouseClickable = value;
+		if(mouseClickable!=null){
+			mouseClickable = value;
+			mouseClickable.clicked.add(onClicked);
+		}
+		return value;
+	}
 
 	public function new(?layerName:String) 
 	{
@@ -23,12 +37,10 @@ class ClickToggleSelect extends AbstractTrait
 		addSiblingTrait(new PlatformAccessor(IMouseClickable, layerName, onMouseClickAdd, onMouseClickRemove));
 	}
 	private function onMouseClickAdd(access:IMouseClickable):Void {
-		_mouseClickable = access;
-		_mouseClickable.clicked.add(onClicked);
+		if(mouseClickable==null)mouseClickable = access;
 	}
 	private function onMouseClickRemove(access:IMouseClickable):Void {
-		_mouseClickable.clicked.remove(onClicked);
-		_mouseClickable = null;
+		if (mouseClickable == access) mouseClickable = null;
 	}
 	
 	private function onClicked(info:ClickInfo):Void {

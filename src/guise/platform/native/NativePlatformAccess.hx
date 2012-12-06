@@ -14,8 +14,9 @@ class NativePlatformAccess
 	public static function install(within:ComposeItem){
 		
 		#if js
-			guise.platform.html.HtmlPlatformAccess.install(within);
+			guise.platform.html5.HtmlPlatformAccess.install(within);
 		#elseif waxe
+		trace("waxe");
 			// Waxe fallback
 			//guise.platform.waxe.WaxePlatformAccess.install(within);
 		#elseif nme

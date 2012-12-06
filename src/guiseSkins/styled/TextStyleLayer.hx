@@ -1,5 +1,6 @@
 package guiseSkins.styled;
 import guise.controls.ControlLayers;
+import guise.styledLayers.ITextLayer;
 import guise.traits.core.IPosition;
 import guise.traits.core.ISize;
 import guise.controls.data.ITextLabel;
@@ -13,8 +14,26 @@ import guise.platform.PlatformAccessor;
  * @author Tom Byrne
  */
 
-class TextStyleLayer extends AbsStyledLayer<TextLabelStyle> 
+class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>, implements ITextLayer
 {
+	public var filterAccess(default, set_filterAccess):IFilterableAccess;
+	private function set_filterAccess(value:IFilterableAccess):IFilterableAccess {
+		if (filterLayer!=null) {
+			filterLayer.filterAccess = value;
+		}
+		filterAccess = value;
+		return value;
+	}
+	public var textAccess(default, set_textAccess):ITextOutputAccess;
+	private function set_textAccess(value:ITextOutputAccess):ITextOutputAccess {
+		_textDisplay = value;
+		if (_textDisplay != null) {
+			invalidate();
+		}
+		return value;
+	}
+	
+	
 	@inject
 	public var textLabel(default, set_textLabel):ITextLabel;
 	private function set_textLabel(value:ITextLabel):ITextLabel {
@@ -26,6 +45,20 @@ class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>
 			textLabel.textChanged.add(onTextChanged);
 		}
 		invalidate();
+		return value;
+	}
+	
+	public var filterLayer(default, set_filterLayer):FilterLayer;
+	private function set_filterLayer(value:FilterLayer):FilterLayer {
+		if (filterLayer != null) {
+			filterLayer.filterAccess = null;
+			removeSiblingTrait(filterLayer);
+		}
+		filterLayer = value;
+		if (filterLayer != null) {
+			filterLayer.filterAccess = filterAccess;
+			addSiblingTrait(filterLayer);
+		}
 		return value;
 	}
 	
@@ -41,15 +74,15 @@ class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>
 		
 		_requireSize = true;
 		
-		addSiblingTrait(new PlatformAccessor(ITextOutputAccess, layerName, onTextAdd, onTextRemove));
+		//addSiblingTrait(new PlatformAccessor(ITextOutputAccess, layerName, onTextAdd, onTextRemove));
 	}
-	private function onTextAdd(access:ITextOutputAccess):Void {
+	/*private function onTextAdd(access:ITextOutputAccess):Void {
 		_textDisplay = access;
 		invalidate();
 	}
 	private function onTextRemove(access:ITextOutputAccess):Void {
 		_textDisplay = null;
-	}
+	}*/
 	override private function _isReadyToDraw():Bool {
 		if (textLabel == null || _textDisplay==null) return false;
 		return super._isReadyToDraw();
@@ -63,6 +96,7 @@ class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>
 				_textDisplay.setAntiAliasing(aa);
 				_textDisplay.setText(new TextRun(ts, [Text(toCase(text, tc))]), true);
 		}
+		_textDisplay.setPos(0,0,w,h);
 	}
 	private function toCase(str:String, textCase:TextCase):String{
 			if (textCase != null) {

@@ -1,11 +1,10 @@
-package guise.platform.nme.input;
+package guise.platform.html5.logic;
 import composure.traits.AbstractTrait;
-import nme.display.InteractiveObject;
-import nme.events.MouseEvent;
 import guise.platform.types.InteractionAccessTypes;
-import guise.platform.nme.display.DisplayTrait;
+import js.Dom;
 
 import msignal.Signal;
+import guise.platform.html5.display.DisplayTrait;
 
 /**
  * ...
@@ -18,39 +17,21 @@ class MouseClickable extends AbstractTrait, implements IMouseClickable
 	public var displayTrait(default, set_displayTrait):DisplayTrait;
 	private function set_displayTrait(value:DisplayTrait):DisplayTrait {
 		if (displayTrait!=null) {
-			if (displayTrait.displayObject == interactiveObject) {
-				interactiveObject = null;
-			}
+			displayTrait.domElement.onclick = null;
 		}
 		displayTrait = value;
 		if (displayTrait != null) {
-			if (interactiveObject==null && Std.is(displayTrait.displayObject, InteractiveObject)) {
-				interactiveObject = cast displayTrait.displayObject;
-			}
-		}
-		return value;
-	}
-	
-	public var interactiveObject(default, set_interactiveObject):InteractiveObject;
-	private function set_interactiveObject(value:InteractiveObject):InteractiveObject {
-		if (interactiveObject!=null) {
-			interactiveObject.removeEventListener(MouseEvent.CLICK, onClicked);
-			interactiveObject.removeEventListener(MouseEvent.DOUBLE_CLICK, onDoubleClicked);
-		}
-		interactiveObject = value;
-		if (interactiveObject!=null) {
-			if(_clicked!=null && _clicked.numListeners>0)interactiveObject.addEventListener(MouseEvent.CLICK, onClicked);
-			if (_doubleClicked != null && _doubleClicked.numListeners>0) interactiveObject.addEventListener(MouseEvent.DOUBLE_CLICK, onDoubleClicked);
+			if(_clicked!=null && _clicked.numListeners>0)displayTrait.domElement.onclick = onClicked;
+			if (_doubleClicked != null && _doubleClicked.numListeners>0)displayTrait.domElement.ondblclick = onDoubleClicked;
 		}
 		return value;
 	}
 	
 	private var clickInfo:ClickInfo;
 
-	public function new(?interactiveObject:InteractiveObject) 
+	public function new() 
 	{
 		super();
-		this.interactiveObject = interactiveObject;
 	}
 	
 	private function setClickInfo(left:Bool, altHeld:Bool, ctrlHeld:Bool, shiftHeld:Bool):Void {
@@ -63,13 +44,13 @@ class MouseClickable extends AbstractTrait, implements IMouseClickable
 		clickInfo.shiftHeld = shiftHeld;
 	}
 	
-	private function onClicked(event:MouseEvent):Void {
+	private function onClicked(event:Event):Void {
 		if (_clicked != null) {
 			setClickInfo(true, event.altKey, event.ctrlKey, event.shiftKey);
 			_clicked.dispatch(clickInfo);
 		}
 	}
-	private function onDoubleClicked(event:MouseEvent):Void {
+	private function onDoubleClicked(event:Event):Void {
 		if (_doubleClicked != null) {
 			setClickInfo(true, event.altKey, event.ctrlKey, event.shiftKey);
 			_doubleClicked.dispatch(clickInfo);
@@ -81,7 +62,7 @@ class MouseClickable extends AbstractTrait, implements IMouseClickable
 	private function get_clicked():Signal1<ClickInfo> {
 		if (_clicked == null) {
 			_clicked = new Signal1();
-			if(interactiveObject!=null)interactiveObject.addEventListener(MouseEvent.CLICK, onClicked);
+			if(displayTrait!=null)displayTrait.domElement.onclick = onClicked;
 		}
 		return _clicked;
 	}
@@ -91,7 +72,7 @@ class MouseClickable extends AbstractTrait, implements IMouseClickable
 	private function get_doubleClicked():Signal1<ClickInfo> {
 		if (_doubleClicked == null) {
 			_doubleClicked = new Signal1();
-			if (interactiveObject != null) interactiveObject.addEventListener(MouseEvent.DOUBLE_CLICK, onDoubleClicked);
+			if (displayTrait != null) displayTrait.domElement.ondblclick = onDoubleClicked;
 		}
 		return _doubleClicked;
 	}

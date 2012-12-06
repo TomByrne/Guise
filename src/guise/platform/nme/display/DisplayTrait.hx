@@ -3,7 +3,8 @@ package guise.platform.nme.display;
 import composure.injectors.Injector;
 import composure.traitCheckers.TraitTypeChecker;
 import guise.core.AbsPosAwareTrait;
-import guise.layout.IPositionable;
+import guise.layout.IDisplayPosition;
+import guise.platform.cross.display.AbsDisplayTrait;
 import nme.display.DisplayObject;
 import nme.events.Event;
 
@@ -13,20 +14,21 @@ import msignal.Signal;
  * @author Tom Byrne
  */
 
-class DisplaySkin extends AbsPosAwareTrait, implements IPositionable
+class DisplayTrait extends AbsDisplayTrait
 {
 	
 	public var displayObject(default, null):DisplayObject;
 	
-	private var _parent:ContainerSkin;
+	private var _parent:ContainerTrait;
 
 	public function new(displayObject:DisplayObject=null) 
 	{
 		super();
+		_posListen = true;
 		
-		var injector = new Injector(ContainerSkin, onParentAdded, onParentRemoved, true, false, true);
-		injector.stopAscendingAt = TraitTypeChecker.create(DisplaySkin);
-		injector.matchTrait = TraitTypeChecker.create(ContainerSkin,true,this);
+		var injector = new Injector(ContainerTrait, onParentAdded, onParentRemoved, true, false, true);
+		injector.stopAscendingAt = TraitTypeChecker.create(DisplayTrait);
+		injector.matchTrait = TraitTypeChecker.create(ContainerTrait,true,this);
 		addInjector(injector);
 		
 		if(displayObject!=null && this.displayObject!=displayObject){
@@ -35,7 +37,7 @@ class DisplaySkin extends AbsPosAwareTrait, implements IPositionable
 			assumeDisplayObject();
 		}
 	}
-	private function onParentAdded(parent:ContainerSkin):Void {
+	private function onParentAdded(parent:ContainerTrait):Void {
 		if (_parent != null) return;
 		
 		_parent = parent;
@@ -43,7 +45,7 @@ class DisplaySkin extends AbsPosAwareTrait, implements IPositionable
 			parent.container.addChild(displayObject);
 		}
 	}
-	private function onParentRemoved(parent:ContainerSkin):Void {
+	private function onParentRemoved(parent:ContainerTrait):Void {
 		if (_parent != parent) return;
 		
 		if(displayObject!=null && parent.container!=null){
@@ -69,7 +71,7 @@ class DisplaySkin extends AbsPosAwareTrait, implements IPositionable
 		}
 	}
 	
-	override private function posChanged():Void {
+	override private function onPosChanged(from:IDisplayPosition):Void {
 		if (!Math.isNaN(position.y) && !Math.isNaN(position.x)) {
 			displayObject.x = position.x;
 			displayObject.y = position.y;

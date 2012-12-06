@@ -1,6 +1,6 @@
 package guiseSkins.styled;
 import guise.core.AbsPosSizeAwareTrait;
-import guise.layout.IPositionable;
+import guise.styledLayers.IDisplayLayer;
 import guiseSkins.styled.values.IValue;
 import guiseSkins.trans.ITransitioner;
 import guise.traits.states.StateStyledTrait;
@@ -10,8 +10,9 @@ import guise.traits.states.StateStyledTrait;
  * @author Tom Byrne
  */
 
-class AbsStyledLayer<StyleType> extends StateStyledTrait<StyleType>, implements IPositionable
+class AbsStyledLayer<StyleType> extends StateStyledTrait<StyleType>, implements IDisplayLayer
 {
+	public var id:String;
 
 	public function new(?normalStyle:StyleType) 
 	{

@@ -1,21 +1,24 @@
 package guise.platform.nme.display;
-import composure.traits.AbstractTrait;
-import guise.core.AbsPosSizeAwareTrait;
-import nme.display.GradientType;
-import nme.display.Shape;
+import guise.platform.nme.display.ContainerTrait;
 import nme.display.Stage;
 import nme.display.StageAlign;
 import nme.display.StageScaleMode;
-import nme.geom.Matrix;
-import guise.platform.nme.display.ContainerSkin;
-import guise.platform.nme.core.FrameTicker;
+import nme.events.Event;
+import guise.platform.types.DisplayAccessTypes;
+import msignal.Signal;
 
 /**
  * @author Tom Byrne
  */
 
-class StageTrait extends AbstractTrait
+class StageTrait extends ContainerTrait, implements IWindowInfo
 {
+	@lazyInst
+	public var availSizeChanged(default, null):Signal1<IWindowInfo>;
+	
+	public var availWidth(default, null):Int;
+	public var availHeight(default, null):Int;
+	
 	public var stage(get_stage, null):Stage;
 	private function get_stage():Stage {
 		return _stage;
@@ -25,30 +28,26 @@ class StageTrait extends AbstractTrait
 
 	public function new() 
 	{
-		super();
-		
 		_stage = nme.Lib.stage;
+		super(_stage);
+		
 		_stage.align = StageAlign.TOP_LEFT;
 		_stage.scaleMode = StageScaleMode.NO_SCALE;
 		
-		addSiblingTrait(new ContainerSkin(_stage));
-		
-		/*var ref = new Shape();
-		ref.x = ref.y = 60;
-		var mat:Matrix = new Matrix(1, 0, 0, 1, 0, 0);
-		mat.createGradientBox(100, 30, Math.PI/2, 0, 0);
-		ref.graphics.beginGradientFill(GradientType.LINEAR, [0, 0xffffff], [1, 1], [0, 0xff], mat);
-		ref.graphics.drawRect(0, 0, 100, 100);
-		_stage.addChild(ref);*/
-		
+		setAvailSize(_stage.stageWidth, _stage.stageHeight);
+		_stage.addEventListener(Event.RESIZE, onResize);
 	}
 	
-	/*override private function posChanged():Void {
-		// ContainerSkin will handle this
+	private function onResize(e:Event):Void {
+		setAvailSize(_stage.stageWidth, _stage.stageHeight);
 	}
-	/*override private function sizeChanged():Void {
-		// this doesn't work yet (just scales contents)
-		_stage.stageWidth = size.width;
-		_stage.stageHeight = size.height;
-	}*/
+	
+	private function setAvailSize(width:Int, height:Int):Void {
+		if (this.availWidth != width || this.availHeight != height) {
+			this.availWidth = width;
+			this.availHeight = height;
+			
+			LazyInst.exec(availSizeChanged.dispatch(this));
+		}
+	}
 }

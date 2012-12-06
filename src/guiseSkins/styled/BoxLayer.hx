@@ -1,4 +1,5 @@
 package guiseSkins.styled;
+import guise.styledLayers.IGraphicsLayer;
 import guise.traits.core.IPosition;
 import guise.traits.core.ISize;
 import guiseSkins.styled.Styles;
@@ -6,14 +7,51 @@ import guise.platform.types.DrawingAccessTypes;
 import guise.platform.PlatformAccessor;
 import guise.geom.Matrix;
 import guiseSkins.styled.values.IValue;
+import guise.platform.types.DisplayAccessTypes;
 
 /**
  * ...
  * @author Tom Byrne
  */
 
-class BoxLayer extends AbsStyledLayer<BoxStyle>
+class BoxLayer extends AbsStyledLayer<BoxStyle>, implements IGraphicsLayer
 {
+	
+	
+	public var filterAccess(default, set_filterAccess):IFilterableAccess;
+	private function set_filterAccess(value:IFilterableAccess):IFilterableAccess {
+		if (filterLayer!=null) {
+			filterLayer.filterAccess = value;
+		}
+		filterAccess = value;
+		return value;
+	}
+	public var graphicsAccess(default, set_graphicsAccess):IGraphics;
+	private function set_graphicsAccess(value:IGraphics):IGraphics {
+		if (_graphics != null) {
+			_graphics.clear();
+		}
+		_graphics = value;
+		if (_graphics != null) {
+			invalidate();
+		}
+		return value;
+	}
+	
+	public var filterLayer(default, set_filterLayer):FilterLayer;
+	private function set_filterLayer(value:FilterLayer):FilterLayer {
+		if (filterLayer != null) {
+			filterLayer.filterAccess = null;
+			removeSiblingTrait(filterLayer);
+		}
+		filterLayer = value;
+		if (filterLayer != null) {
+			filterLayer.filterAccess = filterAccess;
+			addSiblingTrait(filterLayer);
+		}
+		return value;
+	}
+	
 	private var _graphics:IGraphics;
 
 	public function new(?layerName:String, ?normalStyle:BoxStyle) 
@@ -21,16 +59,16 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 		super(normalStyle);
 		_requireSize = true;
 		
-		addSiblingTrait(new PlatformAccessor(IGraphics, layerName, onGraphicsAdd, onGraphicsRemove));
+		//addSiblingTrait(new PlatformAccessor(IGraphics, layerName, onGraphicsAdd, onGraphicsRemove));
 	}
-	private function onGraphicsAdd(access:IGraphics):Void {
+	/*private function onGraphicsAdd(access:IGraphics):Void {
 		_graphics = access;
 		invalidate();
 	}
 	private function onGraphicsRemove(access:IGraphics):Void {
 		_graphics.clear();
 		_graphics = null;
-	}
+	}*/
 	override private function _isReadyToDraw():Bool {
 		return _graphics != null && super._isReadyToDraw();
 	}

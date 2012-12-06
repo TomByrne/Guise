@@ -35,11 +35,11 @@
     <library name="xirsys_stdjs" />
     <library name="feffects" />
     <library name="mpartial" />
-    <library name="waxe" />
   </haxelib>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <!-- example: <compile path="..." /> -->
+    <compile path="..\testSrc\NmeTest.hx" />
+    <compile path="..\testSrc\NativeTest.hx" />
   </compileTargets>
   <!-- Assets to embed into the output SWF -->
   <library>

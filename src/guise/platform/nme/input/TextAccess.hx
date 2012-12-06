@@ -54,6 +54,12 @@ class TextAccess implements ITextInputAccess, implements ITextOutputAccess
 				//textField.gridFitType = GridFitType.NONE;
 		}
 	}
+	public function setPos(x:Float, y:Float, w:Float, h:Float):Void {
+		_textField.x = x;
+		_textField.y = y;
+		_textField.width = w;
+		_textField.height = h;
+	}
 	public var inputEnabled(default, set_inputEnabled):Bool;
 	private function set_inputEnabled(value:Bool):Bool {
 		_textField.type = value?TextFieldType.INPUT:TextFieldType.DYNAMIC;

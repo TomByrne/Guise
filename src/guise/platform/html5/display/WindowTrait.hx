@@ -1,4 +1,4 @@
-package guise.platform.html.display;
+package guise.platform.html5.display;
 
 import guise.traits.core.IPosition;
 import guise.platform.types.DisplayAccessTypes;
@@ -18,6 +18,7 @@ import msignal.Signal;
 
 class WindowTrait extends AbsPosSizeAwareTrait, implements IWindowInfo
 {
+	@lazyInst
 	public var availSizeChanged(default, null):Signal1<IWindowInfo>;
 	
 	public var availWidth(default, null):Int;
@@ -55,10 +56,11 @@ class WindowTrait extends AbsPosSizeAwareTrait, implements IWindowInfo
 			this.availWidth = width;
 			this.availHeight = height;
 			
-			availSizeChanged.dispatch(this);
+			LazyInst.exec(availSizeChanged.dispatch(this));
 		}
 	}
 	private function onWindowResized(e:Event):Void {
+		setAvailSize(window.screen.availWidth, window.screen.availHeight);
 		size.set(window.innerWidth, window.innerHeight);
 	}
 }

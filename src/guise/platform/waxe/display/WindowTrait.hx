@@ -15,9 +15,9 @@ import msignal.Signal;
  * @author Tom Byrne
  */
 
-class WindowTrait extends AbsPosSizeAwareTrait, implements IScreenInfo
+class WindowTrait extends AbsPosSizeAwareTrait, implements IWindowInfo
 {
-	public var availSizeChanged(default, null):Signal1<IScreenInfo>;
+	public var availSizeChanged(default, null):Signal1<IWindowInfo>;
 	
 	public var availWidth(default, null):Int;
 	public var availHeight(default, null):Int;

@@ -32,6 +32,7 @@ class AbsPosSizeAwareTrait extends AbsPosAwareTrait
 	
 	private function sizeChanged():Void {
 		// override me
+		trace("sizeChanged");
 		var width:Float = size.width;
 		var height:Float = size.height;
 		if (!Math.isNaN(width) && width > 0 && !Math.isNaN(height) && height > 0) {

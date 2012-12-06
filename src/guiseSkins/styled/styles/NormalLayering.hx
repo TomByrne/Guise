@@ -3,6 +3,8 @@ import composure.core.ComposeItem;
 import composure.utilTraits.Furnisher;
 import guise.controls.ControlLayers;
 import guise.controls.ControlTags;
+import guise.controls.data.ISelected;
+import guise.controls.logic.input.ClickToggleSelect;
 import guise.layer.LayerOrderer;
 
 /**
@@ -15,7 +17,12 @@ class NormalLayering
 
 	public static function install(within:ComposeItem) 
 	{
-		var furnisher:Furnisher = new Furnisher(TextButtonTag);
+		var furnisher:Furnisher = new Furnisher(TextButtonTag(false));
+		furnisher.addTrait(TFact(function(tag:Dynamic) { return new LayerOrderer([ControlLayers.BACKING, ControlLayers.LABEL_TEXT]);}) );
+		within.addTrait(furnisher);
+		
+		furnisher = new Furnisher(TextButtonTag(true));
+		furnisher.checkEnumParams = [];
 		furnisher.addTrait(TFact(function(tag:Dynamic) { return new LayerOrderer([ControlLayers.BACKING, ControlLayers.LABEL_TEXT]);}) );
 		within.addTrait(furnisher);
 		

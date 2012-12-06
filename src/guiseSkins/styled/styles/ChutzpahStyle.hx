@@ -4,7 +4,6 @@ import composure.utilTraits.Furnisher;
 import guise.controls.ControlLayers;
 import guise.controls.ControlTags;
 import guise.controls.data.INumRange;
-import guise.layout.Position;
 import guiseSkins.styled.BoxLayer;
 import guiseSkins.styled.FilterLayer;
 import guiseSkins.styled.FramingLayer;
@@ -22,6 +21,7 @@ import nme.text.Font;
 import guise.platform.types.TextAccessTypes;
 import guise.platform.types.DisplayAccessTypes;
 import guise.controls.ControlLogic;
+import guise.layout.IDisplayPosition;
 
 /**
  * ...
@@ -93,25 +93,25 @@ class ChutzpahStyle
 			_buttonBackDownUnsel = BsCapsule(	downGradient, SsNone);
 			
 			_buttonBackSelNorm = BsCapsule(		downGradient, normStroke);
-			_buttonBackSelOver = BsCapsule(		overGradient, overStroke);
+			_buttonBackSelOver = BsCapsule(		downGradient, overStroke);
 		
 			_inputBackNorm = BsRectComplex(		normGradient, normStroke, CSame(CsCirc(5)));
 			_inputBackFocus = BsRectComplex(	downGradient, overStroke, CSame(CsCirc(5)));
 			
 		
-			_toggleBackNorm = BsCapsule(		normGradient, normStroke, new Value(26), new Value(12), val(Position, "w", "layoutInfoChanged", 0.5,-13), val(Position, "h", "layoutInfoChanged",0.5,-6));
-			_toggleBackSelNorm = BsCapsule(		blueGradient, normStroke, new Value(26), new Value(12), val(Position, "w", "layoutInfoChanged", 0.5,-13), val(Position, "h", "layoutInfoChanged",0.5,-6));
+			_toggleBackNorm = BsCapsule(		normGradient, normStroke, new Value(26), new Value(12), val(Pos, "w", "sizeChanged", 0.5,-13), val(Pos, "h", "sizeChanged",0.5,-6));
+			_toggleBackSelNorm = BsCapsule(		blueGradient, normStroke, new Value(26), new Value(12), val(Pos, "w", "sizeChanged", 0.5,-13), val(Pos, "h", "sizeChanged",0.5,-6));
 			
-			_toggleNormUnsel = 	SsEllipse(	normGradient, normStroke, new Value(16), new Value(16), val(Position, "w", "layoutInfoChanged", 0.5,-15), val(Position, "h", "layoutInfoChanged", 0.5,-9));
-			_toggleOverUnsel = 	SsEllipse(	overGradient, overStroke, new Value(16), new Value(16), val(Position, "w", "layoutInfoChanged", 0.5,-15), val(Position, "h", "layoutInfoChanged", 0.5,-9));
-			_toggleNormSel = 	SsEllipse(	normGradient, normStroke, new Value(16), new Value(16), val(Position, "w", "layoutInfoChanged", 0.5, -1), val(Position, "h", "layoutInfoChanged", 0.5,-9));
-			_toggleOverSel = 	SsEllipse(	overGradient, overStroke, new Value(16), new Value(16), val(Position, "w", "layoutInfoChanged", 0.5, -1), val(Position, "h", "layoutInfoChanged", 0.5,-9));
+			_toggleNormUnsel = 	SsEllipse(	normGradient, normStroke, new Value(16), new Value(16), val(Pos, "w", "sizeChanged", 0.5,-15), val(Pos, "h", "sizeChanged", 0.5,-9));
+			_toggleOverUnsel = 	SsEllipse(	overGradient, overStroke, new Value(16), new Value(16), val(Pos, "w", "sizeChanged", 0.5,-15), val(Pos, "h", "sizeChanged", 0.5,-9));
+			_toggleNormSel = 	SsEllipse(	normGradient, normStroke, new Value(16), new Value(16), val(Pos, "w", "sizeChanged", 0.5, -1), val(Pos, "h", "sizeChanged", 0.5,-9));
+			_toggleOverSel = 	SsEllipse(	overGradient, overStroke, new Value(16), new Value(16), val(Pos, "w", "sizeChanged", 0.5, -1), val(Pos, "h", "sizeChanged", 0.5,-9));
 			
 		
-			_hSliderBackNorm = BsCapsule(		normGradient, normStroke, null, new Value(12), null, val(Position, "h", "layoutInfoChanged",0.5,-6));
+			_hSliderBackNorm = BsCapsule(		normGradient, normStroke, null, new Value(12), null, val(Pos, "h", "sizeChanged",0.5,-6));
 			
-			_sliderX = new Calc(Add, [new Calc(Multiply, [new Bind(INumRange, "valueNorm", "rangeChanged"), new Calc(Add, [new Bind(Position, "w", "layoutInfoChanged"), new Value(-4)])]), new Value(4)]);
-			_sliderY = val(Position, "h", "layoutInfoChanged", 0.5);
+			_sliderX = new Calc(Add, [new Calc(Multiply, [new Bind(INumRange, "valueNorm", "rangeChanged"), new Calc(Add, [new Bind(Pos, "w", "sizeChanged"), new Value(-4)])]), new Value(4)]);
+			_sliderY = val(Pos, "h", "sizeChanged", 0.5);
 			_sliderNorm = 	SsMulti([SsEllipse(	normGradient, normStroke, new Value(16), new Value(16), new Value(-8), new Value(-8)),
 										SsEllipse(	FsSolid(0xc1c1c1), SsSolid(1, FsHLinearGradient([ { c:0x979797, a:1, fract:0 }, { c:0xfefefe, a:1, fract:1 } ])), new Value(5), new Value(5), new Value(-2.5), new Value(-2.5))]);
 			_sliderOver = 	SsMulti([SsEllipse(	overGradient, overStroke, new Value(16), new Value(16), new Value(-8), new Value(-8)),
@@ -129,7 +129,8 @@ class ChutzpahStyle
 			_buttonTextFiltNorm = [DropShadow(1, Math.PI/2, 1, 0xffffff, 0.65)];
 		}
 		
-		var furnisher = new Furnisher(TextButtonTag, [TFact(buttonBacking), TFact(buttonFilter), TFact(labelText), TFact(labelTextAlign), TFact(textFilt(ControlLayers.LABEL_TEXT))]);
+		var furnisher = new Furnisher(TextButtonTag(false), [TFact(buttonBacking), TFact(labelText), TFact(labelTextAlign), TFact(textFilt(ControlLayers.LABEL_TEXT))]);
+		furnisher.checkEnumParams = [];
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
@@ -137,7 +138,7 @@ class ChutzpahStyle
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
-		furnisher = new Furnisher(TextInputTag, [TFact(inputBacking), TFact(inputFilter), TFact(inputText), TFact(inputTextAlign), TFact(textFilt(ControlLayers.INPUT_TEXT))]);
+		furnisher = new Furnisher(TextInputTag, [TFact(inputBacking), TFact(inputText), TFact(inputTextAlign), TFact(textFilt(ControlLayers.INPUT_TEXT))]);
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
@@ -162,10 +163,16 @@ class ChutzpahStyle
 	private static function buttonBacking(tag:Dynamic):BoxLayer {
 		var boxLayer:BoxLayer = new BoxLayer(ControlLayers.BACKING);
 		boxLayer.normalStyle = _buttonBackNorm;
-		boxLayer.addStyle([ButtonOverState.OVER, SelectedState.UNSELECTED], _buttonBackOver);
-		boxLayer.addStyle([ButtonDownState.DOWN, SelectableState.UNSELECTABLE], _buttonBackDownUnsel, 1);
 		boxLayer.addStyle([SelectedState.SELECTED, ButtonOverState.OUT], _buttonBackSelNorm);
 		boxLayer.addStyle([SelectedState.SELECTED, ButtonOverState.OVER], _buttonBackSelOver);
+		boxLayer.addStyle([ButtonOverState.OVER, SelectedState.UNSELECTED], _buttonBackOver);
+		boxLayer.addStyle([ButtonDownState.DOWN, SelectableState.UNSELECTABLE], _buttonBackDownUnsel, 1);
+		
+		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.BACKING);
+		filterLayer.normalStyle = _buttonFiltNorm;
+		filterLayer.addStyle([ButtonDownState.DOWN], _buttonFiltDown);
+		boxLayer.filterLayer = filterLayer;
+		
 		return boxLayer;
 	}
 	private static function toggleBacking(tag:Dynamic):BoxLayer {
@@ -192,12 +199,6 @@ class ChutzpahStyle
 			return filterLayer;
 		}
 	}
-	private static function buttonFilter(tag:Dynamic):FilterLayer {
-		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.BACKING);
-		filterLayer.normalStyle = _buttonFiltNorm;
-		filterLayer.addStyle([ButtonDownState.DOWN], _buttonFiltDown);
-		return filterLayer;
-	}
 	private static function toggleFilter(tag:Dynamic):FilterLayer {
 		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.BACKING);
 		filterLayer.normalStyle = _buttonFiltDown;
@@ -221,13 +222,13 @@ class ChutzpahStyle
 		var boxLayer:BoxLayer = new BoxLayer(ControlLayers.BACKING);
 		boxLayer.normalStyle = _inputBackNorm;
 		boxLayer.addStyle([FocusState.FOCUSED], _inputBackFocus);
+		
+		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.BACKING);
+		filterLayer.normalStyle = _buttonFiltNorm;
+		filterLayer.addStyle([FocusState.FOCUSED], _buttonFiltDown);
+		boxLayer.filterLayer = filterLayer;
+		
 		return boxLayer;
-	}
-	private static function inputFilter(tag:Dynamic):FilterLayer {
-		var boxFilterLayer:FilterLayer = new FilterLayer(ControlLayers.BACKING);
-		boxFilterLayer.normalStyle = _buttonFiltNorm;
-		boxFilterLayer.addStyle([FocusState.FOCUSED], _buttonFiltDown);
-		return boxFilterLayer;
 	}
 	
 	private static function toggleHandle(tag:Dynamic):SimpleShapeLayer {

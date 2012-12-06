@@ -10,7 +10,7 @@ import nme.display.Sprite;
  * @author Tom Byrne
  */
 
-class ContainerSkin extends DisplaySkin
+class ContainerTrait extends DisplayTrait
 {
 	public var container(default, null):DisplayObjectContainer;
 	public var sprite(default, null):Sprite;

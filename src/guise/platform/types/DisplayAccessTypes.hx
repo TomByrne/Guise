@@ -11,9 +11,9 @@ import msignal.Signal;
 class DisplayAccessTypes 
 {}
 
-interface IScreenInfo 
+interface IWindowInfo 
 {
-	public var availSizeChanged(default, null):Signal1<IScreenInfo>;
+	public var availSizeChanged(get_availSizeChanged, null):Signal1<IWindowInfo>;
 	
 	public var availWidth(default, null):Int;
 	public var availHeight(default, null):Int;

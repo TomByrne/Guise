@@ -10,7 +10,7 @@ import guise.platform.nme.input.MouseClickable;
 import guise.platform.nme.input.MouseInteractions;
 import guise.platform.types.TextAccessTypes;
 import guise.platform.types.DisplayAccessTypes;
-import guise.platform.nme.display.ContainerSkin;
+import guise.platform.nme.display.ContainerTrait;
 import nme.display.Stage;
 import nme.text.TextFieldType;
 import nme.text.TextField;
@@ -26,8 +26,12 @@ import guise.platform.nme.input.KeyboardAccess;
 import guise.platform.nme.display.FilterableAccess;
 import guise.platform.nme.display.StageTrait;
 import guise.core.CoreTags;
+import guise.controls.ControlTags;
 import composure.utilTraits.Furnisher;
 import guise.platform.nme.core.FrameTicker;
+import guise.platform.nme.layers.LayerContainer;
+import guise.styledLayers.IDisplayLayer;
+import guiseSkins.styled.AbsStyledLayer;
 
 /**
  * ...
@@ -38,8 +42,25 @@ import guise.platform.nme.core.FrameTicker;
 class NmePlatformAccess extends AbsPlatformAccess<ContInfo, LayerInfo>
 {
 	public static function install(within:ComposeItem){
-		within.addTrait(new NmePlatformAccess());
-		within.addTrait(new Furnisher(StageTag,	[TType(StageTrait)]));
+		//within.addTrait(new NmePlatformAccess());
+		within.addTrait(new Furnisher(WindowTag,	[TFact(getStage)], null, true, false, true));
+		within.addTrait(new Furnisher(StageTag,		[TFact(getStage)], null, true, false, true));
+		
+		within.addTrait(new Furnisher(ContainerTag,		[TType(ContainerTrait, [UnlessHas(ContainerTrait)])]));
+		within.addTrait(new Furnisher(IDisplayLayer,	[TType(ContainerTrait, [UnlessHas(ContainerTrait)]), TType(LayerContainer, [UnlessHas(LayerContainer)])]));
+		
+		var furnisher = new Furnisher(TextButtonTag(false), [TType(MouseClickable)]);
+		furnisher.checkEnumParams = [];
+		within.addTrait(furnisher);
+	}
+	
+	private static var _stage:StageTrait;
+	
+	private static function getStage(tag:CoreTags):StageTrait {
+		if (_stage==null) {
+			_stage = new StageTrait();
+		}
+		return _stage;
 	}
 	
 	
@@ -199,12 +220,12 @@ class ContInfo {
 		return value;
 	}
 	
-	private var _contSkin:ContainerSkin;
+	private var _contSkin:ContainerTrait;
 	
 	public function new(context:ComposeItem){
 		//super();
 		
-		_contSkin = new ContainerSkin();
+		_contSkin = new ContainerTrait();
 		container = _contSkin.sprite;
 		
 		this.context = context;
