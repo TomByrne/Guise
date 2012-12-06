@@ -8,6 +8,6 @@ package guise.styledLayers;
 interface IDisplayLayer 
 {
 
-	public var id:String;
+	public var layerName(default, null):String;
 	public function setPosition(x:Float, y:Float, w:Float, h:Float):Void;
 }

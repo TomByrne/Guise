@@ -10,8 +10,10 @@ import guise.platform.html5.display.WindowTrait;
 import guise.platform.html5.display.StageTrait;
 import guise.platform.html5.display.ContainerTrait;
 import guise.platform.html5.display.DisplayTrait;
-import guise.platform.html5.controls.ButtonTrait;
+import guise.platform.html5.controls.TextButtonTrait;
 import guise.platform.html5.logic.MouseClickable;
+import guise.platform.html5.controls.TextLabelTrait;
+import guise.platform.html5.controls.TextInputTrait;
 
 /**
  * ...
@@ -24,8 +26,10 @@ class HtmlPlatformAccess {
 		within.addTrait(new Furnisher(WindowTag,	[TFact(getWindow)], null, true, false, true));
 		within.addTrait(new Furnisher(StageTag,		[TFact(getStage)], null, true, false, true));
 		
-		within.addTrait(new Furnisher(TextButtonTag(false),[TType(ButtonTrait), TType(MouseClickable)]));
-		within.addTrait(new Furnisher(TextButtonTag(true),[TType(ButtonTrait), TType(MouseClickable)]));
+		within.addTrait(new Furnisher(TextButtonTag(false),[TType(TextButtonTrait), TType(MouseClickable)]));
+		within.addTrait(new Furnisher(TextButtonTag(true),[TType(TextButtonTrait), TType(MouseClickable)]));
+		within.addTrait(new Furnisher(TextInputTag,[TType(TextInputTrait)]));
+		within.addTrait(new Furnisher(TextLabelTag,[TType(TextLabelTrait)]));
 	}
 	
 	private static var _window:WindowTrait;

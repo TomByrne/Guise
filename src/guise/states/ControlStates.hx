@@ -1,4 +1,4 @@
-package guise.traits.states;
+package guise.states;
 
 /**
  * ...

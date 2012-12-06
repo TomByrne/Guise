@@ -1,5 +1,6 @@
 package guiseSkins.styled;
 import guise.platform.types.DisplayAccessTypes;
+import guise.styledLayers.IGraphicsLayer;
 import guise.traits.core.IPosition;
 import guise.traits.core.ISize;
 import guise.platform.types.DrawingAccessTypes;
@@ -11,9 +12,54 @@ import guiseSkins.styled.values.IValue;
  * @author Tom Byrne
  */
 
-class SimpleShapeLayer extends AbsStyledLayer<ShapeStyle>
+class SimpleShapeLayer extends AbsStyledLayer<ShapeStyle>, implements IGraphicsLayer
 {
-	private var _graphics:IGraphics;
+	
+	public var layerName(default, null):String;
+	
+	public var filterAccess(default, set_filterAccess):IFilterableAccess;
+	private function set_filterAccess(value:IFilterableAccess):IFilterableAccess {
+		if (filterLayer!=null) {
+			filterLayer.filterAccess = value;
+		}
+		filterAccess = value;
+		return value;
+	}
+	public var graphicsAccess(default, set_graphicsAccess):IGraphics;
+	private function set_graphicsAccess(value:IGraphics):IGraphics {
+		if (graphicsAccess != null) {
+			graphicsAccess.clear();
+		}
+		graphicsAccess = value;
+		if (graphicsAccess != null) {
+			invalidate();
+		}
+		return value;
+	}
+	public var positionAccess(default, set_positionAccess):IPositionAccess;
+	private function set_positionAccess(value:IPositionAccess):IPositionAccess {
+		positionAccess = value;
+		if (positionAccess != null) {
+			invalidate();
+		}
+		return value;
+	}
+	
+	public var filterLayer(default, set_filterLayer):FilterLayer;
+	private function set_filterLayer(value:FilterLayer):FilterLayer {
+		if (filterLayer != null) {
+			filterLayer.filterAccess = null;
+			removeSiblingTrait(filterLayer);
+		}
+		filterLayer = value;
+		if (filterLayer != null) {
+			filterLayer.filterAccess = filterAccess;
+			addSiblingTrait(filterLayer);
+		}
+		return value;
+	}
+	
+	
 	private var _positionable:ISizableDisplayAccess;
 	
 	public var xValue(default, set_xValue):IValue;
@@ -43,43 +89,45 @@ class SimpleShapeLayer extends AbsStyledLayer<ShapeStyle>
 	{
 		super(normalStyle);
 		_requireSize = true;
+		this.layerName = layerName;
 		
-		addSiblingTrait(new PlatformAccessor(IGraphics, layerName, onGraphicsAdd, onGraphicsRemove));
-		addSiblingTrait(new PlatformAccessor(ISizableDisplayAccess, layerName, onPosAdd, onPosRemove));
+		//addSiblingTrait(new PlatformAccessor(IGraphics, layerName, onGraphicsAdd, onGraphicsRemove));
+		//addSiblingTrait(new PlatformAccessor(ISizableDisplayAccess, layerName, onPosAdd, onPosRemove));
 	}
-	private function onGraphicsAdd(access:IGraphics):Void {
+	/*private function onGraphicsAdd(access:IGraphics):Void {
 		_graphics = access;
 		invalidate();
 	}
 	private function onGraphicsRemove(access:IGraphics):Void {
 		_graphics.clear();
 		_graphics = null;
-	}
-	private function onPosAdd(access:ISizableDisplayAccess):Void {
+	}*/
+	/*private function onPosAdd(access:ISizableDisplayAccess):Void {
 		_positionable = access;
 		invalidate();
 	}
 	private function onPosRemove(access:ISizableDisplayAccess):Void {
 		_positionable = null;
-	}
+	}*/
 	override private function _isReadyToDraw():Bool {
-		return _graphics != null && super._isReadyToDraw();
+		return graphicsAccess != null && super._isReadyToDraw();
 	}
 	override private function _drawStyle():Void {
 		if(xValue!=null && yValue != null){
 			//xValue.update(item);
 			//yValue.update(item);
-			_positionable.setPos(new Position(getValue(xValue), getValue(yValue)));
+			//_positionable.setPos(new Position(getValue(xValue), getValue(yValue)));
+			positionAccess.setPos(getValue(xValue), getValue(yValue));
 		}
 		
 		
-		_graphics.clear();
+		graphicsAccess.clear();
 		
 		var style:ShapeStyle = currentStyle;
 		
 		drawShape(currentStyle);
 		
-		_graphics.endFill();
+		graphicsAccess.endFill();
 	}
 	private function drawShape(style:ShapeStyle):Void {
 		switch(style) {
@@ -92,7 +140,7 @@ class SimpleShapeLayer extends AbsStyledLayer<ShapeStyle>
 				var yVal:Float = getValue(y);
 				var wVal:Float = getValue(w);
 				var hVal:Float = getValue(h);
-				StyledLayerUtils.beginFillStrokes(_graphics, f, s, false, wVal, hVal, function(index:Int):Void{_graphics.drawEllipse(xVal, yVal, wVal, hVal);});
+				StyledLayerUtils.beginFillStrokes(graphicsAccess, f, s, false, wVal, hVal, function(index:Int):Void{graphicsAccess.drawEllipse(xVal, yVal, wVal, hVal);});
 		}
 	}
 }

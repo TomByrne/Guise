@@ -20,6 +20,10 @@ interface IWindowInfo
 	
 }
 
+interface IPositionAccess implements IAccessType {
+	public function setPos(x:Float, y:Float):Void;
+}
+
 interface ISizableDisplayAccess implements IAccessType {
 	public var measChanged(get_measChanged, null):Signal1<ISizableDisplayAccess>;
 	

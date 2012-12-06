@@ -2,8 +2,8 @@ package guise.controls.logic.states;
 
 import composure.traits.AbstractTrait;
 import guise.controls.ControlLayers;
-import guise.traits.states.State;
-import guise.traits.states.ControlStates;
+import guise.states.State;
+import guise.states.ControlStates;
 import haxe.Log;
 import guise.platform.types.InteractionAccessTypes;
 import guise.platform.PlatformAccessor;

@@ -18,7 +18,7 @@
     <class path="..\src" />
     <class path="..\testSrc" />
     <class path="..\..\Composure\src" />
-    <class path="../bin/flash/haxe" />
+    <class path="../bin/html5/web/haxe" />
   </classpaths>
   <!-- Build options -->
   <build>
@@ -26,7 +26,7 @@
     <option flashStrict="False" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="True" />
-    <option additional="-swf-version 10.1" />
+    <option additional="--remap flash:nme&#xA;--js-modern" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>

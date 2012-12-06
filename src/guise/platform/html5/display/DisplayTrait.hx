@@ -1,7 +1,6 @@
 package guise.platform.html5.display;
 import composure.traits.AbstractTrait;
 import guise.layout.IDisplayPosition;
-import guise.layout.IPositionable;
 import js.Dom;
 import composure.injectors.Injector;
 import composure.traitCheckers.TraitTypeChecker;
@@ -11,7 +10,7 @@ import guise.platform.cross.display.AbsDisplayTrait;
  * @author Tom Byrne
  */
 
-class DisplayTrait extends AbsDisplayTrait, implements IPositionable
+class DisplayTrait extends AbsDisplayTrait
 {
 	public var domElement(default, null):HtmlDom;
 	
@@ -55,10 +54,6 @@ class DisplayTrait extends AbsDisplayTrait, implements IPositionable
 	}
 	override private function onSizeChanged(from:IDisplayPosition):Void {
 		_setSize(from.width, from.height);
-	}
-	public function setPosition(x:Float, y:Float, w:Float, h:Float):Void {
-		_setPosition(x, y);
-		_setSize(w, h);
 	}
 	public function setAllowSizing(value:Bool):Void {
 		_allowSizing = value;

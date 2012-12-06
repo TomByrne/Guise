@@ -3,6 +3,7 @@ import composure.traits.AbstractTrait;
 import nme.events.MouseEvent;
 import guise.platform.types.InteractionAccessTypes;
 import nme.display.InteractiveObject;
+import guise.platform.nme.display.DisplayTrait;
 
 import msignal.Signal;
 
@@ -13,6 +14,23 @@ import msignal.Signal;
 
 class MouseInteractions implements IMouseInteractions
 {
+	@inject
+	public var displayTrait(default, set_displayTrait):DisplayTrait;
+	private function set_displayTrait(value:DisplayTrait):DisplayTrait {
+		if (displayTrait!=null) {
+			if (displayTrait.displayObject == interactiveObject) {
+				interactiveObject = null;
+			}
+		}
+		displayTrait = value;
+		if (displayTrait != null) {
+			if (interactiveObject==null && Std.is(displayTrait.displayObject, InteractiveObject)) {
+				interactiveObject = cast displayTrait.displayObject;
+			}
+		}
+		return value;
+	}
+	
 	public var interactiveObject(default, set_interactiveObject):InteractiveObject;
 	private function set_interactiveObject(value:InteractiveObject):InteractiveObject {
 		if (interactiveObject!=null) {

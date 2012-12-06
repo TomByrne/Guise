@@ -1,4 +1,4 @@
-package guise.traits.states;
+package guise.states;
 import composure.traits.AbstractTrait;
 import guise.utils.Clone;
 import guiseSkins.styled.values.IValue;

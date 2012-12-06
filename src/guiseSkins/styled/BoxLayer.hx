@@ -16,7 +16,7 @@ import guise.platform.types.DisplayAccessTypes;
 
 class BoxLayer extends AbsStyledLayer<BoxStyle>, implements IGraphicsLayer
 {
-	
+	public var layerName(default, null):String;
 	
 	public var filterAccess(default, set_filterAccess):IFilterableAccess;
 	private function set_filterAccess(value:IFilterableAccess):IFilterableAccess {
@@ -28,11 +28,19 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>, implements IGraphicsLayer
 	}
 	public var graphicsAccess(default, set_graphicsAccess):IGraphics;
 	private function set_graphicsAccess(value:IGraphics):IGraphics {
-		if (_graphics != null) {
-			_graphics.clear();
+		if (graphicsAccess != null) {
+			graphicsAccess.clear();
 		}
-		_graphics = value;
-		if (_graphics != null) {
+		graphicsAccess = value;
+		if (graphicsAccess != null) {
+			invalidate();
+		}
+		return value;
+	}
+	public var positionAccess(default, set_positionAccess):IPositionAccess;
+	private function set_positionAccess(value:IPositionAccess):IPositionAccess {
+		positionAccess = value;
+		if (positionAccess != null) {
 			invalidate();
 		}
 		return value;
@@ -51,13 +59,12 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>, implements IGraphicsLayer
 		}
 		return value;
 	}
-	
-	private var _graphics:IGraphics;
 
 	public function new(?layerName:String, ?normalStyle:BoxStyle) 
 	{
 		super(normalStyle);
 		_requireSize = true;
+		this.layerName = layerName;
 		
 		//addSiblingTrait(new PlatformAccessor(IGraphics, layerName, onGraphicsAdd, onGraphicsRemove));
 	}
@@ -70,10 +77,14 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>, implements IGraphicsLayer
 		_graphics = null;
 	}*/
 	override private function _isReadyToDraw():Bool {
-		return _graphics != null && super._isReadyToDraw();
+		return graphicsAccess != null && super._isReadyToDraw();
 	}
 	override private function _drawStyle():Void {
-		_graphics.clear();
+		/*if(xValue!=null && yValue != null){
+			positionAccess.setPos(getValue(xValue), getValue(yValue));
+		}*/
+		
+		graphicsAccess.clear();
 		
 		var style:BoxStyle = currentStyle;
 		var fill:FillStyle;
@@ -144,13 +155,13 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>, implements IGraphicsLayer
 		
 		var centerX:Float = boxX + boxW / 2;
 		var centerY:Float = boxY + boxH / 2;
-		StyledLayerUtils.beginFillStrokes(_graphics, fill, stroke, true, boxW, boxH, function(index:Int):Void {
+		StyledLayerUtils.beginFillStrokes(graphicsAccess, fill, stroke, true, boxW, boxH, function(index:Int):Void {
 			drawCorner(tl, false, false, -Math.PI/2, true, boxW, boxH, centerX, centerY);
 			drawCorner(tr, true, false, 0, false, boxW, boxH, centerX, centerY);
 			drawCorner(br, true, true, Math.PI/2, false, boxW, boxH, centerX, centerY);
 			drawCorner(bl, false, true, Math.PI, false, boxW, boxH, centerX, centerY);
 		});
-		_graphics.endFill();
+		graphicsAccess.endFill();
 	}
 	static var SQUARE_CORNER:CornerStyle;
 	static var CAPSULE_CORNER:CornerStyle;
@@ -165,9 +176,9 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>, implements IGraphicsLayer
 				if (flipH) x *= -1;
 				if (flipV) y *= -1;
 				if (isInitial) {
-					_graphics.moveTo(x+cX, y+cY);
+					graphicsAccess.moveTo(x+cX, y+cY);
 				}else {
-					_graphics.lineTo(x+cX, y+cY);
+					graphicsAccess.lineTo(x+cX, y+cY);
 				}
 			case CsCirc(r):
 				if (r > hW) r = hW;
@@ -178,7 +189,7 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>, implements IGraphicsLayer
 				if (flipH) x *= -1;
 				if (flipV) y *= -1;
 				
-				drawArc(_graphics, x+cX, y+cY, r, Math.PI / 2, angle, isInitial);
+				drawArc(graphicsAccess, x+cX, y+cY, r, Math.PI / 2, angle, isInitial);
 		}
 	}
 	private function drawArc(graphics:IGraphics, x:Float, y:Float, radius:Float, angle:Float, startAngle:Float, isInitial:Bool, accuracy:Int=8){

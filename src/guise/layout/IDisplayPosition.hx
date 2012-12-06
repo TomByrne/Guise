@@ -12,8 +12,8 @@ interface IDisplayPosition
 	
 	public var x(default, null):Float;
 	public var y(default, null):Float;
-	public var width(default, null):Float;
-	public var height(default, null):Float;
+	public var w(default, null):Float;
+	public var h(default, null):Float;
 	
 }
 
@@ -31,8 +31,8 @@ class Pos implements IDisplayPosition
 	
 	public var x(default, null):Float;
 	public var y(default, null):Float;
-	public var width(default, null):Float;
-	public var height(default, null):Float;
+	public var w(default, null):Float;
+	public var h(default, null):Float;
 
 	public function new(x:Float=0, y:Float=0, ?width:Null<Float>, ?height:Null<Float>) 
 	{
@@ -49,9 +49,9 @@ class Pos implements IDisplayPosition
 		}
 	}
 	public function setSize(width:Float, height:Float):Void {
-		if (this.width != width || this.height != height) {
-			this.width = width;
-			this.height = height;
+		if (this.w != width || this.h != height) {
+			this.w = width;
+			this.h = height;
 			LazyInst.exec(sizeChanged.dispatch(this));
 			LazyInst.exec(changed.dispatch(this));
 		}

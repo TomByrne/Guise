@@ -16,6 +16,9 @@ import guise.platform.PlatformAccessor;
 
 class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>, implements ITextLayer
 {
+	public var layerName(default, null):String;
+	
+	
 	public var filterAccess(default, set_filterAccess):IFilterableAccess;
 	private function set_filterAccess(value:IFilterableAccess):IFilterableAccess {
 		if (filterLayer!=null) {
@@ -69,6 +72,7 @@ class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>, implements ITextLay
 	public function new(layerName:String, ?normalStyle:TextLabelStyle) 
 	{
 		super(normalStyle);
+		this.layerName = layerName;
 		/*_textPos = new Position(0, 0);
 		_textSize = new Size();*/
 		

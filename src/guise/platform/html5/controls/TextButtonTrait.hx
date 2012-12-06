@@ -12,7 +12,7 @@ import js.Lib;
  * @author Tom Byrne
  */
 
-class ButtonTrait extends DisplayTrait
+class TextButtonTrait extends DisplayTrait
 {
 	@inject
 	public var textLabel(default, set_textLabel):ITextLabel;
@@ -61,11 +61,6 @@ class ButtonTrait extends DisplayTrait
 		super(_button);
 		_labelElement = Lib.document.createElement("label");
 		_button.appendChild(_labelElement);
-	}
-	
-	override private function onSizeChanged(from:IDisplayPosition):Void {
-		trace("sizeChanged");
-		super.onSizeChanged(from);
 	}
 	
 	private function onTextChanged(from:ITextLabel):Void {

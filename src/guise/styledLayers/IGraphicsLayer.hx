@@ -12,5 +12,6 @@ interface IGraphicsLayer implements IDisplayLayer
 {
 	public var filterAccess(default, set_filterAccess):IFilterableAccess;
 	public var graphicsAccess(default, set_graphicsAccess):IGraphics;
+	public var positionAccess(default, set_positionAccess):IPositionAccess;
 	
 }

@@ -10,7 +10,7 @@ import guiseSkins.styled.FramingLayer;
 import guiseSkins.styled.DefaultStyleTrans;
 import guiseSkins.styled.SimpleShapeLayer;
 import guiseSkins.styled.TextStyleLayer;
-import guise.traits.states.ControlStates;
+import guise.states.ControlStates;
 import guiseSkins.styled.Styles;
 import guiseSkins.styled.values.Bind;
 import guiseSkins.styled.values.Calc;
@@ -99,19 +99,19 @@ class ChutzpahStyle
 			_inputBackFocus = BsRectComplex(	downGradient, overStroke, CSame(CsCirc(5)));
 			
 		
-			_toggleBackNorm = BsCapsule(		normGradient, normStroke, new Value(26), new Value(12), val(Pos, "w", "sizeChanged", 0.5,-13), val(Pos, "h", "sizeChanged",0.5,-6));
-			_toggleBackSelNorm = BsCapsule(		blueGradient, normStroke, new Value(26), new Value(12), val(Pos, "w", "sizeChanged", 0.5,-13), val(Pos, "h", "sizeChanged",0.5,-6));
+			_toggleBackNorm = BsCapsule(		normGradient, normStroke, new Value(26), new Value(12), val(IDisplayPosition, "w", "sizeChanged", 0.5,-13), val(IDisplayPosition, "h", "sizeChanged",0.5,-6));
+			_toggleBackSelNorm = BsCapsule(		blueGradient, normStroke, new Value(26), new Value(12), val(IDisplayPosition, "w", "sizeChanged", 0.5,-13), val(IDisplayPosition, "h", "sizeChanged",0.5,-6));
 			
-			_toggleNormUnsel = 	SsEllipse(	normGradient, normStroke, new Value(16), new Value(16), val(Pos, "w", "sizeChanged", 0.5,-15), val(Pos, "h", "sizeChanged", 0.5,-9));
-			_toggleOverUnsel = 	SsEllipse(	overGradient, overStroke, new Value(16), new Value(16), val(Pos, "w", "sizeChanged", 0.5,-15), val(Pos, "h", "sizeChanged", 0.5,-9));
-			_toggleNormSel = 	SsEllipse(	normGradient, normStroke, new Value(16), new Value(16), val(Pos, "w", "sizeChanged", 0.5, -1), val(Pos, "h", "sizeChanged", 0.5,-9));
-			_toggleOverSel = 	SsEllipse(	overGradient, overStroke, new Value(16), new Value(16), val(Pos, "w", "sizeChanged", 0.5, -1), val(Pos, "h", "sizeChanged", 0.5,-9));
+			_toggleNormUnsel = 	SsEllipse(	normGradient, normStroke, new Value(16), new Value(16), val(IDisplayPosition, "w", "sizeChanged", 0.5,-15), val(IDisplayPosition, "h", "sizeChanged", 0.5,-9));
+			_toggleOverUnsel = 	SsEllipse(	overGradient, overStroke, new Value(16), new Value(16), val(IDisplayPosition, "w", "sizeChanged", 0.5,-15), val(IDisplayPosition, "h", "sizeChanged", 0.5,-9));
+			_toggleNormSel = 	SsEllipse(	normGradient, normStroke, new Value(16), new Value(16), val(IDisplayPosition, "w", "sizeChanged", 0.5, -1), val(IDisplayPosition, "h", "sizeChanged", 0.5,-9));
+			_toggleOverSel = 	SsEllipse(	overGradient, overStroke, new Value(16), new Value(16), val(IDisplayPosition, "w", "sizeChanged", 0.5, -1), val(IDisplayPosition, "h", "sizeChanged", 0.5,-9));
 			
 		
-			_hSliderBackNorm = BsCapsule(		normGradient, normStroke, null, new Value(12), null, val(Pos, "h", "sizeChanged",0.5,-6));
+			_hSliderBackNorm = BsCapsule(		normGradient, normStroke, null, new Value(12), null, val(IDisplayPosition, "h", "sizeChanged",0.5,-6));
 			
-			_sliderX = new Calc(Add, [new Calc(Multiply, [new Bind(INumRange, "valueNorm", "rangeChanged"), new Calc(Add, [new Bind(Pos, "w", "sizeChanged"), new Value(-4)])]), new Value(4)]);
-			_sliderY = val(Pos, "h", "sizeChanged", 0.5);
+			_sliderX = new Calc(Add, [new Calc(Multiply, [new Bind(INumRange, "valueNorm", "rangeChanged"), new Calc(Add, [new Bind(IDisplayPosition, "w", "sizeChanged"), new Value(-4)])]), new Value(4)]);
+			_sliderY = val(IDisplayPosition, "h", "sizeChanged", 0.5);
 			_sliderNorm = 	SsMulti([SsEllipse(	normGradient, normStroke, new Value(16), new Value(16), new Value(-8), new Value(-8)),
 										SsEllipse(	FsSolid(0xc1c1c1), SsSolid(1, FsHLinearGradient([ { c:0x979797, a:1, fract:0 }, { c:0xfefefe, a:1, fract:1 } ])), new Value(5), new Value(5), new Value(-2.5), new Value(-2.5))]);
 			_sliderOver = 	SsMulti([SsEllipse(	overGradient, overStroke, new Value(16), new Value(16), new Value(-8), new Value(-8)),
@@ -129,24 +129,24 @@ class ChutzpahStyle
 			_buttonTextFiltNorm = [DropShadow(1, Math.PI/2, 1, 0xffffff, 0.65)];
 		}
 		
-		var furnisher = new Furnisher(TextButtonTag(false), [TFact(buttonBacking), TFact(labelText), TFact(labelTextAlign), TFact(textFilt(ControlLayers.LABEL_TEXT))]);
+		var furnisher = new Furnisher(TextButtonTag(false), [TFact(buttonBacking), TFact(labelText), TFact(labelTextAlign)]);
 		furnisher.checkEnumParams = [];
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
-		furnisher = new Furnisher(TextLabelTag, [TFact(labelText), TFact(labelTextAlign), TFact(textFilt(ControlLayers.LABEL_TEXT))]);
+		furnisher = new Furnisher(TextLabelTag, [TFact(labelText), TFact(labelTextAlign)]);
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
-		furnisher = new Furnisher(TextInputTag, [TFact(inputBacking), TFact(inputText), TFact(inputTextAlign), TFact(textFilt(ControlLayers.INPUT_TEXT))]);
+		furnisher = new Furnisher(TextInputTag, [TFact(inputBacking), TFact(inputText), TFact(inputTextAlign)]);
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
-		furnisher = new Furnisher(ToggleButtonTag, [TFact(toggleBacking), TFact(toggleFilter), TFact(toggleHandle), TFact(toggleHandleFilter)]);
+		furnisher = new Furnisher(ToggleButtonTag, [TFact(toggleBacking), TFact(toggleHandle)]);
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
-		furnisher = new Furnisher(SliderTag(false), [TFact(hSliderBacking), TFact(toggleFilter), TFact(sliderHandle), TFact(toggleHandleFilter)]);
+		furnisher = new Furnisher(SliderTag(false), [TFact(hSliderBacking), TFact(sliderHandle)]);
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 	}
@@ -168,7 +168,7 @@ class ChutzpahStyle
 		boxLayer.addStyle([ButtonOverState.OVER, SelectedState.UNSELECTED], _buttonBackOver);
 		boxLayer.addStyle([ButtonDownState.DOWN, SelectableState.UNSELECTABLE], _buttonBackDownUnsel, 1);
 		
-		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.BACKING);
+		var filterLayer:FilterLayer = new FilterLayer();
 		filterLayer.normalStyle = _buttonFiltNorm;
 		filterLayer.addStyle([ButtonDownState.DOWN], _buttonFiltDown);
 		boxLayer.filterLayer = filterLayer;
@@ -179,6 +179,11 @@ class ChutzpahStyle
 		var boxLayer:BoxLayer = new BoxLayer(ControlLayers.BACKING);
 		boxLayer.normalStyle = _toggleBackNorm;
 		boxLayer.addStyle([SelectedState.SELECTED], _toggleBackSelNorm);
+		
+		var filterLayer:FilterLayer = new FilterLayer();
+		filterLayer.normalStyle = _buttonFiltDown;
+		boxLayer.filterLayer = filterLayer;
+		
 		return boxLayer;
 	}
 	private static function hSliderBacking(tag:Dynamic):BoxLayer {
@@ -187,28 +192,22 @@ class ChutzpahStyle
 		return boxLayer;
 	}
 	private static function labelText(tag:Dynamic):TextStyleLayer {
-		return new TextStyleLayer(ControlLayers.LABEL_TEXT, _labelTextStyle);
+		var textLayer = new TextStyleLayer(ControlLayers.LABEL_TEXT, _labelTextStyle);
+		
+		var filterLayer:FilterLayer = new FilterLayer();
+		filterLayer.normalStyle = _buttonTextFiltNorm;
+		textLayer.filterLayer = filterLayer;
+		
+		return textLayer;
 	}
 	private static function inputText(tag:Dynamic):TextStyleLayer {
-		return new TextStyleLayer(ControlLayers.INPUT_TEXT, _inputTextStyle);
-	}
-	private static function textFilt(layerName:String):Dynamic->FilterLayer {
-		return function(tag:Dynamic):FilterLayer{
-			var filterLayer:FilterLayer = new FilterLayer(layerName);
-			filterLayer.normalStyle = _buttonTextFiltNorm;
-			return filterLayer;
-		}
-	}
-	private static function toggleFilter(tag:Dynamic):FilterLayer {
-		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.BACKING);
-		filterLayer.normalStyle = _buttonFiltDown;
-		return filterLayer;
-	}
-	private static function toggleHandleFilter(tag:Dynamic):FilterLayer {
-		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.CONTROL_HANDLE);
-		filterLayer.normalStyle = _buttonFiltNorm;
-		filterLayer.addStyle([ButtonDownState.DOWN], _buttonFiltDown);
-		return filterLayer;
+		var textLayer = new TextStyleLayer(ControlLayers.INPUT_TEXT, _inputTextStyle);
+		
+		var filterLayer:FilterLayer = new FilterLayer();
+		filterLayer.normalStyle = _buttonTextFiltNorm;
+		textLayer.filterLayer = filterLayer;
+		
+		return textLayer;
 	}
 	
 	private static function inputTextAlign(tag:Dynamic):FramingLayer {
@@ -223,7 +222,7 @@ class ChutzpahStyle
 		boxLayer.normalStyle = _inputBackNorm;
 		boxLayer.addStyle([FocusState.FOCUSED], _inputBackFocus);
 		
-		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.BACKING);
+		var filterLayer:FilterLayer = new FilterLayer();
 		filterLayer.normalStyle = _buttonFiltNorm;
 		filterLayer.addStyle([FocusState.FOCUSED], _buttonFiltDown);
 		boxLayer.filterLayer = filterLayer;
@@ -237,6 +236,12 @@ class ChutzpahStyle
 		shape.addStyle([ButtonOverState.OVER, SelectedState.UNSELECTED], _toggleOverUnsel);
 		shape.addStyle([SelectedState.SELECTED, ButtonOverState.OUT], _toggleNormSel);
 		shape.addStyle([SelectedState.SELECTED, ButtonOverState.OVER], _toggleOverSel);
+		
+		var filterLayer:FilterLayer = new FilterLayer();
+		filterLayer.normalStyle = _buttonFiltNorm;
+		filterLayer.addStyle([ButtonDownState.DOWN], _buttonFiltDown);
+		shape.filterLayer = filterLayer;
+		
 		return shape;
 	}
 	
@@ -246,6 +251,12 @@ class ChutzpahStyle
 		shape.yValue = _sliderY;
 		shape.normalStyle = _sliderNorm;
 		shape.addStyle([ButtonOverState.OVER], _sliderOver);
+		
+		var filterLayer:FilterLayer = new FilterLayer();
+		filterLayer.normalStyle = _buttonFiltNorm;
+		filterLayer.addStyle([ButtonDownState.DOWN], _buttonFiltDown);
+		shape.filterLayer = filterLayer;
+		
 		return shape;
 	}
 }

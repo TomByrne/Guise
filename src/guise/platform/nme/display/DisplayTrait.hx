@@ -2,7 +2,6 @@ package guise.platform.nme.display;
 
 import composure.injectors.Injector;
 import composure.traitCheckers.TraitTypeChecker;
-import guise.core.AbsPosAwareTrait;
 import guise.layout.IDisplayPosition;
 import guise.platform.cross.display.AbsDisplayTrait;
 import nme.display.DisplayObject;

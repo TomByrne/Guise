@@ -5,6 +5,7 @@ import guise.layout.IDisplayPosition;
 import guise.platform.cross.display.AbsDisplayTrait;
 import guise.platform.nme.display.FilterableAccess;
 import guise.platform.nme.display.GraphicsAccess;
+import guise.platform.nme.display.PositionAccess;
 import guise.platform.nme.input.TextAccess;
 import guise.platform.types.TextAccessTypes;
 import guise.styledLayers.IDisplayLayer;
@@ -14,20 +15,26 @@ import guise.platform.nme.display.ContainerTrait;
 import nme.display.DisplayObject;
 import nme.display.Shape;
 import cmtc.ds.hash.ObjectHash;
+import guise.platform.types.DisplayAccessTypes;
+import msignal.Signal;
 
 /**
  * ...
  * @author Tom Byrne
  */
 
-class LayerContainer extends AbsDisplayTrait
+class LayerContainer extends AbsDisplayTrait, implements ILayerOrderAccess
 {
+	@lazyInst
+	public var layeringChanged(default, null):Signal1<ILayerOrderAccess>;
+	
+	
 	@inject
 	public var container(default, set_container):ContainerTrait;
 	private function set_container(value:ContainerTrait):ContainerTrait {
 		
 		if (container != null) {
-			for (bundle in _layers) {
+			for (bundle in _layerBundles) {
 				container.container.removeChild(bundle.display);
 			}
 		}
@@ -35,7 +42,7 @@ class LayerContainer extends AbsDisplayTrait
 		this.container = value;
 		
 		if (container != null) {
-			for (bundle in _layers) {
+			for (bundle in _layerBundles) {
 				container.container.addChild(bundle.display);
 			}
 		}
@@ -43,7 +50,9 @@ class LayerContainer extends AbsDisplayTrait
 		return value;
 	}
 	
-	private var _layers:Array<LayerBundle>;
+	public var layers(default, null):Array<String>;
+	
+	private var _layerBundles:Array<LayerBundle>;
 	private var _layerToBundle:ObjectHash<IDisplayLayer, LayerBundle>;
 	private var _graphLayers:Array<IGraphicsLayer>;
 	private var _textLayers:Array<ITextLayer>;
@@ -54,7 +63,8 @@ class LayerContainer extends AbsDisplayTrait
 		_sizeListen = true;
 		
 		_layerToBundle = new ObjectHash();
-		_layers = [];
+		layers = [];
+		_layerBundles = [];
 		_graphLayers = [];
 		_textLayers = [];
 	}
@@ -64,11 +74,15 @@ class LayerContainer extends AbsDisplayTrait
 		var display:Shape = new Shape();
 		layer.filterAccess = new FilterableAccess(display);
 		layer.graphicsAccess = new GraphicsAccess(display.graphics);
+		layer.positionAccess = new PositionAccess(display);
 		_graphLayers.push(layer);
 		attemptAddLayer(layer,display);
 	}
 	@injectRemove
 	public function onGraphLayerRemove(layer:IGraphicsLayer):Void {
+		layer.filterAccess = null;
+		layer.graphicsAccess = null;
+		layer.positionAccess = null;
 		_graphLayers.remove(layer);
 		attemptRemoveLayer(layer);
 	}
@@ -83,6 +97,8 @@ class LayerContainer extends AbsDisplayTrait
 	}
 	@injectRemove
 	public function onTextLayerRemove(layer:ITextLayer):Void {
+		layer.filterAccess = null;
+		layer.textAccess = null;
 		_textLayers.remove(layer);
 		attemptRemoveLayer(layer);
 	}
@@ -92,8 +108,12 @@ class LayerContainer extends AbsDisplayTrait
 		if (!_layerToBundle.exists(layer)) {
 			var bundle = new LayerBundle(layer, display);
 			_layerToBundle.set(layer, bundle);
-			_layers.push(bundle);
-			//sortLayers();
+			_layerBundles.push(bundle);
+			layers.push(layer.layerName);
+			LazyInst.exec(layeringChanged.dispatch(this));
+			if (position!=null) {
+				layer.setPosition(0, 0, position.w, position.h);
+			}
 		}else {
 			throw "Layer already addded";
 		}
@@ -104,19 +124,35 @@ class LayerContainer extends AbsDisplayTrait
 			if (container != null) {
 				container.container.removeChild(bundle.display);
 			}
-			if (position!=null) {
-				layer.setPosition(0, 0, position.width, position.height);
-			}
 			_layerToBundle.delete(layer);
-			_layers.remove(bundle);
+			_layerBundles.remove(bundle);
+			layers.remove(layer.layerName);
+			LazyInst.exec(layeringChanged.dispatch(this));
 		}else {
 			throw "Layer not addded";
 		}
 	}
 	
 	override private function onSizeChanged(from:IDisplayPosition):Void {
-		for (bundle in _layers) {
-			bundle.layer.setPosition(0, 0, from.width, from.height);
+		for (bundle in _layerBundles) {
+			bundle.layer.setPosition(0, 0, from.w, from.h);
+		}
+	}
+	public function swapDepths(layer1:String, layer2:String):Void {
+		var index1 = Lambda.indexOf(layers, layer1);
+		var index2 = Lambda.indexOf(layers, layer2);
+		
+		layers[index1] = layer2;
+		layers[index2] = layer1;
+		
+		var bundle1 = _layerBundles[index1];
+		var bundle2 = _layerBundles[index2];
+		
+		_layerBundles[index1] = bundle2;
+		_layerBundles[index2] = bundle1;
+		
+		if (container != null) {
+			container.container.swapChildren(bundle1.display, bundle2.display);
 		}
 	}
 }

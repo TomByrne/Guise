@@ -1,8 +1,8 @@
 package guise.platform.html5.display;
 
+import guise.layout.IDisplayPosition;
 import guise.traits.core.IPosition;
 import guise.platform.types.DisplayAccessTypes;
-import guise.core.AbsPosSizeAwareTrait;
 
 import js.Lib;
 import js.Dom;
@@ -11,12 +11,13 @@ import js.w3c.html5.Core;
 import js.Dom.HtmlDom;
 import composure.traits.AbstractTrait;
 import msignal.Signal;
+import guise.platform.cross.display.AbsDisplayTrait;
 
 /**
  * @author Tom Byrne
  */
 
-class WindowTrait extends AbsPosSizeAwareTrait, implements IWindowInfo
+class WindowTrait extends AbsDisplayTrait, implements IWindowInfo
 {
 	@lazyInst
 	public var availSizeChanged(default, null):Signal1<IWindowInfo>;
@@ -29,6 +30,8 @@ class WindowTrait extends AbsPosSizeAwareTrait, implements IWindowInfo
 	public function new() 
 	{
 		super();
+		_sizeListen = true;
+		_posListen = true;
 		
 		availSizeChanged = new Signal1();
 		
@@ -38,16 +41,15 @@ class WindowTrait extends AbsPosSizeAwareTrait, implements IWindowInfo
 		setAvailSize(window.screen.availWidth, window.screen.availHeight);
 	}
 	
-	override private function posChanged():Void {
+	override private function onPosChanged(from:IDisplayPosition):Void {
 		if (!Math.isNaN(position.y) && !Math.isNaN(position.x)) {
 			window.moveTo(Std.int(position.x), Std.int(position.y));
 		}
 	}
-	override private function sizeChanged():Void {
-		if (!Math.isNaN(size.width) && !Math.isNaN(size.height)) {
-			window.innerWidth = Std.int(size.width);
-			window.innerHeight = Std.int(size.height);
-			size.set(window.innerWidth, window.innerHeight);
+	override private function onSizeChanged(from:IDisplayPosition):Void {
+		if (!Math.isNaN(position.width) && !Math.isNaN(position.height)) {
+			window.innerWidth = Std.int(position.width);
+			window.innerHeight = Std.int(position.height);
 		}
 	}
 	
@@ -61,6 +63,5 @@ class WindowTrait extends AbsPosSizeAwareTrait, implements IWindowInfo
 	}
 	private function onWindowResized(e:Event):Void {
 		setAvailSize(window.screen.availWidth, window.screen.availHeight);
-		size.set(window.innerWidth, window.innerHeight);
 	}
 }

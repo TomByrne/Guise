@@ -32,6 +32,8 @@ import guise.platform.nme.core.FrameTicker;
 import guise.platform.nme.layers.LayerContainer;
 import guise.styledLayers.IDisplayLayer;
 import guiseSkins.styled.AbsStyledLayer;
+import guise.layer.LayerOrderer;
+import guise.controls.logic.states.ButtonStateMapper;
 
 /**
  * ...
@@ -39,7 +41,7 @@ import guiseSkins.styled.AbsStyledLayer;
  */
 
  
-class NmePlatformAccess extends AbsPlatformAccess<ContInfo, LayerInfo>
+class NmePlatformAccess// extends AbsPlatformAccess<ContInfo, LayerInfo>
 {
 	public static function install(within:ComposeItem){
 		//within.addTrait(new NmePlatformAccess());
@@ -47,11 +49,13 @@ class NmePlatformAccess extends AbsPlatformAccess<ContInfo, LayerInfo>
 		within.addTrait(new Furnisher(StageTag,		[TFact(getStage)], null, true, false, true));
 		
 		within.addTrait(new Furnisher(ContainerTag,		[TType(ContainerTrait, [UnlessHas(ContainerTrait)])]));
-		within.addTrait(new Furnisher(IDisplayLayer,	[TType(ContainerTrait, [UnlessHas(ContainerTrait)]), TType(LayerContainer, [UnlessHas(LayerContainer)])]));
+		within.addTrait(new Furnisher(IDisplayLayer,	[TType(ContainerTrait, [UnlessHas(ContainerTrait)]), TType(LayerContainer, [UnlessHas(LayerContainer)]), TType(LayerOrderer, [UnlessHas(LayerOrderer)])]));
 		
-		var furnisher = new Furnisher(TextButtonTag(false), [TType(MouseClickable)]);
+		var furnisher = new Furnisher(TextButtonTag(false), [TType(MouseClickable, [UnlessHas(IMouseClickable)])]);
 		furnisher.checkEnumParams = [];
 		within.addTrait(furnisher);
+		
+		within.addTrait(new Furnisher(ButtonStateMapper, [TType(MouseInteractions, [UnlessHas(IMouseInteractions)])]));
 	}
 	
 	private static var _stage:StageTrait;
@@ -65,7 +69,7 @@ class NmePlatformAccess extends AbsPlatformAccess<ContInfo, LayerInfo>
 	
 	
 	
-	private static var _frameTicker:FrameTicker;
+	/*private static var _frameTicker:FrameTicker;
 	private static var _keyboardAccess:KeyboardAccess;
 	
 	
@@ -312,5 +316,5 @@ class LayerInfo{
 		if (filterable != null) {
 			filterable.displayObject = value;
 		}
-	}
+	}*/
 }

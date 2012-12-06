@@ -1,5 +1,4 @@
 package guise.platform.nme.display;
-import guise.core.AbsPosSizeAwareTrait;
 import composure.injectors.Injector;
 import composure.traitCheckers.TraitTypeChecker;
 import nme.display.DisplayObjectContainer;

@@ -1,12 +1,13 @@
 package guiseSkins.styled;
 import guise.platform.types.DisplayAccessTypes;
 import guise.platform.PlatformAccessor;
+import guise.states.StateStyledTrait;
 /**
  * ...
  * @author Tom Byrne
  */
 
-class FilterLayer extends AbsStyledLayer<Array<FilterType>>
+class FilterLayer extends StateStyledTrait<Array<FilterType>>
 {
 	public var filterAccess(default, set_filterAccess):IFilterableAccess;
 	private function set_filterAccess(value:IFilterableAccess):IFilterableAccess {
@@ -20,7 +21,7 @@ class FilterLayer extends AbsStyledLayer<Array<FilterType>>
 	
 	private var _filterable:IFilterableAccess;
 
-	public function new(layerName:String=null, normalStyle:Array<FilterType>=null) 
+	public function new(normalStyle:Array<FilterType>=null) 
 	{
 		super(normalStyle);
 		
