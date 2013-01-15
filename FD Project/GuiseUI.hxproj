@@ -17,7 +17,6 @@
   <classpaths>
     <class path="..\src" />
     <class path="..\testSrc" />
-    <class path="..\..\Composure\src" />
     <class path="../bin/flash/haxe" />
   </classpaths>
   <!-- Build options -->
@@ -35,6 +34,7 @@
     <library name="xirsys_stdjs" />
     <library name="feffects" />
     <library name="mpartial" />
+    <library name="composure-hx" />
   </haxelib>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
