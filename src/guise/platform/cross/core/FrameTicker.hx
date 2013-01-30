@@ -1,7 +1,7 @@
 package guise.platform.cross.core;
 import haxe.Timer;
 import msignal.Signal;
-import guise.platform.types.CoreAccessTypes;
+import guise.accessTypes.CoreAccessTypes;
 
 /**
  * @author Tom Byrne

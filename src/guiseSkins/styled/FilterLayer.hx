@@ -1,6 +1,5 @@
 package guiseSkins.styled;
-import guise.platform.types.DisplayAccessTypes;
-import guise.platform.PlatformAccessor;
+import guise.accessTypes.IFilterableAccess;
 import guise.states.StateStyledTrait;
 /**
  * ...

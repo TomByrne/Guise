@@ -6,35 +6,79 @@ import guise.traits.core.ISize;
 import guise.controls.data.ITextLabel;
 import guise.utils.TitleCase;
 import guiseSkins.styled.Styles;
-import guise.platform.types.TextAccessTypes;
-import guise.platform.types.DisplayAccessTypes;
-import guise.platform.PlatformAccessor;
+import guise.accessTypes.IFilterableAccess;
+import guise.accessTypes.ITextOutputAccess;
+import guise.accessTypes.IBoxPosAccess;
+import guiseSkins.styled.values.IValue;
+import guise.accessTypes.IMouseInteractionsAccess;
 
 /**
  * @author Tom Byrne
  */
 
-class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>, implements ITextLayer
+class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>//, implements ITextLayer
 {
-	public var layerName(default, null):String;
-	
-	
-	public var filterAccess(default, set_filterAccess):IFilterableAccess;
-	private function set_filterAccess(value:IFilterableAccess):IFilterableAccess {
+	@injectAdd
+	private function onFilterAdd(access:IFilterableAccess):Void {
+		if (_layerName != null && access.layerName != _layerName) return;
+		
+		_filterLayer = access;
 		if (filterLayer!=null) {
-			filterLayer.filterAccess = value;
+			filterLayer.filterAccess = access;
 		}
-		filterAccess = value;
+	}
+	@injectRemove
+	private function onFilterRemove(access:IFilterableAccess):Void {
+		if (access != _filterLayer) return;
+		
+		_filterLayer = null;
+		if (filterLayer!=null) {
+			filterLayer.filterAccess = null;
+		}
+	}
+	
+	@injectAdd
+	private function onTextAdd(access:ITextOutputAccess):Void {
+		if (_layerName != null && access.layerName != _layerName) return;
+		
+		_textDisplay = access;
+		invalidate();
+	}
+	@injectRemove
+	private function onTextRemove(access:ITextOutputAccess):Void {
+		if (access != _textDisplay) return;
+		
+		_textDisplay = null;
+	}
+	
+	@injectAdd
+	private function onPosAdd(access:IBoxPosAccess):Void {
+		if (_layerName != null && access.layerName != _layerName) return;
+		
+		_pos = access;
+		invalidate();
+	}
+	@injectRemove
+	private function onPosRemove(access:IBoxPosAccess):Void {
+		if (access != _pos) return;
+		
+		_pos = null;
+	}
+	
+	public var filterLayer(default, set_filterLayer):FilterLayer;
+	private function set_filterLayer(value:FilterLayer):FilterLayer {
+		if (filterLayer != null) {
+			filterLayer.filterAccess = null;
+			removeSiblingTrait(filterLayer);
+		}
+		filterLayer = value;
+		if (filterLayer != null) {
+			filterLayer.filterAccess = _filterLayer;
+			addSiblingTrait(filterLayer);
+		}
 		return value;
 	}
-	public var textAccess(default, set_textAccess):ITextOutputAccess;
-	private function set_textAccess(value:ITextOutputAccess):ITextOutputAccess {
-		_textDisplay = value;
-		if (_textDisplay != null) {
-			invalidate();
-		}
-		return value;
-	}
+	
 	
 	
 	@inject
@@ -51,42 +95,18 @@ class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>, implements ITextLay
 		return value;
 	}
 	
-	public var filterLayer(default, set_filterLayer):FilterLayer;
-	private function set_filterLayer(value:FilterLayer):FilterLayer {
-		if (filterLayer != null) {
-			filterLayer.filterAccess = null;
-			removeSiblingTrait(filterLayer);
-		}
-		filterLayer = value;
-		if (filterLayer != null) {
-			filterLayer.filterAccess = filterAccess;
-			addSiblingTrait(filterLayer);
-		}
-		return value;
-	}
-	
 	private var _textDisplay:ITextOutputAccess;
-	/*private var _textPos:Position;
-	private var _textSize:Size;*/
+	private var _pos:IBoxPosAccess;
+	private var _filterLayer:IFilterableAccess;
+	private var _layerName:String;
 
 	public function new(layerName:String, ?normalStyle:TextLabelStyle) 
 	{
 		super(normalStyle);
-		this.layerName = layerName;
-		/*_textPos = new Position(0, 0);
-		_textSize = new Size();*/
+		_layerName = layerName;
 		
 		_requireSize = true;
-		
-		//addSiblingTrait(new PlatformAccessor(ITextOutputAccess, layerName, onTextAdd, onTextRemove));
 	}
-	/*private function onTextAdd(access:ITextOutputAccess):Void {
-		_textDisplay = access;
-		invalidate();
-	}
-	private function onTextRemove(access:ITextOutputAccess):Void {
-		_textDisplay = null;
-	}*/
 	override private function _isReadyToDraw():Bool {
 		if (textLabel == null || _textDisplay==null) return false;
 		return super._isReadyToDraw();
@@ -95,12 +115,57 @@ class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>, implements ITextLay
 		var text = textLabel.text;
 		if (text == null) text = "";
 		switch(currentStyle) {
-			case Tls(ts, selectable, tc, aa):
+			case Tls(ts, selectable, tc, aa, hAlign, vAlign, padT, padB, padL, padR):
 				_textDisplay.selectable = selectable;
 				_textDisplay.setAntiAliasing(aa);
 				_textDisplay.setText(new TextRun(ts, [Text(toCase(text, tc))]), true);
+				
+				if(_pos!=null)layoutText(_textDisplay, w, h, hAlign, vAlign, padT, padB, padL, padR);
 		}
-		_textDisplay.setPos(0,0,w,h);
+	}
+	private function layoutText(textDisplay:ITextOutputAccess, w:Float, h:Float, hAlign:HAlign, vAlign:VAlign, padT:IValue, padB:IValue, padL:IValue, padR:IValue):Void {
+		var tW:Float = textDisplay.getTextWidth();
+		var tH:Float = textDisplay.getTextHeight();
+		
+		var pT:Float = getValue(padT, 0);
+		var pB:Float = getValue(padB, 0);
+		var pL:Float = getValue(padL, 0);
+		var pR:Float = getValue(padR, 0);
+		
+		w -= pT + pB;
+		h -= pL + pR;
+		
+		var tX:Float;
+		var tY:Float;
+		
+		if (tW > w || hAlign==null) {
+			tX = pL;
+			tW = w;
+		}else{
+			switch(hAlign) {
+				case Left:
+					tX = pL;
+				case Right:
+					tX = pL + w - tW;
+				default:
+					tX = pL + (w - tW) / 2;
+			}
+		}
+		
+		if (tH > h || vAlign == null) {
+			tY = pT;
+			tH = h;
+		}else {
+			switch(vAlign) {
+				case Top:
+					tY = pT;
+				case Bottom:
+					tY = pT + h - tH;
+				default:
+					tY = pT + (h - tH) / 2;
+			}
+		}
+		_pos.set(tX, tY, tW, tH);
 	}
 	private function toCase(str:String, textCase:TextCase):String{
 			if (textCase != null) {
@@ -120,7 +185,7 @@ class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>, implements ITextLay
 	
 }
 enum TextLabelStyle {
-	Tls(ts:TextStyle, selectable:Bool, ?tc:TextCase, ?antiAliasing:AntiAliasType);
+	Tls(ts:TextStyle, selectable:Bool, ?tc:TextCase, ?antiAliasing:AntiAliasType, ?hAlign:HAlign, ?vAlign:VAlign, ?padT:IValue, ?padB:IValue, ?padL:IValue, ?padR:IValue);
 }
 enum TextCase {
 	TcNormal;

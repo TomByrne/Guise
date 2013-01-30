@@ -1,17 +1,10 @@
-package guise.platform.types;
+package guise.accessTypes;
 
-import guise.platform.IPlatformAccess;
 import guise.geom.Matrix;
 
-/**
- * @author Tom Byrne
- */
-
-class DrawingAccessTypes 
-{}
 
 // TODO: Split this down into more logical chunks
-interface IGraphics implements IAccessType
+interface IGraphicsAccess implements IAccessType
 {
 	
 	function beginFill(color:Int, alpha:Float = 1.0):Void;
@@ -29,16 +22,16 @@ interface IGraphics implements IAccessType
 	function moveTo(inX:Float, inY:Float):Void;
 	
 }
-#if nme
+/*#if nme
 import nme.display.BitmapData;
 #end
-interface IBitmapGraphics implements IGraphics
+interface IBitmapGraphics implements IGraphicsAccess
 {
 
 	function beginBitmapFill(bitmap:BitmapData, matrix:Matrix = null, repeat:Bool = true, smooth:Bool = false):Void;
 	function beginBitmapStroke(bitmap:BitmapData, matrix:Matrix = null, repeat:Bool = true, smooth:Bool = false):Void;
 	
-}
+}*/
 enum GradientType {
 	Linear;
 	Radial(?focalPointRatio:Float);

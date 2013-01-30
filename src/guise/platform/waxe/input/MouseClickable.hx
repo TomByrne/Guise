@@ -1,6 +1,6 @@
 package guise.platform.waxe.input;
 import composure.traits.AbstractTrait;
-import guise.platform.types.InteractionAccessTypes;
+import guise.accessTypes.IMouseInteractionsAccess;
 
 import msignal.Signal;
 
@@ -9,7 +9,7 @@ import msignal.Signal;
  * @author Tom Byrne
  */
 
-class MouseClickable implements IMouseClickable
+class MouseClickable implements IMouseClickableAccess
 {
 	public var domElement(default, set_domElement):HtmlDom;
 	private function set_domElement(value:HtmlDom):HtmlDom {

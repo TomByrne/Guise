@@ -11,11 +11,11 @@ import guise.platform.waxe.display.StageTrait;
 //import guise.platform.waxe.display.TextLabelTrait;
 //import guise.platform.waxe.input.MouseClickable;
 import guise.platform.IPlatformAccess;
-import guise.platform.types.TextAccessTypes;
-import guise.platform.types.DisplayAccessTypes;
-import guise.platform.types.CoreAccessTypes;
-import guise.platform.types.DrawingAccessTypes;
-import guise.platform.types.InteractionAccessTypes;
+import guise.accessTypes.TextAccessTypes;
+import guise.accessTypes.DisplayAccessTypes;
+import guise.accessTypes.CoreAccessTypes;
+import guise.accessTypes.IGraphicsAccess;
+import guise.accessTypes.IMouseInteractionsAccess;
 import cmtc.ds.hash.ObjectHash;
 import guise.core.CoreTags;
 import composure.utilTraits.Furnisher;
@@ -50,9 +50,9 @@ class WaxePlatformAccess extends AbsPlatformAccess<ContInfo, LayerInfo>
 		//addContainerFurnisher(TextLabelTag, createTextLabel);
 		//addContainerFurnisher(TextInputTag, createTextInput);
 		
-		//registerAccess(MouseClickable, [IMouseClickable], getMouseClickAccess, returnMouseClickAccess);
+		//registerAccess(MouseClickable, [IMouseClickableAccess], getMouseClickAccess, returnMouseClickAccess);
 		
-		//registerLayerAccess(MouseClickable, [IMouseClickable], getMouseClickLayerAccess, returnMouseClickLayerAccess);
+		//registerLayerAccess(MouseClickable, [IMouseClickableAccess], getMouseClickLayerAccess, returnMouseClickLayerAccess);
 	}
 	private function getWindow(tag:CoreTags):WindowTrait {
 		if (_window==null)_window = new WindowTrait();

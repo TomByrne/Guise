@@ -19,11 +19,11 @@ class TestControls
 	public static function addControls(parent:ComposeGroup, x:Float = 0, y:Float = 0 ):Void {
 		
 		addButton(parent, "Test Button", x, y, 150, 30, false);
-		addButton(parent, "Selectable Button", x, y + 40, 150, 30, true);
+		/*addButton(parent, "Selectable Button", x, y + 40, 150, 30, true);
 		addLabel(parent, "Test Label", x, y + 80, 150, 30);
 		addTextInput(parent, "Test Input", x, y + 120, 150, 30);
 		addToggleButton(parent, x, y + 155, 150, 30);
-		addSlider(parent, x, y + 180, 150, 30, false);
+		addSlider(parent, x, y + 180, 150, 30, false);*/
 	}
 	public static function addButton(parent:ComposeGroup, text:String, x:Float, y:Float, w:Float, h:Float, selectable:Bool):Void {
 		var item:ComposeItem = new ComposeItem();

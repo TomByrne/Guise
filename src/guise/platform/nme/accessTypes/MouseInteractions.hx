@@ -1,7 +1,7 @@
-package guise.platform.nme.input;
+package guise.platform.nme.accessTypes;
 import composure.traits.AbstractTrait;
 import nme.events.MouseEvent;
-import guise.platform.types.InteractionAccessTypes;
+import guise.accessTypes.IMouseInteractionsAccess;
 import nme.display.InteractiveObject;
 import guise.platform.nme.display.DisplayTrait;
 
@@ -12,7 +12,7 @@ import msignal.Signal;
  * @author Tom Byrne
  */
 
-class MouseInteractions implements IMouseInteractions
+class MouseInteractions extends AbstractTrait, implements IMouseInteractionsAccess
 {
 	@inject
 	public var displayTrait(default, set_displayTrait):DisplayTrait;
@@ -56,9 +56,14 @@ class MouseInteractions implements IMouseInteractions
 	
 	private var mouseInfo:MouseInfo;
 	private var _isOver:Bool;
+	
+	public var layerName:String;
 
-	public function new(?interactiveObject:InteractiveObject, ?coordinateSpace:InteractiveObject) 
+	public function new(?layerName:String, ?interactiveObject:InteractiveObject, ?coordinateSpace:InteractiveObject) 
 	{
+		super();
+		this.layerName = layerName;
+		
 		this.interactiveObject = interactiveObject;
 		this.coordinateSpace = coordinateSpace;
 	}

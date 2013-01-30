@@ -1,6 +1,6 @@
 package guiseSkins.styled;
 
-import guise.platform.types.DrawingAccessTypes;
+import guise.accessTypes.IGraphicsAccess;
 import guiseSkins.styled.Styles;
 import guise.geom.Matrix;
 /**
@@ -11,7 +11,7 @@ import guise.geom.Matrix;
 class StyledLayerUtils 
 {
 
-	public static function beginFillStrokes(graphics:IGraphics, fill:FillStyle, stroke:StrokeStyle, pixelHinting:Bool, width:Float, height:Float, iterationHandler:Int->Void):Void {
+	public static function beginFillStrokes(graphics:IGraphicsAccess, fill:FillStyle, stroke:StrokeStyle, pixelHinting:Bool, width:Float, height:Float, iterationHandler:Int->Void):Void {
 		var fills = [];
 		collectFills(fill, fills);
 		var strokeFills;

@@ -1,15 +1,15 @@
-package guise.platform.nme.display;
+package guise.platform.nme.accessTypes;
 
 import nme.display.Graphics;
 import nme.display.BitmapData;
-import guise.platform.types.DrawingAccessTypes;
+import guise.accessTypes.IGraphicsAccess;
 import guise.geom.Matrix;
 
 /**
  * @author Tom Byrne
  */
 
-class GraphicsAccess  implements IBitmapGraphics
+class GraphicsAccess  implements IGraphicsAccess
 {
 	
 	public var graphics/*(default, set_graphics)*/:Graphics;
@@ -18,9 +18,12 @@ class GraphicsAccess  implements IBitmapGraphics
 		return value;
 	}*/
 	
+	
+	public var layerName:String;
 
-	public function new(?graphics:Graphics) {
+	public function new(?layerName:String, ?graphics:Graphics) {
 		//super();
+		this.layerName = layerName;
 		this.graphics = graphics;
 	}
 	

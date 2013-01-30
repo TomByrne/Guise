@@ -220,7 +220,9 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 			_valueToSignals.delete(value);
 		}
 	}*/
-	private function getValue(value:IValue):Float {
+	private function getValue(value:IValue, def:Float):Float {
+		if (value == null) return def;
+		
 		var signals:Array<AnySignal> = _valueToSignals.get(value);
 		var newSignals:Array<AnySignal> = value.update(item);
 		

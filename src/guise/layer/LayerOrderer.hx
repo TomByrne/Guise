@@ -1,17 +1,6 @@
 package guise.layer;
-import composure.injectors.Injector;
 import composure.traits.AbstractTrait;
-import guise.controls.ControlLayers;
-import guise.platform.types.DisplayAccessTypes;
-import org.tbyrne.collections.UniqueList;
 
-import msignal.Signal;
-import composure.traitCheckers.TraitTypeChecker;
-import guise.platform.PlatformAccessor;
-/**
- * ...
- * @author Tom Byrne
- */
 
 class LayerOrderer extends AbstractTrait
 {
@@ -25,8 +14,8 @@ class LayerOrderer extends AbstractTrait
 	}
 	
 	@inject
-	public var layerOrderAccess(default, setlayerOrderAccess):ILayerOrderAccess;
-	private function setlayerOrderAccess(value:ILayerOrderAccess):ILayerOrderAccess {
+	public var layerOrderAccess(default, setlayerOrderAccess):ILayerContainer;
+	private function setlayerOrderAccess(value:ILayerContainer):ILayerContainer {
 		if (layerOrderAccess != null) {
 			layerOrderAccess.layeringChanged.remove(onLayeringChanged);
 		}
@@ -48,20 +37,20 @@ class LayerOrderer extends AbstractTrait
 		
 		this.sorting = sorting;
 		
-		//addSiblingTrait(new PlatformAccessor(ILayerOrderAccess, null, onLayeringAdd, onLayeringRemove));
+		//addSiblingTrait(new PlatformAccessor(ILayerContainer, null, onLayeringAdd, onLayeringRemove));
 	}
 	
-	/*public function onLayeringAdd(access:ILayerOrderAccess):Void {
+	/*public function onLayeringAdd(access:ILayerContainer):Void {
 		layerOrderAccess = access;
 		layerOrderAccess.layeringChanged.add(onLayeringChanged);
 		if (sorting != null) {
 			checkDepths();
 		}
 	}*/
-	private function onLayeringChanged(from:ILayerOrderAccess):Void {
+	private function onLayeringChanged(from:ILayerContainer):Void {
 		if (sorting != null )checkDepths();
 	}
-	/*public function onLayeringRemove(access:ILayerOrderAccess):Void {
+	/*public function onLayeringRemove(access:ILayerContainer):Void {
 		layerOrderAccess.layeringChanged.remove(onLayeringChanged);
 		layerOrderAccess = null;
 	}*/

@@ -11,7 +11,7 @@ import guiseSkins.trans.ColorEaser;
 import guise.utils.Clone;
 import guiseSkins.trans.UtilFunctions;
 import guiseSkins.styled.Styles;
-import guise.platform.types.DisplayAccessTypes;
+import guise.accessTypes.IFilterableAccess;
 
 /**
  * ...

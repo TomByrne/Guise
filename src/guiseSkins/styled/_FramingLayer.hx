@@ -3,7 +3,7 @@ import guise.controls.ControlLayers;
 import guise.traits.core.IPosition;
 import guise.traits.core.ISize;
 import guiseSkins.styled.Styles;
-import guise.platform.types.DisplayAccessTypes;
+import guise.accessTypes.DisplayAccessTypes;
 import guise.platform.PlatformAccessor;
 
 /**

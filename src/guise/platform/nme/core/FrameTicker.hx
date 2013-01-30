@@ -1,7 +1,7 @@
 package guise.platform.nme.core;
 import nme.Lib;
 import nme.events.Event;
-import guise.platform.types.CoreAccessTypes;
+import guise.accessTypes.CoreAccessTypes;
 
 import msignal.Signal;
 /**

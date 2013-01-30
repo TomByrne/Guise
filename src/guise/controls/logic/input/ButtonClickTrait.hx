@@ -3,13 +3,8 @@ import guise.controls.data.IClick;
 import guise.traits.core.IActive;
 import composure.traits.AbstractTrait;
 import msignal.Signal;
-import guise.platform.types.InteractionAccessTypes;
-import guise.platform.PlatformAccessor;
+import guise.accessTypes.IMouseClickableAccess;
 
-/**
- * ...
- * @author Tom Byrne
- */
 
 class ButtonClickTrait extends AbstractTrait, implements IClick 
 {
@@ -23,22 +18,29 @@ class ButtonClickTrait extends AbstractTrait, implements IClick
 	@lazyInst
 	public var clicked(default, null):Signal1<IClick>;
 	
-	private var _mouseClickable:IMouseClickable;
-	
-	private var clickTypeBundles:Array<ClickTypeBundle>;
+	private var _mouseClickable:IMouseClickableAccess;
+	private var _clickTypeBundles:Array<ClickTypeBundle>;
+	private var _layerName:String;
 
 	public function new(?layerName:String) 
 	{
 		super();
-		clickTypeBundles = new Array<ClickTypeBundle>();
-		addSiblingTrait(new PlatformAccessor(IMouseClickable, layerName, onMouseClickAdd, onMouseClickRemove));
+		_layerName = layerName;
+		_clickTypeBundles = new Array<ClickTypeBundle>();
+		//addSiblingTrait(new PlatformAccessor(IMouseClickableAccess, layerName, onMouseClickAdd, onMouseClickRemove));
 	}
-	private function onMouseClickAdd(access:IMouseClickable):Void {
+	@injectAdd
+	private function onMouseClickAdd(access:IMouseClickableAccess):Void {
+		if (_layerName != null && access.layerName != _layerName) return;
+		
 		_mouseClickable = access;
 		_mouseClickable.clicked.add(onClicked);
 		_mouseClickable.doubleClicked.add(onDoubleClicked);
 	}
-	private function onMouseClickRemove(access:IMouseClickable):Void {
+	@injectRemove
+	private function onMouseClickRemove(access:IMouseClickableAccess):Void {
+		if (access != _mouseClickable) return;
+		
 		_mouseClickable.clicked.remove(onClicked);
 		_mouseClickable.doubleClicked.remove(onDoubleClicked);
 		_mouseClickable = null;
@@ -48,7 +50,7 @@ class ButtonClickTrait extends AbstractTrait, implements IClick
 		var bundle:ClickTypeBundle = findBundle(clickType);
 		if (bundle == null) {
 			bundle = new ClickTypeBundle(this, clickType);
-			clickTypeBundles.push(bundle);
+			_clickTypeBundles.push(bundle);
 		}
 		bundle.signaler.add(handler);
 	}
@@ -59,7 +61,7 @@ class ButtonClickTrait extends AbstractTrait, implements IClick
 		}
 	}
 	private function findBundle(clickType:ClickType):ClickTypeBundle {
-		for (bundle in clickTypeBundles) {
+		for (bundle in _clickTypeBundles) {
 			if (bundle.clickType == clickType) {
 				return bundle;
 			}
@@ -70,7 +72,7 @@ class ButtonClickTrait extends AbstractTrait, implements IClick
 	private function onClicked(info:ClickInfo):Void {
 		if (active != null && !active.active) return;
 		
-		for (bundle in clickTypeBundles) {
+		for (bundle in _clickTypeBundles) {
 			switch(bundle.clickType) {
 				case LeftClick:
 					LazyInst.exec(clicked.dispatch(this));
@@ -89,7 +91,7 @@ class ButtonClickTrait extends AbstractTrait, implements IClick
 	private function onDoubleClicked(info:ClickInfo):Void {
 		if (active != null && !active.active) return;
 		
-		for (bundle in clickTypeBundles) {
+		for (bundle in _clickTypeBundles) {
 			switch(bundle.clickType) {
 				case DoubleLeftClick:
 					if(info.left)dispatchBundle(bundle);

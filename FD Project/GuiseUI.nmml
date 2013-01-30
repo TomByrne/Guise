@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	
-	<app title="GuiseUI" file="GuiseUI" main="NativeTest" package="org.tbyrne.guiseUI" version="1.0.0" company="Tom Byrne" />
+	<app title="GuiseUI" file="GuiseUI" main="NmeTest" package="org.tbyrne.guiseUI" version="1.0.0" company="Tom Byrne" />
 	
 	<window width="800" height="600" fps="30" orientation="portrait" resizable="true" background="0xffffff"/>
  	

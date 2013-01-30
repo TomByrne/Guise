@@ -1,9 +1,9 @@
-package guise.platform.nme.display;
+package guise.platform.nme.accessTypes;
+import guise.accessTypes.IFilterableAccess;
 import nme.display.DisplayObject;
 import nme.filters.BitmapFilter;
 import nme.filters.DropShadowFilter;
 import nme.filters.GlowFilter;
-import guise.platform.types.DisplayAccessTypes;
 
 /**
  * ...
@@ -27,9 +27,12 @@ class FilterableAccess implements IFilterableAccess
 	
 	private var _lastFilters:Array<BitmapFilter>;
 	//private var _typeToFilt:IntHash<BitmapFilter>;
+	
+	public var layerName:String;
 
-	public function new(?displayObject:DisplayObject) 
+	public function new(?displayObject:DisplayObject, ?layerName:String) 
 	{
+		this.layerName = layerName;
 		this.displayObject = displayObject;
 	}
 	public function setFilters(?filters:Array<FilterType>):Void {

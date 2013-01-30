@@ -2,7 +2,7 @@ package guise.platform.waxe.display;
 import guise.platform.waxe.IDisplayAwareTrait;
 import wx.Window;
 import composure.traits.AbstractTrait;
-import guise.core.AbsPosSizeAwareTrait;
+import guise.platform.cross.display.AbsDisplayTrait;
 import guise.layout.IPositionable;
 import composure.injectors.Injector;
 import composure.traitCheckers.TraitTypeChecker;
@@ -13,7 +13,7 @@ import msignal.Signal;
  * @author Tom Byrne
  */
 
-class DisplayTrait extends AbsPosSizeAwareTrait, implements IPositionable
+class DisplayTrait extends AbsDisplayTrait, implements IPositionable
 {
 	
 

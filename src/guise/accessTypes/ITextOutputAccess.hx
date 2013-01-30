@@ -1,23 +1,4 @@
-package guise.platform.types;
-import guise.platform.IPlatformAccess;
-import msignal.Signal;
-/**
- * ...
- * @author Tom Byrne
- */
-
-class TextAccessTypes 
-{
-}
-
-
-interface ITextInputAccess implements IAccessType {
-	public function getText():String ;
-	public var textChanged(get_textChanged, null):Signal1 < ITextInputAccess > ;
-	
-	var inputEnabled(default, set_inputEnabled):Bool;
-}
-
+package guise.accessTypes;
 
 interface ITextOutputAccess implements IAccessType{
 	function getTextWidth():Float;
@@ -27,8 +8,6 @@ interface ITextOutputAccess implements IAccessType{
 	
 	function setAntiAliasing(type:AntiAliasType):Void;
 	function setText(run:TextRun, isHtml:Bool):Void;
-	
-	function setPos(x:Float, y:Float, w:Float, h:Float):Void;
 	
 }
 class TextRun {

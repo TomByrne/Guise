@@ -1,4 +1,5 @@
 package guiseSkins.styled;
+import guise.layout.IDisplayPosition;
 import guise.styledLayers.IDisplayLayer;
 import guiseSkins.styled.values.IValue;
 import guiseSkins.trans.ITransitioner;
@@ -11,10 +12,25 @@ import guise.states.StateStyledTrait;
 
 class AbsStyledLayer<StyleType> extends StateStyledTrait<StyleType>
 {
+	@inject
+	public var position(default, set_position):IDisplayPosition;
+	private function set_position(value:IDisplayPosition):IDisplayPosition {
+		if (position != null) {
+			position.changed.remove(onPosChanged);
+		}
+		this.position = value;
+		if (position != null) {
+			position.changed.add(onPosChanged);
+			onPosChanged(value);
+		}
+		
+		return value;
+	}
+	
 
-	public function new(?normalStyle:StyleType) 
+	public function new(?normalStyle:StyleType, ?isReadyToDraw:Void->Bool, ?drawStyle:Void->Void, ?transSubject:Dynamic) 
 	{
-		super(normalStyle);
+		super(normalStyle, isReadyToDraw, drawStyle, transSubject);
 	}
 	
 	override private function _isReadyToDraw():Bool {
@@ -41,5 +57,9 @@ class AbsStyledLayer<StyleType> extends StateStyledTrait<StyleType>
 			if (_requireSize) change = true;
 		}
 		if(change)invalidate();
+	}
+	
+	public function onPosChanged(from:IDisplayPosition):Void {
+		setPosition(from.x,from.y,from.w,from.h);
 	}
 }

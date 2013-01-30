@@ -1,28 +1,41 @@
-package guise.platform.nme.input;
-import guise.platform.IPlatformAccess;
+package guise.platform.nme.accessTypes;
+import guise.accessTypes.ITextInputAccess;
+import guise.accessTypes.ITextOutputAccess;
+import guise.platform.nme.accessTypes.AdditionalTypes;
 import nme.events.Event;
 import nme.events.FocusEvent;
 import nme.text.TextField;
+import nme.display.DisplayObject;
+import nme.display.InteractiveObject;
 import msignal.Signal;
-import guise.platform.types.TextAccessTypes;
 import nme.text.TextFieldType;
 import nme.text.TextFormat;
-/**
- * ...
- * @author Tom Byrne
- */
+import guise.platform.nme.TextFieldGutter;
 
-class TextAccess implements ITextInputAccess, implements ITextOutputAccess
+
+class TextAccess implements ITextInputAccess, implements ITextOutputAccess, implements IDisplayObjectType, implements IInteractiveObjectType
 {
 	private var _textField:TextField;
 	private var _ignoreChanges:Bool;
+	private var _gutter:Float;
+	
+	public var layerName:String;
 
-	public function new(textField:TextField) 
+	public function new(?layerName:String, ?textField:TextField) 
 	{
-		_textField = textField;
+		_gutter = TextFieldGutter.GUTTER;
+		this.layerName = layerName;
+		_textField = (textField==null?new TextField():textField);
+		//_textField.border = true;
 		_textField.addEventListener(Event.CHANGE, onChange);
 		_textField.addEventListener(FocusEvent.FOCUS_IN, onFocusIn);
 		_textField.addEventListener(FocusEvent.FOCUS_OUT, onFocusOut);
+	}
+	public function getDisplayObject():DisplayObject {
+		return _textField;
+	}
+	public function getInteractiveObject():InteractiveObject {
+		return _textField;
 	}
 	public function getTextWidth():Float {
 		return _textField.textWidth;
@@ -54,12 +67,12 @@ class TextAccess implements ITextInputAccess, implements ITextOutputAccess
 				//textField.gridFitType = GridFitType.NONE;
 		}
 	}
-	public function setPos(x:Float, y:Float, w:Float, h:Float):Void {
-		_textField.x = x;
-		_textField.y = y;
-		_textField.width = w;
-		_textField.height = h;
-	}
+	/*public function setPos(x:Float, y:Float, w:Float, h:Float):Void {
+		_textField.x = x-_gutter;
+		_textField.y = y-_gutter;
+		_textField.width = w+_gutter*2;
+		_textField.height = h+_gutter*2;
+	}*/
 	public var inputEnabled(default, set_inputEnabled):Bool;
 	private function set_inputEnabled(value:Bool):Bool {
 		_textField.type = value?TextFieldType.INPUT:TextFieldType.DYNAMIC;

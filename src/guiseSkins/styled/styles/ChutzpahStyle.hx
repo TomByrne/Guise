@@ -1,12 +1,14 @@
 package guiseSkins.styled.styles;
 import composure.core.ComposeItem;
+import composure.injectors.Injector;
+import composure.traits.AbstractTrait;
 import composure.utilTraits.Furnisher;
 import guise.controls.ControlLayers;
 import guise.controls.ControlTags;
 import guise.controls.data.INumRange;
+import guise.layer.LayerAccessRequire;
 import guiseSkins.styled.BoxLayer;
 import guiseSkins.styled.FilterLayer;
-import guiseSkins.styled.FramingLayer;
 import guiseSkins.styled.DefaultStyleTrans;
 import guiseSkins.styled.SimpleShapeLayer;
 import guiseSkins.styled.TextStyleLayer;
@@ -18,10 +20,10 @@ import guiseSkins.styled.values.IValue;
 import guiseSkins.styled.values.Value;
 import nme.Assets;
 import nme.text.Font;
-import guise.platform.types.TextAccessTypes;
-import guise.platform.types.DisplayAccessTypes;
 import guise.controls.ControlLogic;
 import guise.layout.IDisplayPosition;
+import guise.accessTypes.IFilterableAccess;
+import guise.accessTypes.ITextOutputAccess;
 
 /**
  * ...
@@ -32,8 +34,8 @@ class ChutzpahStyle
 {
 	private static var _labelTextStyle:TextLabelStyle;
 	private static var _inputTextStyle:TextLabelStyle;
-	private static var _labelTextAlign:FramingStyle;
-	private static var _inputTextAlign:FramingStyle;
+	//private static var _labelTextAlign:FramingStyle;
+	//private static var _inputTextAlign:FramingStyle;
 	
 	private static var _buttonTextFiltNorm:Array<FilterType>;
 	
@@ -121,24 +123,24 @@ class ChutzpahStyle
 			_buttonFiltNorm = [DropShadow(1, Math.PI/2, 2, 0x000000, 0.56)];
 			_buttonFiltDown = [DropShadow(1, Math.PI / 2, 4, 0x000000, 0.42, true)];
 			
-			_labelTextStyle = Tls(Trs(fontData, 11, 0x8e8e8e, [TmBold()]), false, TcUpper, AaSmooth);
-			_inputTextStyle = Tls(Trs(fontData, 11, 0x8e8e8e, [TmBold()]), true, TcUpper, AaSmooth);
-			_labelTextAlign = Frame(ConstrainMin, ScaleDownOnly(), ScaleDownOnly(), 0,6,0,6);
-			_inputTextAlign = Frame(Fill,ScaleAlways,ScaleDownOnly(), 2,3,2,3);
+			_labelTextStyle = Tls(Trs(fontData, 11, 0x8e8e8e, [TmBold()]), false, TcUpper, AaSmooth, HAlign.Center, VAlign.Middle);
+			_inputTextStyle = Tls(Trs(fontData, 11, 0x8e8e8e, [TmBold()]), true, TcUpper, AaSmooth, null, VAlign.Middle, new Value(5), new Value(5), new Value(5), new Value(5));
+			//_labelTextAlign = Frame(ConstrainMin, ScaleDownOnly(), ScaleDownOnly(), 0,6,0,6);
+			//_inputTextAlign = Frame(Fill,ScaleAlways,ScaleDownOnly(), 2,3,2,3);
 			
 			_buttonTextFiltNorm = [DropShadow(1, Math.PI/2, 1, 0xffffff, 0.65)];
 		}
 		
-		var furnisher = new Furnisher(TextButtonTag(false), [TFact(buttonBacking), TFact(labelText), TFact(labelTextAlign)]);
+		var furnisher = new Furnisher(TextButtonTag(false), [TFact(buttonBacking), TFact(labelText)/*, TFact(labelTextAlign)*/]);
 		furnisher.checkEnumParams = [];
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
-		furnisher = new Furnisher(TextLabelTag, [TFact(labelText), TFact(labelTextAlign)]);
+		furnisher = new Furnisher(TextLabelTag, [TFact(labelText)/*, TFact(labelTextAlign)*/]);
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
-		furnisher = new Furnisher(TextInputTag, [TFact(inputBacking), TFact(inputText), TFact(inputTextAlign)]);
+		furnisher = new Furnisher(TextInputTag, [TFact(inputBacking), TFact(inputText)/*, TFact(inputTextAlign)*/]);
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
@@ -149,6 +151,18 @@ class ChutzpahStyle
 		furnisher = new Furnisher(SliderTag(false), [TFact(hSliderBacking), TFact(sliderHandle)]);
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
+		
+		//StyleGenerator.trace([guise.accessTypes.ITextInputAccess, guise.accessTypes.ITextOutputAccess, guise.accessTypes.IBoxPosAccess, guise.accessTypes.IFilterableAccess]);
+		StyleGenerator.path("../Styles/Chutzpah.xml");
+		
+		/*{
+		var trait:AbstractTrait = new AbstractTrait();
+		var injector:Injector;
+		injector = new Injector(guise.controls.ControlTags.TextInputTag, function(trait:guise.controls.ControlTags, item:composure.core.ComposeItem):Void { item.addTrait(new LayerAccessRequire("inputText", [guise.accessTypes.ITextInputAccess, guise.accessTypes.ITextOutputAccess, guise.accessTypes.IBoxPosAccess, guise.accessTypes.IFilterableAccess])); }, function(trait:guise.controls.ControlTags, item:composure.core.ComposeItem):Void { }, true, true);
+		injector.passThroughItem = true;
+		trait.addInjector(injector);
+		//within.addTrait(trait);
+		}*/
 	}
 	private static function val(traitType:Dynamic, prop:String, changeSignal:String, multi:Float=1, offset:Float=0):IValue {
 		var ret:IValue = new Bind(traitType, prop, changeSignal);
@@ -210,12 +224,12 @@ class ChutzpahStyle
 		return textLayer;
 	}
 	
-	private static function inputTextAlign(tag:Dynamic):FramingLayer {
+	/*private static function inputTextAlign(tag:Dynamic):FramingLayer {
 		return new FramingLayer(ControlLayers.INPUT_TEXT, _inputTextAlign);
 	}
 	private static function labelTextAlign(tag:Dynamic):FramingLayer {
 		return new FramingLayer(ControlLayers.LABEL_TEXT, _labelTextAlign);
-	}
+	}*/
 	
 	private static function inputBacking(tag:Dynamic):BoxLayer {
 		var boxLayer:BoxLayer = new BoxLayer(ControlLayers.BACKING);

@@ -1,18 +1,19 @@
-package guise.platform.nme.input;
+package guise.platform.nme.accessTypes;
 import composure.traits.AbstractTrait;
+import guise.accessTypes.IMouseClickableAccess;
+import guise.platform.nme.display.DisplayTrait;
 import nme.display.InteractiveObject;
 import nme.events.MouseEvent;
-import guise.platform.types.InteractionAccessTypes;
-import guise.platform.nme.display.DisplayTrait;
 
 import msignal.Signal;
+
 
 /**
  * ...
  * @author Tom Byrne
  */
 
-class MouseClickable extends AbstractTrait, implements IMouseClickable
+class MouseClickable extends AbstractTrait, implements IMouseClickableAccess
 {
 	@inject
 	public var displayTrait(default, set_displayTrait):DisplayTrait;
@@ -46,10 +47,13 @@ class MouseClickable extends AbstractTrait, implements IMouseClickable
 	}
 	
 	private var clickInfo:ClickInfo;
+	
+	public var layerName:String;
 
-	public function new(?interactiveObject:InteractiveObject) 
+	public function new(?layerName:String, ?interactiveObject:InteractiveObject) 
 	{
 		super();
+		this.layerName = layerName;
 		this.interactiveObject = interactiveObject;
 	}
 	

@@ -1,4 +1,4 @@
-package guise.platform.types;
+package guise.accessTypes;
 
 import msignal.Signal;
 import guise.platform.IPlatformAccess;

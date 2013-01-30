@@ -1,9 +1,9 @@
-package guise.platform.nme.input;
+package guise.platform.nme.accessTypes;
 import composure.traits.AbstractTrait;
 import nme.display.InteractiveObject;
 import nme.events.KeyboardEvent;
 import msignal.Signal;
-import guise.platform.types.InteractionAccessTypes;
+import guise.accessTypes.IMouseInteractionsAccess;
 /**
  * ...
  * @author Tom Byrne

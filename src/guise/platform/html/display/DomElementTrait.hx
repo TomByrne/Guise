@@ -1,6 +1,6 @@
 package guise.platform.html.display;
 import composure.traits.AbstractTrait;
-import guise.core.AbsPosSizeAwareTrait;
+import guise.platform.cross.display.AbsDisplayTrait;
 import guise.layout.IPositionable;
 import js.Dom;
 import composure.injectors.Injector;
@@ -10,7 +10,7 @@ import composure.traitCheckers.TraitTypeChecker;
  * @author Tom Byrne
  */
 
-class DomElementTrait extends AbsPosSizeAwareTrait, implements IPositionable
+class DomElementTrait extends AbsDisplayTrait, implements IPositionable
 {
 	public var domElement(default, null):HtmlDom;
 	

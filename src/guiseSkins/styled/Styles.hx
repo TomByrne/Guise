@@ -1,6 +1,6 @@
 package guiseSkins.styled;
 import guise.geom.Matrix;
-import guise.platform.types.DrawingAccessTypes;
+import guise.accessTypes.IGraphicsAccess;
 
 /**
  * ...

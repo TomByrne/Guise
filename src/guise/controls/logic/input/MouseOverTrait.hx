@@ -2,8 +2,7 @@ package guise.controls.logic.input;
 import guise.controls.ControlLayers;
 import guise.traits.core.IActive;
 import composure.traits.AbstractTrait;
-import guise.platform.types.InteractionAccessTypes;
-import guise.platform.PlatformAccessor;
+import guise.accessTypes.IMouseInteractionsAccess;
 import msignal.Signal;
 
 /**
@@ -31,22 +30,31 @@ class MouseOverTrait extends AbstractTrait
 	}
 	
 	private var _mouseOver:Bool;
-	private var _mouseInteractions:IMouseInteractions;
+	private var _mouseInteractions:IMouseInteractionsAccess;
+	private var _layerName:String;
 	
 
 	public function new(?layerName:String) 
 	{
 		super();
 		
-		addSiblingTrait(new PlatformAccessor(IMouseInteractions, layerName, onMouseIntAdd, onMouseIntRemove));
+		_layerName = layerName;
+		
+		//addSiblingTrait(new PlatformAccessor(IMouseInteractionsAccess, layerName, onMouseIntAdd, onMouseIntRemove));
 	}
-	private function onMouseIntAdd(access:IMouseInteractions):Void {
+	@injectAdd
+	private function onMouseIntAdd(access:IMouseInteractionsAccess):Void {
+		if (_layerName != null && access.layerName != _layerName) return;
+		
 		_mouseInteractions = access;
 		_mouseInteractions.rolledOver.add(onRolledOver);
 		_mouseInteractions.rolledOut.add(onRolledOut);
 		assessMouseOver();
 	}
-	private function onMouseIntRemove(access:IMouseInteractions):Void {
+	@injectRemove
+	private function onMouseIntRemove(access:IMouseInteractionsAccess):Void {
+		if (access != _mouseInteractions) return;
+		
 		_mouseInteractions.rolledOver.remove(onRolledOver);
 		_mouseInteractions.rolledOut.remove(onRolledOut);
 		_mouseOver = false;

@@ -3,11 +3,11 @@ import guise.styledLayers.IGraphicsLayer;
 import guise.traits.core.IPosition;
 import guise.traits.core.ISize;
 import guiseSkins.styled.Styles;
-import guise.platform.types.DrawingAccessTypes;
-import guise.platform.PlatformAccessor;
+import guise.accessTypes.IGraphicsAccess;
 import guise.geom.Matrix;
 import guiseSkins.styled.values.IValue;
-import guise.platform.types.DisplayAccessTypes;
+import guise.accessTypes.IFilterableAccess;
+import guise.accessTypes.IPositionAccess;
 
 /**
  * ...
@@ -26,8 +26,8 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>, implements IGraphicsLayer
 		filterAccess = value;
 		return value;
 	}
-	public var graphicsAccess(default, set_graphicsAccess):IGraphics;
-	private function set_graphicsAccess(value:IGraphics):IGraphics {
+	public var graphicsAccess(default, set_graphicsAccess):IGraphicsAccess;
+	private function set_graphicsAccess(value:IGraphicsAccess):IGraphicsAccess {
 		if (graphicsAccess != null) {
 			graphicsAccess.clear();
 		}
@@ -66,13 +66,13 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>, implements IGraphicsLayer
 		_requireSize = true;
 		this.layerName = layerName;
 		
-		//addSiblingTrait(new PlatformAccessor(IGraphics, layerName, onGraphicsAdd, onGraphicsRemove));
+		//addSiblingTrait(new PlatformAccessor(IGraphicsAccess, layerName, onGraphicsAdd, onGraphicsRemove));
 	}
-	/*private function onGraphicsAdd(access:IGraphics):Void {
+	/*private function onGraphicsAdd(access:IGraphicsAccess):Void {
 		_graphics = access;
 		invalidate();
 	}
-	private function onGraphicsRemove(access:IGraphics):Void {
+	private function onGraphicsRemove(access:IGraphicsAccess):Void {
 		_graphics.clear();
 		_graphics = null;
 	}*/
@@ -101,10 +101,10 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>, implements IGraphicsLayer
 		
 		switch(style) {
 			case BsRectComplex(f, s, c, w, h, x, y):
-				boxX = x!=null?getValue(x):0;
-				boxY = y!=null?getValue(y):0;
-				boxW = w!=null?getValue(w):this.w;
-				boxH = h!=null?getValue(h):this.h;
+				boxX = getValue(x,0);
+				boxY = getValue(y,0);
+				boxW = getValue(w,this.w);
+				boxH = getValue(h,this.h);
 				
 				fill = f;
 				stroke = s;
@@ -122,10 +122,10 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>, implements IGraphicsLayer
 						
 				}
 			case BsCapsule(f, s, w, h, x, y):
-				boxX = x!=null?getValue(x):0;
-				boxY = y!=null?getValue(y):0;
-				boxW = w!=null?getValue(w):this.w;
-				boxH = h!=null?getValue(h):this.h;
+				boxX = getValue(x,0);
+				boxY = getValue(y,0);
+				boxW = getValue(w,this.w);
+				boxH = getValue(h,this.h);
 				
 				fill = f;
 				stroke = s;
@@ -137,10 +137,10 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>, implements IGraphicsLayer
 				bl = CAPSULE_CORNER;
 				br = CAPSULE_CORNER;
 			case BsRect(f, s, w, h, x, y):
-				boxX = x!=null?getValue(x):0;
-				boxY = y!=null?getValue(y):0;
-				boxW = w!=null?getValue(w):this.w;
-				boxH = h!=null?getValue(h):this.h;
+				boxX = getValue(x,0);
+				boxY = getValue(y,0);
+				boxW = getValue(w,this.w);
+				boxH = getValue(h,this.h);
 				
 				fill = f;
 				stroke = s;
@@ -192,7 +192,7 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>, implements IGraphicsLayer
 				drawArc(graphicsAccess, x+cX, y+cY, r, Math.PI / 2, angle, isInitial);
 		}
 	}
-	private function drawArc(graphics:IGraphics, x:Float, y:Float, radius:Float, angle:Float, startAngle:Float, isInitial:Bool, accuracy:Int=8){
+	private function drawArc(graphics:IGraphicsAccess, x:Float, y:Float, radius:Float, angle:Float, startAngle:Float, isInitial:Bool, accuracy:Int=8){
 		var span:Float = Math.PI / accuracy;
 		var controlRadius:Float = radius/Math.cos(span);
 		var anchorAngle:Float = (startAngle-Math.PI/2);

@@ -3,8 +3,8 @@ package guise.platform.waxe.display;
 import guise.traits.core.IPosition;
 import guise.traits.core.Position;
 import guise.traits.core.Size;
-import guise.platform.types.DisplayAccessTypes;
-import guise.core.AbsPosSizeAwareTrait;
+import guise.accessTypes.DisplayAccessTypes;
+import guise.platform.cross.display.AbsDisplayTrait;
 import wx.Frame;
 import wx.Window;
 
@@ -15,7 +15,7 @@ import msignal.Signal;
  * @author Tom Byrne
  */
 
-class WindowTrait extends AbsPosSizeAwareTrait, implements IWindowInfo
+class WindowTrait extends AbsDisplayTrait, implements IWindowInfo
 {
 	public var availSizeChanged(default, null):Signal1<IWindowInfo>;
 	
