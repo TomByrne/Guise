@@ -1,40 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tags>
-	<tag type="guise.controls.ControlTags.TextButtonTag(true)" isEnum="true">
-		<layer name="backing" natures="guise.accessTypes.IGraphicsAccess,guise.accessTypes.IPositionAccess,guise.accessTypes.IFilterableAccess">
-			
-		</layer>
-		<layer name="labelText" natures="guise.accessTypes.ITextInputAccess,guise.accessTypes.IBoxPosAccess,guise.accessTypes.IFilterableAccess">
-			
-		</layer>
+
+	<tag type="guise.core.CoreTags.WindowTag" isEnum="true" asc="true" desc="false">
+		<add type="TInst" e="guise.platform.nme.display.StageTrait.inst()"/>
 	</tag>
-	<tag type="guise.controls.ControlTags.TextLabelTag" isEnum="true">
-		<layer name="labelText" natures="guise.accessTypes.ITextInputAccess,guise.accessTypes.IBoxPosAccess,guise.accessTypes.IFilterableAccess">
-			
-		</layer>
+	<tag type="guise.core.CoreTags.ContainerTag" isEnum="true" natures="guise.platform.nme.display.ContainerTrait">
+		
 	</tag>
-	<tag type="guise.controls.ControlTags.TextInputTag" isEnum="true">
-		<layer name="backing" natures="guise.accessTypes.IGraphicsAccess,guise.accessTypes.IPositionAccess,guise.accessTypes.IFilterableAccess">
-			
-		</layer>
-		<layer name="inputText" natures="guise.accessTypes.ITextInputAccess,guise.accessTypes.ITextOutputAccess,guise.accessTypes.IBoxPosAccess,guise.accessTypes.IFilterableAccess,guise.accessTypes.IFocusableAccess">
-			
-		</layer>
+
+	<tag type="guise.controls.logic.states.ButtonStateMapper" natures="guise.accessTypes.IMouseClickableAccess,guise.accessTypes.IMouseInteractionsAccess">
+
 	</tag>
-	<tag type="guise.controls.ControlTags.SliderTag" isEnum="true">
-		<layer name="backing" natures="guise.accessTypes.IGraphicsAccess,guise.accessTypes.IPositionAccess,guise.accessTypes.IFilterableAccess">
-			
-		</layer>
-		<layer name="controlHandle" natures="guise.accessTypes.IGraphicsAccess,guise.accessTypes.IPositionAccess,guise.accessTypes.IFilterableAccess">
-			
-		</layer>
-	</tag>
-	<tag type="guise.controls.ControlTags.ToggleButtonTag" isEnum="true">
-		<layer name="backing" natures="guise.accessTypes.IGraphicsAccess,guise.accessTypes.IPositionAccess,guise.accessTypes.IFilterableAccess">
-			
-		</layer>
-		<layer name="controlHandle" natures="guise.accessTypes.IGraphicsAccess,guise.accessTypes.IPositionAccess,guise.accessTypes.IFilterableAccess">
-			
-		</layer>
+
+	<tag type="guise.platform.nme.addTypes.IDisplayObjectType" natures="guise.platform.nme.display.ContainerTrait,guise.platform.nme.layers.LayerSwapper,guise.layer.LayerOrderer">
+
 	</tag>
 <tags>

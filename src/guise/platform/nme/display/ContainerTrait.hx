@@ -1,5 +1,5 @@
 package guise.platform.nme.display;
-import guise.platform.nme.accessTypes.AdditionalTypes;
+import guise.platform.nme.addTypes.IDisplayObjectType;
 import nme.display.DisplayObject;
 import nme.display.DisplayObjectContainer;
 import nme.display.Sprite;

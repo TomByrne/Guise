@@ -5,7 +5,7 @@ import guise.accessTypes.IBoxPosAccess;
 import guise.platform.nme.TextFieldGutter;
 import nme.display.DisplayObject;
 import nme.text.TextField;
-import guise.platform.nme.accessTypes.AdditionalTypes;
+import guise.platform.nme.addTypes.IDisplayObjectType;
 
 
 class PositionAccess extends AbstractTrait, implements IBoxPosAccess

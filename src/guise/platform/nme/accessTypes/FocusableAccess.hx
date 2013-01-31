@@ -5,7 +5,7 @@ import nme.display.InteractiveObject;
 import nme.events.Event;
 import nme.events.FocusEvent;
 import msignal.Signal;
-import guise.platform.nme.accessTypes.AdditionalTypes;
+import guise.platform.nme.addTypes.IInteractiveObjectType;
 
 
 class FocusableAccess extends AbstractTrait, implements IFocusableAccess

@@ -12,7 +12,7 @@ import msignal.Signal;
  * @author Tom Byrne
  */
 
-class MouseInteractions extends AbstractTrait, implements IMouseInteractionsAccess
+class MouseInteractionsAccess extends AbstractTrait, implements IMouseInteractionsAccess
 {
 	@inject
 	public var displayTrait(default, set_displayTrait):DisplayTrait;

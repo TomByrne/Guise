@@ -55,15 +55,15 @@ class AccessProvider extends AbstractTrait
 			}
 			if (!layerInfo.requirements.exists(key)) {
 				
-				var trait = item.getTrait(klass);
-				if (Std.is(trait, req)) {
+				var trait:Dynamic = item.getTrait(klass);
+				if (Std.is(trait, IAccessType)) {
 					var access:IAccessType = cast trait;
 					if(access.layerName != accessReq.layerName)trait = null;
 				}
 				if(trait==null ){
 					trait = Type.createInstance(klass, []);
 				}
-				if (Std.is(trait, req)) {
+				if (Std.is(trait, IAccessType)) {
 					var access:IAccessType = cast trait;
 					access.layerName = accessReq.layerName;
 				}
@@ -98,7 +98,7 @@ class AccessProvider extends AbstractTrait
 			if (count > 1) {
 				layerInfo.requirements.set(key, count - 1);
 			}else {
-				var trait = layerInfo.accessors.get(key);
+				var trait:Dynamic = layerInfo.accessors.get(key);
 				item.removeTrait(trait);
 				layerInfo.accessors.remove(key);
 				layerInfo.requirements.remove(key);

@@ -1,6 +1,6 @@
 package guise.platform.nme.accessTypes;
 import composure.traits.AbstractTrait;
-import guise.platform.nme.accessTypes.AdditionalTypes;
+import guise.platform.nme.addTypes.IDisplayObjectType;
 import guise.accessTypes.IFilterableAccess;
 import nme.display.DisplayObject;
 import nme.filters.BitmapFilter;

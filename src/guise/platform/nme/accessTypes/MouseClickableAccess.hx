@@ -13,7 +13,7 @@ import msignal.Signal;
  * @author Tom Byrne
  */
 
-class MouseClickable extends AbstractTrait, implements IMouseClickableAccess
+class MouseClickableAccess extends AbstractTrait, implements IMouseClickableAccess
 {
 	@inject
 	public var displayTrait(default, set_displayTrait):DisplayTrait;

@@ -1,7 +1,8 @@
 package guise.platform.nme.accessTypes;
 import guise.accessTypes.ITextInputAccess;
 import guise.accessTypes.ITextOutputAccess;
-import guise.platform.nme.accessTypes.AdditionalTypes;
+import guise.platform.nme.addTypes.IDisplayObjectType;
+import guise.platform.nme.addTypes.IInteractiveObjectType;
 import nme.events.Event;
 import nme.events.FocusEvent;
 import nme.text.TextField;

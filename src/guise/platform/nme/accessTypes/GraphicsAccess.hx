@@ -7,7 +7,8 @@ import guise.geom.Matrix;
 import nme.display.Sprite;
 import nme.display.DisplayObject;
 import nme.display.InteractiveObject;
-import guise.platform.nme.accessTypes.AdditionalTypes;
+import guise.platform.nme.addTypes.IDisplayObjectType;
+import guise.platform.nme.addTypes.IInteractiveObjectType;
 
 /**
  * @author Tom Byrne
