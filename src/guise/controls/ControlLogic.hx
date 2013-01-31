@@ -30,7 +30,8 @@ class ControlLogic
 		var furnisher = new Furnisher(TextButtonTag(false), [TType(MouseOverTrait), TType(ButtonStateMapper), TType(ButtonClickTrait)]);
 		within.addTrait(furnisher);
 		
-		furnisher = new Furnisher(TextButtonTag(true), [TType(MouseOverTrait), TType(ButtonStateMapper), TType(SelectableStateMapper), TType(ButtonClickTrait), TType(ClickToggleSelect), TType(Selected, [UnlessHas(ISelected)])]);
+		furnisher = new Furnisher(TextButtonTag(true), [TType(SelectableStateMapper), TType(ClickToggleSelect), TType(Selected, [UnlessHas(ISelected)])]);
+		furnisher.checkEnumParams = [0];
 		within.addTrait(furnisher);
 		
 		furnisher = new Furnisher(TextInputTag, [TType(TextInputPrompt), Furnisher.fact(new FocusStateMapper(ControlLayers.INPUT_TEXT))]);
@@ -40,7 +41,6 @@ class ControlLogic
 		within.addTrait(furnisher);
 		
 		furnisher = new Furnisher(SliderTag(true), [TType(MouseOverTrait), TType(ButtonStateMapper), TType(NumRange, [UnlessHas(INumRange)]), Furnisher.fact(new MouseDragChangeValue(null,true,INumRange,"valueNorm",null,null,new Bind(Pos, "w", "sizeChanged")))]);
-		furnisher.checkEnumParams = [];
 		within.addTrait(furnisher);
 	}
 	

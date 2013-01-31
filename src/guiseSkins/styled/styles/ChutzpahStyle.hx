@@ -132,7 +132,6 @@ class ChutzpahStyle
 		}
 		
 		var furnisher = new Furnisher(TextButtonTag(false), [TFact(buttonBacking), TFact(labelText)/*, TFact(labelTextAlign)*/]);
-		furnisher.checkEnumParams = [];
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
@@ -149,10 +148,11 @@ class ChutzpahStyle
 		within.addTrait(furnisher);
 		
 		furnisher = new Furnisher(SliderTag(false), [TFact(hSliderBacking), TFact(sliderHandle)]);
+		furnisher.checkEnumParams = [0];
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
-		//StyleGenerator.trace([guise.accessTypes.ITextInputAccess, guise.accessTypes.ITextOutputAccess, guise.accessTypes.IBoxPosAccess, guise.accessTypes.IFilterableAccess]);
+		//StyleGenerator.trace(guise.controls.ControlTags.TextButtonTag(true));
 		StyleGenerator.path("../Styles/Chutzpah.xml");
 		
 		/*{

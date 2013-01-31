@@ -25,9 +25,9 @@ class NmePlatformAccess
 		within.addTrait(new Furnisher(ContainerTag,		[TType(ContainerTrait, [UnlessHas(ContainerTrait)])]));
 		within.addTrait(new Furnisher(IDisplayLayer,	[TType(ContainerTrait, [UnlessHas(ContainerTrait)]), TType(LayerContainer, [UnlessHas(LayerContainer)]), TType(LayerOrderer, [UnlessHas(LayerOrderer)])]));
 		
-		var furnisher = new Furnisher(TextButtonTag(false), [TType(MouseClickable, [UnlessHas(IMouseClickableAccess)])]);
-		furnisher.checkEnumParams = [];
-		within.addTrait(furnisher);
+		within.addTrait(new Furnisher(TextLabelTag, [TType(ContainerTrait, [UnlessHas(ContainerTrait)]), TType(LayerContainer, [UnlessHas(LayerContainer)])]));
+		
+		within.addTrait(new Furnisher(TextButtonTag(true), [TType(MouseClickable, [UnlessHas(IMouseClickableAccess)])]));
 		
 		within.addTrait(new Furnisher(ToggleButtonTag, [TType(MouseClickable, [UnlessHas(IMouseClickableAccess)])]));
 		

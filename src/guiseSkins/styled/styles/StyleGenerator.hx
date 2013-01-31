@@ -82,8 +82,9 @@ class StyleGenerator
 				natArr.push(createIdent(naturePath));
 			}
 		}
+		var layerName = Context.makeExpr(tag.get("name"), pos);
 		var natureExpr:Expr = { expr : EArrayDecl(natArr), pos:pos };
-		addBlock.push(macro item.addTrait(new LayerAccessRequire("inputText", $natureExpr)));
+		addBlock.push(macro item.addTrait(new LayerAccessRequire($layerName, $natureExpr)));
 		
 		// need to figure out how best to remove traits
 	}
@@ -93,6 +94,24 @@ class StyleGenerator
 	}
 	private static function createIdent(typePath:String):Expr {
 		var pos = Context.currentPos();
+		
+		if ((typePath.charAt(0) == "'" && typePath.charAt(typePath.length - 1) == "'") || 
+			(typePath.charAt(0) == '"' && typePath.charAt(typePath.length - 1) == '"')) {
+				
+			return { expr : EConst(CString(typePath.substring(1, typePath.length-1))), pos:pos };
+		}
+		var bracket = typePath.indexOf("(");
+		var paramsE:Array<Expr>;
+		if (bracket != -1) {
+			var params = typePath.substring(bracket + 1, typePath.length - 1).split(",");
+			typePath = typePath.substr(0, bracket);
+			paramsE = [];
+			for (param in params) {
+				paramsE.push(createIdent(param));
+			}
+		}else {
+			paramsE = null;
+		}
 		var parts = typePath.split(".");
 		var ret:Expr;
 		for (part in parts) {
@@ -102,7 +121,11 @@ class StyleGenerator
 				ret = { expr : EField( ret, part), pos : pos };
 			}
 		}
-		return ret;
+		if (paramsE != null) {
+			return { expr:ECall(ret, paramsE), pos:pos };
+		}else{
+			return ret;
+		}
 	}
 	
 	#end

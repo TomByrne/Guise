@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tags>
-	<tag type="guise.controls.ControlTags.TextButtonTag" isEnum="true">
-		<layer name="inputText" natures="guise.accessTypes.ITextInputAccess,guise.accessTypes.ITextOutputAccess,guise.accessTypes.IBoxPosAccess,guise.accessTypes.IFilterableAccess,guise.accessTypes.IFocusableAccess">
+	<tag type="guise.controls.ControlTags.TextButtonTag(true)" isEnum="true">
+		<layer name="labelText" natures="guise.accessTypes.ITextInputAccess,guise.accessTypes.IBoxPosAccess,guise.accessTypes.IFilterableAccess">
+			
+		</layer>
+	</tag>
+	<tag type="guise.controls.ControlTags.TextLabelTag" isEnum="true">
+		<layer name="labelText" natures="guise.accessTypes.ITextInputAccess,guise.accessTypes.IBoxPosAccess,guise.accessTypes.IFilterableAccess">
 			
 		</layer>
 	</tag>
@@ -11,8 +16,7 @@
 		</layer>
 	</tag>
 	<tag type="guise.controls.ControlTags.SliderTag" isEnum="true">
-		<layer name="inputText" natures="guise.accessTypes.IBoxPosAccess,guise.accessTypes.IFilterableAccess,guise.accessTypes.IFocusableAccess">
-			
-		</layer>
+	</tag>
+	<tag type="guise.controls.ControlTags.ToggleButtonTag" isEnum="true">
 	</tag>
 <tags>

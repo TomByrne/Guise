@@ -21,11 +21,6 @@ class NormalLayering
 		furnisher.addTrait(TFact(function(tag:Dynamic) { return new LayerOrderer([ControlLayers.BACKING, ControlLayers.LABEL_TEXT]);}) );
 		within.addTrait(furnisher);
 		
-		furnisher = new Furnisher(TextButtonTag(true));
-		furnisher.checkEnumParams = [];
-		furnisher.addTrait(TFact(function(tag:Dynamic) { return new LayerOrderer([ControlLayers.BACKING, ControlLayers.LABEL_TEXT]);}) );
-		within.addTrait(furnisher);
-		
 		furnisher = new Furnisher(TextInputTag);
 		furnisher.addTrait(TFact(function(tag:Dynamic) { return new LayerOrderer([ControlLayers.BACKING, ControlLayers.INPUT_TEXT]);} ));
 		within.addTrait(furnisher);
@@ -35,7 +30,6 @@ class NormalLayering
 		within.addTrait(furnisher);
 		
 		furnisher = new Furnisher(SliderTag(true));
-		furnisher.checkEnumParams = [];
 		furnisher.addTrait(TFact(function(tag:Dynamic) { return new LayerOrderer([ControlLayers.BACKING, ControlLayers.CONTROL_HANDLE]);} ));
 		within.addTrait(furnisher);
 	}
