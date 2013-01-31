@@ -52,7 +52,11 @@ class PositionAccess extends AbstractTrait, implements IBoxPosAccess
 	private var _h:Float;
 	private var _gutter:Float;
 	
-	public var layerName:String;
+	public var layerName(default, set_layerName):String;
+	private function set_layerName(value:String):String {
+		this.layerName = value;
+		return value;
+	}
 
 	public function new(?display:DisplayObject, ?layerName:String) 
 	{

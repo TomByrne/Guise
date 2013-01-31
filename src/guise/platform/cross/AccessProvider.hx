@@ -28,7 +28,7 @@ class AccessProvider extends AbstractTrait
 		_accessClassMap.set(key, klass);
 	}
 	
-	@injectAdd
+	@injectAdd({desc:true})
 	public function onAccessRequireAdd(accessReq:LayerAccessRequire, item:ComposeItem):Void {
 		var layerHash:Hash<LayerInfo> = _itemToLayers.get(item);
 		var layerInfo:LayerInfo;
@@ -56,7 +56,11 @@ class AccessProvider extends AbstractTrait
 			if (!layerInfo.requirements.exists(key)) {
 				
 				var trait = item.getTrait(klass);
-				if(trait==null){
+				if (Std.is(trait, req)) {
+					var access:IAccessType = cast trait;
+					if(access.layerName != accessReq.layerName)trait = null;
+				}
+				if(trait==null ){
 					trait = Type.createInstance(klass, []);
 				}
 				if (Std.is(trait, req)) {
@@ -75,7 +79,7 @@ class AccessProvider extends AbstractTrait
 			layerInfo.totalReqs++;
 		}
 	}
-	@injectRemove
+	@injectRemove({desc:true})
 	public function onAccessRequireRemove(accessReq:LayerAccessRequire, item:ComposeItem):Void {
 		var layerHash:Hash<LayerInfo> = _itemToLayers.get(item);
 		var layerInfo:LayerInfo = layerHash.get(accessReq.layerName);

@@ -49,15 +49,15 @@ class DisplayTrait extends AbsDisplayTrait
 	private function setDomElement(value:HtmlDom):Void {
 		this.domElement = value;
 	}
-	override private function onPosChanged(from:IDisplayPosition):Void {
-		_setPosition(from.x, from.y);
+	override private function onPosValid(x:Float, y:Float):Void {
+		_setPosition(x, y);
 	}
-	override private function onSizeChanged(from:IDisplayPosition):Void {
-		_setSize(from.width, from.height);
+	override private function onSizeValid(w:Float, h:Float):Void {
+		_setSize(w, h);
 	}
 	public function setAllowSizing(value:Bool):Void {
 		_allowSizing = value;
-		if(position!=null)onSizeChanged(position);
+		if(position!=null)onSizeChanged2(position);
 	}
 	private function _setPosition(x:Float, y:Float):Void {
 		if (!Math.isNaN(y) && !Math.isNaN(x)) {

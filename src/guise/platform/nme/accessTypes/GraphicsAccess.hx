@@ -4,37 +4,48 @@ import nme.display.Graphics;
 import nme.display.BitmapData;
 import guise.accessTypes.IGraphicsAccess;
 import guise.geom.Matrix;
+import nme.display.Sprite;
+import nme.display.DisplayObject;
+import nme.display.InteractiveObject;
+import guise.platform.nme.accessTypes.AdditionalTypes;
 
 /**
  * @author Tom Byrne
  */
 
-class GraphicsAccess  implements IGraphicsAccess
+class GraphicsAccess implements IGraphicsAccess, implements IDisplayObjectType, implements IInteractiveObjectType
 {
 	
-	public var graphics/*(default, set_graphics)*/:Graphics;
-	/*private function set_graphics(value:Graphics):Graphics {
-		graphics = value;
+	public var layerName(default, set_layerName):String;
+	private function set_layerName(value:String):String {
+		this.layerName = value;
+		_sprite.name = value==null?"":value;
 		return value;
-	}*/
-	
-	
-	public var layerName:String;
-
-	public function new(?layerName:String, ?graphics:Graphics) {
-		//super();
-		this.layerName = layerName;
-		this.graphics = graphics;
 	}
 	
+	private var _sprite:Sprite;
+	private var _graphics:Graphics;
+
+	public function new(?layerName:String) {
+		_sprite = new Sprite();
+		_graphics = _sprite.graphics;
+		this.layerName = layerName;
+	}
+	
+	public function getDisplayObject():DisplayObject {
+		return _sprite;
+	}
+	public function getInteractiveObject():InteractiveObject {
+		return _sprite;
+	}
 	
 	public function beginFill(color:Int, alpha:Float = 1.0)
 	{	
-		graphics.beginFill(color, alpha);
+		_graphics.beginFill(color, alpha);
 	}
 
 	public function beginBitmapFill(bitmap:BitmapData, matrix:Matrix = null, repeat:Bool = true, smooth:Bool = false) {
-		graphics.beginBitmapFill(bitmap, matrix, repeat, smooth);
+		_graphics.beginBitmapFill(bitmap, matrix, repeat, smooth);
 	}
 
 	public function beginGradientFill(type:GradientType, gp:Array<{fract:Float, c:Int, a:Null<Float>}>, ?matrix:Matrix, ?spreadMethod:Null<SpreadMethod>, ?interpolationMethod:Null<InterpolationMethod>):Void
@@ -85,47 +96,47 @@ class GraphicsAccess  implements IGraphicsAccess
 				nmeType = nme.display.GradientType.RADIAL;
 				focalPointRatio = fpr;
 		}
-		graphics.beginGradientFill(nmeType, colors, alphas, ratios, nmeMat, spread, interp, focalPointRatio);
+		_graphics.beginGradientFill(nmeType, colors, alphas, ratios, nmeMat, spread, interp, focalPointRatio);
 	}
 	
 	
 	public function clear()
 	{	
-		graphics.clear();	
+		_graphics.clear();	
 	}
 	
 	
 	public function curveTo(inCX:Float, inCY:Float, inX:Float, inY:Float)
 	{	
-		graphics.curveTo(inCX, inCY, inX, inY);	
+		_graphics.curveTo(inCX, inCY, inX, inY);	
 	}
 
 	
 	public function drawEllipse(inX:Float, inY:Float, inWidth:Float, inHeight:Float)
 	{	
-		graphics.drawEllipse(inX, inY, inWidth, inHeight); 
+		_graphics.drawEllipse(inX, inY, inWidth, inHeight); 
 	}
 	
 	
 	public function drawRect(inX:Float, inY:Float, inWidth:Float, inHeight:Float)
 	{
-		graphics.drawRect(inX, inY, inWidth, inHeight);
+		_graphics.drawRect(inX, inY, inWidth, inHeight);
 	}
 	
 	
 	public function drawRoundRect(x:Float, y:Float, w:Float, h:Float, r:Float)
 	{
-		graphics.drawRoundRect(x, y, w, h, r, r);
+		_graphics.drawRoundRect(x, y, w, h, r, r);
 	}
 	
 	public function endFill()
 	{
-		graphics.endFill();	
+		_graphics.endFill();	
 	}
 	
 	public function beginBitmapStroke(bitmap:BitmapData, matrix:Matrix = null, repeat:Bool = true, smooth:Bool = false) {
 		#if flash
-		graphics.lineBitmapStyle(bitmap, matrix, repeat, smooth);
+		_graphics.lineBitmapStyle(bitmap, matrix, repeat, smooth);
 		#else
 		throw "beginBitmapStroke not yet supported on this target"; 
 		#end
@@ -180,7 +191,7 @@ class GraphicsAccess  implements IGraphicsAccess
 				nmeType = nme.display.GradientType.RADIAL;
 				focalPointRatio = fpr;
 		}
-		graphics.lineGradientStyle(nmeType, colors, alphas, ratios, nmeMat, spread, interp, focalPointRatio);
+		_graphics.lineGradientStyle(nmeType, colors, alphas, ratios, nmeMat, spread, interp, focalPointRatio);
 	}
 	
 	private var _color:Int;
@@ -195,7 +206,7 @@ class GraphicsAccess  implements IGraphicsAccess
 	{	
 		_color = color;
 		_alpha = alpha;
-		graphics.lineStyle(_thickness, _color, _alpha, _pixelHinting, null, _caps, _joints, _miterLimit);
+		_graphics.lineStyle(_thickness, _color, _alpha, _pixelHinting, null, _caps, _joints, _miterLimit);
 	}
 	
 	public function lineStyle(?thickness:Null<Float>, pixelHinting:Bool = false, ?caps:CapsStyle, ?joints:JointStyle):Void
@@ -218,19 +229,19 @@ class GraphicsAccess  implements IGraphicsAccess
 		_thickness = thickness;
 		_pixelHinting = pixelHinting;
 		
-		graphics.lineStyle(_thickness, _color, _alpha, _pixelHinting, null, _caps, _joints, _miterLimit);
+		_graphics.lineStyle(_thickness, _color, _alpha, _pixelHinting, null, _caps, _joints, _miterLimit);
 	}
 	
 	
 	public function lineTo(inX:Float, inY:Float)
 	{	
-		graphics.lineTo(inX, inY);
+		_graphics.lineTo(inX, inY);
 	}
 	
 	
 	public function moveTo(inX:Float, inY:Float)
 	{	
-		graphics.moveTo(inX, inY);	
+		_graphics.moveTo(inX, inY);	
 	}
 	
 	private function sortGradPoints(gp1: { fract:Float, c:Int, a:Float }, gp2: { fract:Float, c:Int, a:Float } ):Int {

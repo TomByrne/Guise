@@ -48,7 +48,11 @@ class MouseClickable extends AbstractTrait, implements IMouseClickableAccess
 	
 	private var clickInfo:ClickInfo;
 	
-	public var layerName:String;
+	public var layerName(default, set_layerName):String;
+	private function set_layerName(value:String):String {
+		this.layerName = value;
+		return value;
+	}
 
 	public function new(?layerName:String, ?interactiveObject:InteractiveObject) 
 	{

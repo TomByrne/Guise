@@ -21,7 +21,7 @@
 			
 		</layer>
 	</tag>
-	<tag type="guise.controls.ControlTags.SliderTag(true)" isEnum="true">
+	<tag type="guise.controls.ControlTags.SliderTag" isEnum="true">
 		<layer name="backing" natures="guise.accessTypes.IGraphicsAccess,guise.accessTypes.IPositionAccess,guise.accessTypes.IFilterableAccess">
 			
 		</layer>

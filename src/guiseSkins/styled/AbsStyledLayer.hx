@@ -1,6 +1,5 @@
 package guiseSkins.styled;
 import guise.layout.IDisplayPosition;
-import guise.styledLayers.IDisplayLayer;
 import guiseSkins.styled.values.IValue;
 import guiseSkins.trans.ITransitioner;
 import guise.states.StateStyledTrait;

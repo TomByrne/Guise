@@ -29,11 +29,11 @@ import nme.display.DisplayObject;
 import nme.display.Shape;
 import msignal.Signal;
 
-class LayerContainer extends AbsDisplayTrait, implements ILayerContainer
+class LayerContainer extends AbsDisplayTrait//, implements ILayerContainer
 {
 
-	@lazyInst
-	public var layeringChanged(default, null):Signal1<ILayerContainer>;
+	//@lazyInst
+	//public var layeringChanged(default, null):Signal1<ILayerContainer>;
 	
 	
 	@inject
@@ -41,9 +41,9 @@ class LayerContainer extends AbsDisplayTrait, implements ILayerContainer
 	private function set_container(value:ContainerTrait):ContainerTrait {
 		
 		if (container != null) {
-			for (bundle in _layerBundles) {
+			/*for (bundle in _layerBundles) {
 				container.container.removeChild(bundle.display);
-			}
+			}*/
 			for (item in _itemToLayers) {
 				for (display in _itemToLayers.get(item)) {
 					container.container.removeChild(display);
@@ -54,9 +54,9 @@ class LayerContainer extends AbsDisplayTrait, implements ILayerContainer
 		this.container = value;
 		
 		if (container != null) {
-			for (bundle in _layerBundles) {
+			/*for (bundle in _layerBundles) {
 				container.container.addChild(bundle.display);
-			}
+			}*/
 			for (item in _itemToLayers) {
 				for (display in _itemToLayers.get(item)) {
 					container.container.addChild(display);
@@ -67,12 +67,12 @@ class LayerContainer extends AbsDisplayTrait, implements ILayerContainer
 		return value;
 	}
 	
-	public var layers(default, null):Array<String>;
+	//public var layers(default, null):Array<String>;
 	
-	private var _layerBundles:Array<LayerBundle>;
-	private var _layerToBundle:ObjectHash<IDisplayLayer, LayerBundle>;
-	private var _graphLayers:Array<IGraphicsLayer>;
-	private var _textLayers:Array<ITextLayer>;
+	//private var _layerBundles:Array<LayerBundle>;
+	//private var _layerToBundle:ObjectHash<IDisplayLayer, LayerBundle>;
+	//private var _graphLayers:Array<IGraphicsLayer>;
+	//private var _textLayers:Array<ITextLayer>;
 	
 	private var _itemToLayers:ObjectHash<ComposeItem, Hash<DisplayObject>>;
 	
@@ -81,11 +81,11 @@ class LayerContainer extends AbsDisplayTrait, implements ILayerContainer
 	{
 		super();
 		_sizeListen = true;
-		_layerToBundle = new ObjectHash();
-		layers = [];
-		_layerBundles = [];
-		_graphLayers = [];
-		_textLayers = [];
+		//_layerToBundle = new ObjectHash();
+		//layers = [];
+		//_layerBundles = [];
+		//_graphLayers = [];
+		//_textLayers = [];
 		
 		_itemToLayers = new ObjectHash();
 		
@@ -102,16 +102,18 @@ class LayerContainer extends AbsDisplayTrait, implements ILayerContainer
 	public function onAccessAdd(item:ComposeItem, layerName:String, trait:Dynamic):Void {
 		if (Std.is(trait, IDisplayObjectType)) {
 			var castTrait:IDisplayObjectType = cast trait;
-			addDisplay(item, layerName, castTrait.getDisplayObject());
+			container.addLayer(castTrait.getDisplayObject(), layerName);
+			//addDisplay(item, layerName, castTrait.getDisplayObject());
 		}
 	}
 	public function onAccessRemove(item:ComposeItem, layerName:String, trait:Dynamic):Void {
 		if (Std.is(trait, IDisplayObjectType)) {
 			var castTrait:IDisplayObjectType = cast trait;
-			removeDisplay(item, layerName, castTrait.getDisplayObject());
+			container.removeLayer(castTrait.getDisplayObject(), layerName);
+			//removeDisplay(item, layerName, castTrait.getDisplayObject());
 		}
 	}
-	public function addDisplay(item:ComposeItem, layerName:String, displayObject:DisplayObject):Void {
+	/*public function addDisplay(item:ComposeItem, layerName:String, displayObject:DisplayObject):Void {
 		var layers = _itemToLayers.get(item);
 		if (layers == null) {
 			layers = new Hash();
@@ -120,8 +122,8 @@ class LayerContainer extends AbsDisplayTrait, implements ILayerContainer
 			throw "Item already has display layer with name " + layerName;
 		}
 		this.layers.push(layerName);
-		layers.set(layerName, displayObject);
-		LazyInst.exec(layeringChanged.dispatch(this));
+		//layers.set(layerName, displayObject);
+		//LazyInst.exec(layeringChanged.dispatch(this));
 		
 		if (container != null) {
 			container.container.addChild(displayObject);
@@ -133,15 +135,15 @@ class LayerContainer extends AbsDisplayTrait, implements ILayerContainer
 			return;
 		}
 		this.layers.remove(layerName);
-		layers.remove(layerName);
-		LazyInst.exec(layeringChanged.dispatch(this));
+		//layers.remove(layerName);
+		//LazyInst.exec(layeringChanged.dispatch(this));
 		
 		if (container != null) {
 			container.container.removeChild(displayObject);
 		}
-	}
+	}*/
 	
-	@injectAdd
+	/*@injectAdd
 	public function onGraphLayerAdd(layer:IGraphicsLayer):Void {
 		var display:Shape = new Shape();
 		layer.filterAccess = addAccess(new FilterableAccess(display, layer.layerName));
@@ -162,7 +164,7 @@ class LayerContainer extends AbsDisplayTrait, implements ILayerContainer
 		
 		_graphLayers.remove(layer);
 		attemptRemoveLayer(layer);
-	}
+	}*/
 	
 	/*@injectAdd
 	public function onTextLayerAdd(layer:ITextLayer):Void {
@@ -194,16 +196,16 @@ class LayerContainer extends AbsDisplayTrait, implements ILayerContainer
 		return access;
 	}
 	
-	private function attemptAddLayer(layer:IDisplayLayer, display:DisplayObject):Void {
+	/*private function attemptAddLayer(layer:IDisplayLayer, display:DisplayObject):Void {
 		if (!_layerToBundle.exists(layer)) {
 			var bundle = new LayerBundle(layer, display);
 			_layerToBundle.set(layer, bundle);
 			_layerBundles.push(bundle);
 			layers.push(layer.layerName);
 			LazyInst.exec(layeringChanged.dispatch(this));
-			/*if (position!=null) {
+			if (position!=null) {
 				layer.setPosition(0, 0, position.w, position.h);
-			}*/
+			}
 		}else {
 			throw "Layer already addded";
 		}
@@ -221,7 +223,7 @@ class LayerContainer extends AbsDisplayTrait, implements ILayerContainer
 		}else {
 			throw "Layer not addded";
 		}
-	}
+	}*/
 	
 	/*override private function onSizeValid(w:Float, h:Float):Void {
 		for (bundle in _layerBundles) {
@@ -235,18 +237,18 @@ class LayerContainer extends AbsDisplayTrait, implements ILayerContainer
 		layers[index1] = layer2;
 		layers[index2] = layer1;
 		
-		var bundle1 = _layerBundles[index1];
+		/*var bundle1 = _layerBundles[index1];
 		var bundle2 = _layerBundles[index2];
 		
 		_layerBundles[index1] = bundle2;
-		_layerBundles[index2] = bundle1;
+		_layerBundles[index2] = bundle1;*/
 		
-		if (container != null) {
-			container.container.swapChildren(bundle1.display, bundle2.display);
+		/*if (container != null) {
+			container.container.swapChildrenAt(index1, index2);
 		}*/
 	}
 }
-class LayerBundle {
+/*class LayerBundle {
 	
 	public var display:DisplayObject;
 	public var layer:IDisplayLayer;
@@ -255,4 +257,4 @@ class LayerBundle {
 		this.layer = layer;
 		this.display = display;
 	}
-}
+}*/

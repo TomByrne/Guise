@@ -8,21 +8,28 @@ import guise.states.StateStyledTrait;
 
 class FilterLayer extends StateStyledTrait<Array<FilterType>>
 {
-	public var filterAccess(default, set_filterAccess):IFilterableAccess;
-	private function set_filterAccess(value:IFilterableAccess):IFilterableAccess {
-		_filterable = value;
-		if (_filterable != null) {
-			invalidate();
-		}
-		return value;
+	
+	@injectAdd
+	private function onFilterAdd(access:IFilterableAccess):Void {
+		if (_layerName != null && access.layerName != _layerName) return;
+		
+		_filterable = access;
+		invalidate();
+	}
+	@injectRemove
+	private function onFilterRemove(access:IFilterableAccess):Void {
+		if (access != _filterable) return;
+		
+		_filterable = null;
 	}
 	
-	
 	private var _filterable:IFilterableAccess;
+	private var _layerName:String;
 
-	public function new(normalStyle:Array<FilterType>=null) 
+	public function new(layerName:String, normalStyle:Array<FilterType>=null) 
 	{
 		super(normalStyle);
+		_layerName = layerName;
 		
 		//addSiblingTrait(new PlatformAccessor(IFilterableAccess, layerName, onFilterableAdd, onFilterableRemove));
 	}

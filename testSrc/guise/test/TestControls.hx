@@ -9,10 +9,6 @@ import guise.controls.data.ISelected;
 import guise.controls.data.IInputPrompt;
 import guise.layout.IDisplayPosition;
 
-/**
- * ...
- * @author Tom Byrne
- */
 
 class TestControls 
 {
@@ -22,7 +18,7 @@ class TestControls
 		addButton(parent, "Selectable Button", x, y + 40, 150, 30, true);
 		addLabel(parent, "Test Label", x, y + 80, 150, 30);
 		addTextInput(parent, "Test Input", x, y + 120, 150, 30);
-		addToggleButton(parent, x, y + 155, 150, 30);
+		addToggleButton(parent, "Test Toggle", x, y + 155, 150, 30);
 		addSlider(parent, x, y + 180, 150, 30, false);
 	}
 	public static function addButton(parent:ComposeGroup, text:String, x:Float, y:Float, w:Float, h:Float, selectable:Bool):Void {
@@ -40,9 +36,9 @@ class TestControls
 		item.addTraits([TextInputTag, new Pos(x, y, w, h), new TextLabel(), new InputPrompt(prompt) ]);
 		parent.addChild(item);
 	}
-	public static function addToggleButton(parent:ComposeGroup, x:Float, y:Float, w:Float, h:Float):Void {
+	public static function addToggleButton(parent:ComposeGroup, label:String, x:Float, y:Float, w:Float, h:Float):Void {
 		var item:ComposeItem = new ComposeItem();
-		item.addTraits([ToggleButtonTag, new Pos(x, y, w, h)]);
+		item.addTraits([ToggleButtonTag, new Pos(x, y, w, h), new TextLabel(label)]);
 		parent.addChild(item);
 	}
 	public static function addSlider(parent:ComposeGroup, x:Float, y:Float, w:Float, h:Float, vert:Bool):Void {

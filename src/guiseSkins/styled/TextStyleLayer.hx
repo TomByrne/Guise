@@ -1,12 +1,10 @@
 package guiseSkins.styled;
 import guise.controls.ControlLayers;
-import guise.styledLayers.ITextLayer;
 import guise.traits.core.IPosition;
 import guise.traits.core.ISize;
 import guise.controls.data.ITextLabel;
 import guise.utils.TitleCase;
 import guiseSkins.styled.Styles;
-import guise.accessTypes.IFilterableAccess;
 import guise.accessTypes.ITextOutputAccess;
 import guise.accessTypes.IBoxPosAccess;
 import guiseSkins.styled.values.IValue;
@@ -18,25 +16,6 @@ import guise.accessTypes.IMouseInteractionsAccess;
 
 class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>//, implements ITextLayer
 {
-	@injectAdd
-	private function onFilterAdd(access:IFilterableAccess):Void {
-		if (_layerName != null && access.layerName != _layerName) return;
-		
-		_filterLayer = access;
-		if (filterLayer!=null) {
-			filterLayer.filterAccess = access;
-		}
-	}
-	@injectRemove
-	private function onFilterRemove(access:IFilterableAccess):Void {
-		if (access != _filterLayer) return;
-		
-		_filterLayer = null;
-		if (filterLayer!=null) {
-			filterLayer.filterAccess = null;
-		}
-	}
-	
 	@injectAdd
 	private function onTextAdd(access:ITextOutputAccess):Void {
 		if (_layerName != null && access.layerName != _layerName) return;
@@ -65,20 +44,6 @@ class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>//, implements ITextL
 		_pos = null;
 	}
 	
-	public var filterLayer(default, set_filterLayer):FilterLayer;
-	private function set_filterLayer(value:FilterLayer):FilterLayer {
-		if (filterLayer != null) {
-			filterLayer.filterAccess = null;
-			removeSiblingTrait(filterLayer);
-		}
-		filterLayer = value;
-		if (filterLayer != null) {
-			filterLayer.filterAccess = _filterLayer;
-			addSiblingTrait(filterLayer);
-		}
-		return value;
-	}
-	
 	
 	
 	@inject
@@ -97,7 +62,6 @@ class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>//, implements ITextL
 	
 	private var _textDisplay:ITextOutputAccess;
 	private var _pos:IBoxPosAccess;
-	private var _filterLayer:IFilterableAccess;
 	private var _layerName:String;
 
 	public function new(layerName:String, ?normalStyle:TextLabelStyle) 

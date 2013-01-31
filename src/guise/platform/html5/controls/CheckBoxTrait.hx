@@ -1,14 +1,13 @@
 package guise.platform.html5.controls;
+
+import guise.controls.data.INumRange;
 import guise.controls.data.ISelected;
 import guise.controls.data.ITextLabel;
-import guise.layout.IDisplayPosition;
 import guise.platform.html5.display.DisplayTrait;
-import guise.traits.core.ISize;
 import js.Dom;
 import js.Lib;
 
-
-class TextButtonTrait extends DisplayTrait
+class CheckBoxTrait extends DisplayTrait
 {
 	@inject
 	public var textLabel(default, set_textLabel):ITextLabel;
@@ -31,42 +30,39 @@ class TextButtonTrait extends DisplayTrait
 		}
 		selected = value;
 		if (selected != null) {
-			_checkbox = cast Lib.document.createElement("input");
-			_checkbox.setAttribute("type", "checkbox");
-			_checkbox.onclick = onCheckboxClick;
-			_button.appendChild(_checkbox);
-			
 			selected.selectedChanged.add(onSelectedChanged);
 			onSelectedChanged(selected);
-		}else if (_checkbox != null) {
-			_button.removeChild(_checkbox);
-			_checkbox = null;
 		}
 		return value;
 	}
 	
-	private var _button:HtmlDom;
+	private var _label:HtmlDom;
 	private var _checkbox:Checkbox;
-	private var _innerElement:HtmlDom;
-	private var _labelElement:HtmlDom;
 
 	public function new() 
 	{
 		_allowSizing = true;
-		_button = Lib.document.createElement("button");
-		super(_button);
-		_labelElement = Lib.document.createElement("label");
-		_button.appendChild(_labelElement);
+		_checkbox = cast Lib.document.createElement("input");
+		_checkbox.setAttribute("type", "checkbox");
+		_checkbox.onchange = onCheckBoxChange;
+		
+		_label = cast Lib.document.createElement("label");
+		_label.appendChild(_checkbox);
+		
+		super(_label);
 	}
-	
-	private function onTextChanged(from:ITextLabel):Void {
-		_labelElement.innerHTML = from.text;
+	private function onCheckBoxChange(e:Event):Void {
+		if(selected!=null){
+			selected.set(_checkbox.checked);
+		}
 	}
 	
 	private function onSelectedChanged(from:ISelected):Void {
-		_checkbox.checked = selected.selected;
+		_checkbox.checked = from.selected;
 	}
-	private function onCheckboxClick(e:Event):Void {
-		onSelectedChanged(selected);
+	
+	private function onTextChanged(from:ITextLabel):Void {
+		_label.innerHTML = from.text;
+		_label.appendChild(_checkbox);
 	}
 }

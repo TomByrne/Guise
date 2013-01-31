@@ -131,23 +131,23 @@ class ChutzpahStyle
 			_buttonTextFiltNorm = [DropShadow(1, Math.PI/2, 1, 0xffffff, 0.65)];
 		}
 		
-		var furnisher = new Furnisher(TextButtonTag(false), [TFact(buttonBacking), TFact(labelText)/*, TFact(labelTextAlign)*/]);
+		var furnisher = new Furnisher(TextButtonTag(false), [TFact(buttonBacking), TFact(buttonBackingFilt), TFact(labelText)/*, TFact(labelTextAlign)*/]);
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
-		furnisher = new Furnisher(TextLabelTag, [TFact(labelText)/*, TFact(labelTextAlign)*/]);
+		furnisher = new Furnisher(TextLabelTag, [TFact(labelText), TFact(labelTextFilt)]);
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
-		furnisher = new Furnisher(TextInputTag, [TFact(inputBacking), TFact(inputText)/*, TFact(inputTextAlign)*/]);
+		furnisher = new Furnisher(TextInputTag, [TFact(inputBacking), TFact(inputBackingFilt), TFact(inputText), TFact(inputTextFilt)]);
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
-		furnisher = new Furnisher(ToggleButtonTag, [TFact(toggleBacking), TFact(toggleHandle)]);
+		furnisher = new Furnisher(ToggleButtonTag, [TFact(toggleBacking), TFact(toggleBackingFilt), TFact(toggleHandle), TFact(toggleHandleFilt)]);
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
-		furnisher = new Furnisher(SliderTag(false), [TFact(hSliderBacking), TFact(sliderHandle)]);
+		furnisher = new Furnisher(SliderTag(false), [TFact(hSliderBacking), TFact(sliderHandle), TFact(sliderHandleFilt)]);
 		furnisher.checkEnumParams = [0];
 		furnisher.addTrait(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
@@ -182,23 +182,27 @@ class ChutzpahStyle
 		boxLayer.addStyle([ButtonOverState.OVER, SelectedState.UNSELECTED], _buttonBackOver);
 		boxLayer.addStyle([ButtonDownState.DOWN, SelectableState.UNSELECTABLE], _buttonBackDownUnsel, 1);
 		
-		var filterLayer:FilterLayer = new FilterLayer();
+		return boxLayer;
+	}
+	private static function buttonBackingFilt(tag:Dynamic):FilterLayer {
+		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.BACKING);
 		filterLayer.normalStyle = _buttonFiltNorm;
 		filterLayer.addStyle([ButtonDownState.DOWN], _buttonFiltDown);
-		boxLayer.filterLayer = filterLayer;
 		
-		return boxLayer;
+		return filterLayer;
 	}
 	private static function toggleBacking(tag:Dynamic):BoxLayer {
 		var boxLayer:BoxLayer = new BoxLayer(ControlLayers.BACKING);
 		boxLayer.normalStyle = _toggleBackNorm;
 		boxLayer.addStyle([SelectedState.SELECTED], _toggleBackSelNorm);
 		
-		var filterLayer:FilterLayer = new FilterLayer();
-		filterLayer.normalStyle = _buttonFiltDown;
-		boxLayer.filterLayer = filterLayer;
-		
 		return boxLayer;
+	}
+	private static function toggleBackingFilt(tag:Dynamic):FilterLayer {
+		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.BACKING);
+		filterLayer.normalStyle = _buttonFiltDown;
+		
+		return filterLayer;
 	}
 	private static function hSliderBacking(tag:Dynamic):BoxLayer {
 		var boxLayer:BoxLayer = new BoxLayer(ControlLayers.BACKING);
@@ -207,41 +211,38 @@ class ChutzpahStyle
 	}
 	private static function labelText(tag:Dynamic):TextStyleLayer {
 		var textLayer = new TextStyleLayer(ControlLayers.LABEL_TEXT, _labelTextStyle);
-		
-		var filterLayer:FilterLayer = new FilterLayer();
-		filterLayer.normalStyle = _buttonTextFiltNorm;
-		textLayer.filterLayer = filterLayer;
-		
 		return textLayer;
+	}
+	private static function labelTextFilt(tag:Dynamic):FilterLayer {
+		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.LABEL_TEXT);
+		filterLayer.normalStyle = _buttonTextFiltNorm;
+		
+		return filterLayer;
 	}
 	private static function inputText(tag:Dynamic):TextStyleLayer {
 		var textLayer = new TextStyleLayer(ControlLayers.INPUT_TEXT, _inputTextStyle);
-		
-		var filterLayer:FilterLayer = new FilterLayer();
-		filterLayer.normalStyle = _buttonTextFiltNorm;
-		textLayer.filterLayer = filterLayer;
-		
 		return textLayer;
 	}
-	
-	/*private static function inputTextAlign(tag:Dynamic):FramingLayer {
-		return new FramingLayer(ControlLayers.INPUT_TEXT, _inputTextAlign);
+	private static function inputTextFilt(tag:Dynamic):FilterLayer {
+		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.INPUT_TEXT);
+		filterLayer.normalStyle = _buttonTextFiltNorm;
+		
+		return filterLayer;
 	}
-	private static function labelTextAlign(tag:Dynamic):FramingLayer {
-		return new FramingLayer(ControlLayers.LABEL_TEXT, _labelTextAlign);
-	}*/
 	
 	private static function inputBacking(tag:Dynamic):BoxLayer {
 		var boxLayer:BoxLayer = new BoxLayer(ControlLayers.BACKING);
 		boxLayer.normalStyle = _inputBackNorm;
 		boxLayer.addStyle([FocusState.FOCUSED], _inputBackFocus);
 		
-		var filterLayer:FilterLayer = new FilterLayer();
+		return boxLayer;
+	}
+	private static function inputBackingFilt(tag:Dynamic):FilterLayer {
+		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.BACKING);
 		filterLayer.normalStyle = _buttonFiltNorm;
 		filterLayer.addStyle([FocusState.FOCUSED], _buttonFiltDown);
-		boxLayer.filterLayer = filterLayer;
 		
-		return boxLayer;
+		return filterLayer;
 	}
 	
 	private static function toggleHandle(tag:Dynamic):SimpleShapeLayer {
@@ -251,12 +252,15 @@ class ChutzpahStyle
 		shape.addStyle([SelectedState.SELECTED, ButtonOverState.OUT], _toggleNormSel);
 		shape.addStyle([SelectedState.SELECTED, ButtonOverState.OVER], _toggleOverSel);
 		
-		var filterLayer:FilterLayer = new FilterLayer();
+		return shape;
+	}
+	
+	private static function toggleHandleFilt(tag:Dynamic):FilterLayer {
+		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.CONTROL_HANDLE);
 		filterLayer.normalStyle = _buttonFiltNorm;
 		filterLayer.addStyle([ButtonDownState.DOWN], _buttonFiltDown);
-		shape.filterLayer = filterLayer;
 		
-		return shape;
+		return filterLayer;
 	}
 	
 	private static function sliderHandle(tag:Dynamic):SimpleShapeLayer {
@@ -266,11 +270,13 @@ class ChutzpahStyle
 		shape.normalStyle = _sliderNorm;
 		shape.addStyle([ButtonOverState.OVER], _sliderOver);
 		
-		var filterLayer:FilterLayer = new FilterLayer();
+		return shape;
+	}
+	private static function sliderHandleFilt(tag:Dynamic):FilterLayer {
+		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.CONTROL_HANDLE);
 		filterLayer.normalStyle = _buttonFiltNorm;
 		filterLayer.addStyle([ButtonDownState.DOWN], _buttonFiltDown);
-		shape.filterLayer = filterLayer;
 		
-		return shape;
+		return filterLayer;
 	}
 }

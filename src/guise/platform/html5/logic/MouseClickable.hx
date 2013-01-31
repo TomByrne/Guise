@@ -1,5 +1,6 @@
 package guise.platform.html5.logic;
 import composure.traits.AbstractTrait;
+import guise.accessTypes.IMouseClickableAccess;
 import guise.accessTypes.IMouseInteractionsAccess;
 import js.Dom;
 
@@ -28,6 +29,12 @@ class MouseClickable extends AbstractTrait, implements IMouseClickableAccess
 	}
 	
 	private var clickInfo:ClickInfo;
+	
+	public var layerName(default, set_layerName):String;
+	private function set_layerName(value:String):String {
+		this.layerName = value;
+		return value;
+	}
 
 	public function new() 
 	{

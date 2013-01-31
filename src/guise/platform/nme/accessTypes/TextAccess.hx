@@ -19,13 +19,18 @@ class TextAccess implements ITextInputAccess, implements ITextOutputAccess, impl
 	private var _ignoreChanges:Bool;
 	private var _gutter:Float;
 	
-	public var layerName:String;
+	public var layerName(default, set_layerName):String;
+	private function set_layerName(value:String):String {
+		this.layerName = value;
+		_textField.name = value==null?"":value;
+		return value;
+	}
 
 	public function new(?layerName:String, ?textField:TextField) 
 	{
 		_gutter = TextFieldGutter.GUTTER;
-		this.layerName = layerName;
 		_textField = (textField==null?new TextField():textField);
+		this.layerName = layerName;
 		//_textField.border = true;
 		_textField.addEventListener(Event.CHANGE, onChange);
 		_textField.addEventListener(FocusEvent.FOCUS_IN, onFocusIn);

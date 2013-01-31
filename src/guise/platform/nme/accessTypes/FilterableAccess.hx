@@ -1,62 +1,65 @@
 package guise.platform.nme.accessTypes;
+import composure.traits.AbstractTrait;
+import guise.platform.nme.accessTypes.AdditionalTypes;
 import guise.accessTypes.IFilterableAccess;
 import nme.display.DisplayObject;
 import nme.filters.BitmapFilter;
 import nme.filters.DropShadowFilter;
 import nme.filters.GlowFilter;
 
-/**
- * ...
- * @author Tom Byrne
- */
-
-class FilterableAccess implements IFilterableAccess
+class FilterableAccess extends AbstractTrait, implements IFilterableAccess
 {
 	
-	public var displayObject(default, set_displayObject):DisplayObject;
-	private function set_displayObject(value:DisplayObject):DisplayObject {
-		if (displayObject != null) {
-			displayObject.filters = null;
-		}
-		displayObject = value;
-		if (displayObject != null) {
-			displayObject.filters = _lastFilters;
-		}
-		return value;
+	@injectAdd
+	public function onDisplayAdd(access:IDisplayObjectType):Void {
+		var display:DisplayObject = access.getDisplayObject();
+		if (layerName != null && display.name != layerName) return;
+		
+		_displayType = access;
+		_displayObject = display;
+		_displayObject.filters = _lastFilters;
+	}
+	@injectRemove
+	public function onDisplayRemove(access:IDisplayObjectType):Void {
+		if (access != _displayType) return;
+		
+		_displayType = null;
+		_displayObject = null;
 	}
 	
-	private var _lastFilters:Array<BitmapFilter>;
-	//private var _typeToFilt:IntHash<BitmapFilter>;
 	
-	public var layerName:String;
+	private var _displayType:IDisplayObjectType;
+	private var _displayObject:DisplayObject;
+	
+	private var _lastFilters:Array<BitmapFilter>;
+	
+	public var layerName(default, set_layerName):String;
+	private function set_layerName(value:String):String {
+		this.layerName = value;
+		return value;
+	}
 
-	public function new(?displayObject:DisplayObject, ?layerName:String) 
+	public function new(?layerName:String) 
 	{
+		super();
 		this.layerName = layerName;
-		this.displayObject = displayObject;
 	}
 	public function setFilters(?filters:Array<FilterType>):Void {
 		var newFilters:Array<BitmapFilter> = [];
-		//var newTypeToFilt = new IntHash<BitmapFilter>();
-		//var alphaMulti:Float = getAlphaMulti();
 		for (i in 0 ... filters.length) {
 			var filt:FilterType = filters[i];
-			//var oldFilt:BitmapFilter = _typeToFilt.get(i);
 			switch(filt) {
 				case DropShadow(dist, angle, size, color, alpha, inner):
 					var filter:DropShadowFilter = new DropShadowFilter(dist, transAngle(angle,inner), color, alpha, size, size, 1, 1, inner);
-					//newTypeToFilt.set(i, filter);
 					newFilters.push(filter);
 				case Glow(size, color, alpha, inner):
 					var filter:GlowFilter = new GlowFilter(color, alpha, size, size, 2, 1, inner);
-					//newTypeToFilt.set(i, filter);
 					newFilters.push(filter);
 			}
 		}
-		//_typeToFilt = newTypeToFilt;
 		_lastFilters = newFilters;
-		if (displayObject != null) {
-			displayObject.filters = _lastFilters;
+		if (_displayObject != null) {
+			_displayObject.filters = _lastFilters;
 		}
 	}
 	private inline function transAngle(rads:Float, inner:Bool):Float {

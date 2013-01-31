@@ -1,90 +1,59 @@
 package guiseSkins.styled;
-import guise.styledLayers.IGraphicsLayer;
 import guise.traits.core.IPosition;
 import guise.traits.core.ISize;
 import guiseSkins.styled.Styles;
 import guise.accessTypes.IGraphicsAccess;
 import guise.geom.Matrix;
 import guiseSkins.styled.values.IValue;
-import guise.accessTypes.IFilterableAccess;
 import guise.accessTypes.IPositionAccess;
 
-/**
- * ...
- * @author Tom Byrne
- */
 
-class BoxLayer extends AbsStyledLayer<BoxStyle>, implements IGraphicsLayer
+class BoxLayer extends AbsStyledLayer<BoxStyle>
 {
-	public var layerName(default, null):String;
-	
-	public var filterAccess(default, set_filterAccess):IFilterableAccess;
-	private function set_filterAccess(value:IFilterableAccess):IFilterableAccess {
-		if (filterLayer!=null) {
-			filterLayer.filterAccess = value;
-		}
-		filterAccess = value;
-		return value;
+	@injectAdd
+	private function onGraphicsAdd(access:IGraphicsAccess):Void {
+		if (_layerName != null && access.layerName != _layerName) return;
+		
+		_graphicsAccess = access;
+		invalidate();
 	}
-	public var graphicsAccess(default, set_graphicsAccess):IGraphicsAccess;
-	private function set_graphicsAccess(value:IGraphicsAccess):IGraphicsAccess {
-		if (graphicsAccess != null) {
-			graphicsAccess.clear();
-		}
-		graphicsAccess = value;
-		if (graphicsAccess != null) {
-			invalidate();
-		}
-		return value;
-	}
-	public var positionAccess(default, set_positionAccess):IPositionAccess;
-	private function set_positionAccess(value:IPositionAccess):IPositionAccess {
-		positionAccess = value;
-		if (positionAccess != null) {
-			invalidate();
-		}
-		return value;
+	@injectRemove
+	private function onGraphicsRemove(access:IGraphicsAccess):Void {
+		if (access != _graphicsAccess) return;
+		
+		_graphicsAccess = null;
 	}
 	
-	public var filterLayer(default, set_filterLayer):FilterLayer;
-	private function set_filterLayer(value:FilterLayer):FilterLayer {
-		if (filterLayer != null) {
-			filterLayer.filterAccess = null;
-			removeSiblingTrait(filterLayer);
-		}
-		filterLayer = value;
-		if (filterLayer != null) {
-			filterLayer.filterAccess = filterAccess;
-			addSiblingTrait(filterLayer);
-		}
-		return value;
+	@injectAdd
+	private function onPosAdd(access:IPositionAccess):Void {
+		if (_layerName != null && access.layerName != _layerName) return;
+		
+		_pos = access;
+		invalidate();
 	}
+	@injectRemove
+	private function onPosRemove(access:IPositionAccess):Void {
+		if (access != _pos) return;
+		
+		_pos = null;
+	}
+	
+	private var _graphicsAccess:IGraphicsAccess;
+	private var _pos:IPositionAccess;
+	private var _layerName:String;
 
-	public function new(?layerName:String, ?normalStyle:BoxStyle) 
+	public function new(layerName:String, ?normalStyle:BoxStyle) 
 	{
 		super(normalStyle);
 		_requireSize = true;
-		this.layerName = layerName;
-		
-		//addSiblingTrait(new PlatformAccessor(IGraphicsAccess, layerName, onGraphicsAdd, onGraphicsRemove));
+		_layerName = layerName;
 	}
-	/*private function onGraphicsAdd(access:IGraphicsAccess):Void {
-		_graphics = access;
-		invalidate();
-	}
-	private function onGraphicsRemove(access:IGraphicsAccess):Void {
-		_graphics.clear();
-		_graphics = null;
-	}*/
 	override private function _isReadyToDraw():Bool {
-		return graphicsAccess != null && super._isReadyToDraw();
+		return _graphicsAccess != null && super._isReadyToDraw();
 	}
 	override private function _drawStyle():Void {
-		/*if(xValue!=null && yValue != null){
-			positionAccess.setPos(getValue(xValue), getValue(yValue));
-		}*/
 		
-		graphicsAccess.clear();
+		_graphicsAccess.clear();
 		
 		var style:BoxStyle = currentStyle;
 		var fill:FillStyle;
@@ -155,13 +124,13 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>, implements IGraphicsLayer
 		
 		var centerX:Float = boxX + boxW / 2;
 		var centerY:Float = boxY + boxH / 2;
-		StyledLayerUtils.beginFillStrokes(graphicsAccess, fill, stroke, true, boxW, boxH, function(index:Int):Void {
+		StyledLayerUtils.beginFillStrokes(_graphicsAccess, fill, stroke, true, boxW, boxH, function(index:Int):Void {
 			drawCorner(tl, false, false, -Math.PI/2, true, boxW, boxH, centerX, centerY);
 			drawCorner(tr, true, false, 0, false, boxW, boxH, centerX, centerY);
 			drawCorner(br, true, true, Math.PI/2, false, boxW, boxH, centerX, centerY);
 			drawCorner(bl, false, true, Math.PI, false, boxW, boxH, centerX, centerY);
 		});
-		graphicsAccess.endFill();
+		_graphicsAccess.endFill();
 	}
 	static var SQUARE_CORNER:CornerStyle;
 	static var CAPSULE_CORNER:CornerStyle;
@@ -176,9 +145,9 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>, implements IGraphicsLayer
 				if (flipH) x *= -1;
 				if (flipV) y *= -1;
 				if (isInitial) {
-					graphicsAccess.moveTo(x+cX, y+cY);
+					_graphicsAccess.moveTo(x+cX, y+cY);
 				}else {
-					graphicsAccess.lineTo(x+cX, y+cY);
+					_graphicsAccess.lineTo(x+cX, y+cY);
 				}
 			case CsCirc(r):
 				if (r > hW) r = hW;
@@ -189,7 +158,7 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>, implements IGraphicsLayer
 				if (flipH) x *= -1;
 				if (flipV) y *= -1;
 				
-				drawArc(graphicsAccess, x+cX, y+cY, r, Math.PI / 2, angle, isInitial);
+				drawArc(_graphicsAccess, x+cX, y+cY, r, Math.PI / 2, angle, isInitial);
 		}
 	}
 	private function drawArc(graphics:IGraphicsAccess, x:Float, y:Float, radius:Float, angle:Float, startAngle:Float, isInitial:Bool, accuracy:Int=8){

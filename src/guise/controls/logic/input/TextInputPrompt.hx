@@ -5,7 +5,6 @@ import guise.controls.data.ITextLabel;
 import guise.accessTypes.ITextInputAccess;
 import guise.accessTypes.IFocusableAccess;
 import guise.controls.data.IInputPrompt;
-import guise.styledLayers.ITextLayer;
 import guise.accessTypes.IMouseInteractionsAccess;
 
 

@@ -27,7 +27,6 @@ class ButtonClickTrait extends AbstractTrait, implements IClick
 		super();
 		_layerName = layerName;
 		_clickTypeBundles = new Array<ClickTypeBundle>();
-		//addSiblingTrait(new PlatformAccessor(IMouseClickableAccess, layerName, onMouseClickAdd, onMouseClickRemove));
 	}
 	@injectAdd
 	private function onMouseClickAdd(access:IMouseClickableAccess):Void {

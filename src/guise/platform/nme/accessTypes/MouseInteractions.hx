@@ -57,7 +57,11 @@ class MouseInteractions extends AbstractTrait, implements IMouseInteractionsAcce
 	private var mouseInfo:MouseInfo;
 	private var _isOver:Bool;
 	
-	public var layerName:String;
+	public var layerName(default, set_layerName):String;
+	private function set_layerName(value:String):String {
+		this.layerName = value;
+		return value;
+	}
 
 	public function new(?layerName:String, ?interactiveObject:InteractiveObject, ?coordinateSpace:InteractiveObject) 
 	{

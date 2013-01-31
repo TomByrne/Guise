@@ -29,7 +29,12 @@ class FocusableAccess extends AbstractTrait, implements IFocusableAccess
 	@lazyInst
 	public var focusedChanged:Signal1 < IFocusableAccess >;
 	
-	public var layerName:String;
+	public var layerName(default, set_layerName):String;
+	private function set_layerName(value:String):String {
+		this.layerName = value;
+		return value;
+	}
+	
 	public var focused(default, null):Bool;
 	public var interactiveObject:InteractiveObject;
 
