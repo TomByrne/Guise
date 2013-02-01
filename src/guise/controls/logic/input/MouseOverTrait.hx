@@ -1,6 +1,6 @@
 package guise.controls.logic.input;
 import guise.controls.ControlLayers;
-import guise.traits.core.IActive;
+import guise.core.IActive;
 import composure.traits.AbstractTrait;
 import guise.accessTypes.IMouseInteractionsAccess;
 import msignal.Signal;

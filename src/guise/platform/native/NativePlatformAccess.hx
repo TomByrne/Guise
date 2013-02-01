@@ -22,7 +22,7 @@ class NativePlatformAccess
 		#elseif nme
 			// NME fallback
 			guise.platform.nme.NmePlatformAccess.install(within);
-			guiseSkins.styled.styles.ChutzpahStyle.install(within);
+			guise.skin.drawn.utils.ChutzpahStyle.install(within);
 		#end
 	}
 }

@@ -1,13 +1,11 @@
 package guise.platform.nme.accessTypes;
 import composure.traits.AbstractTrait;
+import guise.accessTypes.IKeyboardAccess;
 import nme.display.InteractiveObject;
 import nme.events.KeyboardEvent;
 import msignal.Signal;
 import guise.accessTypes.IMouseInteractionsAccess;
-/**
- * ...
- * @author Tom Byrne
- */
+
 
 class KeyboardAccess implements IKeyboardAccess
 {

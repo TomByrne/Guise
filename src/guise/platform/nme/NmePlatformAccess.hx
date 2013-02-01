@@ -27,14 +27,15 @@ import guise.platform.nme.layers.LayerSwapper;
 import guise.accessTypes.IMouseInteractionsAccess;
 import guise.accessTypes.IMouseClickableAccess;
 import guise.controls.ControlTags;
-import guiseSkins.styled.AbsStyledLayer;
-import guiseSkins.styled.styles.StyleGenerator;
+import guise.skin.common.AbsStyledLayer;
+import guise.macro.FurnisherMacro;
 
  
 class NmePlatformAccess
 {
 	public static function install(within:ComposeItem) {
-		StyleGenerator.path("../Platforms/NME.xml");
+		
+		FurnisherMacro.path(within, "../Platforms/NME.xml");
 		
 		var accessProvider:AccessProvider = new AccessProvider();
 		accessProvider.mapAccessType(IFilterableAccess, FilterableAccess);

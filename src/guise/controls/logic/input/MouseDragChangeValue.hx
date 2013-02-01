@@ -3,7 +3,7 @@ package guise.controls.logic.input;
 import composure.injectors.Injector;
 import composure.traits.AbstractTrait;
 import guise.accessTypes.IMouseInteractionsAccess;
-import guiseSkins.styled.values.IValue;
+import guise.skin.values.IValue;
 import haxe.Timer;
 /**
  * ...

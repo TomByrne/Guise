@@ -2,7 +2,7 @@ package ;
 import composure.core.ComposeGroup;
 import composure.core.ComposeRoot;
 import guise.platform.native.NativePlatformAccess;
-import guiseSkins.styled.styles.ChutzpahStyle;
+import guise.skin.drawn.utils.ChutzpahStyle;
 import org.tbyrne.logging.LoggerList;
 import guise.test.TestControls;
 import guise.core.CoreTags;

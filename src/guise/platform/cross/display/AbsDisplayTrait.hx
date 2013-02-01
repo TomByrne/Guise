@@ -1,6 +1,6 @@
 package guise.platform.cross.display;
 import composure.traits.AbstractTrait;
-import guise.layout.IDisplayPosition;
+import guise.layout.IBoxPos;
 
 /**
  * ...
@@ -11,8 +11,8 @@ class AbsDisplayTrait extends AbstractTrait
 {
 	
 	@inject
-	public var position(default, set_position):IDisplayPosition;
-	private function set_position(value:IDisplayPosition):IDisplayPosition {
+	public var position(default, set_position):IBoxPos;
+	private function set_position(value:IBoxPos):IBoxPos {
 		if (position != null) {
 			if (_posListen) {
 				if (_sizeListen) {
@@ -52,7 +52,7 @@ class AbsDisplayTrait extends AbstractTrait
 		super();
 	}
 	
-	private function onPosSizeChanged(from:IDisplayPosition):Void {
+	private function onPosSizeChanged(from:IBoxPos):Void {
 		doPosChanged();
 		doSizeChanged();
 		onPosOrSizeChanged();
@@ -60,7 +60,7 @@ class AbsDisplayTrait extends AbstractTrait
 	private function onPosOrSizeChanged():Void {
 		// override me if drawing requires both pos and size
 	}
-	private function onPosChanged2(from:IDisplayPosition):Void {
+	private function onPosChanged2(from:IBoxPos):Void {
 		onPosOrSizeChanged();
 		doPosChanged();
 	}
@@ -79,7 +79,7 @@ class AbsDisplayTrait extends AbstractTrait
 	}
 	
 	
-	private function onSizeChanged2(from:IDisplayPosition):Void {
+	private function onSizeChanged2(from:IBoxPos):Void {
 		onPosOrSizeChanged();
 		doSizeChanged();
 	}

@@ -1,7 +1,6 @@
 package guise.platform.html5.display;
 
-import guise.layout.IDisplayPosition;
-import guise.traits.core.IPosition;
+import guise.layout.IBoxPos;
 
 import js.Lib;
 import js.Dom;

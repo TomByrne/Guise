@@ -8,6 +8,14 @@
 		
 	</tag>
 
+
+	<!--<tag type="guise.controls.ControlTags.TextButtonTag(true)" isEnum="true" natures="guise.controls.logic.input.MouseOverTrait,guise.controls.logic.states.ButtonStateMapper,guise.controls.logic.input.ButtonClickTrait">
+		
+	</tag>
+	<tag type="guise.controls.ControlTags.TextButtonTag(true)" isEnum="true" checkEnumParams="0" natures="guise.controls.logic.states.SelectableStateMapper,guise.controls.logic.input.ClickToggleSelect">
+		
+	</tag>-->
+
 	<tag type="guise.controls.logic.states.ButtonStateMapper" natures="guise.accessTypes.IMouseClickableAccess,guise.accessTypes.IMouseInteractionsAccess">
 
 	</tag>

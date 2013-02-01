@@ -22,16 +22,7 @@ interface IGraphicsAccess implements IAccessType
 	function moveTo(inX:Float, inY:Float):Void;
 	
 }
-/*#if nme
-import nme.display.BitmapData;
-#end
-interface IBitmapGraphics implements IGraphicsAccess
-{
 
-	function beginBitmapFill(bitmap:BitmapData, matrix:Matrix = null, repeat:Bool = true, smooth:Bool = false):Void;
-	function beginBitmapStroke(bitmap:BitmapData, matrix:Matrix = null, repeat:Bool = true, smooth:Bool = false):Void;
-	
-}*/
 enum GradientType {
 	Linear;
 	Radial(?focalPointRatio:Float);

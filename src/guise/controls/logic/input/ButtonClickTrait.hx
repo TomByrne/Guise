@@ -1,6 +1,6 @@
 package guise.controls.logic.input;
 import guise.controls.data.IClick;
-import guise.traits.core.IActive;
+import guise.core.IActive;
 import composure.traits.AbstractTrait;
 import msignal.Signal;
 import guise.accessTypes.IMouseClickableAccess;

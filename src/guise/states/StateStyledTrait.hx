@@ -1,8 +1,8 @@
 package guise.states;
 import composure.traits.AbstractTrait;
 import guise.utils.Clone;
-import guiseSkins.styled.values.IValue;
-import guiseSkins.trans.ITransitioner;
+import guise.skin.values.IValue;
+import guise.trans.ITransitioner;
 import cmtc.ds.hash.ObjectHash;
 
 import msignal.Signal;

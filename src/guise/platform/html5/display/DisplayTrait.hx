@@ -1,6 +1,6 @@
 package guise.platform.html5.display;
 import composure.traits.AbstractTrait;
-import guise.layout.IDisplayPosition;
+import guise.layout.IBoxPos;
 import js.Dom;
 import composure.injectors.Injector;
 import composure.traitCheckers.TraitTypeChecker;
