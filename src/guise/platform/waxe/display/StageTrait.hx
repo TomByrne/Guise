@@ -1,18 +1,12 @@
 package guise.platform.waxe.display;
 
-/**
- * ...
- * @author Tom Byrne
- */
 
-class StageTrait extends ContainerTrait
+class StageTrait extends PanelTrait
 {
-	
 
 	public function new() 
 	{
 		super();
-		setDisplay(ApplicationMain.frame);
 	}
 	
 }

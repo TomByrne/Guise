@@ -2,9 +2,8 @@ package guise.controls.logic.input;
 
 import composure.injectors.Injector;
 import composure.traits.AbstractTrait;
-import guise.platform.types.InteractionAccessTypes;
-import guise.platform.PlatformAccessor;
-import guiseSkins.styled.values.IValue;
+import guise.accessTypes.IMouseInteractionsAccess;
+import guise.skin.values.IValue;
 import haxe.Timer;
 /**
  * ...
@@ -26,7 +25,7 @@ class MouseDragChangeValue extends AbstractTrait
 	private var _updateTraitX:Dynamic;
 	private var _updateTraitY:Dynamic;
 	
-	private var _mouseInt:IMouseInteractions;
+	private var _mouseInt:IMouseInteractionsAccess;
 	
 	private var _hasDragged:Bool;
 	
@@ -41,7 +40,7 @@ class MouseDragChangeValue extends AbstractTrait
 	{
 		super();
 		
-		addSiblingTrait(new PlatformAccessor(IMouseInteractions, layerName, onMouseIntAdd, onMouseIntRemove));
+		//addSiblingTrait(new PlatformAccessor(IMouseInteractionsAccess, layerName, onMouseIntAdd, onMouseIntRemove));
 		
 		this.allowClick = allowClick;
 		this.normaliseX = normaliseX;
@@ -71,12 +70,14 @@ class MouseDragChangeValue extends AbstractTrait
 		_updateTraitY = null;
 	}
 	
-	private function onMouseIntAdd(access:IMouseInteractions):Void {
+	@injectAdd
+	private function onMouseIntAdd(access:IMouseInteractionsAccess):Void {
 		_mouseInt = access;
 		_mouseInt.pressed.add(onPressed);
 		_mouseInt.released.add(onReleased);
 	}
-	private function onMouseIntRemove(access:IMouseInteractions):Void {
+	@injectRemove
+	private function onMouseIntRemove(access:IMouseInteractionsAccess):Void {
 		_mouseInt.pressed.remove(onPressed);
 		_mouseInt.released.remove(onReleased);
 		_mouseInt = null;

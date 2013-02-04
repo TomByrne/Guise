@@ -1,46 +1,36 @@
 package guise.controls.logic.input;
 import composure.traits.AbstractTrait;
 import guise.controls.data.ISelected;
-import guise.platform.types.InteractionAccessTypes;
-import guise.platform.PlatformAccessor;
-
-/**
- * ...
- * @author Tom Byrne
- */
+import guise.accessTypes.IMouseClickableAccess;
 
 class ClickToggleSelect extends AbstractTrait
 {
 	@inject
 	public var selected:ISelected;
 	
-	@inject
-	public var mouseClickable(default, set_mouseClickable):IMouseClickable;
-	private function set_mouseClickable(value:IMouseClickable):IMouseClickable{
-		
-		if(mouseClickable!=null){
-			mouseClickable.clicked.remove(onClicked);
-			mouseClickable = null;
-		}
-		
-		mouseClickable = value;
-		if(mouseClickable!=null){
-			mouseClickable = value;
-			mouseClickable.clicked.add(onClicked);
-		}
-		return value;
-	}
+	
+	private var _mouseClickable:IMouseClickableAccess;
+	private var _layerName:String;
 
 	public function new(?layerName:String) 
 	{
 		super();
-		addSiblingTrait(new PlatformAccessor(IMouseClickable, layerName, onMouseClickAdd, onMouseClickRemove));
+		_layerName = layerName;
+		//addSiblingTrait(new PlatformAccessor(I_mouseClickable, layerName, onMouseClickAdd, onMouseClickRemove));
 	}
-	private function onMouseClickAdd(access:IMouseClickable):Void {
-		if(mouseClickable==null)mouseClickable = access;
+	@injectAdd
+	private function onMouseClickAdd(access:IMouseClickableAccess):Void {
+		if (_layerName != null && access.layerName != _layerName) return;
+		
+		_mouseClickable = access;
+		_mouseClickable.clicked.add(onClicked);
 	}
-	private function onMouseClickRemove(access:IMouseClickable):Void {
-		if (mouseClickable == access) mouseClickable = null;
+	@injectRemove
+	private function onMouseClickRemove(access:IMouseClickableAccess):Void {
+		if (access != _mouseClickable) return;
+		
+		_mouseClickable.clicked.remove(onClicked);
+		_mouseClickable = null;
 	}
 	
 	private function onClicked(info:ClickInfo):Void {

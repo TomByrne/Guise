@@ -2,15 +2,11 @@ package guise.controls.logic.input;
 import composure.traits.AbstractTrait;
 import guise.controls.ControlLayers;
 import guise.controls.data.ITextLabel;
-import guise.platform.IPlatformAccess;
-import guise.platform.PlatformAccessor;
-import guise.platform.types.TextAccessTypes;
+import guise.accessTypes.ITextInputAccess;
+import guise.accessTypes.IFocusableAccess;
 import guise.controls.data.IInputPrompt;
+import guise.accessTypes.IMouseInteractionsAccess;
 
-/**
- * ...
- * @author Tom Byrne
- */
 
 class TextInputPrompt extends AbstractTrait
 {
@@ -43,30 +39,46 @@ class TextInputPrompt extends AbstractTrait
 	private var _showingPrompt:Bool;
 	private var _ignoreChanges:Bool;
 	private var _focused:Bool;
+	private var _layerName:String;
 
-	public function new(){
+	public function new(?layerName:String){
 		super();
 		
-		addSiblingTrait(new PlatformAccessor(ITextInputAccess, ControlLayers.INPUT_TEXT, onInputAdd, onInputRemove, true));
-		addSiblingTrait(new PlatformAccessor(IFocusableAccess, ControlLayers.INPUT_TEXT, onFocusAdd, onFocusRemove, true));
+		if (layerName == null) {
+			_layerName = ControlLayers.INPUT_TEXT;
+		}else {
+			_layerName = layerName;
+		}
 	}
 	
+	@injectAdd
 	private function onInputAdd(access:ITextInputAccess):Void {
+		if (access.layerName != _layerName) return;
+		
 		_input = access;
 		access.inputEnabled = true;
 		access.textChanged.add(onTextChanged);
 		onTextChanged(access);
 	}
+	@injectRemove
 	private function onInputRemove(access:ITextInputAccess):Void {
+		if (access != _input) return;
+		
 		access.textChanged.remove(onTextChanged);
 		_input = null;
 	}
+	@injectAdd
 	private function onFocusAdd(access:IFocusableAccess):Void {
+		if (access.layerName != _layerName) return;
+		
 		_focus = access;
 		access.focusedChanged.add(onFocusedChanged);
 		onFocusedChanged(access);
 	}
+	@injectRemove
 	private function onFocusRemove(access:IFocusableAccess):Void {
+		if (access != _focus) return;
+		
 		access.focusedChanged.remove(onFocusedChanged);
 		_focus = null;
 	}

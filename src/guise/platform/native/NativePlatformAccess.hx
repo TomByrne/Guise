@@ -16,13 +16,12 @@ class NativePlatformAccess
 		#if js
 			guise.platform.html5.HtmlPlatformAccess.install(within);
 		#elseif waxe
-		trace("waxe");
 			// Waxe fallback
-			//guise.platform.waxe.WaxePlatformAccess.install(within);
+			guise.platform.waxe.WaxePlatformAccess.install(within);
 		#elseif nme
 			// NME fallback
 			guise.platform.nme.NmePlatformAccess.install(within);
-			guiseSkins.styled.styles.ChutzpahStyle.install(within);
+			guise.skin.drawn.utils.ChutzpahStyle.install(within);
 		#end
 	}
 }

@@ -1,6 +1,7 @@
 package guise.platform.html5.logic;
 import composure.traits.AbstractTrait;
-import guise.platform.types.InteractionAccessTypes;
+import guise.accessTypes.IMouseClickableAccess;
+import guise.accessTypes.IMouseInteractionsAccess;
 import js.Dom;
 
 import msignal.Signal;
@@ -11,7 +12,7 @@ import guise.platform.html5.display.DisplayTrait;
  * @author Tom Byrne
  */
 
-class MouseClickable extends AbstractTrait, implements IMouseClickable
+class MouseClickable extends AbstractTrait, implements IMouseClickableAccess
 {
 	@inject
 	public var displayTrait(default, set_displayTrait):DisplayTrait;
@@ -28,6 +29,12 @@ class MouseClickable extends AbstractTrait, implements IMouseClickable
 	}
 	
 	private var clickInfo:ClickInfo;
+	
+	public var layerName(default, set_layerName):String;
+	private function set_layerName(value:String):String {
+		this.layerName = value;
+		return value;
+	}
 
 	public function new() 
 	{

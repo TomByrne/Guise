@@ -1,8 +1,8 @@
 package guise.controls.logic.states;
 import composure.traits.AbstractTrait;
 import guise.controls.data.ISelected;
-import guise.traits.states.ControlStates;
-import guise.traits.states.State;
+import guise.states.ControlStates;
+import guise.states.State;
 
 /**
  * ...

@@ -1,7 +1,6 @@
 package guise.platform.html5.display;
 import composure.traits.AbstractTrait;
-import guise.layout.IDisplayPosition;
-import guise.layout.IPositionable;
+import guise.layout.IBoxPos;
 import js.Dom;
 import composure.injectors.Injector;
 import composure.traitCheckers.TraitTypeChecker;
@@ -11,7 +10,7 @@ import guise.platform.cross.display.AbsDisplayTrait;
  * @author Tom Byrne
  */
 
-class DisplayTrait extends AbsDisplayTrait, implements IPositionable
+class DisplayTrait extends AbsDisplayTrait
 {
 	public var domElement(default, null):HtmlDom;
 	
@@ -50,19 +49,15 @@ class DisplayTrait extends AbsDisplayTrait, implements IPositionable
 	private function setDomElement(value:HtmlDom):Void {
 		this.domElement = value;
 	}
-	override private function onPosChanged(from:IDisplayPosition):Void {
-		_setPosition(from.x, from.y);
-	}
-	override private function onSizeChanged(from:IDisplayPosition):Void {
-		_setSize(from.width, from.height);
-	}
-	public function setPosition(x:Float, y:Float, w:Float, h:Float):Void {
+	override private function onPosValid(x:Float, y:Float):Void {
 		_setPosition(x, y);
+	}
+	override private function onSizeValid(w:Float, h:Float):Void {
 		_setSize(w, h);
 	}
 	public function setAllowSizing(value:Bool):Void {
 		_allowSizing = value;
-		if(position!=null)onSizeChanged(position);
+		if(position!=null)onSizeChanged2(position);
 	}
 	private function _setPosition(x:Float, y:Float):Void {
 		if (!Math.isNaN(y) && !Math.isNaN(x)) {

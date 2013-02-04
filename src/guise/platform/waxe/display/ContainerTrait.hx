@@ -1,15 +1,13 @@
 package guise.platform.waxe.display;
 import wx.Window;
-/**
- * ...
- * @author Tom Byrne
- */
+import wx.Panel;
 
-class ContainerTrait extends DisplayTrait
+
+class ContainerTrait<T:Window> extends DisplayTrait<T>
 {
 
-	public function new() {
-		trace("ContainerTrait");
-		super();
+	public function new(?creator:Window->T) {
+		super(creator);
 	}
+	
 }

@@ -2,8 +2,7 @@ package guise.platform.nme.display;
 
 import composure.injectors.Injector;
 import composure.traitCheckers.TraitTypeChecker;
-import guise.core.AbsPosAwareTrait;
-import guise.layout.IDisplayPosition;
+import guise.layout.IBoxPos;
 import guise.platform.cross.display.AbsDisplayTrait;
 import nme.display.DisplayObject;
 import nme.events.Event;
@@ -71,14 +70,12 @@ class DisplayTrait extends AbsDisplayTrait
 		}
 	}
 	
-	override private function onPosChanged(from:IDisplayPosition):Void {
-		if (!Math.isNaN(position.y) && !Math.isNaN(position.x)) {
-			displayObject.x = position.x;
-			displayObject.y = position.y;
-		}
-	}
-	public function setPosition(x:Float, y:Float, w:Float, h:Float):Void {
+	override private function onPosValid(x:Float, y:Float):Void {
 		displayObject.x = x;
 		displayObject.y = y;
 	}
+	/*public function setPosition(x:Float, y:Float, w:Float, h:Float):Void {
+		displayObject.x = x;
+		displayObject.y = y;
+	}*/
 }

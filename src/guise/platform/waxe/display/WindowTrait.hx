@@ -1,53 +1,43 @@
 package guise.platform.waxe.display;
 
-import guise.traits.core.IPosition;
-import guise.traits.core.Position;
-import guise.traits.core.Size;
-import guise.platform.types.DisplayAccessTypes;
-import guise.core.AbsPosSizeAwareTrait;
-import wx.Frame;
-import wx.Window;
+import guise.layout.IBoxPos;
 
 import composure.traits.AbstractTrait;
 import msignal.Signal;
+import guise.platform.cross.display.AbsDisplayTrait;
+import wx.Frame;
 
-/**
- * @author Tom Byrne
- */
 
-class WindowTrait extends AbsPosSizeAwareTrait, implements IWindowInfo
+class WindowTrait extends ContainerTrait<Frame>//, implements IWindowInfo
 {
+	/*@lazyInst
 	public var availSizeChanged(default, null):Signal1<IWindowInfo>;
 	
 	public var availWidth(default, null):Int;
-	public var availHeight(default, null):Int;
+	public var availHeight(default, null):Int;*/
 	
 	private var frame:Frame;
 
 	public function new() 
 	{
-		trace("WindowTrait");
 		super();
-		
-		availSizeChanged = new Signal1();
+		_sizeListen = true;
+		_posListen = true;
 		
 		frame = ApplicationMain.frame;
-		//window.onresize = onWindowResized;
+		window = frame;
+		//window = wx.Panel.create(frame);
+		/*window.onresize = onWindowResized;
 		
-		//setAvailSize(window.screen.availWidth, window.screen.availHeight);
+		setAvailSize(window.screen.availWidth, window.screen.availHeight);*/
 	}
 	
-	override private function posChanged():Void {
-		/*if (!Math.isNaN(position.y) && !Math.isNaN(position.x)) {
-			window.moveTo(Std.int(position.x), Std.int(position.y));
-		}*/
+	override private function onPosValid(x:Float, y:Float):Void {
+		//window.moveTo(Std.int(x), Std.int(y));
 	}
-	override private function sizeChanged():Void {
-		/*if (!Math.isNaN(size.width) && !Math.isNaN(size.height)) {
-			window.innerWidth = Std.int(size.width);
-			window.innerHeight = Std.int(size.height);
-			size.set(window.innerWidth, window.innerHeight);
-		}*/
+	override private function onSizeValid(w:Float, h:Float):Void {
+		//window.innerWidth = Std.int(w);
+		//window.innerHeight = Std.int(h);
 	}
 	
 	/*private function setAvailSize(width:Int, height:Int):Void {
@@ -55,10 +45,10 @@ class WindowTrait extends AbsPosSizeAwareTrait, implements IWindowInfo
 			this.availWidth = width;
 			this.availHeight = height;
 			
-			availSizeChanged.dispatch(this);
+			LazyInst.exec(availSizeChanged.dispatch(this));
 		}
 	}
 	private function onWindowResized(e:Event):Void {
-		size.set(window.innerWidth, window.innerHeight);
+		setAvailSize(window.screen.availWidth, window.screen.availHeight);
 	}*/
 }

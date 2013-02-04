@@ -26,7 +26,7 @@ class Matrix
 	}
 
 
-	public function clone() { return new jeash.geom.Matrix(a,b,c,d,tx,ty); }
+	public function clone() { return new guise.geom.Matrix(a,b,c,d,tx,ty); }
 
 	public function createGradientBox(in_width : Float, in_height : Float,
 			?rotation : Float, ?in_tx : Float, ?in_ty : Float) : Void
@@ -172,7 +172,7 @@ class Matrix
 
 
 	 */
-	public function concat(m:jeash.geom.Matrix)
+	public function concat(m:guise.geom.Matrix)
 	{
 		var a1 = a*m.a + b*m.c;
 		b = a*m.b + b*m.d;
@@ -187,9 +187,9 @@ class Matrix
 		tx = tx1;
 	}
 
-	public function mult(m:jeash.geom.Matrix)
+	public function mult(m:guise.geom.Matrix)
 	{
-		var result = new jeash.geom.Matrix();
+		var result = new guise.geom.Matrix();
 		result.a = a*m.a + b*m.c;
 		result.b = a*m.b + b*m.d;
 		result.c = c*m.a + d*m.c;

@@ -1,14 +1,9 @@
 package guise.controls.logic.states;
 import composure.traits.AbstractTrait;
-import guise.traits.states.ControlStates;
-import guise.traits.states.State;
-import guise.platform.IPlatformAccess;
-import guise.platform.PlatformAccessor;
+import guise.states.ControlStates;
+import guise.states.State;
+import guise.accessTypes.IFocusableAccess;
 
-/**
- * ...
- * @author Tom Byrne
- */
 
 class FocusStateMapper extends AbstractTrait
 {
@@ -16,23 +11,34 @@ class FocusStateMapper extends AbstractTrait
 	private var focusedState:State<FocusState>;
 	
 	private var _focusable:IFocusableAccess;
+	
+	private var layerName:String;
 
 	public function new(layerName:String) 
 	{
 		super();
 		
+		this.layerName = layerName;
+		
 		focusedState = new State();
 		focusedState.set(FocusState.UNFOCUSED);
 		addSiblingTrait(focusedState);
 		
-		addSiblingTrait(new PlatformAccessor(IFocusableAccess, layerName, onFocusAdd, onFocusRemove));
+		//addSiblingTrait(new PlatformAccessor(IFocusableAccess, layerName, onFocusAdd, onFocusRemove));
 	}
+	
+	@injectAdd
 	private function onFocusAdd(access:IFocusableAccess):Void {
+		if (access.layerName != layerName) return;
+		
 		_focusable = access;
 		access.focusedChanged.add(onFocusedChanged);
 		onFocusedChanged(access);
 	}
+	@injectRemove
 	private function onFocusRemove(access:IFocusableAccess):Void {
+		if (access != _focusable) return;
+		
 		access.focusedChanged.remove(onFocusedChanged);
 		_focusable = null;
 	}

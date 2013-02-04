@@ -1,17 +1,13 @@
 package ;
 import composure.core.ComposeGroup;
 import composure.core.ComposeRoot;
-import guise.core.GuiseItem;
 import guise.platform.nme.NmePlatformAccess;
-import guiseSkins.styled.styles.ChutzpahStyle;
+import guise.skin.drawn.utils.ChutzpahStyle;
 import org.tbyrne.logging.LoggerList;
 import guise.test.TestControls;
 import guise.core.CoreTags;
 
-/**
- * ...
- * @author Tom Byrne
- */
+
 
 class NmeTest 
 {
@@ -20,7 +16,7 @@ class NmeTest
 	}
 	
 	private var root:ComposeRoot;
-	private var window:GuiseItem;
+	private var window:ComposeGroup;
 
 	public function new() 
 	{
@@ -28,7 +24,7 @@ class NmeTest
 		
 		var root:ComposeRoot = new ComposeRoot();
 		
-		window = new GuiseItem();
+		window = new ComposeGroup();
 		window.addTrait(WindowTag);
 		root.addChild(window);
 		

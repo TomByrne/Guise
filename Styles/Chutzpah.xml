@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tags>
+	<tag type="guise.controls.ControlTags.TextButtonTag(true)" isEnum="true">
+		<layer name="backing" natures="guise.accessTypes.IGraphicsAccess,guise.accessTypes.IPositionAccess,guise.accessTypes.IFilterableAccess">
+			
+		</layer>
+		<layer name="labelText" natures="guise.accessTypes.ITextInputAccess,guise.accessTypes.IBoxPosAccess,guise.accessTypes.IFilterableAccess">
+			
+		</layer>
+	</tag>
+	<tag type="guise.controls.ControlTags.TextLabelTag" isEnum="true">
+		<layer name="labelText" natures="guise.accessTypes.ITextInputAccess,guise.accessTypes.IBoxPosAccess,guise.accessTypes.IFilterableAccess">
+			
+		</layer>
+	</tag>
+	<tag type="guise.controls.ControlTags.TextInputTag" isEnum="true">
+		<layer name="backing" natures="guise.accessTypes.IGraphicsAccess,guise.accessTypes.IPositionAccess,guise.accessTypes.IFilterableAccess">
+			
+		</layer>
+		<layer name="inputText" natures="guise.accessTypes.ITextInputAccess,guise.accessTypes.ITextOutputAccess,guise.accessTypes.IBoxPosAccess,guise.accessTypes.IFilterableAccess,guise.accessTypes.IFocusableAccess">
+			
+		</layer>
+	</tag>
+	<tag type="guise.controls.ControlTags.SliderTag(true)" isEnum="true">
+		<layer name="backing" natures="guise.accessTypes.IGraphicsAccess,guise.accessTypes.IPositionAccess,guise.accessTypes.IFilterableAccess">
+			
+		</layer>
+		<layer name="controlHandle" natures="guise.accessTypes.IGraphicsAccess,guise.accessTypes.IPositionAccess,guise.accessTypes.IFilterableAccess">
+			
+		</layer>
+	</tag>
+	<tag type="guise.controls.ControlTags.ToggleButtonTag" isEnum="true">
+		<layer name="backing" natures="guise.accessTypes.IGraphicsAccess,guise.accessTypes.IPositionAccess,guise.accessTypes.IFilterableAccess">
+			
+		</layer>
+		<layer name="controlHandle" natures="guise.accessTypes.IGraphicsAccess,guise.accessTypes.IPositionAccess,guise.accessTypes.IFilterableAccess">
+			
+		</layer>
+	</tag>
+
+
+	<obj type="">
+
+	</obj>
+<tags>

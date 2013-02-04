@@ -1,8 +1,6 @@
 package guise.platform.html5.display;
 
-import guise.traits.core.IPosition;
-import guise.platform.types.DisplayAccessTypes;
-import guise.core.AbsPosSizeAwareTrait;
+import guise.layout.IBoxPos;
 
 import js.Lib;
 import js.Dom;
@@ -11,47 +9,43 @@ import js.w3c.html5.Core;
 import js.Dom.HtmlDom;
 import composure.traits.AbstractTrait;
 import msignal.Signal;
+import guise.platform.cross.display.AbsDisplayTrait;
 
 /**
  * @author Tom Byrne
  */
 
-class WindowTrait extends AbsPosSizeAwareTrait, implements IWindowInfo
+class WindowTrait extends AbsDisplayTrait//, implements IWindowInfo
 {
-	@lazyInst
+	/*@lazyInst
 	public var availSizeChanged(default, null):Signal1<IWindowInfo>;
 	
 	public var availWidth(default, null):Int;
-	public var availHeight(default, null):Int;
+	public var availHeight(default, null):Int;*/
 	
 	var window:js.Window;
 
 	public function new() 
 	{
 		super();
-		
-		availSizeChanged = new Signal1();
+		_sizeListen = true;
+		_posListen = true;
 		
 		window = Lib.window;
-		window.onresize = onWindowResized;
+		/*window.onresize = onWindowResized;
 		
-		setAvailSize(window.screen.availWidth, window.screen.availHeight);
+		setAvailSize(window.screen.availWidth, window.screen.availHeight);*/
 	}
 	
-	override private function posChanged():Void {
-		if (!Math.isNaN(position.y) && !Math.isNaN(position.x)) {
-			window.moveTo(Std.int(position.x), Std.int(position.y));
-		}
+	override private function onPosValid(x:Float, y:Float):Void {
+		window.moveTo(Std.int(x), Std.int(y));
 	}
-	override private function sizeChanged():Void {
-		if (!Math.isNaN(size.width) && !Math.isNaN(size.height)) {
-			window.innerWidth = Std.int(size.width);
-			window.innerHeight = Std.int(size.height);
-			size.set(window.innerWidth, window.innerHeight);
-		}
+	override private function onSizeValid(w:Float, h:Float):Void {
+		window.innerWidth = Std.int(w);
+		window.innerHeight = Std.int(h);
 	}
 	
-	private function setAvailSize(width:Int, height:Int):Void {
+	/*private function setAvailSize(width:Int, height:Int):Void {
 		if (this.availWidth != width || this.availHeight != height) {
 			this.availWidth = width;
 			this.availHeight = height;
@@ -61,6 +55,5 @@ class WindowTrait extends AbsPosSizeAwareTrait, implements IWindowInfo
 	}
 	private function onWindowResized(e:Event):Void {
 		setAvailSize(window.screen.availWidth, window.screen.availHeight);
-		size.set(window.innerWidth, window.innerHeight);
-	}
+	}*/
 }
