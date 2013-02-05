@@ -32,7 +32,7 @@ class TextLabelTrait extends DisplayTrait<StaticText>
 		var text:String = textLabel.text;
 		window.setLabel(text==null?"":text);
 	}
-	override private function onParentAdded(parent:ContainerTrait<Window>):Void {
+	override private function onParentAdded(parent:DisplayTrait<Window>):Void {
 		super.onParentAdded(parent);
 		if (textLabel != null) onTextChanged();
 	}

@@ -1,45 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<tags>
-	<tag type="guise.controls.ControlTags.TextButtonTag(true)" isEnum="true">
-		<layer name="backing" natures="guise.accessTypes.IGraphicsAccess,guise.accessTypes.IPositionAccess,guise.accessTypes.IFilterableAccess">
-			
-		</layer>
-		<layer name="labelText" natures="guise.accessTypes.ITextInputAccess,guise.accessTypes.IBoxPosAccess,guise.accessTypes.IFilterableAccess">
-			
-		</layer>
-	</tag>
-	<tag type="guise.controls.ControlTags.TextLabelTag" isEnum="true">
-		<layer name="labelText" natures="guise.accessTypes.ITextInputAccess,guise.accessTypes.IBoxPosAccess,guise.accessTypes.IFilterableAccess">
-			
-		</layer>
-	</tag>
-	<tag type="guise.controls.ControlTags.TextInputTag" isEnum="true">
-		<layer name="backing" natures="guise.accessTypes.IGraphicsAccess,guise.accessTypes.IPositionAccess,guise.accessTypes.IFilterableAccess">
-			
-		</layer>
-		<layer name="inputText" natures="guise.accessTypes.ITextInputAccess,guise.accessTypes.ITextOutputAccess,guise.accessTypes.IBoxPosAccess,guise.accessTypes.IFilterableAccess,guise.accessTypes.IFocusableAccess">
-			
-		</layer>
-	</tag>
-	<tag type="guise.controls.ControlTags.SliderTag(true)" isEnum="true">
-		<layer name="backing" natures="guise.accessTypes.IGraphicsAccess,guise.accessTypes.IPositionAccess,guise.accessTypes.IFilterableAccess">
-			
-		</layer>
-		<layer name="controlHandle" natures="guise.accessTypes.IGraphicsAccess,guise.accessTypes.IPositionAccess,guise.accessTypes.IFilterableAccess">
-			
-		</layer>
-	</tag>
-	<tag type="guise.controls.ControlTags.ToggleButtonTag" isEnum="true">
-		<layer name="backing" natures="guise.accessTypes.IGraphicsAccess,guise.accessTypes.IPositionAccess,guise.accessTypes.IFilterableAccess">
-			
-		</layer>
-		<layer name="controlHandle" natures="guise.accessTypes.IGraphicsAccess,guise.accessTypes.IPositionAccess,guise.accessTypes.IFilterableAccess">
-			
-		</layer>
-	</tag>
+<class classpath="guise.skin.drawn.Chutzpah" >
 
+	<meth name="install" static="true" public="true" scope="within" a-within="composure.core.ComposeItem">
+		<obj type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait">
+			<obj type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
+				<m-add params="guise.accessTypes.IGraphicsAccess"/>
+				<m-add params="guise.accessTypes.IPositionAccess"/>
+				<m-add params="guise.accessTypes.IFilterableAccess"/>
+			</obj>
+			<obj type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'labelText'">
+				<m-add params="guise.accessTypes.ITextInputAccess"/>
+				<m-add params="guise.accessTypes.IBoxPosAccess"/>
+				<m-add params="guise.accessTypes.IFilterableAccess"/>
+			</obj>
+		</obj>
 
-	<obj type="">
+		<obj type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextLabelTag" addCall="addTrait">
+			<obj type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'labelText'">
+				<m-add params="guise.accessTypes.ITextInputAccess"/>
+				<m-add params="guise.accessTypes.IBoxPosAccess"/>
+				<m-add params="guise.accessTypes.IFilterableAccess"/>
+			</obj>
+		</obj>
 
-	</obj>
-<tags>
+		<obj type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextInputTag" addCall="addTrait">
+			<obj type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
+				<m-add params="guise.accessTypes.IGraphicsAccess"/>
+				<m-add params="guise.accessTypes.IPositionAccess"/>
+				<m-add params="guise.accessTypes.IFilterableAccess"/>
+			</obj>
+			<obj type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'inputText'">
+				<m-add params="guise.accessTypes.ITextInputAccess"/>
+				<m-add params="guise.accessTypes.ITextOutputAccess"/>
+				<m-add params="guise.accessTypes.IBoxPosAccess"/>
+				<m-add params="guise.accessTypes.IFilterableAccess"/>
+				<m-add params="guise.accessTypes.IFocusableAccess"/>
+			</obj>
+		</obj>
+
+		<obj type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag(true)" addCall="addTrait">
+			<obj type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
+				<m-add params="guise.accessTypes.IGraphicsAccess"/>
+				<m-add params="guise.accessTypes.IPositionAccess"/>
+				<m-add params="guise.accessTypes.IFilterableAccess"/>
+			</obj>
+			<obj type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'controlHandle'">
+				<m-add params="guise.accessTypes.IGraphicsAccess"/>
+				<m-add params="guise.accessTypes.IPositionAccess"/>
+				<m-add params="guise.accessTypes.IFilterableAccess"/>
+			</obj>
+		</obj>
+
+		<obj type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
+			<obj type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
+				<m-add params="guise.accessTypes.IGraphicsAccess"/>
+				<m-add params="guise.accessTypes.IPositionAccess"/>
+				<m-add params="guise.accessTypes.IFilterableAccess"/>
+			</obj>
+			<obj type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'controlHandle'">
+				<m-add params="guise.accessTypes.IGraphicsAccess"/>
+				<m-add params="guise.accessTypes.IPositionAccess"/>
+				<m-add params="guise.accessTypes.IFilterableAccess"/>
+			</obj>
+		</obj>
+	</meth>
+</class>

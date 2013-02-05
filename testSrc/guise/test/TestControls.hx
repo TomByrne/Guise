@@ -2,24 +2,30 @@ package guise.test;
 
 import composure.core.ComposeGroup;
 import composure.core.ComposeItem;
+import guise.controls.data.TextLabel;
 import guise.controls.logic.input.ClickToggleSelect;
+import guise.core.CoreTags;
 import guise.controls.ControlTags;
 import guise.controls.data.ITextLabel;
 import guise.controls.data.ISelected;
 import guise.controls.data.IInputPrompt;
-import guise.layout.IBoxPos;
+import guise.layout.BoxPos;
 
 
 class TestControls 
 {
 	public static function addControls(parent:ComposeGroup, x:Float = 0, y:Float = 0 ):Void {
 		
-		addButton(parent, "Test Button", x, y, 150, 30, false);
-		addButton(parent, "Selectable Button", x, y + 40, 150, 30, true);
-		addLabel(parent, "Test Label", x, y + 80, 150, 30);
-		addTextInput(parent, "Test Input", x, y + 120, 150, 30);
-		addToggleButton(parent, "Test Toggle", x, y + 155, 150, 30);
-		addSlider(parent, x, y + 180, 150, 30, false);
+		var item:ComposeGroup = new ComposeGroup();
+		item.addTraits([ContainerTag, new BoxPos(x, y,0,0)]);
+		parent.addChild(item);
+		
+		addButton(item, "Test Button", 0, 0, 150, 30, false);
+		addButton(item, "Selectable Button", 0, 40, 150, 30, true);
+		addLabel(item, "Test Label", 0, 80, 150, 30);
+		addTextInput(item, "Test Input", 0, 120, 150, 30);
+		addToggleButton(item, "Test Toggle", 0, 155, 150, 30);
+		addSlider(item, 0, 180, 150, 30, false);
 	}
 	public static function addButton(parent:ComposeGroup, text:String, x:Float, y:Float, w:Float, h:Float, selectable:Bool):Void {
 		var item:ComposeItem = new ComposeItem();

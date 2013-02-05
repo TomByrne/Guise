@@ -3,7 +3,7 @@ import wx.Window;
 import wx.Panel;
 
 
-class PanelTrait extends ContainerTrait<Panel>
+class PanelTrait extends DisplayTrait<Panel>
 {
 
 	public function new() {

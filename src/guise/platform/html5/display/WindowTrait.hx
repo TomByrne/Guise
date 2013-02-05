@@ -17,6 +17,15 @@ import guise.platform.cross.display.AbsDisplayTrait;
 
 class WindowTrait extends AbsDisplayTrait//, implements IWindowInfo
 {
+	private static var _inst:WindowTrait;
+	public static function inst():WindowTrait {
+		if (_inst == null) {
+			_inst = new WindowTrait();
+		}
+		return _inst;
+	}
+	
+	
 	/*@lazyInst
 	public var availSizeChanged(default, null):Signal1<IWindowInfo>;
 	

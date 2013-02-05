@@ -4,8 +4,10 @@ import guise.controls.data.INumRange;
 import guise.controls.data.ISelected;
 import guise.controls.data.ITextLabel;
 import guise.platform.waxe.display.DisplayTrait;
+import wx.Window;
+import wx.CheckBox;
 
-class CheckBoxTrait extends DisplayTrait
+class CheckBoxTrait extends DisplayTrait<CheckBox>
 {
 	@inject
 	public var textLabel(default, set_textLabel):ITextLabel;
@@ -16,7 +18,7 @@ class CheckBoxTrait extends DisplayTrait
 		textLabel = value;
 		if (textLabel!=null) {
 			textLabel.textChanged.add(onTextChanged);
-			onTextChanged(textLabel);
+			if(window!=null)onTextChanged(textLabel);
 		}
 		return value;
 	}
@@ -29,38 +31,38 @@ class CheckBoxTrait extends DisplayTrait
 		selected = value;
 		if (selected != null) {
 			selected.selectedChanged.add(onSelectedChanged);
-			onSelectedChanged(selected);
+			if(window!=null)onSelectedChanged(selected);
 		}
 		return value;
 	}
-	
-	private var _label:HtmlDom;
-	private var _checkbox:Checkbox;
 
 	public function new() 
 	{
 		_allowSizing = true;
-		_checkbox = cast Lib.document.createElement("input");
-		_checkbox.setAttribute("type", "checkbox");
-		_checkbox.onchange = onCheckBoxChange;
 		
-		_label = cast Lib.document.createElement("label");
-		_label.appendChild(_checkbox);
-		
-		super(_label);
+		super(function(parent:Window):CheckBox return CheckBox.create(parent) );
 	}
-	private function onCheckBoxChange(e:Event):Void {
+	private function onCheckBoxChange(e:Dynamic):Void {
 		if(selected!=null){
-			selected.set(_checkbox.checked);
+			selected.set(window.checked);
 		}
 	}
 	
-	private function onSelectedChanged(from:ISelected):Void {
-		_checkbox.checked = from.selected;
+	private function onSelectedChanged(from:ISelected=null):Void {
+		window.setChecked(selected.selected);
 	}
 	
-	private function onTextChanged(from:ITextLabel):Void {
-		_label.innerHTML = from.text;
-		_label.appendChild(_checkbox);
+	private function onTextChanged(from:ITextLabel=null):Void {
+		//window.setLabel(textLabel.text);
+	}
+	override private function onParentAdded(parent:DisplayTrait<Window>):Void {
+		super.onParentAdded(parent);
+		window.setHandler(wx.EventID.COMMAND_CHECKBOX_CLICKED,onCheckBoxChange);
+		if (textLabel != null) onTextChanged();
+		if (selected != null) onSelectedChanged();
+	}
+	override private function onParentRemoved(parent:DisplayTrait<Window>):Void {
+		window.setHandler(wx.EventID.COMMAND_CHECKBOX_CLICKED, null);
+		super.onParentRemoved(parent);
 	}
 }

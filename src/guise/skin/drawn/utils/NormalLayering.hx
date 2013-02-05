@@ -17,19 +17,19 @@ class NormalLayering
 	public static function install(within:ComposeItem) 
 	{
 		var furnisher:Furnisher = new Furnisher(TextButtonTag(false));
-		furnisher.addTrait(TFact(function(tag:Dynamic) { return new LayerOrderer([ControlLayers.BACKING, ControlLayers.LABEL_TEXT]);}) );
+		furnisher.add(TFact(function(tag:Dynamic) { return new LayerOrderer([ControlLayers.BACKING, ControlLayers.LABEL_TEXT]);}) );
 		within.addTrait(furnisher);
 		
 		furnisher = new Furnisher(TextInputTag);
-		furnisher.addTrait(TFact(function(tag:Dynamic) { return new LayerOrderer([ControlLayers.BACKING, ControlLayers.INPUT_TEXT]);} ));
+		furnisher.add(TFact(function(tag:Dynamic) { return new LayerOrderer([ControlLayers.BACKING, ControlLayers.INPUT_TEXT]);} ));
 		within.addTrait(furnisher);
 		
 		furnisher = new Furnisher(ToggleButtonTag);
-		furnisher.addTrait(TFact(function(tag:Dynamic) { return new LayerOrderer([ControlLayers.BACKING, ControlLayers.CONTROL_HANDLE]);} ));
+		furnisher.add(TFact(function(tag:Dynamic) { return new LayerOrderer([ControlLayers.BACKING, ControlLayers.CONTROL_HANDLE]);} ));
 		within.addTrait(furnisher);
 		
 		furnisher = new Furnisher(SliderTag(true));
-		furnisher.addTrait(TFact(function(tag:Dynamic) { return new LayerOrderer([ControlLayers.BACKING, ControlLayers.CONTROL_HANDLE]);} ));
+		furnisher.add(TFact(function(tag:Dynamic) { return new LayerOrderer([ControlLayers.BACKING, ControlLayers.CONTROL_HANDLE]);} ));
 		within.addTrait(furnisher);
 	}
 	

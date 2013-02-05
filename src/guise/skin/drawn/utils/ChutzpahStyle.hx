@@ -7,7 +7,6 @@ import guise.controls.ControlLayers;
 import guise.controls.ControlTags;
 import guise.controls.data.INumRange;
 import guise.layer.LayerAccessRequire;
-import guise.macro.FurnisherMacro;
 import guise.skin.drawn.BoxLayer;
 import guise.skin.drawn.FilterLayer;
 import guise.skin.drawn.utils.DrawnStyleTrans;
@@ -20,11 +19,11 @@ import guise.skin.values.IValue;
 import guise.skin.values.Value;
 import nme.Assets;
 import nme.text.Font;
-import guise.controls.ControlLogic;
 import guise.layout.IBoxPos;
 import guise.accessTypes.IFilterableAccess;
 import guise.accessTypes.ITextOutputAccess;
 import guise.skin.drawn.utils.DrawnStyles;
+import xmlTools.CodeGenMacro;
 
 
 class ChutzpahStyle 
@@ -68,7 +67,7 @@ class ChutzpahStyle
 	public static function install(within:ComposeItem):Void 
 	{
 		NormalLayering.install(within);
-		ControlLogic.install(within);
+		//ControlLogic.install(within);
 		
 		if(_buttonBackNorm==null){
 		
@@ -129,28 +128,28 @@ class ChutzpahStyle
 		}
 		
 		var furnisher = new Furnisher(TextButtonTag(false), [TFact(buttonBacking), TFact(buttonBackingFilt), TFact(labelText)/*, TFact(labelTextAlign)*/]);
-		furnisher.addTrait(TInst(_styleTransitioner));
+		furnisher.add(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
 		furnisher = new Furnisher(TextLabelTag, [TFact(labelText), TFact(labelTextFilt)]);
-		furnisher.addTrait(TInst(_styleTransitioner));
+		furnisher.add(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
 		furnisher = new Furnisher(TextInputTag, [TFact(inputBacking), TFact(inputBackingFilt), TFact(inputText), TFact(inputTextFilt)]);
-		furnisher.addTrait(TInst(_styleTransitioner));
+		furnisher.add(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
 		furnisher = new Furnisher(ToggleButtonTag, [TFact(toggleBacking), TFact(toggleBackingFilt), TFact(toggleHandle), TFact(toggleHandleFilt)]);
-		furnisher.addTrait(TInst(_styleTransitioner));
+		furnisher.add(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
 		furnisher = new Furnisher(SliderTag(false), [TFact(hSliderBacking), TFact(sliderHandle), TFact(sliderHandleFilt)]);
 		furnisher.checkEnumParams = [0];
-		furnisher.addTrait(TInst(_styleTransitioner));
+		furnisher.add(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
 		//FurnisherMacro.trace(guise.controls.ControlTags.TextButtonTag(true));
-		FurnisherMacro.path(within, "../Styles/Chutzpah.xml");
+		CodeGenMacro.path("../Styles/Chutzpah.xml").install(within);
 		
 		
 		/*{

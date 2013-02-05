@@ -43,7 +43,7 @@ class TextButtonTrait extends DisplayTrait<Button>
 		_allowSizing = true;
 		super(function(parent:Window):Button return Button.create(parent));
 	}
-	override private function onParentAdded(parent:ContainerTrait<Window>):Void {
+	override private function onParentAdded(parent:DisplayTrait<Window>):Void {
 		super.onParentAdded(parent);
 		if (textLabel != null) onTextChanged();
 	}

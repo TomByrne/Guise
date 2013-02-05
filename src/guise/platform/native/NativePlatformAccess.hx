@@ -1,6 +1,7 @@
 package guise.platform.native;
 
 import composure.core.ComposeItem;
+import xmlTools.CodeGenMacro;
 
 
 /**
@@ -14,13 +15,13 @@ class NativePlatformAccess
 	public static function install(within:ComposeItem){
 		
 		#if js
-			guise.platform.html5.HtmlPlatformAccess.install(within);
+			CodeGenMacro.path("../Platforms/HTML5.xml").install(within);
 		#elseif waxe
 			// Waxe fallback
-			guise.platform.waxe.WaxePlatformAccess.install(within);
+			CodeGenMacro.path("../Platforms/Waxe.xml").install(within);
 		#elseif nme
 			// NME fallback
-			guise.platform.nme.NmePlatformAccess.install(within);
+			CodeGenMacro.path("../Platforms/NME.xml").install(within);
 			guise.skin.drawn.utils.ChutzpahStyle.install(within);
 		#end
 	}

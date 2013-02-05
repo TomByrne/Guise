@@ -1,6 +1,8 @@
 package guise.platform.waxe.display;
 
 import guise.layout.IBoxPos;
+import wx.Button;
+import wx.Panel;
 
 import composure.traits.AbstractTrait;
 import msignal.Signal;
@@ -8,8 +10,16 @@ import guise.platform.cross.display.AbsDisplayTrait;
 import wx.Frame;
 
 
-class WindowTrait extends ContainerTrait<Frame>//, implements IWindowInfo
+class WindowTrait extends DisplayTrait<Frame>//, implements IWindowInfo
 {
+	private static var _inst:WindowTrait;
+	public static function inst():WindowTrait {
+		if (_inst == null) {
+			_inst = new WindowTrait();
+		}
+		return _inst;
+	}
+	
 	/*@lazyInst
 	public var availSizeChanged(default, null):Signal1<IWindowInfo>;
 	
@@ -20,12 +30,13 @@ class WindowTrait extends ContainerTrait<Frame>//, implements IWindowInfo
 
 	public function new() 
 	{
-		super();
+		super(null);
 		_sizeListen = true;
 		_posListen = true;
 		
 		frame = ApplicationMain.frame;
 		window = frame;
+		
 		//window = wx.Panel.create(frame);
 		/*window.onresize = onWindowResized;
 		

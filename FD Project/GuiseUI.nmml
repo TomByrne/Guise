@@ -17,7 +17,6 @@
 	
     <classpath name="..\src" />
     <classpath name="..\testSrc" />
-    <!--<classpath name="..\refs\easelhx\externs\0.4.2" />-->
     <classpath name="..\..\Composure\src" />
 
     <haxelib name="msignal" />
@@ -27,7 +26,7 @@
     <haxelib name="waxe" />
 	<!--<haxelib name="nme" unless="target_windows"/>-->
 	
-	<assets path="../Assets" rename="assets" include="*" exclude="nme.svg" unless="target_html5"/>
+	<assets path="../Assets" rename="assets" include="*" exclude="nme.svg" if="target_flash"/>
 	
 	<icon name="../Assets/nme.svg" />
 	

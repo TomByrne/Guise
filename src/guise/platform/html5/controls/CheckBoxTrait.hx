@@ -62,7 +62,8 @@ class CheckBoxTrait extends DisplayTrait
 	}
 	
 	private function onTextChanged(from:ITextLabel):Void {
-		_label.innerHTML = from.text;
+		_label.innerHTML = "";
 		_label.appendChild(_checkbox);
+		_label.appendChild(Lib.document.createTextNode(from.text));
 	}
 }
