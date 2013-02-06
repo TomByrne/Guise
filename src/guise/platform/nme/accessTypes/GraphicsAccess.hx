@@ -1,5 +1,6 @@
 package guise.platform.nme.accessTypes;
 
+import guise.accessTypes.IBitmapGraphicsAccess;
 import nme.display.Graphics;
 import nme.display.BitmapData;
 import guise.accessTypes.IGraphicsAccess;
@@ -14,7 +15,7 @@ import guise.platform.nme.addTypes.IInteractiveObjectType;
  * @author Tom Byrne
  */
 
-class GraphicsAccess implements IGraphicsAccess, implements IDisplayObjectType, implements IInteractiveObjectType
+class GraphicsAccess implements IBitmapGraphicsAccess, implements IDisplayObjectType, implements IInteractiveObjectType
 {
 	
 	public var layerName(default, set_layerName):String;
