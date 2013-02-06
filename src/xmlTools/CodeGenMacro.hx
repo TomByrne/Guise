@@ -2,6 +2,7 @@ package xmlTools;
 import haxe.macro.Context;
 import haxe.macro.Expr;
 import haxe.macro.Tools;
+import haxe.macro.Type;
 
 class CodeGenMacro 
 {
@@ -16,9 +17,22 @@ class CodeGenMacro
 	
 	#if macro
 	
+	private static var _done:Hash<Bool> = new Hash();
+	
 	private static function interpXmlFile(path:String, ?scope:Expr):Expr {
 		var pos = Context.currentPos();
 		
+		var firstChar = path.charAt(0);
+		if (firstChar == "/" || firstChar == "\\") {
+			var classFile = Context.getPosInfos(pos).file;
+			var lastSlash:Int = classFile.lastIndexOf("/");
+			if (lastSlash == -1) {
+				lastSlash = classFile.lastIndexOf("\\");
+			}
+			if(lastSlash!=-1){
+				path = classFile.substr(0,lastSlash) + path;
+			}
+		}
 		var content = sys.io.File.getContent(path);
 		return interpXml(Xml.parse(content).firstElement(), scope);
 	}
@@ -37,13 +51,25 @@ class CodeGenMacro
 	private static function interpElement(within:Expr, tag:Xml, addTo:Array<Expr>):Void {
 		switch(tag.nodeName) {
 			case "obj": interpObj(within, tag, addTo);
-			case "class": interpClass(within, tag, addTo);
+			case "class": interpClass(tag, addTo);
 			default: trace("Unknown tag: "+tag.nodeName);
 		}
 	}
-	private static function interpClass(within:Expr, tag:Xml, addTo:Array<Expr>):Void {
+	private static function interpClass(tag:Xml, addTo:Array<Expr>):Void {
 		var pos = Context.currentPos();
 		var classpath:String = tag.get("classpath");
+		
+		try {
+			var type:Type;
+			if ((type = Context.getType(classpath)) != null) {
+				if (_done.exists(classpath)) {
+					addTo.push(Context.parse(classpath, pos));
+				}else{
+					trace("Error generating class, " + classpath + " already exists");
+				}
+				return;
+			}
+		}catch(e:Dynamic){}
 		
 		var fields:Array<Field> = [];
 		for (child in tag.elements()) {
@@ -52,10 +78,11 @@ class CodeGenMacro
 				default: trace("Unknown tag: "+child.nodeName);
 			}
 		}
-			
+		
+		_done.set(classpath, true);
 		var pack = classpath.split(".");
 		var name:String = pack.pop();
-		var typeDef:TypeDefinition = { pack:pack, name:name, pos:pos , meta:[], params:[], isExtern:false, kind:TDClass(), fields:fields};
+		var typeDef:TypeDefinition = { pack:pack, name:name, pos:pos , meta:[{ name : "CodeGenMacro", params :[], pos : pos }], params:[], isExtern:false, kind:TDClass(), fields:fields};
 		Context.defineType(typeDef);
 		var classE:Expr = Context.parse(classpath, pos);
 		addTo.push(Context.parse(classpath, pos));

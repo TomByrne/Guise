@@ -60,8 +60,16 @@ class AccessProvider extends AbstractTrait
 					var access:IAccessType = cast trait;
 					if(access.layerName != accessReq.layerName)trait = null;
 				}
-				if(trait==null ){
-					trait = Type.createInstance(klass, []);
+				if (trait == null ) {
+					if (req==klass) {
+						try{
+							trait = Type.createInstance(klass, []);
+						}catch (e:Dynamic) {
+							throw "Platform accessor "+klass+" is not available for this platform.";
+						}
+					}else {
+						trait = Type.createInstance(klass, []);
+					}
 				}
 				if (Std.is(trait, IAccessType)) {
 					var access:IAccessType = cast trait;

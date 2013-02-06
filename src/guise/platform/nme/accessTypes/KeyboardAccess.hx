@@ -1,6 +1,7 @@
 package guise.platform.nme.accessTypes;
 import composure.traits.AbstractTrait;
 import guise.accessTypes.IKeyboardAccess;
+import guise.platform.nme.display.DisplayTrait;
 import nme.display.InteractiveObject;
 import nme.events.KeyboardEvent;
 import msignal.Signal;
@@ -9,6 +10,23 @@ import guise.accessTypes.IMouseInteractionsAccess;
 
 class KeyboardAccess implements IKeyboardAccess
 {
+	@inject
+	public var displayTrait(default, set_displayTrait):DisplayTrait;
+	private function set_displayTrait(value:DisplayTrait):DisplayTrait {
+		if (displayTrait!=null) {
+			if (displayTrait.displayObject == interactiveObject) {
+				interactiveObject = null;
+			}
+		}
+		displayTrait = value;
+		if (displayTrait != null) {
+			if (interactiveObject==null && Std.is(displayTrait.displayObject, InteractiveObject)) {
+				interactiveObject = cast displayTrait.displayObject;
+			}
+		}
+		return value;
+	}
+	
 	public var interactiveObject(default, set_interactiveObject):InteractiveObject;
 	private function set_interactiveObject(value:InteractiveObject):InteractiveObject {
 		if (interactiveObject!=null) {
@@ -30,10 +48,18 @@ class KeyboardAccess implements IKeyboardAccess
 	private var _isDown:Hash<Bool>;
 	
 
-	public function new(?interactiveObject:InteractiveObject) 
+	public var layerName(default, set_layerName):String;
+	private function set_layerName(value:String):String {
+		this.layerName = value;
+		return value;
+	}
+	
+	public function new(?layerName:String, ?interactiveObject:InteractiveObject) 
 	{
 		
 		this.interactiveObject = interactiveObject;
+		
+		this.layerName = layerName;
 		
 		_upSignals = new Hash();
 		_downSignals = new Hash();

@@ -6,6 +6,7 @@
 		<obj type="guise.platform.cross.AccessProvider" addCall="addTrait">
 			<m-mapAccessType params="guise.accessTypes.IFilterableAccess, guise.platform.nme.accessTypes.FilterableAccess"/>
 			<m-mapAccessType params="guise.accessTypes.IGraphicsAccess, guise.platform.nme.accessTypes.GraphicsAccess"/>
+			<m-mapAccessType params="guise.accessTypes.IBitmapGraphicsAccess, guise.platform.nme.accessTypes.GraphicsAccess"/>
 			<m-mapAccessType params="guise.accessTypes.IPositionAccess, guise.platform.nme.accessTypes.PositionAccess"/>
 			<m-mapAccessType params="guise.accessTypes.IBoxPosAccess, guise.platform.nme.accessTypes.PositionAccess"/>
 			<m-mapAccessType params="guise.accessTypes.ITextInputAccess, guise.platform.nme.accessTypes.TextAccess"/>
@@ -14,6 +15,7 @@
 			<m-mapAccessType params="guise.accessTypes.IFilterableAccess, guise.platform.nme.accessTypes.FilterableAccess"/>
 			<m-mapAccessType params="guise.accessTypes.IMouseClickableAccess, guise.platform.nme.accessTypes.MouseClickableAccess"/>
 			<m-mapAccessType params="guise.accessTypes.IMouseInteractionsAccess, guise.platform.nme.accessTypes.MouseInteractionsAccess"/>
+			<m-mapAccessType params="guise.accessTypes.IKeyboardAccess, guise.platform.nme.accessTypes.KeyboardAccess"/>
 		</obj>
 
 		<!-- Core display tags -->

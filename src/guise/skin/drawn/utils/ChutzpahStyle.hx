@@ -71,8 +71,8 @@ class ChutzpahStyle
 		
 		if(_buttonBackNorm==null){
 		
-			var font = Assets.getFont ("assets/fonts/HelveticaNeueLTPro-Bd.otf");
-			//var font = Assets.getFont ("assets/fonts/HelveticaNeueLTPro-Bd.ttf");
+			//var font = Assets.getFont ("assets/fonts/HelveticaNeueLTPro-Bd.otf");
+			var font = Assets.getFont ("assets/fonts/HelveticaNeueLTPro-Bd.ttf");
 			//var font = Assets.getFont ("assets/fonts/HelveticaNeueLTCom-Bd.ttf");
 			
 			var fontData = (font==null?TfSans:Tf(font.fontName));
@@ -149,7 +149,7 @@ class ChutzpahStyle
 		within.addTrait(furnisher);
 		
 		//FurnisherMacro.trace(guise.controls.ControlTags.TextButtonTag(true));
-		CodeGenMacro.path("../Styles/Chutzpah.xml").install(within);
+		CodeGenMacro.path("/../../../../../Styles/Chutzpah.xml").install(within);
 		
 		
 		/*{

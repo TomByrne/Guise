@@ -31,7 +31,7 @@ class NmeTest
 		var stage = new ComposeGroup();
 		stage.addTrait(StageTag);
 		window.addChild(stage);
-		CodeGenMacro.path("../Platforms/NME.xml").install(stage);
+		CodeGenMacro.path("/../Platforms/NME.xml").install(stage);
 		ChutzpahStyle.install(stage);
 		TestControls.addControls(stage, 10, 10);
 	}

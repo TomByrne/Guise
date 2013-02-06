@@ -57,6 +57,8 @@ class LayerOrderer extends AbstractTrait
 	
 	private function checkDepths():Void {
 		var layers = layerOrderAccess.getLayers();
+		if (layers == null) return;
+		
 		var depth1:Int = 0;
 		while (depth1 < layers.length - 1) {
 			var layer1 = layers[depth1];

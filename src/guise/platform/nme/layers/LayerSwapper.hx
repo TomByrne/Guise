@@ -60,16 +60,14 @@ class LayerSwapper extends AbstractTrait, implements ILayerContainer
 	
 	public function getLayers():Array<String> {
 		if (_layersInvalid) {
+			_layers = [];
 			if (container!=null) {
-				_layers = [];
 				for (i in 0 ... container.container.numChildren) {
 					var child:DisplayObject = container.container.getChildAt(i);
 					if (child.name!=null) {
 						_layers.push(child.name);
 					}
 				}
-			}else {
-				_layers = null;
 			}
 			
 			_layersInvalid = false;
