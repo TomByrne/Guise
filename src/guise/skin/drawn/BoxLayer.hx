@@ -11,7 +11,7 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 {
 	@injectAdd
 	private function onGraphicsAdd(access:IGraphicsAccess):Void {
-		if (_layerName != null && access.layerName != _layerName) return;
+		if (layerName != null && access.layerName != layerName) return;
 		
 		_graphicsAccess = access;
 		invalidate();
@@ -25,7 +25,7 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 	
 	@injectAdd
 	private function onPosAdd(access:IPositionAccess):Void {
-		if (_layerName != null && access.layerName != _layerName) return;
+		if (layerName != null && access.layerName != layerName) return;
 		
 		_pos = access;
 		invalidate();
@@ -37,15 +37,16 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 		_pos = null;
 	}
 	
+	public var layerName:String;
+	
 	private var _graphicsAccess:IGraphicsAccess;
 	private var _pos:IPositionAccess;
-	private var _layerName:String;
 
-	public function new(layerName:String, ?normalStyle:BoxStyle) 
+	public function new(?layerName:String, ?normalStyle:BoxStyle) 
 	{
 		super(normalStyle);
 		_requireSize = true;
-		_layerName = layerName;
+		this.layerName = layerName;
 	}
 	override private function _isReadyToDraw():Bool {
 		return _graphicsAccess != null && super._isReadyToDraw();

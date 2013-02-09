@@ -28,18 +28,18 @@ import xmlTools.CodeGenMacro;
 
 class ChutzpahStyle 
 {
-	private static var _labelTextStyle:TextLabelStyle;
-	private static var _inputTextStyle:TextLabelStyle;
+	//private static var _labelTextStyle:TextLabelStyle;
+	//private static var _inputTextStyle:TextLabelStyle;
 	//private static var _labelTextAlign:FramingStyle;
 	//private static var _inputTextAlign:FramingStyle;
 	
 	private static var _buttonTextFiltNorm:Array<FilterType>;
 	
-	private static var _buttonBackNorm:BoxStyle;
+	/*private static var _buttonBackNorm:BoxStyle;
 	private static var _buttonBackOver:BoxStyle;
 	private static var _buttonBackDownUnsel:BoxStyle;
 	private static var _buttonBackSelNorm:BoxStyle;
-	private static var _buttonBackSelOver:BoxStyle;
+	private static var _buttonBackSelOver:BoxStyle;*/
 	
 	private static var _toggleBackNorm:BoxStyle;
 	private static var _toggleBackSelNorm:BoxStyle;
@@ -69,12 +69,11 @@ class ChutzpahStyle
 		NormalLayering.install(within);
 		//ControlLogic.install(within);
 		
-		if(_buttonBackNorm==null){
+		if(_sliderX==null){
 		
 			//var font = Assets.getFont ("assets/fonts/HelveticaNeueLTPro-Bd.otf");
-			var font = Assets.getFont ("assets/fonts/HelveticaNeueLTPro-Bd.ttf");
-			//var font = Assets.getFont ("assets/fonts/HelveticaNeueLTCom-Bd.ttf");
-			
+			//var font = Assets.getFont ("assets/fonts/HelveticaNeueLTPro-Bd.ttf");
+			var font = Assets.getFont ("assets/fonts/HelveticaNeueLTCom-Bd.ttf");
 			var fontData = (font==null?TfSans:Tf(font.fontName));
 		
 			_styleTransitioner = new DrawnStyleTrans() ;
@@ -86,7 +85,7 @@ class ChutzpahStyle
 			var downGradient 	= FsHLinearGradient([ { c:0xdadada, a:1, fract:0 }, { c:0xececec, a:1, fract:1 } ]);
 			var blueGradient 	= FsHLinearGradient([ { c:0xdeefff, a:1, fract:0 }, { c:0xc8d7e5, a:1, fract:1 } ]);
 		
-			_buttonBackNorm = BsCapsule(		normGradient, normStroke);
+			/*_buttonBackNorm = BsCapsule(		normGradient, normStroke);
 			_buttonBackOver = BsCapsule(		overGradient, overStroke);
 			_buttonBackDownUnsel = BsCapsule(	downGradient, SsNone);
 			
@@ -94,7 +93,7 @@ class ChutzpahStyle
 			_buttonBackSelOver = BsCapsule(		downGradient, overStroke);
 		
 			_inputBackNorm = BsRectComplex(		normGradient, normStroke, CSame(CsCirc(5)));
-			_inputBackFocus = BsRectComplex(	downGradient, overStroke, CSame(CsCirc(5)));
+			_inputBackFocus = BsRectComplex(	downGradient, overStroke, CSame(CsCirc(5)));*/
 			
 		
 			_toggleBackNorm = BsCapsule(		normGradient, normStroke, new Value(26), new Value(12), val(IBoxPos, "w", "sizeChanged", 0.5,-13), val(IBoxPos, "h", "sizeChanged",0.5,-6));
@@ -119,23 +118,23 @@ class ChutzpahStyle
 			_buttonFiltNorm = [DropShadow(1, Math.PI/2, 2, 0x000000, 0.56)];
 			_buttonFiltDown = [DropShadow(1, Math.PI / 2, 4, 0x000000, 0.42, true)];
 			
-			_labelTextStyle = Tls(Trs(fontData, 11, 0x8e8e8e, [TmBold()]), false, TcUpper, AaSmooth, HAlign.Center, VAlign.Middle);
-			_inputTextStyle = Tls(Trs(fontData, 11, 0x8e8e8e, [TmBold()]), true, TcUpper, AaSmooth, null, VAlign.Middle, new Value(5), new Value(5), new Value(5), new Value(5));
+			//_labelTextStyle = Tls(Trs(fontData, 11, 0x8e8e8e, [TmBold()]), false, TcUpper, AaSmooth, HAlign.Center, VAlign.Middle);
+			//_inputTextStyle = Tls(Trs(fontData, 11, 0x8e8e8e, [TmBold()]), true, TcUpper, AaSmooth, null, VAlign.Middle, new Value(5), new Value(5), new Value(5), new Value(5));
 			//_labelTextAlign = Frame(ConstrainMin, ScaleDownOnly(), ScaleDownOnly(), 0,6,0,6);
 			//_inputTextAlign = Frame(Fill,ScaleAlways,ScaleDownOnly(), 2,3,2,3);
 			
 			_buttonTextFiltNorm = [DropShadow(1, Math.PI/2, 1, 0xffffff, 0.65)];
 		}
 		
-		var furnisher = new Furnisher(TextButtonTag(false), [TFact(buttonBacking), TFact(buttonBackingFilt), TFact(labelText)/*, TFact(labelTextAlign)*/]);
+		var furnisher = new Furnisher(TextButtonTag(false), [/*TFact(buttonBacking), TFact(buttonBackingFilt), TFact(labelText), TFact(labelTextAlign)*/]);
 		furnisher.add(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
-		furnisher = new Furnisher(TextLabelTag, [TFact(labelText), TFact(labelTextFilt)]);
+		furnisher = new Furnisher(TextLabelTag, [/*TFact(labelText), */TFact(labelTextFilt)]);
 		furnisher.add(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
-		furnisher = new Furnisher(TextInputTag, [TFact(inputBacking), TFact(inputBackingFilt), TFact(inputText), TFact(inputTextFilt)]);
+		furnisher = new Furnisher(TextInputTag, [/*TFact(inputBacking),*/ TFact(inputBackingFilt)/*, TFact(inputText)*/, TFact(inputTextFilt)]);
 		furnisher.add(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
@@ -148,18 +147,9 @@ class ChutzpahStyle
 		furnisher.add(TInst(_styleTransitioner));
 		within.addTrait(furnisher);
 		
-		//FurnisherMacro.trace(guise.controls.ControlTags.TextButtonTag(true));
+		//CodeGenMacro.trace(guise.skin.getFont("assets/fonts/HelveticaNeueLTCom-Bd.ttf"));
 		CodeGenMacro.path("/../../../../../Styles/Chutzpah.xml").install(within);
 		
-		
-		/*{
-		var trait:AbstractTrait = new AbstractTrait();
-		var injector:Injector;
-		injector = new Injector(guise.controls.ControlTags.TextInputTag, function(trait:guise.controls.ControlTags, item:composure.core.ComposeItem):Void { item.addTrait(new LayerAccessRequire("inputText", [guise.accessTypes.ITextInputAccess, guise.accessTypes.ITextOutputAccess, guise.accessTypes.IBoxPosAccess, guise.accessTypes.IFilterableAccess])); }, function(trait:guise.controls.ControlTags, item:composure.core.ComposeItem):Void { }, true, true);
-		injector.passThroughItem = true;
-		trait.addInjector(injector);
-		//within.addTrait(trait);
-		}*/
 	}
 	private static function val(traitType:Dynamic, prop:String, changeSignal:String, multi:Float=1, offset:Float=0):IValue {
 		var ret:IValue = new Bind(traitType, prop, changeSignal);
@@ -171,7 +161,7 @@ class ChutzpahStyle
 		}
 		return ret;
 	}
-	private static function buttonBacking(tag:Dynamic):BoxLayer {
+	/*private static function buttonBacking(tag:Dynamic):BoxLayer {
 		var boxLayer:BoxLayer = new BoxLayer(ControlLayers.BACKING);
 		boxLayer.normalStyle = _buttonBackNorm;
 		boxLayer.addStyle([SelectedState.SELECTED, ButtonOverState.OUT], _buttonBackSelNorm);
@@ -180,14 +170,14 @@ class ChutzpahStyle
 		boxLayer.addStyle([ButtonDownState.DOWN, SelectableState.UNSELECTABLE], _buttonBackDownUnsel, 1);
 		
 		return boxLayer;
-	}
-	private static function buttonBackingFilt(tag:Dynamic):FilterLayer {
+	}*/
+	/*private static function buttonBackingFilt(tag:Dynamic):FilterLayer {
 		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.BACKING);
 		filterLayer.normalStyle = _buttonFiltNorm;
 		filterLayer.addStyle([ButtonDownState.DOWN], _buttonFiltDown);
 		
 		return filterLayer;
-	}
+	}*/
 	private static function toggleBacking(tag:Dynamic):BoxLayer {
 		var boxLayer:BoxLayer = new BoxLayer(ControlLayers.BACKING);
 		boxLayer.normalStyle = _toggleBackNorm;
@@ -206,20 +196,20 @@ class ChutzpahStyle
 		boxLayer.normalStyle = _hSliderBackNorm;
 		return boxLayer;
 	}
-	private static function labelText(tag:Dynamic):TextStyleLayer {
+	/*private static function labelText(tag:Dynamic):TextStyleLayer {
 		var textLayer = new TextStyleLayer(ControlLayers.LABEL_TEXT, _labelTextStyle);
 		return textLayer;
-	}
+	}*/
 	private static function labelTextFilt(tag:Dynamic):FilterLayer {
 		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.LABEL_TEXT);
 		filterLayer.normalStyle = _buttonTextFiltNorm;
 		
 		return filterLayer;
 	}
-	private static function inputText(tag:Dynamic):TextStyleLayer {
+	/*private static function inputText(tag:Dynamic):TextStyleLayer {
 		var textLayer = new TextStyleLayer(ControlLayers.INPUT_TEXT, _inputTextStyle);
 		return textLayer;
-	}
+	}*/
 	private static function inputTextFilt(tag:Dynamic):FilterLayer {
 		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.INPUT_TEXT);
 		filterLayer.normalStyle = _buttonTextFiltNorm;
@@ -227,13 +217,13 @@ class ChutzpahStyle
 		return filterLayer;
 	}
 	
-	private static function inputBacking(tag:Dynamic):BoxLayer {
+	/*private static function inputBacking(tag:Dynamic):BoxLayer {
 		var boxLayer:BoxLayer = new BoxLayer(ControlLayers.BACKING);
 		boxLayer.normalStyle = _inputBackNorm;
 		boxLayer.addStyle([FocusState.FOCUSED], _inputBackFocus);
 		
 		return boxLayer;
-	}
+	}*/
 	private static function inputBackingFilt(tag:Dynamic):FilterLayer {
 		var filterLayer:FilterLayer = new FilterLayer(ControlLayers.BACKING);
 		filterLayer.normalStyle = _buttonFiltNorm;

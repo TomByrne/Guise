@@ -12,9 +12,19 @@ import guise.skin.common.AbsStyledLayer;
 
 class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>
 {
+	public static function getFont(path:String, otherwise:Typeface):Typeface {
+		#if nme
+			var font = nme.Assets.getFont(path);
+			return (font==null?otherwise:Tf(font.fontName));
+		#else
+			return otherwise;
+		#end
+	}
+
+
 	@injectAdd
 	private function onTextAdd(access:ITextOutputAccess):Void {
-		if (_layerName != null && access.layerName != _layerName) return;
+		if (layerName != null && access.layerName != layerName) return;
 		
 		_textDisplay = access;
 		invalidate();
@@ -28,7 +38,7 @@ class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>
 	
 	@injectAdd
 	private function onPosAdd(access:IBoxPosAccess):Void {
-		if (_layerName != null && access.layerName != _layerName) return;
+		if (layerName != null && access.layerName != layerName) return;
 		
 		_pos = access;
 		invalidate();
@@ -58,12 +68,13 @@ class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>
 	
 	private var _textDisplay:ITextOutputAccess;
 	private var _pos:IBoxPosAccess;
-	private var _layerName:String;
+	
+	public var layerName:String;
 
-	public function new(layerName:String, ?normalStyle:TextLabelStyle) 
+	public function new(?layerName:String, ?normalStyle:TextLabelStyle) 
 	{
 		super(normalStyle);
-		_layerName = layerName;
+		this.layerName = layerName;
 		
 		_requireSize = true;
 	}

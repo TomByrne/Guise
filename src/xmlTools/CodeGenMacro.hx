@@ -10,10 +10,10 @@ class CodeGenMacro
 	@:macro public static function path(path:String, ?scope:Expr):Expr {
 		return interpXmlFile(path, scope);
 	}
-	/*@:macro public static function trace(e:Expr):Expr {
+	@:macro public static function trace(e:Expr):Expr {
 		trace(e);
 		return macro null;
-	}*/
+	}
 	
 	#if macro
 	
@@ -50,8 +50,9 @@ class CodeGenMacro
 	}
 	private static function interpElement(within:Expr, tag:Xml, addTo:Array<Expr>):Void {
 		switch(tag.nodeName) {
-			case "obj": interpObj(within, tag, addTo);
+			case "var": interpVar(within, tag, addTo);
 			case "class": interpClass(tag, addTo);
+			case "meth": interpFunc(tag, addTo);
 			default: trace("Unknown tag: "+tag.nodeName);
 		}
 	}
@@ -93,37 +94,56 @@ class CodeGenMacro
 		var access:Array<Access> = [];
 		if (tag.get("static") == "true") access.push(AStatic);
 		if (tag.get("public") == "true") access.push(APublic);
+		else access.push(APrivate);
 		
-		var args:Array<FunctionArg> = [];
-		for (att in tag.attributes()) {
-			var nameStart:String = att.substr(0, 2);
-			if (nameStart=="a-") {
-				createArg(args, att.substr(2), tag.get(att), false);
-			}
-		}
-		
-		for (child in tag.elements()) {
-			var nameStart:String = child.nodeName.substr(0, 2);
-			if (nameStart == "a-") {
-				createArg(args, child.nodeName.substr(2), child.get("value"), child.get("opt")=="true");
-			}
-		}
 		var scope:String = tag.get("scope");
 		var scopeE:Expr;
 		if (scope != null && scope.length != 0) {
 			scopeE = Context.parse(scope, pos);
 		}
 		
+		var func:Function = createFunc(tag, scopeE);
+		addTo.push({ name:name, access:access, kind:FFun(func), pos:pos});
+	}
+	private static function interpFunc(tag:Xml, addTo:Array<Expr>):Void {
+		var pos = Context.currentPos();
+		var name:String = tag.get("name");
+		
+		var func:Function = createFunc(tag, null);
+		addTo.push( { expr : EVars([ { expr : { expr:EFunction(null, func), pos:pos }, name : name, type : null } ]), pos : pos } );
+	}
+	private static function createFunc(tag:Xml, within:Expr):Function{
+		var pos = Context.currentPos();
+		var args:Array<FunctionArg> = [];
+		
+		for (att in tag.attributes()) {
+			var nameStart:String = att.substr(0, 2);
+			if (nameStart=="a-") {
+				createArg(args, att.substr(2), tag.get(att), false);
+			}
+		}
+		for (child in tag.elements()) {
+			var nameStart:String = child.nodeName.substr(0, 2);
+			if (nameStart == "a-") {
+				createArg(args, child.nodeName.substr(2), child.get("value"), child.get("opt")=="true");
+			}
+		}
+		
 		var exprs:Array<Expr> = [];
-		interpBlock(scopeE, tag, exprs);
+		interpBlock(within, tag, exprs);
 		var expr:Expr;
+		
+		var retVal:String = tag.get("ret");
+		if (retVal != null && retVal.length > 0) {
+			exprs.push(Context.parse("return "+retVal, pos) );
+		}
 		if(exprs.length==1){
 			expr = exprs[0];
 		}else {
 			expr = { expr:EBlock(exprs), pos:pos };
 		}
-		var func:Function = { args:args, ret:createComplexType(tag.get("ret")), expr:{ expr:EBlock(exprs), pos:pos }, params:[] };
-		addTo.push({ name:name, access:access, kind:FFun(func), pos:pos});
+		/*createComplexType(tag.get("ret-type"))*/
+		return { args:args, ret:null , expr: { expr:EBlock(exprs), pos:pos }, params:[] };
 	}
 	private static function createArg(addTo:Array<FunctionArg>, name:String, value:String, opt:Bool):Void {
 		addTo.push( { name:name, opt:opt, type:createComplexType(value)} );
@@ -137,26 +157,36 @@ class CodeGenMacro
 			return TPath( { pack:pack, name:name, params:[] } ) ;
 		}
 	}
-	private static function interpObj(within:Expr, tag:Xml, addTo:Array<Expr>):Void {
+	private static function interpVar(within:Expr, tag:Xml, addTo:Array<Expr>):Void {
 		var pos = Context.currentPos();
 		
 		var type:String = tag.get("type");
+		var hasType = type != null && type.length > 0;
+		
+		var value:String = getAttOrText(tag, "value");
+		var hasValue = value != null && value.length > 0;
+		
 		var nameE:Expr;
 		var subWithin:Expr;
-		if(type!=null && type.length>0){
-			var params:String = tag.get("params");
-			if (params == null) params = "";
+		if(hasType || hasValue){
 			
 			var name:String = tag.get("name");
 			if(name==null || name.length==0)name = "obj_" + addTo.length;
 			nameE = Context.parse(name, pos);
 			
-			// instantiate
-			var instant = Context.parse("new " + type + "(" + params + ")", pos);
+			var instant:Expr;
+			if (hasValue) {
+				instant = Context.parse(value, pos);
+			}else{
+				var params:String = tag.get("params");
+				if (params == null) params = "";
+				
+				// instantiate
+				instant = Context.parse("new " + type + "(" + params + ")", pos);
+			}
 			addTo.push( { expr : EVars([ { expr : instant, name : name, type : null } ]), pos : pos } );
-			
 			subWithin = nameE;
-		}else {
+		}else{
 			subWithin = within;
 		}
 		
@@ -177,6 +207,26 @@ class CodeGenMacro
 					addTo.push( { expr : ECall( { expr : EField( within, addCall), pos : pos }, [ nameE ]), pos : pos } );
 				}
 			}
+		}
+	}
+	private static function getAttOrText(within:Xml, name:String):Null<String> {
+		if(within.exists(name)){
+			return within.get(name);
+		}else {
+			var children = within.elementsNamed(name);
+			var ret:String;
+			for (child in children) {
+				for (subChild in child) {
+					if (subChild.nodeType != Xml.CData) continue;
+					
+					if (ret == null) {
+						ret = subChild.toString();
+					}else {
+						ret += " "+subChild.toString();
+					}
+				}
+			}
+			return ret;
 		}
 	}
 	private static function interpBlock(within:Expr, tag:Xml, addTo:Array<Expr>):Void {

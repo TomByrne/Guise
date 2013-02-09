@@ -4,8 +4,6 @@ import guise.layout.IBoxPos;
 
 import js.Lib;
 import js.Dom;
-import js.w3c.html5.Canvas2DContext;
-import js.w3c.html5.Core;
 import js.Dom.HtmlDom;
 import composure.traits.AbstractTrait;
 import msignal.Signal;

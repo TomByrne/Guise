@@ -7,7 +7,7 @@ class FilterLayer extends StateStyledTrait<Array<FilterType>>
 	
 	@injectAdd
 	private function onFilterAdd(access:IFilterableAccess):Void {
-		if (_layerName != null && access.layerName != _layerName) return;
+		if (layerName != null && access.layerName != layerName) return;
 		
 		_filterable = access;
 		invalidate();
@@ -19,13 +19,14 @@ class FilterLayer extends StateStyledTrait<Array<FilterType>>
 		_filterable = null;
 	}
 	
+	public var layerName:String;
+	
 	private var _filterable:IFilterableAccess;
-	private var _layerName:String;
 
-	public function new(layerName:String, normalStyle:Array<FilterType>=null) 
+	public function new(?layerName:String, normalStyle:Array<FilterType>=null) 
 	{
 		super(normalStyle);
-		_layerName = layerName;
+		this.layerName = layerName;
 		
 		//addSiblingTrait(new PlatformAccessor(IFilterableAccess, layerName, onFilterableAdd, onFilterableRemove));
 	}

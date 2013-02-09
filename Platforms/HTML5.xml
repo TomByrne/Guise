@@ -4,40 +4,40 @@
 	<meth name="install" static="true" public="true" scope="within" a-within="composure.core.ComposeItem">
 
 		<!-- Core display tags -->
-		<obj type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.WindowTag" addCall="addTrait" p-searchAscendants="true" p-searchDescendants="false">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.WindowTag" addCall="addTrait" p-searchAscendants="true" p-searchDescendants="false">
 			<m-addInst params="guise.platform.html5.display.WindowTrait.inst()"/>
-		</obj>
-		<obj type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.StageTag" addCall="addTrait" p-searchAscendants="true" p-searchDescendants="false">
+		</var>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.StageTag" addCall="addTrait" p-searchAscendants="true" p-searchDescendants="false">
 			<m-addInst params="guise.platform.html5.display.StageTrait.inst()"/>
-		</obj>
-		<obj type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.ContainerTag" addCall="addTrait">
+		</var>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.ContainerTag" addCall="addTrait">
 			<m-addType params="guise.platform.html5.display.ContainerTrait,guise.platform.html5.display.ContainerTrait"/>
-		</obj>
+		</var>
 
 		<!-- Core control logic -->
-		<obj type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait">
 			<m-addType params="guise.platform.html5.controls.TextButtonTrait"/>
 			<m-addType params="guise.platform.html5.logic.MouseClickable"/>
 			<m-addType params="guise.controls.data.TextLabel, guise.controls.data.ITextLabel"/>
-		</obj>
-		<obj type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait" p-checkEnumParams="[0]">
+		</var>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait" p-checkEnumParams="[0]">
 			<m-addType params="guise.controls.logic.input.ClickToggleSelect"/>
 			<m-addType params="guise.controls.data.Selected, guise.controls.data.ISelected"/>
-		</obj>
-		<obj type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextInputTag" addCall="addTrait">
+		</var>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextInputTag" addCall="addTrait">
 			<m-addType params="guise.platform.html5.controls.TextInputTrait"/>
-		</obj>
-		<obj type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextLabelTag" addCall="addTrait">
+		</var>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextLabelTag" addCall="addTrait">
 			<m-addType params="guise.platform.html5.controls.TextLabelTrait"/>
-		</obj>
-		<obj type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
+		</var>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
 			<m-addType params="guise.platform.html5.controls.CheckBoxTrait"/>
 			<m-addType params="guise.controls.data.Selected, guise.controls.data.ISelected"/>
-		</obj>
-		<obj type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag(true)" addCall="addTrait">
+		</var>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag(true)" addCall="addTrait">
 			<m-addType params="guise.platform.html5.controls.SliderTrait"/>
 			<m-addType params="guise.controls.data.NumRange, guise.controls.data.INumRange"/>
-		</obj>
+		</var>
 
 
 		<!-- Additional control logic -->
