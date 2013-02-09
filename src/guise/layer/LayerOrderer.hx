@@ -36,29 +36,17 @@ class LayerOrderer extends AbstractTrait
 		super();
 		
 		this.sorting = sorting;
-		
-		//addSiblingTrait(new PlatformAccessor(ILayerContainer, null, onLayeringAdd, onLayeringRemove));
 	}
 	
-	/*public function onLayeringAdd(access:ILayerContainer):Void {
-		layerOrderAccess = access;
-		layerOrderAccess.layeringChanged.add(onLayeringChanged);
-		if (sorting != null) {
-			checkDepths();
-		}
-	}*/
 	private function onLayeringChanged(from:ILayerContainer):Void {
 		if (sorting != null )checkDepths();
 	}
-	/*public function onLayeringRemove(access:ILayerContainer):Void {
-		layerOrderAccess.layeringChanged.remove(onLayeringChanged);
-		layerOrderAccess = null;
-	}*/
 	
 	private function checkDepths():Void {
 		var layers = layerOrderAccess.getLayers();
 		if (layers == null) return;
 		
+		trace("checkDepths: "+sorting+" "+layers);
 		var depth1:Int = 0;
 		while (depth1 < layers.length - 1) {
 			var layer1 = layers[depth1];
@@ -79,7 +67,4 @@ class LayerOrderer extends AbstractTrait
 			++depth1;
 		}
 	}
-	/*private function onSortingChanged(from:LayerSorting):Void {
-		checkDepths();
-	}*/
 }
