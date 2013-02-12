@@ -11,7 +11,7 @@ class SimpleShapeLayer extends AbsStyledLayer<ShapeStyle>
 	
 	@injectAdd
 	private function onGraphicsAdd(access:IGraphicsAccess):Void {
-		if (_layerName != null && access.layerName != _layerName) return;
+		if (layerName != null && access.layerName != layerName) return;
 		
 		_graphicsAccess = access;
 		invalidate();
@@ -25,7 +25,7 @@ class SimpleShapeLayer extends AbsStyledLayer<ShapeStyle>
 	
 	@injectAdd
 	private function onPosAdd(access:IPositionAccess):Void {
-		if (_layerName != null && access.layerName != _layerName) return;
+		if (layerName != null && access.layerName != layerName) return;
 		
 		_pos = access;
 		invalidate();
@@ -37,9 +37,10 @@ class SimpleShapeLayer extends AbsStyledLayer<ShapeStyle>
 		_pos = null;
 	}
 	
+	public var layerName:String;
+	
 	private var _graphicsAccess:IGraphicsAccess;
 	private var _pos:IPositionAccess;
-	private var _layerName:String;
 	
 	public var xValue(default, set_xValue):IValue;
 	public function set_xValue(value:IValue):IValue {
@@ -64,11 +65,11 @@ class SimpleShapeLayer extends AbsStyledLayer<ShapeStyle>
 		return yValue;
 	}
 
-	public function new(layerName:String, ?normalStyle:ShapeStyle) 
+	public function new(?layerName:String, ?normalStyle:ShapeStyle) 
 	{
 		super(normalStyle);
 		_requireSize = true;
-		_layerName = layerName;
+		this.layerName = layerName;
 	}
 	override private function _isReadyToDraw():Bool {
 		return _graphicsAccess != null && _pos!=null && super._isReadyToDraw();

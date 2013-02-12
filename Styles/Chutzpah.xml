@@ -5,6 +5,7 @@
 
 		<var name="font" value="guise.skin.drawn.TextStyleLayer.getFont('assets/fonts/HelveticaNeueLTCom-Bd.ttf', TfSans)"/>
 
+		<!-- imports -->
 		<var name="StrokeStyle" value="guise.skin.drawn.utils.DrawnStyles.StrokeStyle"/>
 		<var name="FillStyle" value="guise.skin.drawn.utils.DrawnStyles.FillStyle"/>
 		<var name="BoxStyle" value="guise.skin.drawn.BoxLayer.BoxStyle"/>
@@ -17,12 +18,17 @@
 		<var name="VAlign" value="guise.skin.drawn.utils.DrawnStyles.VAlign"/>
 		<var name="Corners" value="guise.skin.drawn.BoxLayer.Corners"/>
 		<var name="CornerStyle" value="guise.skin.drawn.BoxLayer.CornerStyle"/>
+		<var name="FilterType" value="guise.accessTypes.IFilterableAccess.FilterType"/>
+		<var name="ShapeStyle" value="guise.skin.drawn.SimpleShapeLayer.ShapeStyle"/>
 
 		<var name="SelectedState" value="guise.states.ControlStates.SelectedState"/>
 		<var name="SelectableState" value="guise.states.ControlStates.SelectableState"/>
 		<var name="ButtonOverState" value="guise.states.ControlStates.ButtonOverState"/>
 		<var name="ButtonDownState" value="guise.states.ControlStates.ButtonDownState"/>
 		<var name="FocusState" value="guise.states.ControlStates.FocusState"/>
+
+		<!-- reused styles -->
+		<var name="styleTransitioner" type="guise.skin.drawn.utils.DrawnStyleTrans"/>
 
 		<var name="normStroke" value="StrokeStyle.SsSolid(1, FillStyle.FsHLinearGradient([ { c:0xa5a5a5, a:1, fract:0 }, { c:0xdddddd, a:1, fract:1 } ]))"/>
 		<var name="overStroke" value="StrokeStyle.SsSolid(1, FillStyle.FsHLinearGradient([ { c:0x959595, a:1, fract:0 }, { c:0xbbbbbb, a:1, fract:1 } ]))"/>
@@ -41,13 +47,33 @@
 		<var name="inputBackNorm" value="BoxStyle.BsRectComplex(normGradient, normStroke, Corners.CSame(CornerStyle.CsCirc(5)))"/>
 		<var name="inputBackFocus" value="BoxStyle.BsRectComplex(downGradient, overStroke, Corners.CSame(CornerStyle.CsCirc(5)))"/>
 
-		<var name="buttonFiltNorm" value="[guise.accessTypes.IFilterableAccess.FilterType.DropShadow(1, Math.PI/2, 2, 0x000000, 0.56)]"/>
-		<var name="buttonFiltDown" value="[guise.accessTypes.IFilterableAccess.FilterType.DropShadow(1, Math.PI / 2, 4, 0x000000, 0.42, true)]"/>
+		<var name="hSliderBackNorm" value="BoxStyle.BsCapsule(normGradient, normStroke, null, new guise.skin.values.Value(12), null, new guise.skin.values.Calc(Add, [new guise.skin.values.Calc(Multiply, [new guise.skin.values.Bind(guise.layout.IBoxPos, 'h', 'sizeChanged'), new guise.skin.values.Value(0.5)]), new guise.skin.values.Value(-6)]))"/>
+
+		<var name="sliderNorm" value="ShapeStyle.SsMulti([ShapeStyle.SsEllipse(	normGradient, normStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), new guise.skin.values.Value(-8), new guise.skin.values.Value(-8)), ShapeStyle.SsEllipse(	FillStyle.FsSolid(0xc1c1c1), SsSolid(1, FillStyle.FsHLinearGradient([ { c:0x979797, a:1, fract:0 }, { c:0xfefefe, a:1, fract:1 } ])), new guise.skin.values.Value(5), new guise.skin.values.Value(5), new guise.skin.values.Value(-2.5), new guise.skin.values.Value(-2.5))])"/>
+		<var name="sliderOver" value="ShapeStyle.SsMulti([ShapeStyle.SsEllipse(	overGradient, overStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), new guise.skin.values.Value(-8), new guise.skin.values.Value(-8)), ShapeStyle.SsEllipse(	FillStyle.FsSolid(0xc1c1c1), SsSolid(1, FillStyle.FsHLinearGradient([ { c:0x979797, a:1, fract:0 }, { c:0xfefefe, a:1, fract:1 } ])), new guise.skin.values.Value(5), new guise.skin.values.Value(5), new guise.skin.values.Value(-2.5), new guise.skin.values.Value(-2.5))])"/>
+
+		<var name="sliderX" value="new guise.skin.values.Calc(Add, [new guise.skin.values.Calc(Multiply, [new guise.skin.values.Bind(guise.controls.data.INumRange, 'valueNorm', 'rangeChanged'), new guise.skin.values.Calc(Add, [new guise.skin.values.Bind(guise.layout.IBoxPos, 'w', 'sizeChanged'), new guise.skin.values.Value(-8)])]), new guise.skin.values.Value(4)])"/>
+		<var name="sliderY" value="new guise.skin.values.Calc(Multiply, [new guise.skin.values.Bind(guise.layout.IBoxPos, 'h', 'sizeChanged'), new guise.skin.values.Value(0.5)])"/>
+
+		<var name="buttonFiltNorm" value="[FilterType.DropShadow(1, Math.PI/2, 2, 0x000000, 0.56)]"/>
+		<var name="buttonFiltDown" value="[FilterType.DropShadow(1, Math.PI / 2, 4, 0x000000, 0.42, true)]"/>
+
+		<var name="textFiltNorm" value="[FilterType.DropShadow(1, Math.PI/2, 1, 0xffffff, 0.65)]"/>
 
 		<var name="labelTextStyle" value="TextLabelStyle.Tls(TextStyle.Trs(font, 11, 0x8e8e8e, [TextModifier.TmBold()]), false, TextCase.TcUpper, AntiAliasType.AaSmooth, HAlign.Center, VAlign.Middle)"/>
 
 		<var name="inputTextStyle" value="TextLabelStyle.Tls(TextStyle.Trs(font, 11, 0x8e8e8e, [TextModifier.TmBold()]), true, TextCase.TcUpper, AntiAliasType.AaSmooth, null, VAlign.Middle, new guise.skin.values.Value(5), new guise.skin.values.Value(5), new guise.skin.values.Value(5), new guise.skin.values.Value(5))"/>
 
+		<var name="toggleBackNorm" value="BoxStyle.BsCapsule(normGradient, normStroke, new guise.skin.values.Value(26), new guise.skin.values.Value(12), new guise.skin.values.Calc(Add, [new guise.skin.values.Calc(Multiply, [new guise.skin.values.Bind(guise.layout.IBoxPos, 'w', 'sizeChanged'), new guise.skin.values.Value(0.5)]), new guise.skin.values.Value(-13)]), new guise.skin.values.Calc(Add, [new guise.skin.values.Calc(Multiply, [new guise.skin.values.Bind(guise.layout.IBoxPos, 'h', 'sizeChanged'), new guise.skin.values.Value(0.5)]), new guise.skin.values.Value(-6)]))"/>
+
+		<var name="toggleBackSelNorm" value="BoxStyle.BsCapsule(blueGradient, normStroke, new guise.skin.values.Value(26), new guise.skin.values.Value(12), new guise.skin.values.Calc(Add, [new guise.skin.values.Calc(Multiply, [new guise.skin.values.Bind(guise.layout.IBoxPos, 'w', 'sizeChanged'), new guise.skin.values.Value(0.5)]), new guise.skin.values.Value(-13)]), new guise.skin.values.Calc(Add, [new guise.skin.values.Calc(Multiply, [new guise.skin.values.Bind(guise.layout.IBoxPos, 'h', 'sizeChanged'), new guise.skin.values.Value(0.5)]), new guise.skin.values.Value(-6)]))"/>
+
+		<var name="toggleNormUnsel" value="ShapeStyle.SsEllipse(	normGradient, normStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), new guise.skin.values.Calc(Add, [new guise.skin.values.Calc(Multiply, [new guise.skin.values.Bind(guise.layout.IBoxPos, 'w', 'sizeChanged'), new guise.skin.values.Value(0.5)]), new guise.skin.values.Value(-15)]), new guise.skin.values.Calc(Add, [new guise.skin.values.Calc(Multiply, [new guise.skin.values.Bind(guise.layout.IBoxPos, 'h', 'sizeChanged'), new guise.skin.values.Value(0.5)]), new guise.skin.values.Value(-9)]))"/>
+		<var name="toggleOverUnsel" value="ShapeStyle.SsEllipse(	overGradient, overStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), new guise.skin.values.Calc(Add, [new guise.skin.values.Calc(Multiply, [new guise.skin.values.Bind(guise.layout.IBoxPos, 'w', 'sizeChanged'), new guise.skin.values.Value(0.5)]), new guise.skin.values.Value(-15)]), new guise.skin.values.Calc(Add, [new guise.skin.values.Calc(Multiply, [new guise.skin.values.Bind(guise.layout.IBoxPos, 'h', 'sizeChanged'), new guise.skin.values.Value(0.5)]), new guise.skin.values.Value(-9)]))"/>
+		<var name="toggleNormSel" value="ShapeStyle.SsEllipse(	normGradient, normStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), new guise.skin.values.Calc(Add, [new guise.skin.values.Calc(Multiply, [new guise.skin.values.Bind(guise.layout.IBoxPos, 'w', 'sizeChanged'), new guise.skin.values.Value(0.5)]), new guise.skin.values.Value(-1)]), new guise.skin.values.Calc(Add, [new guise.skin.values.Calc(Multiply, [new guise.skin.values.Bind(guise.layout.IBoxPos, 'h', 'sizeChanged'), new guise.skin.values.Value(0.5)]), new guise.skin.values.Value(-9)]))"/>
+		<var name="toggleOverSel" value="ShapeStyle.SsEllipse(	overGradient, overStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), new guise.skin.values.Calc(Add, [new guise.skin.values.Calc(Multiply, [new guise.skin.values.Bind(guise.layout.IBoxPos, 'w', 'sizeChanged'), new guise.skin.values.Value(0.5)]), new guise.skin.values.Value(-1)]), new guise.skin.values.Calc(Add, [new guise.skin.values.Calc(Multiply, [new guise.skin.values.Bind(guise.layout.IBoxPos, 'h', 'sizeChanged'), new guise.skin.values.Value(0.5)]), new guise.skin.values.Value(-9)]))"/>
+
+		<!-- layers -->
 		<meth name="buttonBacking" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.BoxLayer">
 			<var type="guise.skin.drawn.BoxLayer" name="layer" p-layerName="'backing'" p-normalStyle="buttonBackNorm">
 				<m-addStyle params="[SelectedState.SELECTED, ButtonOverState.OUT], buttonBackSelNorm"/>
@@ -61,9 +87,39 @@
 				<m-addStyle params="[FocusState.FOCUSED], inputBackFocus"/>
 			</var>
 		</meth>
+		<meth name="toggleBacking" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.BoxLayer">
+			<var type="guise.skin.drawn.BoxLayer" name="layer" p-layerName="'backing'" p-normalStyle="toggleBackNorm">
+				<m-addStyle params="[SelectedState.SELECTED], toggleBackSelNorm"/>
+			</var>
+		</meth>
+		<meth name="hSliderBacking" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.BoxLayer">
+			<var type="guise.skin.drawn.BoxLayer" name="layer" p-layerName="'backing'" p-normalStyle="hSliderBackNorm">
+			</var>
+		</meth>
+		<meth name="sliderHandle" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.SimpleShapeLayer">
+			<var type="guise.skin.drawn.SimpleShapeLayer" name="layer" p-layerName="'controlHandle'" p-normalStyle="sliderNorm" p-xValue="sliderX" p-yValue="sliderY">
+				<m-addStyle params="[ButtonOverState.OVER], sliderOver"/>
+			</var>
+		</meth>
+		<meth name="toggleHandle" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.SimpleShapeLayer">
+			<var type="guise.skin.drawn.SimpleShapeLayer" name="layer" p-layerName="'controlHandle'" p-normalStyle="toggleNormUnsel">
+				<m-addStyle params="[ButtonOverState.OVER, SelectedState.UNSELECTED], toggleOverUnsel"/>
+				<m-addStyle params="[SelectedState.SELECTED, ButtonOverState.OUT], toggleNormSel"/>
+				<m-addStyle params="[SelectedState.SELECTED, ButtonOverState.OVER], toggleOverSel"/>
+			</var>
+		</meth>
 
-		<meth name="buttonBackingFilt" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.FilterLayer">
+		<meth name="backingFilt" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.FilterLayer">
 			<var type="guise.skin.drawn.FilterLayer" name="layer" p-layerName="'backing'" p-normalStyle="buttonFiltNorm">
+				<m-addStyle params="[ButtonDownState.DOWN], buttonFiltDown"/>
+			</var>
+		</meth>
+		<meth name="toggleBackingFilt" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.FilterLayer">
+			<var type="guise.skin.drawn.FilterLayer" name="layer" p-layerName="'backing'" p-normalStyle="buttonFiltDown">
+			</var>
+		</meth>
+		<meth name="controlHandleFilt" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.FilterLayer">
+			<var type="guise.skin.drawn.FilterLayer" name="layer" p-layerName="'controlHandle'" p-normalStyle="buttonFiltNorm">
 				<m-addStyle params="[ButtonDownState.DOWN], buttonFiltDown"/>
 			</var>
 		</meth>
@@ -77,21 +133,36 @@
 			</var>
 		</meth>
 
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait">
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
-				<m-add params="guise.accessTypes.IGraphicsAccess"/>
-				<m-add params="guise.accessTypes.IPositionAccess"/>
-				<m-add params="guise.accessTypes.IFilterableAccess"/>
+		<meth name="inputTextFilt" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.FilterLayer">
+			<var type="guise.skin.drawn.FilterLayer" name="layer" p-layerName="'inputText'" p-normalStyle="textFiltNorm">
 			</var>
+		</meth>
+		<meth name="labelTextFilt" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.FilterLayer">
+			<var type="guise.skin.drawn.FilterLayer" name="layer" p-layerName="'labelText'" p-normalStyle="textFiltNorm">
+			</var>
+		</meth>
+
+		<!-- control furnishers -->
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags" addCall="addTrait">
+			<m-addInst params="styleTransitioner"/>
+		</var>
+
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait">
 			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'labelText'">
 				<m-add params="guise.accessTypes.ITextInputAccess"/>
 				<m-add params="guise.accessTypes.IBoxPosAccess"/>
 				<m-add params="guise.accessTypes.IFilterableAccess"/>
 			</var>
+			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
+				<m-add params="guise.accessTypes.IGraphicsAccess"/>
+				<m-add params="guise.accessTypes.IPositionAccess"/>
+				<m-add params="guise.accessTypes.IFilterableAccess"/>
+			</var>
 
-			<m-addFact params="buttonBacking"/>
-			<m-addFact params="buttonBackingFilt"/>
 			<m-addFact params="labelText"/>
+			<m-addFact params="labelTextFilt"/>
+			<m-addFact params="buttonBacking"/>
+			<m-addFact params="backingFilt"/>
 		</var>
 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextLabelTag" addCall="addTrait">
@@ -105,11 +176,6 @@
 		</var>
 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextInputTag" addCall="addTrait">
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
-				<m-add params="guise.accessTypes.IGraphicsAccess"/>
-				<m-add params="guise.accessTypes.IPositionAccess"/>
-				<m-add params="guise.accessTypes.IFilterableAccess"/>
-			</var>
 			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'inputText'">
 				<m-add params="guise.accessTypes.ITextInputAccess"/>
 				<m-add params="guise.accessTypes.ITextOutputAccess"/>
@@ -117,35 +183,51 @@
 				<m-add params="guise.accessTypes.IFilterableAccess"/>
 				<m-add params="guise.accessTypes.IFocusableAccess"/>
 			</var>
+			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
+				<m-add params="guise.accessTypes.IGraphicsAccess"/>
+				<m-add params="guise.accessTypes.IPositionAccess"/>
+				<m-add params="guise.accessTypes.IFilterableAccess"/>
+			</var>
 
-			<m-addFact params="inputText"/>
 			<m-addFact params="inputBacking"/>
+			<m-addFact params="backingFilt"/>
+			<m-addFact params="inputText"/>
+			<m-addFact params="inputTextFilt"/>
 		</var>
 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag(true)" addCall="addTrait">
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
-				<m-add params="guise.accessTypes.IGraphicsAccess"/>
-				<m-add params="guise.accessTypes.IPositionAccess"/>
-				<m-add params="guise.accessTypes.IFilterableAccess"/>
-			</var>
 			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'controlHandle'">
 				<m-add params="guise.accessTypes.IGraphicsAccess"/>
 				<m-add params="guise.accessTypes.IPositionAccess"/>
 				<m-add params="guise.accessTypes.IFilterableAccess"/>
 			</var>
+			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
+				<m-add params="guise.accessTypes.IGraphicsAccess"/>
+				<m-add params="guise.accessTypes.IPositionAccess"/>
+				<m-add params="guise.accessTypes.IFilterableAccess"/>
+			</var>
+
+			<m-addFact params="controlHandleFilt"/>
+			<m-addFact params="hSliderBacking"/>
+			<m-addFact params="sliderHandle"/>
 		</var>
 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
-				<m-add params="guise.accessTypes.IGraphicsAccess"/>
-				<m-add params="guise.accessTypes.IPositionAccess"/>
-				<m-add params="guise.accessTypes.IFilterableAccess"/>
-			</var>
 			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'controlHandle'">
 				<m-add params="guise.accessTypes.IGraphicsAccess"/>
 				<m-add params="guise.accessTypes.IPositionAccess"/>
 				<m-add params="guise.accessTypes.IFilterableAccess"/>
 			</var>
+			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
+				<m-add params="guise.accessTypes.IGraphicsAccess"/>
+				<m-add params="guise.accessTypes.IPositionAccess"/>
+				<m-add params="guise.accessTypes.IFilterableAccess"/>
+			</var>
+
+			<m-addFact params="toggleBacking"/>
+			<m-addFact params="toggleBackingFilt"/>
+			<m-addFact params="toggleHandle"/>
+			<m-addFact params="controlHandleFilt"/>
 		</var>
 
 	</meth>

@@ -23,6 +23,7 @@
     <haxelib name="xirsys_stdjs" />
     <haxelib name="feffects" />
     <haxelib name="mpartial" />
+    <haxelib name="xmlTools" />
     <!--<haxelib name="waxe" />-->
 	<haxelib name="nme" unless="target_windows"/>
 	

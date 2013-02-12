@@ -1,11 +1,10 @@
 package ;
 import composure.core.ComposeGroup;
 import composure.core.ComposeRoot;
-import guise.skin.drawn.utils.ChutzpahStyle;
 import org.tbyrne.logging.LoggerList;
 import guise.test.TestControls;
 import guise.core.CoreTags;
-import xmlTools.CodeGenMacro;
+import xmlTools.XmlToCode;
 
 
 
@@ -31,8 +30,8 @@ class NmeTest
 		var stage = new ComposeGroup();
 		stage.addTrait(StageTag);
 		window.addChild(stage);
-		CodeGenMacro.path("/../Platforms/NME.xml").install(stage);
-		ChutzpahStyle.install(stage);
+		XmlToCode.path("/../Platforms/NME.xml").install(stage);
+		XmlToCode.path("/../Styles/Chutzpah.xml").install(stage);
 		TestControls.addControls(stage, 10, 10);
 	}
 }

@@ -70,7 +70,6 @@
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.platform.nme.addTypes.IDisplayObjectType" addCall="addTrait">
 			<m-addType params="guise.platform.nme.display.ContainerTrait, guise.platform.nme.display.ContainerTrait"/>
 			<m-addType params="guise.platform.nme.layers.LayerSwapper"/>
-			<m-addType params="guise.layer.LayerOrderer"/>
 		</var>
 	</meth>
 </class>
