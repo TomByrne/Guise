@@ -39,26 +39,34 @@ class Calc implements IValue
 			}
 		}
 		
+		_value = values[0].currentValue;
 		switch(operator) {
 			case Add:
-				_value = 0;
-				for (value in values) {
-					_value += value.currentValue;
+				for (i in 1...values.length) {
+					var value = values[i].currentValue;
+					_value += value;
+				}
+			case Subtract:
+				for (i in 1...values.length) {
+					var value = values[i].currentValue;
+					_value -= value;
 				}
 			case Multiply:
-				_value = values[0].currentValue;
 				for (i in 1...values.length) {
 					var value = values[i].currentValue;
 					_value *= value;
 				}
+			case Divide:
+				for (i in 1...values.length) {
+					var value = values[i].currentValue;
+					_value /= value;
+				}
 			case Max:
-				_value = values[0].currentValue;
 				for (i in 1...values.length) {
 					var value = values[i].currentValue;
 					if (value > _value)_value = value;
 				}
 			case Min:
-				_value = values[0].currentValue;
 				for (i in 1...values.length) {
 					var value = values[i].currentValue;
 					if (value < _value)_value = value;
@@ -70,7 +78,9 @@ class Calc implements IValue
 
 enum Operator {
 	Add;
+	Subtract;
 	Multiply;
+	Divide;
 	Max;
 	Min;
 }

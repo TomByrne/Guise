@@ -6,10 +6,6 @@ import guise.trans.ITransitioner;
 import cmtc.ds.hash.ObjectHash;
 
 import msignal.Signal;
-/**
- * ...
- * @author Tom Byrne
- */
 
 class StateStyledTrait<StyleType> extends AbstractTrait
 {
@@ -51,18 +47,7 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 		else this.transSubject = this;
 		
 		_valueToSignals = new ObjectHash();
-		//_values = new Array();
 	}
-	/*override private function onItemRemove():Void{
-		for (value in _values) {
-			deactivateValue(value);
-		}
-	}
-	override private function onItemAdd():Void{
-		for (value in _values) {
-			activateValue(value);
-		}
-	}*/
 	
 	@injectAdd
 	public function addState(state:IState<EnumValue>):Void {

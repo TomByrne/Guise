@@ -1,6 +1,5 @@
 package guise.controls.logic.input;
 import composure.traits.AbstractTrait;
-import guise.controls.ControlLayers;
 import guise.controls.data.ITextLabel;
 import guise.accessTypes.ITextInputAccess;
 import guise.accessTypes.IFocusableAccess;
@@ -44,11 +43,7 @@ class TextInputPrompt extends AbstractTrait
 	public function new(?layerName:String){
 		super();
 		
-		if (layerName == null) {
-			_layerName = ControlLayers.INPUT_TEXT;
-		}else {
-			_layerName = layerName;
-		}
+		_layerName = layerName;
 	}
 	
 	@injectAdd

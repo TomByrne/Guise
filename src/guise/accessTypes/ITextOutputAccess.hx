@@ -1,8 +1,8 @@
 package guise.accessTypes;
 
 interface ITextOutputAccess implements IAccessType{
-	function getTextWidth():Float;
-	function getTextHeight():Float;
+	var textWidth(get_textWidth, null):Float;
+	var textHeight(get_textHeight, null):Float;
 	
 	var selectable(default, set_selectable):Bool;
 	

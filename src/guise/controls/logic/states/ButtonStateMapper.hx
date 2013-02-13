@@ -1,7 +1,6 @@
 package guise.controls.logic.states;
 
 import composure.traits.AbstractTrait;
-import guise.controls.ControlLayers;
 import guise.states.State;
 import guise.states.ControlStates;
 import haxe.Log;

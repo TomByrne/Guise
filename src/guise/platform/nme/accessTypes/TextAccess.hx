@@ -23,7 +23,7 @@ class TextAccess implements ITextInputAccess, implements ITextOutputAccess, impl
 	public var layerName(default, set_layerName):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
-		_textField.name = value==null?"":value;
+		_textField.name = value == null?"":value;
 		return value;
 	}
 
@@ -32,7 +32,6 @@ class TextAccess implements ITextInputAccess, implements ITextOutputAccess, impl
 		_gutter = TextFieldGutter.GUTTER;
 		_textField = (textField==null?new TextField():textField);
 		this.layerName = layerName;
-		//_textField.border = true;
 		_textField.addEventListener(Event.CHANGE, onChange);
 		_textField.addEventListener(FocusEvent.FOCUS_IN, onFocusIn);
 		_textField.addEventListener(FocusEvent.FOCUS_OUT, onFocusOut);
@@ -43,10 +42,12 @@ class TextAccess implements ITextInputAccess, implements ITextOutputAccess, impl
 	public function getInteractiveObject():InteractiveObject {
 		return _textField;
 	}
-	public function getTextWidth():Float {
+	public var textWidth(get_textWidth, null):Float;
+	private function get_textWidth():Float {
 		return _textField.textWidth;
 	}
-	public function getTextHeight():Float{
+	public var textHeight(get_textHeight, null):Float;
+	private function get_textHeight():Float{
 		return _textField.textHeight;
 	}
 	public function setAntiAliasing(type:AntiAliasType):Void {

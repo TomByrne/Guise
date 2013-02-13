@@ -11,6 +11,7 @@ import guise.utils.Clone;
 import guise.trans.UtilFunctions;
 import guise.skin.drawn.utils.DrawnStyles;
 import guise.accessTypes.IFilterableAccess;
+import guise.skin.common.PositionedLayer;
 
 class DrawnStyleTrans extends StyleTransitioner
 {
@@ -186,7 +187,7 @@ class DrawnStyleTrans extends StyleTransitioner
 		}
 		
 		
-		var via:Dynamic = BsRectComplex(Clone.clone(params[0]), Clone.clone(params[1]), direction?capCorners:circCorners, Clone.clone(direction?params[2]:params[3]), Clone.clone(direction?params[3]:params[4]));
+		var via:Dynamic = BsRectComplex(Clone.clone(params[0]), Clone.clone(params[1]), direction?capCorners:circCorners/*, Clone.clone(direction?params[2]:params[3]), Clone.clone(direction?params[3]:params[4])*/);
 		var toParams:Array<Dynamic> = [];
 		toParams[0] = otherParams[0];
 		toParams[1] = otherParams[1];
@@ -198,7 +199,7 @@ class DrawnStyleTrans extends StyleTransitioner
 	}
 	private function checkCapsultToRoundedRect(style1:BoxStyle, params1:Array<Dynamic>, style2:BoxStyle, params2:Array<Dynamic>):Bool {
 		switch(style2) {
-			case BsRectComplex(f,s,c,w,h,x,y):
+			case BsRectComplex(f,s,c):
 				var circIndex:Int = Type.enumIndex(CsCirc(0));
 				var squaIndex:Int = Type.enumIndex(CsSquare);
 				switch(c) {

@@ -4,9 +4,9 @@ import guise.accessTypes.IGraphicsAccess;
 import guise.skin.drawn.utils.DrawnStyles;
 import guise.skin.drawn.utils.DrawnStyleUtils;
 import guise.skin.values.IValue;
-import guise.skin.common.AbsStyledLayer;
+import guise.skin.common.PositionedLayer;
 
-class SimpleShapeLayer extends AbsStyledLayer<ShapeStyle>
+class SimpleShapeLayer extends PositionedLayer<ShapeStyle>
 {
 	
 	@injectAdd
@@ -37,20 +37,15 @@ class SimpleShapeLayer extends AbsStyledLayer<ShapeStyle>
 		_pos = null;
 	}
 	
-	public var layerName:String;
-	
 	private var _graphicsAccess:IGraphicsAccess;
 	private var _pos:IPositionAccess;
 	
-	public var xValue(default, set_xValue):IValue;
+	/*public var xValue(default, set_xValue):IValue;
 	public function set_xValue(value:IValue):IValue {
 		if (xValue != null) {
 			removeValue(xValue);
 		}
 		xValue = value;
-		/*if (xValue != null) {
-			addValue(xValue);
-		}*/
 		return xValue;
 	}
 	public var yValue(default, set_yValue):IValue;
@@ -59,23 +54,19 @@ class SimpleShapeLayer extends AbsStyledLayer<ShapeStyle>
 			removeValue(yValue);
 		}
 		yValue = value;
-		/*if (yValue != null) {
-			addValue(yValue);
-		}*/
 		return yValue;
-	}
+	}*/
 
 	public function new(?layerName:String, ?normalStyle:ShapeStyle) 
 	{
-		super(normalStyle);
-		_requireSize = true;
-		this.layerName = layerName;
+		super(layerName, normalStyle);
 	}
 	override private function _isReadyToDraw():Bool {
 		return _graphicsAccess != null && _pos!=null && super._isReadyToDraw();
 	}
 	override private function _drawStyle():Void {
-		_pos.setPos(getValue(xValue, 0), getValue(yValue, 0));
+		//_pos.setPos(getValue(xValue, 0), getValue(yValue, 0));
+		_pos.setPos(x,y);
 		
 		
 		_graphicsAccess.clear();

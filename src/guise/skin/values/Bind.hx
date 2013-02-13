@@ -14,16 +14,19 @@ class Bind implements IValue
 		return _value;
 	}
 	
+	public var modifier:Float->Float;
+	
 	private var traitType:Dynamic;
 	private var prop:String;
 	private var changeSignal:String;
 	
 	private var _value:Float;
 
-	public function new(traitType:Dynamic, prop:String, changeSignal:String=null) {
+	public function new(traitType:Dynamic, prop:String, ?changeSignal:String, ?modifier:Float->Float) {
 		this.traitType = traitType;
 		this.prop = prop;
 		this.changeSignal = changeSignal;
+		this.modifier = modifier;
 	}
 	
 	public function update(context:ComposeItem):Array<AnySignal> {
@@ -32,6 +35,9 @@ class Bind implements IValue
 			throw "No trait of type " + Type.getClassName(traitType) + " was found for style binding";
 		}
 		_value = Reflect.getProperty(trait, prop);
+		if (modifier != null) {
+			_value = modifier(_value);
+		}
 		
 		if (changeSignal != null) {
 			var trait:Dynamic = context.getTrait(traitType);

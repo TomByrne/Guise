@@ -1,5 +1,4 @@
 package guise.skin.drawn;
-import guise.controls.ControlLayers;
 import guise.controls.data.ITextLabel;
 import guise.utils.TitleCase;
 import guise.skin.drawn.utils.DrawnStyles;
@@ -7,10 +6,10 @@ import guise.accessTypes.ITextOutputAccess;
 import guise.accessTypes.IBoxPosAccess;
 import guise.skin.values.IValue;
 import guise.accessTypes.IMouseInteractionsAccess;
-import guise.skin.common.AbsStyledLayer;
+import guise.skin.common.PositionedLayer;
 
 
-class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>
+class TextStyleLayer extends PositionedLayer<TextLabelStyle>
 {
 	public static function getFont(path:String, otherwise:Typeface):Typeface {
 		#if nme
@@ -69,14 +68,10 @@ class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>
 	private var _textDisplay:ITextOutputAccess;
 	private var _pos:IBoxPosAccess;
 	
-	public var layerName:String;
 
 	public function new(?layerName:String, ?normalStyle:TextLabelStyle) 
 	{
-		super(normalStyle);
-		this.layerName = layerName;
-		
-		_requireSize = true;
+		super(layerName,normalStyle);
 	}
 	override private function _isReadyToDraw():Bool {
 		if (textLabel == null || _textDisplay==null) return false;
@@ -86,57 +81,13 @@ class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>
 		var text = textLabel.text;
 		if (text == null) text = "";
 		switch(currentStyle) {
-			case Tls(ts, selectable, tc, aa, hAlign, vAlign, padT, padB, padL, padR):
+			case Tls(ts, selectable, tc, aa):
 				_textDisplay.selectable = selectable;
 				_textDisplay.setAntiAliasing(aa);
 				_textDisplay.setText(new TextRun(ts, [Text(toCase(text, tc))]), true);
 				
-				if(_pos!=null)layoutText(_textDisplay, w, h, hAlign, vAlign, padT, padB, padL, padR);
+				if(_pos!=null)_pos.set(x, y, w, h);
 		}
-	}
-	private function layoutText(textDisplay:ITextOutputAccess, w:Float, h:Float, hAlign:HAlign, vAlign:VAlign, padT:IValue, padB:IValue, padL:IValue, padR:IValue):Void {
-		var tW:Float = textDisplay.getTextWidth();
-		var tH:Float = textDisplay.getTextHeight();
-		
-		var pT:Float = getValue(padT, 0);
-		var pB:Float = getValue(padB, 0);
-		var pL:Float = getValue(padL, 0);
-		var pR:Float = getValue(padR, 0);
-		
-		w -= pT + pB;
-		h -= pL + pR;
-		
-		var tX:Float;
-		var tY:Float;
-		
-		if (tW > w || hAlign==null) {
-			tX = pL;
-			tW = w;
-		}else{
-			switch(hAlign) {
-				case Left:
-					tX = pL;
-				case Right:
-					tX = pL + w - tW;
-				default:
-					tX = pL + (w - tW) / 2;
-			}
-		}
-		
-		if (tH > h || vAlign == null) {
-			tY = pT;
-			tH = h;
-		}else {
-			switch(vAlign) {
-				case Top:
-					tY = pT;
-				case Bottom:
-					tY = pT + h - tH;
-				default:
-					tY = pT + (h - tH) / 2;
-			}
-		}
-		_pos.set(tX, tY, tW, tH);
 	}
 	private function toCase(str:String, textCase:TextCase):String{
 			if (textCase != null) {
@@ -156,7 +107,7 @@ class TextStyleLayer extends AbsStyledLayer<TextLabelStyle>
 	
 }
 enum TextLabelStyle {
-	Tls(ts:TextStyle, selectable:Bool, ?tc:TextCase, ?antiAliasing:AntiAliasType, ?hAlign:HAlign, ?vAlign:VAlign, ?padT:IValue, ?padB:IValue, ?padL:IValue, ?padR:IValue);
+	Tls(ts:TextStyle, selectable:Bool, ?tc:TextCase, ?antiAliasing:AntiAliasType);
 }
 enum TextCase {
 	TcNormal;

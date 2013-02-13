@@ -5,9 +5,9 @@ import guise.accessTypes.IGraphicsAccess;
 import guise.geom.Matrix;
 import guise.skin.values.IValue;
 import guise.accessTypes.IPositionAccess;
-import guise.skin.common.AbsStyledLayer;
+import guise.skin.common.PositionedLayer;
 
-class BoxLayer extends AbsStyledLayer<BoxStyle>
+class BoxLayer extends PositionedLayer<BoxStyle>
 {
 	@injectAdd
 	private function onGraphicsAdd(access:IGraphicsAccess):Void {
@@ -37,16 +37,12 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 		_pos = null;
 	}
 	
-	public var layerName:String;
-	
 	private var _graphicsAccess:IGraphicsAccess;
 	private var _pos:IPositionAccess;
 
 	public function new(?layerName:String, ?normalStyle:BoxStyle) 
 	{
-		super(normalStyle);
-		_requireSize = true;
-		this.layerName = layerName;
+		super(layerName, normalStyle);
 	}
 	override private function _isReadyToDraw():Bool {
 		return _graphicsAccess != null && super._isReadyToDraw();
@@ -63,17 +59,8 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 		var bl:CornerStyle;
 		var br:CornerStyle;
 		
-		var boxX:Float;
-		var boxY:Float;
-		var boxW:Float;
-		var boxH:Float;
-		
 		switch(style) {
-			case BsRectComplex(f, s, c, w, h, x, y):
-				boxX = getValue(x,0);
-				boxY = getValue(y,0);
-				boxW = getValue(w,this.w);
-				boxH = getValue(h,this.h);
+			case BsRectComplex(f, s, c):
 				
 				fill = f;
 				stroke = s;
@@ -90,11 +77,7 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 						bl = c4;
 						
 				}
-			case BsCapsule(f, s, w, h, x, y):
-				boxX = getValue(x,0);
-				boxY = getValue(y,0);
-				boxW = getValue(w,this.w);
-				boxH = getValue(h,this.h);
+			case BsCapsule(f, s):
 				
 				fill = f;
 				stroke = s;
@@ -105,11 +88,7 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 				tr = CAPSULE_CORNER;
 				bl = CAPSULE_CORNER;
 				br = CAPSULE_CORNER;
-			case BsRect(f, s, w, h, x, y):
-				boxX = getValue(x,0);
-				boxY = getValue(y,0);
-				boxW = getValue(w,this.w);
-				boxH = getValue(h,this.h);
+			case BsRect(f, s):
 				
 				fill = f;
 				stroke = s;
@@ -122,13 +101,13 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 				br = SQUARE_CORNER;
 		}
 		
-		var centerX:Float = boxX + boxW / 2;
-		var centerY:Float = boxY + boxH / 2;
-		DrawnStyleUtils.beginFillStrokes(_graphicsAccess, fill, stroke, true, boxW, boxH, function(index:Int):Void {
-			drawCorner(tl, false, false, -Math.PI/2, true, boxW, boxH, centerX, centerY);
-			drawCorner(tr, true, false, 0, false, boxW, boxH, centerX, centerY);
-			drawCorner(br, true, true, Math.PI/2, false, boxW, boxH, centerX, centerY);
-			drawCorner(bl, false, true, Math.PI, false, boxW, boxH, centerX, centerY);
+		var centerX:Float = x + w / 2;
+		var centerY:Float = y + h / 2;
+		DrawnStyleUtils.beginFillStrokes(_graphicsAccess, fill, stroke, true, w, h, function(index:Int):Void {
+			drawCorner(tl, false, false, -Math.PI/2, true, w, h, centerX, centerY);
+			drawCorner(tr, true, false, 0, false, w, h, centerX, centerY);
+			drawCorner(br, true, true, Math.PI/2, false, w, h, centerX, centerY);
+			drawCorner(bl, false, true, Math.PI, false, w, h, centerX, centerY);
 		});
 		_graphicsAccess.endFill();
 	}
@@ -191,9 +170,9 @@ class BoxLayer extends AbsStyledLayer<BoxStyle>
 	}
 }
 enum BoxStyle{
-	BsRect(f:FillStyle, s:StrokeStyle, ?w:IValue, ?h:IValue, ?x:IValue, ?y:IValue);
-	BsRectComplex(f:FillStyle, s:StrokeStyle, c:Corners, ?w:IValue, ?h:IValue, ?x:IValue, ?y:IValue);
-	BsCapsule(f:FillStyle, s:StrokeStyle, ?w:IValue, ?h:IValue, ?x:IValue, ?y:IValue);
+	BsRect(f:FillStyle, s:StrokeStyle);
+	BsRectComplex(f:FillStyle, s:StrokeStyle, c:Corners);
+	BsCapsule(f:FillStyle, s:StrokeStyle);
 }
 enum Corners{
 	CSame(cs:CornerStyle);
