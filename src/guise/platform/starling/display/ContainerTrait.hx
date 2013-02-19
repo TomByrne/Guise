@@ -1,0 +1,65 @@
+package guise.platform.starling.display;
+import guise.platform.starling.addTypes.IDisplayObjectType;
+import starling.display.DisplayObject;
+import starling.display.DisplayObjectContainer;
+import starling.display.Sprite;
+
+class ContainerTrait extends DisplayTrait
+{
+	
+	private var _layerDisplays:Array<IDisplayObjectType>;
+	
+	public var container(default, null):DisplayObjectContainer;
+	public var sprite(default, null):Sprite;
+
+	public function new(container:DisplayObjectContainer = null) {
+		_layerDisplays = [];
+		if (container != null)setContainer(container);
+		super(container);
+		
+	}
+	override private function assumeDisplayObject():Void {
+		setContainer(new Sprite());
+		
+		//var textField = new starling.text.TextField(Std.int(Math.random()*400), Std.int(Math.random()*300), "OOps", "_sans", 16, 0xff0000, false);
+		//container.addChild(textField);
+	}
+	private function setContainer(container:DisplayObjectContainer):Void {
+		if(container!=null){
+			for (disp in _layerDisplays) {
+				container.removeChild(disp.getDisplayObject());
+			}
+		}
+		
+		this.container = container;
+		if (Std.is(container, Sprite)) this.sprite = cast container;
+		else sprite = null;
+		setDisplayObject(container);
+		
+		if (container != null) {
+			for (disp in _layerDisplays) {
+				container.addChild(disp.getDisplayObject());
+			}
+		}
+	}
+	
+	
+	@injectAdd
+	public function addLayer(display:IDisplayObjectType):Void {
+		//layers.push(layerName);
+		_layerDisplays.push(display);
+		if (container != null) {
+			container.addChild(display.getDisplayObject());
+		}
+		//LazyInst.exec(layeringChanged.dispatch(this));
+	}
+	@injectRemove
+	public function removeLayer(display:IDisplayObjectType):Void {
+		//layers.remove(layerName);
+		_layerDisplays.remove(display);
+		if (container != null) {
+			container.removeChild(display.getDisplayObject());
+		}
+		//LazyInst.exec(layeringChanged.dispatch(this));
+	}
+}

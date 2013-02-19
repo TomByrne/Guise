@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<class classpath="guise.skin.bitmap.Mani" >
+
+	<meth name="install" static="true" public="true" scope="within" a-within="composure.core.ComposeItem">
+
+		<var name="font" value="guise.platform.cross.FontRegistry.getBitmapFont('assets/fonts/Helvetica.fnt', TfSans)"/>
+
+		<!-- imports -->
+		<var name="TextureStyle" value="guise.skin.bitmap.TextureLayer.TextureStyle"/>
+		<var name="TextLabelStyle" value="guise.skin.drawn.TextStyleLayer.TextLabelStyle"/>
+		<var name="TextStyle" value="guise.accessTypes.ITextOutputAccess.TextStyle"/>
+		<var name="TextModifier" value="guise.accessTypes.ITextOutputAccess.TextModifier"/>
+		<var name="TextCase" value="guise.skin.drawn.TextStyleLayer.TextCase"/>
+		<var name="AntiAliasType" value="guise.accessTypes.ITextOutputAccess.AntiAliasType"/>
+		<var name="TextureInfo" value="guise.accessTypes.ITextureAccess.TextureInfo"/>
+
+		<var name="SelectedState" value="guise.states.ControlStates.SelectedState"/>
+		<var name="ButtonOverState" value="guise.states.ControlStates.ButtonOverState"/>
+		<var name="ButtonDownState" value="guise.states.ControlStates.ButtonDownState"/>
+
+		<!-- reused styles -->
+		<var name="labelTextStyle" value="TextLabelStyle.Tls(TextStyle.Trs(font, 12, 0x737a87, [TextModifier.TmBold()]), false, TextCase.TcUpper, AntiAliasType.AaSmooth)"/>
+
+		<meth name="labelText" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextStyleLayer">
+			 <var type="guise.skin.drawn.TextStyleLayer" name="layer" p-layerName="'labelText'" p-normalStyle="labelTextStyle">
+				<m-addLayout params="null, (guise.skin.values.Width/2)-(guise.skin.values.TextWidth<guise.skin.values.Width)/2, (guise.skin.values.Height/2)-(guise.skin.values.TextHeight<guise.skin.values.Height)/2, guise.skin.values.TextWidth<guise.skin.values.Width, guise.skin.values.TextHeight<guise.skin.values.Height"/>
+			</var> 
+		</meth>
+
+		<!-- layers -->
+		<meth name="buttonBacking" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextureLayer">
+			<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'backing'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('ButtonUp',true), -1,-2,-6,-2)">
+				<m-addStyle params="[ButtonOverState.OVER], TextureStyle.pad(TextureInfo.sprite('ButtonOver',true), -1,-2,-6,-2)"/>
+				<m-addStyle params="[ButtonDownState.DOWN], TextureStyle.pad(TextureInfo.sprite('ButtonDown',true), -1,-2,-6,-2), 1"/>
+				<m-addStyle params="[SelectedState.SELECTED], TextureStyle.pad(TextureInfo.sprite('ButtonDown',true), -1,-2,-6,-2), 1"/>
+			</var>
+		</meth>
+
+		<!-- core furnishers -->
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.StageTag" addCall="addTrait" p-searchAscendants="true" p-searchDescendants="false">
+			<m-addInst params="new guise.skin.bitmap.utils.TexturePack('assets/Mani.png', 'assets/Mani.xml')"/>
+		</var>
+
+		<!-- control furnishers -->
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait">
+			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'labelText'">
+				<m-add params="guise.accessTypes.ITextOutputAccess"/>
+				<m-add params="guise.accessTypes.IPositionAccess"/>
+			</var>
+			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
+				<m-add params="guise.accessTypes.IPositionAccess"/>
+				<m-add params="guise.accessTypes.ITextureAccess"/>
+				<m-add params="guise.accessTypes.IMouseInteractionsAccess"/>
+			</var>
+
+			<m-addFact params="buttonBacking"/>
+			<m-addFact params="labelText"/>
+		</var>
+
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextLabelTag" addCall="addTrait">
+			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'labelText'">
+				<m-add params="guise.accessTypes.ITextOutputAccess"/>
+				<m-add params="guise.accessTypes.IPositionAccess"/>
+			</var>
+
+			<m-addFact params="labelText"/>
+		</var>
+	</meth>
+</class>

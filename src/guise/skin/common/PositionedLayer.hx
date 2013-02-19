@@ -44,9 +44,16 @@ extends StateStyledTrait<StyleType>
 		super(normalStyle);
 		this.layerName = layerName;
 		
-		_layoutStyler = new StateStyledTrait(null, _isReadyToDraw, doLayoutDraw);
+		_layoutStyler = new StateStyledTrait(null, isPosReadyToDraw, doLayoutDraw);
 		_layoutStyler.normalStyle = Layout.edge(new Value(0), new Value(0), new Width(), new Height());
 		addSiblingTrait(_layoutStyler);
+	}
+	private function isPosReadyToDraw():Bool {
+		return item!=null;
+	}
+	override private function onItemAdd():Void {
+		super.onItemAdd();
+		_layoutStyler.invalidate();
 	}
 	
 	#end
@@ -75,23 +82,43 @@ extends StateStyledTrait<StyleType>
 	}
 	
 	private function doLayoutDraw():Void {
+		removeValuesByHandler(onLayoutValueChanged);
+		
 		var layout:Layout = _layoutStyler.currentStyle;
+		var newX:Float;
+		var newY:Float;
+		var newW:Float;
+		var newH:Float;
 		switch(layout) {
 			case edge(l, t, r, b):
-				this.x = getValue(l, 0);
-				this.y = getValue(t, 0);
-				this.w = getValue(r, 0) - this.x;
-				this.h = getValue(b, 0) - this.y;
+				newX = getValue(l, 0, onLayoutValueChanged);
+				newY = getValue(t, 0, onLayoutValueChanged);
+				newW = getValue(r, 0, onLayoutValueChanged) - this.x;
+				newH = getValue(b, 0, onLayoutValueChanged) - this.y;
 			case size(x, y, w, h):
-				this.x = getValue(x, 0);
-				this.y = getValue(y, 0);
-				this.w = getValue(w, 0);
-				this.h = getValue(h, 0);
+				newX = getValue(x, 0, onLayoutValueChanged);
+				newY = getValue(y, 0, onLayoutValueChanged);
+				newW = getValue(w, 0, onLayoutValueChanged);
+				newH = getValue(h, 0, onLayoutValueChanged);
 			
 		}
+		if (this.x != newX || this.y != newY || this.w != newW || this.h != newH) {
+			this.x = newX;
+			this.y = newY;
+			this.w = newW;
+			this.h = newH;
+			layoutChanged();
+		}
+	}
+	private function onLayoutValueChanged(?param1:Dynamic, ?param2:Dynamic):Void {
+		_layoutStyler.invalidate();
+	}
+	
+	private function layoutChanged():Void {
 		super.invalidate();
 	}
 	
+	// This shouldn't be here but it helps for the time being
 	override public function invalidate():Void {
 		super.invalidate();
 		_layoutStyler.invalidate();

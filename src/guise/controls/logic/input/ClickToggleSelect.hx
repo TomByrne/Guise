@@ -2,25 +2,31 @@ package guise.controls.logic.input;
 import composure.traits.AbstractTrait;
 import guise.controls.data.ISelected;
 import guise.accessTypes.IMouseClickableAccess;
+import guise.platform.cross.IAccessRequest;
 
-class ClickToggleSelect extends AbstractTrait
+class ClickToggleSelect extends AbstractTrait, implements IAccessRequest
 {
+	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [IMouseClickableAccess];
+	
 	@inject
 	public var selected:ISelected;
 	
+	@:isVar public var layerName(default, set_layerName):String;
+	private function set_layerName(value:String):String {
+		this.layerName = value;
+		return value;
+	}
 	
 	private var _mouseClickable:IMouseClickableAccess;
-	private var _layerName:String;
 
 	public function new(?layerName:String) 
 	{
 		super();
-		_layerName = layerName;
-		//addSiblingTrait(new PlatformAccessor(I_mouseClickable, layerName, onMouseClickAdd, onMouseClickRemove));
+		this.layerName = layerName;
 	}
 	@injectAdd
 	private function onMouseClickAdd(access:IMouseClickableAccess):Void {
-		if (_layerName != null && access.layerName != _layerName) return;
+		if (layerName != null && access.layerName != layerName) return;
 		
 		_mouseClickable = access;
 		_mouseClickable.clicked.add(onClicked);
@@ -35,6 +41,9 @@ class ClickToggleSelect extends AbstractTrait
 	
 	private function onClicked(info:ClickInfo):Void {
 		if (selected != null) selected.set(!selected.selected);
+	}
+	public function getAccessTypes():Array<Class<Dynamic>> {
+		return ACCESS_TYPES;
 	}
 	
 }

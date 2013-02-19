@@ -4,6 +4,9 @@ import guise.utils.Clone;
 import guise.skin.values.IValue;
 import guise.trans.ITransitioner;
 import cmtc.ds.hash.ObjectHash;
+import Lambda;
+
+using Lambda;
 
 import msignal.Signal;
 
@@ -31,9 +34,10 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 	
 	private var styles:Array<{states:Array<String>,style:StyleType, priority:Int}>;
 	private var states:Array<IState<EnumValue>>;
-	private var values:Array<IValue>;
+	//private var values:Array<IValue>;
 	//private var _values:Array<IValue>;
-	private var _valueToSignals:ObjectHash<IValue, Array<AnySignal>>;
+	//private var _valueToSignals:ObjectHash<IValue, Array<AnySignal>>;
+	private var _handlerToSignals:ObjectHash<Dynamic->Dynamic->Void, Array<AnySignal>>;
 	
 	private var transSubject:Dynamic;
 
@@ -46,7 +50,8 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 		if (transSubject != null) this.transSubject = transSubject;
 		else this.transSubject = this;
 		
-		_valueToSignals = new ObjectHash();
+		//_valueToSignals = new ObjectHash();
+		_handlerToSignals = new ObjectHash();
 	}
 	
 	@injectAdd
@@ -125,22 +130,19 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 	}
 	private function setCurrentStyle(value:StyleType):Void {
 		if (currentStyle == value) return;
-		if (currentStyle != null) {
+		/*if (currentStyle != null) {
 			for (value in values) {
 				removeValue(value);
 			}
 			values = null;
-		}
+		}*/
 		currentStyle = value;
-		if (currentStyle!=null) {
+		/*if (currentStyle!=null) {
 			values = [];
 			findValues(currentStyle, values);
-			/*for (value in values) {
-				addValue(value);
-			}*/
-		}
+		}*/
 	}
-	private function findValues(within:Dynamic, addTo:Array<IValue>):Void {
+	/*private function findValues(within:Dynamic, addTo:Array<IValue>):Void {
 		if (Std.is(within, IValue)) {
 			addTo.push(cast within);
 		}else{
@@ -172,78 +174,55 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 					// ignore 
 			}
 		}
-	}
-	
-	/*private function addValue(value:IValue):Void {
-		_values.push(value);
-		if (item!=null) {
-			activateValue(value);
-		}
-	}
-	private function removeValue(value:IValue):Void {
-		_values.remove(value);
-		if (item!=null) {
-			deactivateValue(value);
-		}
 	}*/
-	
-	/*private function activateValue(value:IValue):Void {
-		var signals:Array<AnySignal> = value.activate(item);
-		if (signals != null) {
-			for (signal in signals) {
-				signal.add(onValueChanged);
-			}
-			_valueToSignals.set(value, signals);
-		}
-	}
-	private function deactivateValue(value:IValue):Void {
-		var signals:Array<AnySignal> = _valueToSignals.get(value);
-		if (signals != null) {
-			for (signal in signals) {
-				signal.remove(onValueChanged);
-			}
-			_valueToSignals.delete(value);
-		}
-	}*/
-	private function getValue(value:IValue, def:Float):Float {
+	private function getValue(value:IValue, def:Float, changeHandler:Dynamic->Dynamic->Void):Float {
 		if (value == null) return def;
 		
-		var signals:Array<AnySignal> = _valueToSignals.get(value);
+		var signals:Array<AnySignal> = _handlerToSignals.get(changeHandler);
 		var newSignals:Array<AnySignal> = value.update(item);
 		
-		if (signals != null || newSignals != null) {
+		if (newSignals != null) {
 			if (signals == null) {
 				for (signal in newSignals) {
-					signal.add(onValueChanged);
+					signal.add(changeHandler);
 				}
-				_valueToSignals.set(value, signals);
-			}else if (newSignals == null) {
+				_handlerToSignals.set(changeHandler, newSignals);
+			}/*else if (newSignals == null) {
 				for (signal in signals) {
 					signal.remove(onValueChanged);
 				}
 				_valueToSignals.delete(value);
-			}else {
-				var i:Int = 0;
+			}*/else {
+				/*var i:Int = 0;
 				while (i < signals.length) {
 					var signal = signals[i];
-					if (!Lambda.has(newSignals, signal)) {
-						signal.remove(onValueChanged);
+					if (!newSignals.has(signal)) {
+						signal.remove(changeHandler);
 						signals.remove(signal);
 					}else {
 						++i;
 					}
-				}
+				}*/
 				for (signal in newSignals) {
-					if (!Lambda.has(signals, signal)) {
+					if (!signals.has(signal)) {
 						signals.push(signal);
-						signal.add(onValueChanged);
+						signal.add(changeHandler);
 					}
 				}
 			}
 		}
 		return value.currentValue;
 	}
-	private function removeValue(value:IValue):Void {
+	private function removeValuesByHandler(changeHandler:Dynamic->Dynamic->Void):Void {
+		var signals:Array<AnySignal> = _handlerToSignals.get(changeHandler);
+		if (signals != null) {
+			for (signal in signals) {
+				signal.remove(changeHandler);
+			}
+			_handlerToSignals.delete(changeHandler);
+		}
+	}
+	/*private function removeValue(value:IValue):Void {
 		var signals:Array<AnySignal> = _valueToSignals.get(value);
 		if (signals != null) {
 			for (signal in signals) {
@@ -254,7 +233,7 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 	}
 	private function onValueChanged(?param1:Dynamic, ?param2:Dynamic):Void {
 		invalidate();
-	}
+	}*/
 	
 	
 	private function findDestStyle():StyleType {

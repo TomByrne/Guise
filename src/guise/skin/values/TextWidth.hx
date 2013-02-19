@@ -6,7 +6,7 @@ class TextWidth extends Bind
 
 	public function new(?modifier:Float->Float) 
 	{
-		super(ITextOutputAccess, "textWidth", null, modifier);
+		super(ITextOutputAccess, "textWidth", "textMeasChanged", modifier);
 	}
 	
 }

@@ -24,8 +24,10 @@ class ValueMacro
 					return macro new guise.skin.values.Bind($e1, $fieldE);
 				}
 			case EConst(c):
+				// This wraps raw numbers and variables in Value objects
 				return macro new guise.skin.values.Value($e);
 			case EBinop(op, e1, e2):
+				// This wraps mathemathical expressions in Calc objects
 				e1 = interpValue(e1);
 				e2 = interpValue(e2);
 				switch(op) {

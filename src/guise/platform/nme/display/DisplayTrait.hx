@@ -9,9 +9,6 @@ import nme.events.Event;
 
 import msignal.Signal;
 
-/**
- * @author Tom Byrne
- */
 
 class DisplayTrait extends AbsDisplayTrait
 {

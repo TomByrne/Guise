@@ -14,11 +14,15 @@ import nme.text.TextFormat;
 import guise.platform.nme.TextFieldGutter;
 
 
+@:build(LazyInst.check())
 class TextAccess implements ITextInputAccess, implements ITextOutputAccess, implements IDisplayObjectType, implements IInteractiveObjectType
 {
+	@lazyInst
+	public var textMeasChanged:Signal1<ITextOutputAccess>;
+	
 	private var _textField:TextField;
 	private var _ignoreChanges:Bool;
-	private var _gutter:Float;
+	//private var _gutter:Float;
 	
 	public var layerName(default, set_layerName):String;
 	private function set_layerName(value:String):String {
@@ -29,7 +33,7 @@ class TextAccess implements ITextInputAccess, implements ITextOutputAccess, impl
 
 	public function new(?layerName:String, ?textField:TextField) 
 	{
-		_gutter = TextFieldGutter.GUTTER;
+		//_gutter = TextFieldGutter.GUTTER;
 		_textField = (textField==null?new TextField():textField);
 		this.layerName = layerName;
 		_textField.addEventListener(Event.CHANGE, onChange);
@@ -127,6 +131,8 @@ class TextAccess implements ITextInputAccess, implements ITextOutputAccess, impl
 		return _textField.text;
 	}
 	public function setText(run:TextRun, isHtml:Bool):Void {
+		if (_ignoreChanges) return;
+		
 		var format:TextFormat = new TextFormat();
 		var text:String = createHtml(run.runs, isHtml);
 		switch(run.style) {
@@ -164,7 +170,9 @@ class TextAccess implements ITextInputAccess, implements ITextOutputAccess, impl
 		else _textField.htmlText = text;
 		_ignoreChanges = true;
 		_textField.dispatchEvent(new Event(Event.CHANGE));
+		LazyInst.exec(textMeasChanged.dispatch(this));
 		_ignoreChanges = false;
+		
 	}
 	private function createHtml(runs:Array<TextRunData>, isHtml:Bool):String {
 		var ret:String = "";

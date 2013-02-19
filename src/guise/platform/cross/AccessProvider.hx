@@ -4,7 +4,6 @@ import cmtc.ds.hash.ObjectHash;
 import composure.core.ComposeItem;
 import composure.traits.AbstractTrait;
 import guise.accessTypes.IAccessType;
-import guise.layer.LayerAccessRequire;
 
 class AccessProvider extends AbstractTrait
 {
@@ -29,7 +28,7 @@ class AccessProvider extends AbstractTrait
 	}
 	
 	@injectAdd({desc:true})
-	public function onAccessRequireAdd(accessReq:LayerAccessRequire, item:ComposeItem):Void {
+	public function onAccessRequireAdd(accessReq:IAccessRequest, item:ComposeItem):Void {
 		var layerHash:Hash<LayerInfo> = _itemToLayers.get(item);
 		var layerInfo:LayerInfo;
 		if (layerHash != null) {
@@ -44,7 +43,7 @@ class AccessProvider extends AbstractTrait
 			layerInfo = new LayerInfo(accessReq.layerName);
 			layerHash.set(accessReq.layerName, layerInfo);
 		}
-		for (req in accessReq.accessTypes) {
+		for (req in accessReq.getAccessTypes()) {
 			var klass:Class<Dynamic>;
 			var key:String = Type.getClassName(req);
 			if (_accessClassMap.exists(key)) {
@@ -88,11 +87,11 @@ class AccessProvider extends AbstractTrait
 		}
 	}
 	@injectRemove({desc:true})
-	public function onAccessRequireRemove(accessReq:LayerAccessRequire, item:ComposeItem):Void {
+	public function onAccessRequireRemove(accessReq:IAccessRequest, item:ComposeItem):Void {
 		var layerHash:Hash<LayerInfo> = _itemToLayers.get(item);
 		var layerInfo:LayerInfo = layerHash.get(accessReq.layerName);
 		
-		for (req in accessReq.accessTypes) {
+		for (req in accessReq.getAccessTypes()) {
 			var klass:Class<Dynamic>;
 			var key:String = Type.getClassName(req);
 			if (_accessClassMap.exists(key)) {

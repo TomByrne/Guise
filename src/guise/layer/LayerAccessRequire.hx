@@ -1,14 +1,16 @@
 package guise.layer;
 import guise.accessTypes.IAccessType;
+import guise.platform.cross.IAccessRequest;
 
-/**
- * ...
- * @author Tom Byrne
- */
 
-class LayerAccessRequire 
+class LayerAccessRequire implements IAccessRequest
 {
-	public var layerName:String;
+	@:isVar public var layerName(default, set_layerName):String;
+	private function set_layerName(value:String):String {
+		this.layerName = value;
+		return value;
+	}
+	
 	public var accessTypes:Array<Class<Dynamic>>;
 
 	public function new(?layerName:String, ?accessTypes:Array<Class<Dynamic>>) 
@@ -20,5 +22,9 @@ class LayerAccessRequire
 	public function add(type:Class<Dynamic>):Void {
 		if (accessTypes == null) accessTypes = [];
 		accessTypes.push(type);
+	}
+	
+	public function getAccessTypes():Array<Class<Dynamic>> {
+		return accessTypes;
 	}
 }

@@ -3,7 +3,7 @@
 
 	<meth name="install" static="true" public="true" scope="within" a-within="composure.core.ComposeItem">
 
-		<var name="font" value="guise.skin.drawn.TextStyleLayer.getFont('assets/fonts/HelveticaNeueLTCom-Bd.ttf', TfSans)"/>
+		<var name="font" value="guise.platform.cross.FontRegistry.getFont('assets/fonts/HelveticaNeueLTCom-Bd.ttf', TfSans)"/>
 
 		<!-- imports -->
 		<var name="StrokeStyle" value="guise.skin.drawn.utils.DrawnStyles.StrokeStyle"/>

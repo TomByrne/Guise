@@ -6,10 +6,6 @@ import nme.display.StageScaleMode;
 import nme.events.Event;
 import msignal.Signal;
 
-/**
- * @author Tom Byrne
- */
-
 class StageTrait extends ContainerTrait//, implements IWindowInfo
 {
 	private static var _inst:StageTrait;
@@ -43,6 +39,9 @@ class StageTrait extends ContainerTrait//, implements IWindowInfo
 		
 		setAvailSize(_stage.stageWidth, _stage.stageHeight);
 		_stage.addEventListener(Event.RESIZE, onResize);
+	}
+	override private function assumeDisplayObject():Void {
+		// ignore
 	}
 	
 	private function onResize(e:Event):Void {

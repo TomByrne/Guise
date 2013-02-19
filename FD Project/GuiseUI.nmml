@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	
-	<app title="GuiseUI" file="GuiseUI" main="NmeTest" package="org.tbyrne.guiseUI" version="1.0.0" company="Tom Byrne" />
+	<app title="GuiseUI" file="GuiseUI" main="StarlingTest" package="org.tbyrne.guiseUI" version="1.0.0" company="Tom Byrne" />
 	
 	<window
 		width="800"
@@ -24,6 +24,8 @@
     <haxelib name="feffects" />
     <haxelib name="mpartial" />
     <haxelib name="xmlTools" />
+    <haxelib name="starling" />
+    <!--<haxelib name="tilelayer" />-->
     <!--<haxelib name="waxe" />-->
 	<haxelib name="nme" unless="target_windows"/>
 	

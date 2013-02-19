@@ -1,6 +1,10 @@
 package guise.accessTypes;
 
-interface ITextOutputAccess implements IAccessType{
+import msignal.Signal;
+
+interface ITextOutputAccess implements IAccessType {
+	var textMeasChanged(get_textMeasChanged, null):Signal1<ITextOutputAccess>;
+	
 	var textWidth(get_textWidth, null):Float;
 	var textHeight(get_textHeight, null):Float;
 	

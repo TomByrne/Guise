@@ -78,18 +78,23 @@ class SimpleShapeLayer extends PositionedLayer<ShapeStyle>
 		_graphicsAccess.endFill();
 	}
 	private function drawShape(style:ShapeStyle):Void {
+		removeValuesByHandler(onShapeValueChanged);
+		
 		switch(style) {
 			case SsMulti(shapes):
 				for (childShape in shapes) {
 					drawShape(childShape);
 				}
 			case SsEllipse(f, s, w, h, x, y):
-				var xVal:Float = getValue(x, 0);
-				var yVal:Float = getValue(y, 0);
-				var wVal:Float = getValue(w, this.w);
-				var hVal:Float = getValue(h, this.h);
+				var xVal:Float = getValue(x, 0, onShapeValueChanged);
+				var yVal:Float = getValue(y, 0, onShapeValueChanged);
+				var wVal:Float = getValue(w, this.w, onShapeValueChanged);
+				var hVal:Float = getValue(h, this.h, onShapeValueChanged);
 				DrawnStyleUtils.beginFillStrokes(_graphicsAccess, f, s, false, wVal, hVal, function(index:Int):Void{_graphicsAccess.drawEllipse(xVal, yVal, wVal, hVal);});
 		}
+	}
+	private function onShapeValueChanged(?param1:Dynamic, ?param2:Dynamic):Void {
+		invalidate();
 	}
 }
 enum ShapeStyle {

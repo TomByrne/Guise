@@ -11,14 +11,6 @@ import guise.skin.common.PositionedLayer;
 
 class TextStyleLayer extends PositionedLayer<TextLabelStyle>
 {
-	public static function getFont(path:String, otherwise:Typeface):Typeface {
-		#if nme
-			var font = nme.Assets.getFont(path);
-			return (font==null?otherwise:Tf(font.fontName));
-		#else
-			return otherwise;
-		#end
-	}
 
 
 	@injectAdd

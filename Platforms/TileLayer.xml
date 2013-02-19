@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<class classpath="guise.platform.TileLayer" >
+
+	<meth name="install" static="true" public="true" scope="within" a-within="composure.core.ComposeItem">
+
+		<var type="guise.platform.cross.AccessProvider" addCall="addTrait">
+			<m-mapAccessType params="guise.accessTypes.IPositionAccess, guise.platform.tilelayer.accessTypes.PositionAccess"/>
+			<m-mapAccessType params="guise.accessTypes.IBoxPosAccess, guise.platform.tilelayer.accessTypes.PositionAccess"/>
+			<m-mapAccessType params="guise.accessTypes.ITextureAccess, guise.platform.tilelayer.accessTypes.TextureAccess"/>
+			<!-- <m-mapAccessType params="guise.accessTypes.IFilterableAccess, guise.platform.tilelayer.accessTypes.FilterableAccess"/>
+			<m-mapAccessType params="guise.accessTypes.IGraphicsAccess, guise.platform.tilelayer.accessTypes.GraphicsAccess"/>
+			<m-mapAccessType params="guise.accessTypes.IBitmapGraphicsAccess, guise.platform.tilelayer.accessTypes.GraphicsAccess"/>
+			<m-mapAccessType params="guise.accessTypes.ITextInputAccess, guise.platform.tilelayer.accessTypes.TextAccess"/>
+			<m-mapAccessType params="guise.accessTypes.ITextOutputAccess, guise.platform.tilelayer.accessTypes.TextAccess"/>
+			<m-mapAccessType params="guise.accessTypes.IFocusableAccess, guise.platform.tilelayer.accessTypes.FocusableAccess"/>
+			<m-mapAccessType params="guise.accessTypes.IFilterableAccess, guise.platform.tilelayer.accessTypes.FilterableAccess"/>
+			<m-mapAccessType params="guise.accessTypes.IMouseClickableAccess, guise.platform.tilelayer.accessTypes.MouseClickableAccess"/>
+			<m-mapAccessType params="guise.accessTypes.IMouseInteractionsAccess, guise.platform.tilelayer.accessTypes.MouseInteractionsAccess"/>
+			<m-mapAccessType params="guise.accessTypes.IKeyboardAccess, guise.platform.tilelayer.accessTypes.KeyboardAccess"/> -->
+		</var>
+
+		<!-- Core display tags -->
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.WindowTag" addCall="addTrait" p-searchAscendants="true" p-searchDescendants="false">
+			<m-addInst params="guise.platform.tilelayer.display.StageTrait.inst(),guise.platform.tilelayer.display.StageTrait"/>
+		</var>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.StageTag" addCall="addTrait" p-searchAscendants="true" p-searchDescendants="false">
+			<m-addInst params="guise.platform.tilelayer.display.StageTrait.inst(),guise.platform.tilelayer.display.StageTrait"/>
+		</var>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.ContainerTag" addCall="addTrait">
+			<m-addType params="guise.platform.tilelayer.display.ContainerTrait,guise.platform.tilelayer.display.ContainerTrait"/>
+		</var>
+
+		<!-- Core control logic -->
+		<!-- <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait">
+			<m-addType params="guise.controls.logic.input.MouseOverTrait"/>
+			<m-addType params="guise.controls.logic.states.ButtonStateMapper"/>
+			<m-addType params="guise.controls.logic.input.ButtonClickTrait"/>
+		</var>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait" p-checkEnumParams="[0]">
+			<m-addType params="guise.controls.logic.states.SelectableStateMapper"/>
+			<m-addType params="guise.controls.logic.input.ClickToggleSelect"/>
+			<m-addType params="guise.controls.data.Selected, guise.controls.data.ISelected"/>
+		</var>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextInputTag" addCall="addTrait">
+			<m-addFact params="function(into:Dynamic):Dynamic return new guise.controls.logic.input.TextInputPrompt('inputText')"/>
+			<m-addFact params="function(into:Dynamic):Dynamic return new guise.controls.logic.states.FocusStateMapper('inputText')"/>
+		</var>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
+			<m-addType params="guise.controls.logic.input.MouseOverTrait"/>
+			<m-addType params="guise.controls.logic.states.ButtonStateMapper"/>
+			<m-addType params="guise.controls.logic.input.ButtonClickTrait"/>
+			<m-addType params="guise.controls.logic.input.ClickToggleSelect"/>
+			<m-addType params="guise.controls.logic.states.SelectableStateMapper"/>
+			<m-addType params="guise.controls.data.Selected, guise.controls.data.ISelected"/>
+		</var>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag(true)" addCall="addTrait">
+			<m-addType params="guise.controls.logic.input.MouseOverTrait"/>
+			<m-addType params="guise.controls.logic.states.ButtonStateMapper"/>
+			<m-addFact params="function(into:Dynamic):Dynamic return new guise.controls.logic.input.MouseDragChangeValue(null,true,guise.controls.data.INumRange,'valueNorm',null,null,new guise.skin.values.Bind(guise.layout.BoxPos, 'w', 'sizeChanged'))"/>
+			<m-addType params="guise.controls.data.NumRange, guise.controls.data.INumRange"/>
+		</var> -->
+
+
+		<!-- Additional control logic -->
+		<!-- <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.logic.states.ButtonStateMapper" addCall="addTrait">
+			<var type="guise.layer.LayerAccessRequire"	 addCall="addInst">
+				<m-add params="guise.accessTypes.IMouseClickableAccess"/>
+				<m-add params="guise.accessTypes.IMouseInteractionsAccess"/>
+			</var>
+		</var>-->
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.platform.tilelayer.addTypes.ITileBaseType" addCall="addTrait">
+			<m-addType params="guise.platform.tilelayer.display.ContainerTrait, guise.platform.tilelayer.display.ContainerTrait"/>
+			<!--<m-addType params="guise.platform.tilelayer.layers.LayerSwapper"/>-->
+		</var> 
+	</meth>
+</class>

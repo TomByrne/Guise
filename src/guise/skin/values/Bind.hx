@@ -32,7 +32,8 @@ class Bind implements IValue
 	public function update(context:ComposeItem):Array<AnySignal> {
 		var trait:Dynamic = context.getTrait(traitType);
 		if (!trait) {
-			throw "No trait of type " + Type.getClassName(traitType) + " was found for style binding";
+			//throw "No trait of type " + Type.getClassName(traitType) + " was found for style binding";
+			return [];
 		}
 		_value = Reflect.getProperty(trait, prop);
 		if (modifier != null) {
