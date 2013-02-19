@@ -4,12 +4,10 @@
 	<meth name="install" static="true" public="true" scope="within" a-within="composure.core.ComposeItem">
 
 		<var type="guise.platform.cross.AccessProvider" addCall="addTrait">
-			<m-mapAccessType params="guise.accessTypes.IPositionAccess, guise.platform.starling.accessTypes.PositionAccess"/>
-			<m-mapAccessType params="guise.accessTypes.IBoxPosAccess, guise.platform.starling.accessTypes.PositionAccess"/>
 			<m-mapAccessType params="guise.accessTypes.ITextureAccess, guise.platform.starling.accessTypes.TextureAccess"/>
 			<m-mapAccessType params="guise.accessTypes.IMouseInteractionsAccess, guise.platform.starling.accessTypes.MouseInteractionsAccess"/>
-			<m-mapAccessType params="guise.accessTypes.ITextInputAccess, guise.platform.starling.accessTypes.TextAccess"/>
-			<m-mapAccessType params="guise.accessTypes.ITextOutputAccess, guise.platform.starling.accessTypes.TextAccess"/>
+			<m-mapAccessType params="guise.accessTypes.ITextInputAccess, guise.platform.starling.accessTypes.TextInputAccess"/>
+			<m-mapAccessType params="guise.accessTypes.ITextOutputAccess, guise.platform.starling.accessTypes.TextOutputAccess"/>
 			<m-mapAccessType params="guise.accessTypes.IMouseClickableAccess, guise.platform.cross.accessTypes.MouseClickEmulator"/>
 			<!-- <m-mapAccessType params="guise.accessTypes.IFilterableAccess, guise.platform.starling.accessTypes.FilterableAccess"/>
 			<m-mapAccessType params="guise.accessTypes.IGraphicsAccess, guise.platform.starling.accessTypes.GraphicsAccess"/>

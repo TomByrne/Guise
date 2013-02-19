@@ -32,7 +32,7 @@ class TextStyleLayer extends PositionedLayer<TextLabelStyle>
 		if (layerName != null && access.layerName != layerName) return;
 		
 		_pos = access;
-		invalidate();
+		_layoutStyler.invalidate();
 	}
 	@injectRemove
 	private function onPosRemove(access:IBoxPosAccess):Void {
@@ -66,8 +66,21 @@ class TextStyleLayer extends PositionedLayer<TextLabelStyle>
 		super(layerName,normalStyle);
 	}
 	override private function _isReadyToDraw():Bool {
-		if (textLabel == null || _textDisplay==null) return false;
-		return super._isReadyToDraw();
+		return (textLabel != null && _textDisplay!=null);
+	}
+	override private function isPosReadyToDraw():Bool {
+		return super.isPosReadyToDraw() && _pos!=null;
+	}
+	override private function layoutChanged():Void {
+		if (!Math.isNaN(x) && !Math.isNaN(y)) {
+			if (!Math.isNaN(w) && !Math.isNaN(h)) {
+				_pos.set(x, y, w, h);
+			}else {
+				_pos.setPos(x, y);
+			}
+		}else if (!Math.isNaN(w) && !Math.isNaN(h)) {
+			_pos.setSize(w, h);
+		}
 	}
 	override private function _drawStyle():Void {
 		var text = textLabel.text;
@@ -77,8 +90,6 @@ class TextStyleLayer extends PositionedLayer<TextLabelStyle>
 				_textDisplay.selectable = selectable;
 				_textDisplay.setAntiAliasing(aa);
 				_textDisplay.setText(new TextRun(ts, [Text(toCase(text, tc))]), true);
-				
-				if(_pos!=null)_pos.set(x, y, w, h);
 		}
 	}
 	private function toCase(str:String, textCase:TextCase):String{

@@ -1,7 +1,9 @@
 package guise.platform.starling.accessTypes;
+import guise.accessTypes.IBoxPosAccess;
 import guise.accessTypes.ITextOutputAccess;
 import guise.platform.cross.FontRegistry;
 import guise.platform.starling.addTypes.IDisplayObjectType;
+import guise.platform.starling.TextFieldGutter;
 import starling.display.Quad;
 import starling.events.Event;
 import starling.events.TouchEvent;
@@ -13,17 +15,28 @@ import starling.utils.VAlign;
 
 
 @:build(LazyInst.check())
-class TextAccess /*implements ITextInputAccess,*/ implements ITextOutputAccess, implements IDisplayObjectType
+class TextOutputAccess /*implements ITextInputAccess,*/ implements ITextOutputAccess, implements IDisplayObjectType, implements IBoxPosAccess
 {
+	private static var MIN_SIZE:Float = 9;
+	
+	
 	@lazyInst
 	public var textMeasChanged:Signal1<ITextOutputAccess>;
+	
+	@lazyInst
+	public var textRunChanged:Signal1 < ITextOutputAccess > ;
+	
+	public var textField(get_textField, null):TextField;
+	private function get_textField():TextField {
+		return _textField;
+	}
 	
 	private var _textField:TextField;
 	private var _ignoreChanges:Bool;
 	private var _textRun:TextRun;
 	private var _textWidth:Float;
 	private var _textHeight:Float;
-	//private var _gutter:Float;
+	private var _gutter:Float;
 	
 	public var layerName(default, set_layerName):String;
 	private function set_layerName(value:String):String {
@@ -34,8 +47,8 @@ class TextAccess /*implements ITextInputAccess,*/ implements ITextOutputAccess, 
 
 	public function new(?layerName:String, ?textField:TextField) 
 	{
-		//_gutter = TextFieldGutter.GUTTER;
-		_textField = (textField == null?new TextField(500, 30, "", "", 12, 0, false):textField);
+		_gutter = TextFieldGutter.GUTTER;
+		_textField = (textField == null?new TextField(100, 30, "", "", 12, 0, false):textField);
 		_textField.hAlign = HAlign.LEFT;
 		_textField.vAlign = VAlign.TOP;
 		FontRegistry.getChanged().add(onFontsChanged);
@@ -43,6 +56,26 @@ class TextAccess /*implements ITextInputAccess,*/ implements ITextOutputAccess, 
 		/*_textField.addEventListener(Event.CHANGE, onChange);
 		_textField.addEventListener(FocusEvent.FOCUS_IN, onFocusIn);
 		_textField.addEventListener(FocusEvent.FOCUS_OUT, onFocusOut);*/
+	}
+	public function setPos(x:Float, y:Float):Void {
+		_textField.x = x-_gutter;
+		_textField.y = y-_gutter;
+	}
+	public function setSize(w:Float, h:Float):Void {
+		if (h < MIN_SIZE) h = MIN_SIZE;
+		if (w < MIN_SIZE) w = MIN_SIZE;
+		
+		_textField.width = w+_gutter*2;
+		_textField.height = h+_gutter*2;
+	}
+	public function set(x:Float, y:Float, w:Float, h:Float):Void {
+		if (h < MIN_SIZE) h = MIN_SIZE;
+		if (w < MIN_SIZE) w = MIN_SIZE;
+		
+		_textField.x = x-_gutter;
+		_textField.y = y-_gutter;
+		_textField.width = w+_gutter*2;
+		_textField.height = h+_gutter*2;
 	}
 	private function onFontsChanged():Void{
 		if(_textRun!=null)setText(_textRun, false);
@@ -72,52 +105,14 @@ class TextAccess /*implements ITextInputAccess,*/ implements ITextOutputAccess, 
 				//_textField.thickness = thickness;
 		}
 	}
-	/*public var inputEnabled(default, set_inputEnabled):Bool;
-	private function set_inputEnabled(value:Bool):Bool {
-		_textField.type = value?TextFieldType.INPUT:TextFieldType.DYNAMIC;
-		inputEnabled = value;
-		return value;
-	}*/
 	
 	public var selectable(default, set_selectable):Bool;
 	private function set_selectable(value:Bool):Bool{
-		//_textField.selectable = value;
 		selectable = value;
 		return value;
 	}
 	
-	/*private function onChange(e:Event):Void {
-		if (_ignoreChanges) return;
-		if (textChanged != null) textChanged.dispatch(this);
-	}*/
-	/*private function onFocusIn(e:Event):Void {
-		focused = true;
-		if (focusedChanged != null) focusedChanged.dispatch(this);
-	}
-	private function onFocusOut(e:Event):Void {
-		focused = false;
-		if (focusedChanged != null) focusedChanged.dispatch(this);
-	}*/
 	
-	/*public var textChanged(get_textChanged, null):Signal1 < ITextInputAccess > ;
-	private function get_textChanged():Signal1 < ITextInputAccess >{
-		if (textChanged == null) textChanged = new Signal1();
-		return textChanged;
-	}*/
-	
-	/*public var focused(default, null):Bool;
-	
-	public var focusedChanged(get_focusedChanged, null):Signal1 < ITextInputAccess >;
-	private function get_focusedChanged():Signal1 < ITextInputAccess >{
-		if (focusedChanged == null) focusedChanged = new Signal1();
-		return focusedChanged;
-	}*/
-	
-	
-	public function setSize(w:Float, h:Float):Void {
-		_textField.width = w;
-		_textField.height = h;
-	}
 	public function getText():String {
 		return _textField.text;
 	}
@@ -183,23 +178,30 @@ class TextAccess /*implements ITextInputAccess,*/ implements ITextOutputAccess, 
 		_ignoreChanges = true;
 		//_textField.dispatchEvent(new Event(Event.CHANGE));
 		
+		var newTextWidth:Float;
+		var newTextHeight:Float;
 		var widthWas:Float = _textField.width;
 		var heightWas:Float = _textField.height;
-		if (_textField.width <= 0 || _textField.height <= 0) {
+		if (_textField.width <= 0 || _textField.height <= 0 || !Math.isFinite(_textField.textBounds.width) || !Math.isFinite(_textField.textBounds.height)) {
 			// gives bad readouts of textBounds if dimensions are set improperly
-			_textField.width = 100;
+			_textField.width = 500;
 			_textField.height = 100;
 		}
-		var newTextWidth:Float = _textField.textBounds.width;
-		var newTextHeight:Float = _textField.textBounds.height;
+		newTextWidth = _textField.textBounds.width;
+		newTextHeight = _textField.textBounds.height;
 		_textField.width = widthWas;
 		_textField.height = heightWas;
+		
+		if (newTextWidth < 1) newTextWidth = 1;
+		if (newTextHeight < 1) newTextHeight = 1;
 		
 		if (_textWidth != newTextWidth || _textHeight != newTextHeight) {
 			_textWidth = newTextWidth;
 			_textHeight = newTextHeight;
+			//trace("text meas: "+_textWidth+" "+_textHeight+" '"+_textField.text+"' "+_textField.width+"x"+_textField.height);
 			LazyInst.exec(textMeasChanged.dispatch(this));
 		}
+		LazyInst.exec(textRunChanged.dispatch(this));
 		_ignoreChanges = false;
 		
 	}
@@ -216,64 +218,4 @@ class TextAccess /*implements ITextInputAccess,*/ implements ITextOutputAccess, 
 		}
 		return ret;
 	}
-	/*private function createHtml(runs:Array<TextRunData>, isHtml:Bool):String {
-		var ret:String = "";
-		for (run in runs) {
-			if (ret.length > 0) ret += " ";
-			switch(run) {
-				case Text(text):
-					ret += isHtml?StringTools.htmlEscape(text):text;
-				case Run(textRun):
-					var inner = createHtml(textRun.runs, isHtml);
-					ret += wrapInFormat(textRun.style, inner);
-			}
-		}
-		return ret;
-	}
-	private function wrapInFormat(style:TextStyle, inner:String):String {
-		switch(style) {
-			case Trs(tf,size,color,mods,align):
-				var font:String = "";
-				if(size!=null)font += "size='"+size+"' ";
-				if(color!=null)font += "color='"+color+"' ";
-				switch(tf) {
-					case TfSans:		font += "face='_sans' ";
-					case TfSerif:		font += "face='_serif' ";
-					case TfTypewriter:	font += "face='_typewriter' ";
-					case Tf(name):		font += "face='"+name+"' ";
-				}
-				if(mods!=null){
-					for (mod in mods) {
-						switch(mod) {
-							case TmBold(bold):
-								if (bold == null || bold) inner = "<b>" + inner + "</b>";
-							case TmItalic(italic):
-								if (italic == null || italic) inner = "<i>" + inner + "</i>";
-							case TmUnderline(underline):
-								if (underline == null || underline) inner = "<u>" + inner + "</u>";
-							default:
-								throw "Unsupported Text Mod: " + mod;
-						}
-					}
-				}
-				inner = wrapInAlign(align, inner);
-				if (font.length > 0) {
-					inner = "<font " + font + ">" + inner + "</font>";
-				}
-				return inner;
-		}
-	}
-	private function wrapInAlign(align:Align, text:String):String {
-		if (align != null) {
-			var alignStr:String;
-			switch(align) {
-				case Left:alignStr = "left";
-				case Right:alignStr = "right";
-				case Center:alignStr = "center";
-				case Justify:alignStr = "justify";
-			}
-			return "<p align='"+alignStr+"'>" + text + "</p>";
-		}
-		return text;
-	}*/
 }

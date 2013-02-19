@@ -7,8 +7,6 @@
 			<m-mapAccessType params="guise.accessTypes.IFilterableAccess, guise.platform.nme.accessTypes.FilterableAccess"/>
 			<m-mapAccessType params="guise.accessTypes.IGraphicsAccess, guise.platform.nme.accessTypes.GraphicsAccess"/>
 			<m-mapAccessType params="guise.accessTypes.IBitmapGraphicsAccess, guise.platform.nme.accessTypes.GraphicsAccess"/>
-			<m-mapAccessType params="guise.accessTypes.IPositionAccess, guise.platform.nme.accessTypes.PositionAccess"/>
-			<m-mapAccessType params="guise.accessTypes.IBoxPosAccess, guise.platform.nme.accessTypes.PositionAccess"/>
 			<m-mapAccessType params="guise.accessTypes.ITextInputAccess, guise.platform.nme.accessTypes.TextAccess"/>
 			<m-mapAccessType params="guise.accessTypes.ITextOutputAccess, guise.platform.nme.accessTypes.TextAccess"/>
 			<m-mapAccessType params="guise.accessTypes.IFocusableAccess, guise.platform.nme.accessTypes.FocusableAccess"/>

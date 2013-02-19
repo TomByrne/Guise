@@ -1,5 +1,6 @@
 package guise.platform.starling.accessTypes;
 import composure.traits.AbstractTrait;
+import guise.accessTypes.IBoxPosAccess;
 import guise.accessTypes.ITextureAccess;
 import guise.platform.starling.addTypes.IDisplayObjectType;
 import guise.platform.starling.ext.Scale9Sprite;
@@ -10,7 +11,7 @@ import starling.display.MovieClip;
 import starling.display.Sprite;
 import starling.textures.Texture;
 
-class TextureAccess extends AbstractTrait, implements ITextureAccess, implements IDisplayObjectType
+class TextureAccess extends AbstractTrait, implements ITextureAccess, implements IDisplayObjectType, implements IBoxPosAccess
 {
 	@inject( { asc : true } )
 	private var texturePack(default, set_texturePack):TexturePack;
@@ -26,25 +27,25 @@ class TextureAccess extends AbstractTrait, implements ITextureAccess, implements
 		return value;
 	}
 	
+	public var layerName(default, set_layerName):String;
+	private function set_layerName(value:String):String {
+		this.layerName = value;
+		_sprite.name = value == null?"":value;
+		return value;
+	}
+	
 	private var _sprite:Sprite;
 	private var _textureInfo:TextureInfo;
 	private var _width:Float;
 	private var _height:Float;
 
-	public function new() 
+	public function new(?layerName:String) 
 	{
 		super();
 		_sprite = new Sprite();
+		this.layerName = layerName;
 	}
 	
-	public function setSize(width:Float, height:Float):Void {
-		_width = width;
-		_height = height;
-		for (i in 0..._sprite.numChildren) {
-			var child = _sprite.getChildAt(i);
-			sizeChild(child);
-		}
-	}
 	public function setTexture(value:TextureInfo):Void {
 		if (_textureInfo == value) return;
 		_textureInfo = value;
@@ -91,6 +92,23 @@ class TextureAccess extends AbstractTrait, implements ITextureAccess, implements
 					_sprite.addChild(clip);
 					sizeChild(clip);
 				}
+		}
+	}
+	public function setPos(x:Float, y:Float):Void {
+		_sprite.x = x;
+		_sprite.y = y;
+	}
+	public function set(x:Float, y:Float, w:Float, h:Float):Void {
+		_sprite.x = x;
+		_sprite.y = y;
+		setSize(w,h);
+	}
+	public function setSize(width:Float, height:Float):Void {
+		_width = width;
+		_height = height;
+		for (i in 0..._sprite.numChildren) {
+			var child = _sprite.getChildAt(i);
+			sizeChild(child);
 		}
 	}
 	

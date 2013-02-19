@@ -1,4 +1,5 @@
 package guise.platform.nme.accessTypes;
+import guise.accessTypes.IBoxPosAccess;
 import guise.accessTypes.ITextInputAccess;
 import guise.accessTypes.ITextOutputAccess;
 import guise.platform.nme.addTypes.IDisplayObjectType;
@@ -15,14 +16,14 @@ import guise.platform.nme.TextFieldGutter;
 
 
 @:build(LazyInst.check())
-class TextAccess implements ITextInputAccess, implements ITextOutputAccess, implements IDisplayObjectType, implements IInteractiveObjectType
+class TextAccess implements ITextInputAccess, implements ITextOutputAccess, implements IDisplayObjectType, implements IInteractiveObjectType, implements IBoxPosAccess
 {
 	@lazyInst
 	public var textMeasChanged:Signal1<ITextOutputAccess>;
 	
 	private var _textField:TextField;
 	private var _ignoreChanges:Bool;
-	//private var _gutter:Float;
+	private var _gutter:Float;
 	
 	public var layerName(default, set_layerName):String;
 	private function set_layerName(value:String):String {
@@ -33,12 +34,26 @@ class TextAccess implements ITextInputAccess, implements ITextOutputAccess, impl
 
 	public function new(?layerName:String, ?textField:TextField) 
 	{
-		//_gutter = TextFieldGutter.GUTTER;
+		_gutter = TextFieldGutter.GUTTER;
 		_textField = (textField==null?new TextField():textField);
 		this.layerName = layerName;
 		_textField.addEventListener(Event.CHANGE, onChange);
 		_textField.addEventListener(FocusEvent.FOCUS_IN, onFocusIn);
 		_textField.addEventListener(FocusEvent.FOCUS_OUT, onFocusOut);
+	}
+	public function setPos(x:Float, y:Float):Void {
+		_textField.x = x-_gutter;
+		_textField.y = y-_gutter;
+	}
+	public function setSize(w:Float, h:Float):Void {
+		_textField.width = w+_gutter*2;
+		_textField.height = h+_gutter*2;
+	}
+	public function set(x:Float, y:Float, w:Float, h:Float):Void {
+		_textField.x = x-_gutter;
+		_textField.y = y-_gutter;
+		_textField.width = w+_gutter*2;
+		_textField.height = h+_gutter*2;
 	}
 	public function getDisplayObject():DisplayObject {
 		return _textField;

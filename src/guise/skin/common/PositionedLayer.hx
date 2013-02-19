@@ -30,6 +30,15 @@ extends StateStyledTrait<StyleType>
 		return (_layoutStyler.normalStyle = value);
 	}
 	
+	override private function set_injStyleTransitioner(value:ITransitioner):ITransitioner {
+		_layoutStyler.injStyleTransitioner = value;
+		return super.set_injStyleTransitioner(value);
+	}
+	override private function set_styleTransitioner(value:ITransitioner):ITransitioner {
+		_layoutStyler.styleTransitioner = value;
+		return super.set_styleTransitioner(value);
+	}
+	
 	private var _layoutStyler:StateStyledTrait<Layout>;
 	
 	public var x:Float;
@@ -54,6 +63,14 @@ extends StateStyledTrait<StyleType>
 	override private function onItemAdd():Void {
 		super.onItemAdd();
 		_layoutStyler.invalidate();
+	}
+	override private function assessStyle():Void {
+		super.assessStyle();
+		if (styleTransitioner != null) {
+			currentTrans = styleTransitioner.doTrans(currentStyle, destStyle,transSubject,null, updateTrans, finishTrans);
+		}else if (injStyleTransitioner != null) {
+			currentTrans = injStyleTransitioner.doTrans(currentStyle, destStyle,transSubject,null, updateTrans, finishTrans);
+		}
 	}
 	
 	#end

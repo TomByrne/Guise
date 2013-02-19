@@ -21,15 +21,22 @@ class TextureLayer extends PositionedLayer<TextureStyle>
 		_pos = null;
 	}
 
-	@inject
-	@:isVar private var textureAccess(default, set_textureAccess):ITextureAccess;
-	private function set_textureAccess(value:ITextureAccess):ITextureAccess {
-		textureAccess = value;
+	@injectAdd
+	private function onTextureAdd(access:ITextureAccess):Void {
+		if (layerName != null && access.layerName != layerName) return;
+		
+		_textureAccess = access;
 		invalidate();
-		return value;
+	}
+	@injectRemove
+	private function onTextureRemove(access:ITextureAccess):Void {
+		if (access != _textureAccess) return;
+		
+		_textureAccess = null;
 	}
 	
 	private var _pos:IBoxPosAccess;
+	private var _textureAccess:ITextureAccess;
 
 	public function new(?layerName:String, ?normalStyle:TextureStyle) 
 	{
@@ -37,20 +44,20 @@ class TextureLayer extends PositionedLayer<TextureStyle>
 	}
 	
 	override private function _isReadyToDraw():Bool {
-		return _pos!=null && textureAccess != null && super._isReadyToDraw();
+		return _pos!=null && _textureAccess != null && super._isReadyToDraw();
 	}
 
 	override private function _drawStyle():Void {
 		switch(currentStyle) {
 			case norm(texture):
-				textureAccess.setTexture(texture);
+				_textureAccess.setTexture(texture);
 				_pos.set(x,y,w,h);
 			case pad(texture, padT, padL, padB, padR):
 				if (Math.isNaN(padT)) padT = 0;
 				if (Math.isNaN(padL)) padL = 0;
 				if (Math.isNaN(padB)) padB = 0;
 				if (Math.isNaN(padR)) padR = 0;
-				textureAccess.setTexture(texture);
+				_textureAccess.setTexture(texture);
 				_pos.set(x+padL,y+padT,w-padL-padR,h-padT-padB);
 		}
 	}

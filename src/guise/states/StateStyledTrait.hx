@@ -14,9 +14,17 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 {
 	
 	@inject({asc:true})
-	public var injStyleTransitioner:ITransitioner;
+	public var injStyleTransitioner(default, set_injStyleTransitioner):ITransitioner;
+	private function set_injStyleTransitioner(value:ITransitioner):ITransitioner {
+		this.injStyleTransitioner = value;
+		return value;
+	}
 	
-	public var styleTransitioner:ITransitioner;
+	@:isVar public var styleTransitioner(default, set_styleTransitioner):ITransitioner;
+	private function set_styleTransitioner(value:ITransitioner):ITransitioner {
+		this.styleTransitioner = value;
+		return value;
+	}
 	
 	
 	public var normalStyle(default, set_normalStyle):StyleType;

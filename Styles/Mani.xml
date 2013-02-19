@@ -19,20 +19,57 @@
 		<var name="ButtonDownState" value="guise.states.ControlStates.ButtonDownState"/>
 
 		<!-- reused styles -->
-		<var name="labelTextStyle" value="TextLabelStyle.Tls(TextStyle.Trs(font, 12, 0x737a87, [TextModifier.TmBold()]), false, TextCase.TcUpper, AntiAliasType.AaSmooth)"/>
+		<var name="styleTransitioner" type="guise.skin.drawn.utils.DrawnStyleTrans"/>
 
-		<meth name="labelText" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextStyleLayer">
-			 <var type="guise.skin.drawn.TextStyleLayer" name="layer" p-layerName="'labelText'" p-normalStyle="labelTextStyle">
-				<m-addLayout params="null, (guise.skin.values.Width/2)-(guise.skin.values.TextWidth<guise.skin.values.Width)/2, (guise.skin.values.Height/2)-(guise.skin.values.TextHeight<guise.skin.values.Height)/2, guise.skin.values.TextWidth<guise.skin.values.Width, guise.skin.values.TextHeight<guise.skin.values.Height"/>
-			</var> 
-		</meth>
+		<var name="labelTextStyle" value="TextLabelStyle.Tls(TextStyle.Trs(font, 12, 0x737a87, [TextModifier.TmBold()]), false, TextCase.TcUpper, AntiAliasType.AaSmooth)"/>
+		<var name="inputTextStyle" value="TextLabelStyle.Tls(TextStyle.Trs(font, 12, 0x737a87, [TextModifier.TmBold()]), true , TextCase.TcUpper, AntiAliasType.AaSmooth)"/>
+
 
 		<!-- layers -->
 		<meth name="buttonBacking" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextureLayer">
 			<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'backing'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('ButtonUp',true), -1,-2,-6,-2)">
 				<m-addStyle params="[ButtonOverState.OVER], TextureStyle.pad(TextureInfo.sprite('ButtonOver',true), -1,-2,-6,-2)"/>
 				<m-addStyle params="[ButtonDownState.DOWN], TextureStyle.pad(TextureInfo.sprite('ButtonDown',true), -1,-2,-6,-2), 1"/>
-				<m-addStyle params="[SelectedState.SELECTED], TextureStyle.pad(TextureInfo.sprite('ButtonDown',true), -1,-2,-6,-2), 1"/>
+				<m-addStyle params="[SelectedState.SELECTED], TextureStyle.pad(TextureInfo.sprite('ButtonDown',true), -1,-2,-6,-2), 2"/>
+			</var>
+		</meth>
+		<meth name="inputTextBacking" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextureLayer">
+			<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'backing'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('TextInput',true), -1,-2,-6,-2)">
+			</var>
+		</meth>
+		<meth name="toggleBacking" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextureLayer">
+			<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'backing'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('Track',true), -1,-1,-3,-1)">
+				<m-addLayout params="null, guise.skin.values.Width*0.5-25, guise.skin.values.Height*0.5-13, 50, 26"/>
+			</var>
+		</meth>
+		<meth name="sliderBacking" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextureLayer">
+			<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'backing'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('Track',true), -1,-1,-3,-1)">
+				<m-addLayout params="null, 0, guise.skin.values.Height*0.5-13, guise.skin.values.Width, 26"/>
+			</var>
+		</meth>
+
+		<meth name="labelText" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextStyleLayer">
+			 <var type="guise.skin.drawn.TextStyleLayer" name="layer" p-layerName="'labelText'" p-normalStyle="labelTextStyle">
+				<m-addLayout params="null, (guise.skin.values.Width/2)-(guise.skin.values.TextWidth<guise.skin.values.Width)/2, (guise.skin.values.Height/2)-(guise.skin.values.TextHeight<guise.skin.values.Height)/2, guise.skin.values.TextWidth<guise.skin.values.Width, guise.skin.values.TextHeight<guise.skin.values.Height"/>
+			</var> 
+		</meth>
+		<meth name="inputText" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextStyleLayer">
+			<var type="guise.skin.drawn.TextStyleLayer" name="layer" p-layerName="'inputText'" p-normalStyle="inputTextStyle">
+				<m-addLayout params="null, 8, (guise.skin.values.Height/2)-(guise.skin.values.TextHeight<(guise.skin.values.Height-10))/2, guise.skin.values.Width-16, guise.skin.values.TextHeight<(guise.skin.values.Height-10)"/>
+			</var>
+		</meth>
+
+		<meth name="toggleHandle" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextureLayer">
+			<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'controlHandle'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('ToggleRed'), -2,-2,-8,-2)">
+				<m-addStyle params="[SelectedState.SELECTED], TextureStyle.pad(TextureInfo.sprite('ToggleGreen'), -2,-2,-8,-2)"/>
+
+				<m-addLayout params="null, guise.skin.values.Width*0.5-25, guise.skin.values.Height*0.5-12, 24, 24"/>
+				<m-addLayout params="[SelectedState.SELECTED], guise.skin.values.Width*0.5+1, guise.skin.values.Height*0.5-12, 24, 24"/>
+			</var>
+		</meth>
+		<meth name="sliderHandle" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextureLayer">
+			<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'controlHandle'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('Progress',true), -2,-4,-8,-4)">
+				<m-addLayout params="null, 4, guise.skin.values.Height*0.5-10, 18+(guise.skin.values.Width-26)*guise.controls.data.INumRange.valueNorm, 18"/>
 			</var>
 		</meth>
 
@@ -42,13 +79,15 @@
 		</var>
 
 		<!-- control furnishers -->
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags" addCall="addTrait">
+			<m-addInst params="styleTransitioner"/>
+		</var>
+
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait">
 			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'labelText'">
 				<m-add params="guise.accessTypes.ITextOutputAccess"/>
-				<m-add params="guise.accessTypes.IPositionAccess"/>
 			</var>
 			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
-				<m-add params="guise.accessTypes.IPositionAccess"/>
 				<m-add params="guise.accessTypes.ITextureAccess"/>
 				<m-add params="guise.accessTypes.IMouseInteractionsAccess"/>
 			</var>
@@ -57,13 +96,52 @@
 			<m-addFact params="labelText"/>
 		</var>
 
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextInputTag" addCall="addTrait">
+			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'inputText'">
+				<m-add params="guise.accessTypes.ITextOutputAccess"/>
+				<m-add params="guise.accessTypes.ITextInputAccess"/>
+			</var>
+			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
+				<m-add params="guise.accessTypes.ITextureAccess"/>
+				<m-add params="guise.accessTypes.IMouseInteractionsAccess"/>
+			</var>
+
+			<m-addFact params="inputTextBacking"/>
+			<m-addFact params="inputText"/>
+		</var>
+
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextLabelTag" addCall="addTrait">
 			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'labelText'">
 				<m-add params="guise.accessTypes.ITextOutputAccess"/>
-				<m-add params="guise.accessTypes.IPositionAccess"/>
 			</var>
 
 			<m-addFact params="labelText"/>
+		</var>
+
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
+			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'controlHandle'">
+				<m-add params="guise.accessTypes.ITextureAccess"/>
+			</var>
+			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
+				<m-add params="guise.accessTypes.ITextureAccess"/>
+				<m-add params="guise.accessTypes.IMouseInteractionsAccess"/>
+			</var>
+
+			<m-addFact params="toggleBacking"/>
+			<m-addFact params="toggleHandle"/>
+		</var>
+
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag(true)" addCall="addTrait">
+			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'controlHandle'">
+				<m-add params="guise.accessTypes.ITextureAccess"/>
+			</var>
+			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
+				<m-add params="guise.accessTypes.ITextureAccess"/>
+				<m-add params="guise.accessTypes.IMouseInteractionsAccess"/>
+			</var>
+
+			<m-addFact params="sliderBacking"/>
+			<m-addFact params="sliderHandle"/>
 		</var>
 	</meth>
 </class>

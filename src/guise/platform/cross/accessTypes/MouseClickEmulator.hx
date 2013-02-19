@@ -36,6 +36,8 @@ class MouseClickEmulator extends AbstractTrait, implements IMouseClickableAccess
 	public var _isDown:Bool;
 	public var _clickInfo:ClickInfo;
 	public var _doubleClickTimer:Timer;
+	public var _pressX:Float;
+	public var _pressY:Float;
 	
 	public function new(?layerName:String) {
 		super();
@@ -62,11 +64,21 @@ class MouseClickEmulator extends AbstractTrait, implements IMouseClickableAccess
 	}
 	
 	private function onPressed(info:MouseInfo):Void {
+		_pressX = info.mouseX;
+		_pressY = info.mouseY;
 		if(_doubleClickTimer==null){
 			_isDown = true;
 			
 			_mouseInteractions.released.add(onReleased);
 			_mouseInteractions.rolledOut.add(onRolledOut);
+			_mouseInteractions.moved.add(onMoved);
+		}
+	}
+	private function onMoved(info:MouseInfo):Void {
+		var distX:Float = (_pressX-info.mouseX);
+		var distY:Float = (_pressY - info.mouseY);
+		if (Math.sqrt(distX * distX + distY * distY) > maxClickMovement) {
+			cancelClick();
 		}
 	}
 	private function onReleased(info:MouseInfo):Void {
@@ -101,6 +113,7 @@ class MouseClickEmulator extends AbstractTrait, implements IMouseClickableAccess
 		
 		_mouseInteractions.released.remove(onReleased);
 		_mouseInteractions.rolledOut.remove(onRolledOut);
+		_mouseInteractions.moved.remove(onMoved);
 	}
 	
 	public function getAccessTypes():Array<Class<Dynamic>> {

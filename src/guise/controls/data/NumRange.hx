@@ -7,9 +7,13 @@ class NumRange implements INumRange
 {
 	public var rangeChanged(default, null):Signal1<INumRange>;
 	
+	@change("rangeChanged")
 	public var min(default, null):Float;
+	
+	@change("rangeChanged")
 	public var max(default, null):Float;
 	
+	@change("rangeChanged")
 	public var value(default, set_value):Float;
 	private function set_value(value:Float):Float {
 		if (enforceRange) {
@@ -28,6 +32,7 @@ class NumRange implements INumRange
 		}
 		return value;
 	}
+	@change("rangeChanged")
 	public var valueNorm(get_valueNorm, set_valueNorm):Float;
 	private function get_valueNorm():Float {
 		return _valueNorm;

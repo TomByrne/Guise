@@ -1,11 +1,9 @@
 package guise.skin.values;
 import composure.core.ComposeItem;
+import haxe.rtti.Meta;
 
 import msignal.Signal;
-/**
- * ...
- * @author Tom Byrne
- */
+
 
 class Bind implements IValue
 {
@@ -38,6 +36,13 @@ class Bind implements IValue
 		_value = Reflect.getProperty(trait, prop);
 		if (modifier != null) {
 			_value = modifier(_value);
+		}
+		if (changeSignal == null) {
+			var type = Meta.getFields(Type.getClass(trait));
+			var fieldMeta = Reflect.getProperty(type, prop);
+			if (fieldMeta!=null && fieldMeta.change!=null) {
+				changeSignal = fieldMeta.change[0];
+			}
 		}
 		
 		if (changeSignal != null) {

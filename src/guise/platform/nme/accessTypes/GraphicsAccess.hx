@@ -1,6 +1,7 @@
 package guise.platform.nme.accessTypes;
 
 import guise.accessTypes.IBitmapGraphicsAccess;
+import guise.accessTypes.IPositionAccess;
 import nme.display.Graphics;
 import nme.display.BitmapData;
 import guise.accessTypes.IGraphicsAccess;
@@ -15,7 +16,7 @@ import guise.platform.nme.addTypes.IInteractiveObjectType;
  * @author Tom Byrne
  */
 
-class GraphicsAccess implements IBitmapGraphicsAccess, implements IDisplayObjectType, implements IInteractiveObjectType
+class GraphicsAccess implements IBitmapGraphicsAccess, implements IDisplayObjectType, implements IInteractiveObjectType, implements IPositionAccess
 {
 	
 	public var layerName(default, set_layerName):String;
@@ -101,6 +102,10 @@ class GraphicsAccess implements IBitmapGraphicsAccess, implements IDisplayObject
 		_graphics.beginGradientFill(nmeType, colors, alphas, ratios, nmeMat, spread, interp, focalPointRatio);
 	}
 	
+	public function setPos(x:Float, y:Float):Void {
+		_sprite.x = x;
+		_sprite.y = y;
+	}
 	
 	public function clear()
 	{	

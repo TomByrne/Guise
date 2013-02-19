@@ -1,7 +1,7 @@
 package guise.accessTypes;
 
 
-interface ITextureAccess 
+interface ITextureAccess implements IAccessType
 {
 
 	public function setTexture(style:TextureInfo):Void;

@@ -31,10 +31,43 @@
     <SubTexture name="ButtonDown-bl" x="196" y="32" width="11" height="16"/>
     <SubTexture name="ButtonDown-bc" x="207" y="32" width="76" height="16"/>
     <SubTexture name="ButtonDown-br" x="283" y="32" width="11" height="16"/>
+    
+    <SubTexture name="TextInput-tl" x="0" y="48" width="11" height="10"/>
+    <SubTexture name="TextInput-tc" x="11" y="48" width="76" height="10"/>
+    <SubTexture name="TextInput-tr" x="87" y="48" width="11" height="10"/>
+    <SubTexture name="TextInput-ml" x="0" y="58" width="11" height="22"/>
+    <SubTexture name="TextInput-mc" x="11" y="58" width="76" height="22"/>
+    <SubTexture name="TextInput-mr" x="87" y="58" width="11" height="22"/>
+    <SubTexture name="TextInput-bl" x="0" y="80" width="11" height="16"/>
+    <SubTexture name="TextInput-bc" x="11" y="80" width="76" height="16"/>
+    <SubTexture name="TextInput-br" x="87" y="80" width="11" height="16"/>
+    
+    <SubTexture name="Track-tl" x="294" y="0" width="13" height="13"/>
+    <SubTexture name="Track-tc" x="307" y="0" width="26" height="13"/>
+    <SubTexture name="Track-tr" x="333" y="0" width="13" height="13"/>
+    <SubTexture name="Track-ml" x="294" y="13" width="13" height="2"/>
+    <SubTexture name="Track-mc" x="307" y="13" width="26" height="2"/>
+    <SubTexture name="Track-mr" x="333" y="13" width="13" height="2"/>
+    <SubTexture name="Track-bl" x="294" y="15" width="13" height="15"/>
+    <SubTexture name="Track-bc" x="307" y="15" width="26" height="15"/>
+    <SubTexture name="Track-br" x="333" y="15" width="13" height="15"/>
+
+    <SubTexture name="ToggleRed" x="346" y="0" width="29" height="34"/>
+    <SubTexture name="ToggleGreen" x="375" y="0" width="29" height="34"/>
+    
+    <SubTexture name="Progress-tl" x="294" y="30" width="13" height="10"/>
+    <SubTexture name="Progress-tc" x="307" y="30" width="22" height="10"/>
+    <SubTexture name="Progress-tr" x="330" y="30" width="17" height="10"/>
+    <SubTexture name="Progress-ml" x="294" y="40" width="13" height="2"/>
+    <SubTexture name="Progress-mc" x="307" y="40" width="22" height="2"/>
+    <SubTexture name="Progress-mr" x="330" y="40" width="17" height="2"/>
+    <SubTexture name="Progress-bl" x="294" y="42" width="13" height="16"/>
+    <SubTexture name="Progress-bc" x="307" y="42" width="22" height="16"/>
+    <SubTexture name="Progress-br" x="330" y="42" width="17" height="16"/>
 
 
-    <SubTexture name="ButtonUp" x="0" y="0" width="98" height="48"/>
+   <!--  <SubTexture name="ButtonUp" x="0" y="0" width="98" height="48"/>
     <SubTexture name="ButtonOver" x="98" y="0" width="98" height="48"/>
-    <SubTexture name="ButtonDown" x="196" y="0" width="98" height="48"/>
+    <SubTexture name="ButtonDown" x="196" y="0" width="98" height="48"/> -->
     
 </TextureAtlas>
