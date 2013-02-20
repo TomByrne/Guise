@@ -84,64 +84,39 @@
 		</var>
 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait">
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'labelText'">
-				<m-add params="guise.accessTypes.ITextOutputAccess"/>
-			</var>
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
-				<m-add params="guise.accessTypes.ITextureAccess"/>
-				<m-add params="guise.accessTypes.IMouseInteractionsAccess"/>
-			</var>
-
-			<m-addFact params="buttonBacking"/>
+			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
+				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','labelText']"/>
+			</meth>
 			<m-addFact params="labelText"/>
+			<m-addFact params="buttonBacking"/>
 		</var>
 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextInputTag" addCall="addTrait">
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'inputText'">
-				<m-add params="guise.accessTypes.ITextOutputAccess"/>
-				<m-add params="guise.accessTypes.ITextInputAccess"/>
-			</var>
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
-				<m-add params="guise.accessTypes.ITextureAccess"/>
-				<m-add params="guise.accessTypes.IMouseInteractionsAccess"/>
-			</var>
-
-			<m-addFact params="inputTextBacking"/>
+			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
+				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','inputText']"/>
+			</meth>
 			<m-addFact params="inputText"/>
+			<m-addFact params="inputTextBacking"/>
 		</var>
 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextLabelTag" addCall="addTrait">
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'labelText'">
-				<m-add params="guise.accessTypes.ITextOutputAccess"/>
-			</var>
-
 			<m-addFact params="labelText"/>
 		</var>
 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'controlHandle'">
-				<m-add params="guise.accessTypes.ITextureAccess"/>
-			</var>
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
-				<m-add params="guise.accessTypes.ITextureAccess"/>
-				<m-add params="guise.accessTypes.IMouseInteractionsAccess"/>
-			</var>
-
-			<m-addFact params="toggleBacking"/>
+			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
+				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','controlHandle']"/>
+			</meth>
 			<m-addFact params="toggleHandle"/>
+			<m-addFact params="toggleBacking"/>
 		</var>
 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag(true)" addCall="addTrait">
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'controlHandle'">
-				<m-add params="guise.accessTypes.ITextureAccess"/>
-			</var>
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
-				<m-add params="guise.accessTypes.ITextureAccess"/>
-				<m-add params="guise.accessTypes.IMouseInteractionsAccess"/>
-			</var>
-
-			<m-addFact params="sliderBacking"/>
+			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
+				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','controlHandle']"/>
+			</meth>
 			<m-addFact params="sliderHandle"/>
+			<m-addFact params="sliderBacking"/>
 		</var>
 	</meth>
 </class>

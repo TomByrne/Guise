@@ -42,20 +42,16 @@ class ContainerTrait extends DisplayTrait
 	
 	@injectAdd
 	public function addLayer(display:IDisplayObjectType):Void {
-		//layers.push(layerName);
 		_layerDisplays.push(display);
 		if (container != null) {
 			container.addChild(display.getDisplayObject());
 		}
-		//LazyInst.exec(layeringChanged.dispatch(this));
 	}
 	@injectRemove
 	public function removeLayer(display:IDisplayObjectType):Void {
-		//layers.remove(layerName);
 		_layerDisplays.remove(display);
 		if (container != null) {
 			container.removeChild(display.getDisplayObject());
 		}
-		//LazyInst.exec(layeringChanged.dispatch(this));
 	}
 }

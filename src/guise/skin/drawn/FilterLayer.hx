@@ -1,9 +1,11 @@
 package guise.skin.drawn;
 import guise.accessTypes.IFilterableAccess;
+import guise.platform.cross.IAccessRequest;
 import guise.states.StateStyledTrait;
 
-class FilterLayer extends StateStyledTrait<Array<FilterType>>
+class FilterLayer extends StateStyledTrait<Array<FilterType>>, implements IAccessRequest
 {
+	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [IFilterableAccess];
 	
 	@injectAdd
 	private function onFilterAdd(access:IFilterableAccess):Void {
@@ -19,7 +21,11 @@ class FilterLayer extends StateStyledTrait<Array<FilterType>>
 		_filterable = null;
 	}
 	
-	public var layerName:String;
+	@:isVar public var layerName(default, set_layerName):String;
+	private function set_layerName(value:String):String {
+		this.layerName = value;
+		return value;
+	}
 	
 	private var _filterable:IFilterableAccess;
 
@@ -28,16 +34,10 @@ class FilterLayer extends StateStyledTrait<Array<FilterType>>
 		super(normalStyle);
 		this.layerName = layerName;
 		
-		//addSiblingTrait(new PlatformAccessor(IFilterableAccess, layerName, onFilterableAdd, onFilterableRemove));
 	}
-	/*private function onFilterableAdd(access:IFilterableAccess):Void {
-		_filterable = access;
-		invalidate();
+	public function getAccessTypes():Array<Class<Dynamic>> {
+		return ACCESS_TYPES;
 	}
-	private function onFilterableRemove(access:IFilterableAccess):Void {
-		_filterable.setFilters();
-		_filterable = null;
-	}*/
 	override private function _drawStyle():Void {
 		if (_filterable == null) return;
 		

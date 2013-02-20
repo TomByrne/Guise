@@ -2,10 +2,12 @@ package guise.skin.bitmap;
 
 import guise.accessTypes.IBoxPosAccess;
 import guise.accessTypes.ITextureAccess;
+import guise.platform.cross.IAccessRequest;
 import guise.skin.common.PositionedLayer;
 
-class TextureLayer extends PositionedLayer<TextureStyle>
+class TextureLayer extends PositionedLayer<TextureStyle>, implements IAccessRequest
 {
+	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [ITextureAccess, IBoxPosAccess];
 	
 	@injectAdd
 	private function onPosAdd(access:IBoxPosAccess):Void {
@@ -41,6 +43,9 @@ class TextureLayer extends PositionedLayer<TextureStyle>
 	public function new(?layerName:String, ?normalStyle:TextureStyle) 
 	{
 		super(layerName, normalStyle);
+	}
+	public function getAccessTypes():Array<Class<Dynamic>> {
+		return ACCESS_TYPES;
 	}
 	
 	override private function _isReadyToDraw():Bool {

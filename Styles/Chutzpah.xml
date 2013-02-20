@@ -158,17 +158,9 @@
 		</var>
 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait">
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'labelText'">
-				<m-add params="guise.accessTypes.ITextInputAccess"/>
-				<m-add params="guise.accessTypes.IBoxPosAccess"/>
-				<m-add params="guise.accessTypes.IFilterableAccess"/>
-			</var>
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
-				<m-add params="guise.accessTypes.IGraphicsAccess"/>
-				<m-add params="guise.accessTypes.IPositionAccess"/>
-				<m-add params="guise.accessTypes.IFilterableAccess"/>
-			</var>
-
+			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
+				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','labelText']"/>
+			</meth>
 			<m-addFact params="labelText"/>
 			<m-addFact params="labelTextFilt"/>
 			<m-addFact params="buttonBacking"/>
@@ -176,68 +168,36 @@
 		</var>
 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextLabelTag" addCall="addTrait">
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'labelText'">
-				<m-add params="guise.accessTypes.ITextInputAccess"/>
-				<m-add params="guise.accessTypes.IBoxPosAccess"/>
-				<m-add params="guise.accessTypes.IFilterableAccess"/>
-			</var>
-
 			<m-addFact params="labelText"/>
 		</var>
 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextInputTag" addCall="addTrait">
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'inputText'">
-				<m-add params="guise.accessTypes.ITextInputAccess"/>
-				<m-add params="guise.accessTypes.ITextOutputAccess"/>
-				<m-add params="guise.accessTypes.IBoxPosAccess"/>
-				<m-add params="guise.accessTypes.IFilterableAccess"/>
-				<m-add params="guise.accessTypes.IFocusableAccess"/>
-			</var>
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
-				<m-add params="guise.accessTypes.IGraphicsAccess"/>
-				<m-add params="guise.accessTypes.IPositionAccess"/>
-				<m-add params="guise.accessTypes.IFilterableAccess"/>
-			</var>
-
-			<m-addFact params="inputBacking"/>
-			<m-addFact params="backingFilt"/>
+			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
+				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','inputText']"/>
+			</meth>
 			<m-addFact params="inputText"/>
 			<m-addFact params="inputTextFilt"/>
+			<m-addFact params="inputBacking"/>
+			<m-addFact params="backingFilt"/>
 		</var>
 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag(true)" addCall="addTrait">
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'controlHandle'">
-				<m-add params="guise.accessTypes.IGraphicsAccess"/>
-				<m-add params="guise.accessTypes.IPositionAccess"/>
-				<m-add params="guise.accessTypes.IFilterableAccess"/>
-			</var>
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
-				<m-add params="guise.accessTypes.IGraphicsAccess"/>
-				<m-add params="guise.accessTypes.IPositionAccess"/>
-				<m-add params="guise.accessTypes.IFilterableAccess"/>
-			</var>
-
+			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
+				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','controlHandle']"/>
+			</meth>
+			<m-addFact params="sliderHandle"/>
 			<m-addFact params="controlHandleFilt"/>
 			<m-addFact params="hSliderBacking"/>
-			<m-addFact params="sliderHandle"/>
 		</var>
 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'controlHandle'">
-				<m-add params="guise.accessTypes.IGraphicsAccess"/>
-				<m-add params="guise.accessTypes.IPositionAccess"/>
-				<m-add params="guise.accessTypes.IFilterableAccess"/>
-			</var>
-			<var type="guise.layer.LayerAccessRequire" addCall="addInst" p-layerName="'backing'">
-				<m-add params="guise.accessTypes.IGraphicsAccess"/>
-				<m-add params="guise.accessTypes.IPositionAccess"/>
-				<m-add params="guise.accessTypes.IFilterableAccess"/>
-			</var>
-
-			<m-addFact params="toggleBacking"/>
-			<m-addFact params="toggleBackingFilt"/>
+			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
+				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','controlHandle']"/>
+			</meth>
 			<m-addFact params="toggleHandle"/>
 			<m-addFact params="controlHandleFilt"/>
+			<m-addFact params="toggleBacking"/>
+			<m-addFact params="toggleBackingFilt"/>
 		</var>
 
 	</meth>

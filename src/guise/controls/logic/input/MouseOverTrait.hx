@@ -4,13 +4,12 @@ import composure.traits.AbstractTrait;
 import guise.accessTypes.IMouseInteractionsAccess;
 import msignal.Signal;
 
-/**
- * ...
- * @author Tom Byrne
- */
 
 class MouseOverTrait extends AbstractTrait
 {
+	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [IMouseInteractionsAccess];
+	
+	
 	@inject
 	public var active(default, set_active):IActive;
 	public function set_active(value:IActive):IActive {
@@ -30,20 +29,25 @@ class MouseOverTrait extends AbstractTrait
 	
 	private var _mouseOver:Bool;
 	private var _mouseInteractions:IMouseInteractionsAccess;
-	private var _layerName:String;
 	
+	@:isVar public var layerName(default, set_layerName):String;
+	private function set_layerName(value:String):String {
+		this.layerName = value;
+		return value;
+	}
 
 	public function new(?layerName:String) 
 	{
 		super();
 		
-		_layerName = layerName;
-		
-		//addSiblingTrait(new PlatformAccessor(IMouseInteractionsAccess, layerName, onMouseIntAdd, onMouseIntRemove));
+		this.layerName = layerName;
+	}
+	public function getAccessTypes():Array<Class<Dynamic>> {
+		return ACCESS_TYPES;
 	}
 	@injectAdd
 	private function onMouseIntAdd(access:IMouseInteractionsAccess):Void {
-		if (_layerName != null && access.layerName != _layerName) return;
+		if (layerName != null && access.layerName != layerName) return;
 		
 		_mouseInteractions = access;
 		_mouseInteractions.rolledOver.add(onRolledOver);

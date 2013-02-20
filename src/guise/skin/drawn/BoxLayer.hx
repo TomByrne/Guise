@@ -1,4 +1,5 @@
 package guise.skin.drawn;
+import guise.platform.cross.IAccessRequest;
 import guise.skin.drawn.utils.DrawnStyles;
 import guise.skin.drawn.utils.DrawnStyleUtils;
 import guise.accessTypes.IGraphicsAccess;
@@ -7,8 +8,11 @@ import guise.skin.values.IValue;
 import guise.accessTypes.IPositionAccess;
 import guise.skin.common.PositionedLayer;
 
-class BoxLayer extends PositionedLayer<BoxStyle>
+class BoxLayer extends PositionedLayer<BoxStyle>, implements IAccessRequest
 {
+	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [IGraphicsAccess, IPositionAccess];
+	
+	
 	@injectAdd
 	private function onGraphicsAdd(access:IGraphicsAccess):Void {
 		if (layerName != null && access.layerName != layerName) return;
@@ -43,6 +47,9 @@ class BoxLayer extends PositionedLayer<BoxStyle>
 	public function new(?layerName:String, ?normalStyle:BoxStyle) 
 	{
 		super(layerName, normalStyle);
+	}
+	public function getAccessTypes():Array<Class<Dynamic>> {
+		return ACCESS_TYPES;
 	}
 	override private function _isReadyToDraw():Bool {
 		return _graphicsAccess != null && super._isReadyToDraw();

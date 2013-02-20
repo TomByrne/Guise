@@ -3,15 +3,16 @@ package guise.controls.logic.input;
 import composure.injectors.Injector;
 import composure.traits.AbstractTrait;
 import guise.accessTypes.IMouseInteractionsAccess;
+import guise.platform.cross.IAccessRequest;
 import guise.skin.values.IValue;
 import haxe.Timer;
-/**
- * ...
- * @author Tom Byrne
- */
 
-class MouseDragChangeValue extends AbstractTrait
+
+class MouseDragChangeValue extends AbstractTrait, implements IAccessRequest
 {
+	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [IMouseInteractionsAccess];
+	
+	
 	private var _dragStartTime:Float;
 	
 	private var _dragStartX:Float;
@@ -35,12 +36,18 @@ class MouseDragChangeValue extends AbstractTrait
 	
 	public var normaliseX:IValue;
 	public var normaliseY:IValue;
+	
+	@:isVar public var layerName(default, set_layerName):String;
+	private function set_layerName(value:String):String {
+		this.layerName = value;
+		return value;
+	}
 
 	public function new(?layerName:String, allowClick:Bool=false, ?updateTraitX:Dynamic, ?updatePropX:String, ?updateTraitY:Dynamic, ?updatePropY:String, ?normaliseX:IValue, ?normaliseY:IValue) 
 	{
 		super();
 		
-		//addSiblingTrait(new PlatformAccessor(IMouseInteractionsAccess, layerName, onMouseIntAdd, onMouseIntRemove));
+		this.layerName = layerName;
 		
 		this.allowClick = allowClick;
 		this.normaliseX = normaliseX;
@@ -54,6 +61,9 @@ class MouseDragChangeValue extends AbstractTrait
 			_updatePropY = updatePropY;
 			addInjector(new Injector(updateTraitY, onAddTraitY, onRemoveTraitY));
 		}
+	}
+	public function getAccessTypes():Array<Class<Dynamic>> {
+		return ACCESS_TYPES;
 	}
 	
 	private function onAddTraitX(trait:Dynamic):Void {
@@ -72,12 +82,16 @@ class MouseDragChangeValue extends AbstractTrait
 	
 	@injectAdd
 	private function onMouseIntAdd(access:IMouseInteractionsAccess):Void {
+		if (layerName != null && access.layerName != layerName) return;
+		
 		_mouseInt = access;
 		_mouseInt.pressed.add(onPressed);
 		_mouseInt.released.add(onReleased);
 	}
 	@injectRemove
 	private function onMouseIntRemove(access:IMouseInteractionsAccess):Void {
+		if (access != _mouseInt) return;
+		
 		_mouseInt.pressed.remove(onPressed);
 		_mouseInt.released.remove(onReleased);
 		_mouseInt = null;

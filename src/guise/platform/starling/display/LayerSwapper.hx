@@ -1,10 +1,10 @@
-package guise.platform.nme.layers;
+package guise.platform.starling.display;
 import composure.traits.AbstractTrait;
 import guise.layer.ILayerContainer;
-import guise.platform.nme.display.ContainerTrait;
+import guise.platform.starling.display.ContainerTrait;
 import msignal.Signal;
-import nme.events.Event;
-import nme.display.DisplayObject;
+import starling.events.Event;
+import starling.display.DisplayObject;
 
 
 class LayerSwapper extends AbstractTrait, implements ILayerContainer

@@ -1,13 +1,15 @@
 package guise.skin.drawn;
 import guise.accessTypes.IPositionAccess;
 import guise.accessTypes.IGraphicsAccess;
+import guise.platform.cross.IAccessRequest;
 import guise.skin.drawn.utils.DrawnStyles;
 import guise.skin.drawn.utils.DrawnStyleUtils;
 import guise.skin.values.IValue;
 import guise.skin.common.PositionedLayer;
 
-class SimpleShapeLayer extends PositionedLayer<ShapeStyle>
+class SimpleShapeLayer extends PositionedLayer<ShapeStyle>, implements IAccessRequest
 {
+	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [IGraphicsAccess,IPositionAccess];
 	
 	@injectAdd
 	private function onGraphicsAdd(access:IGraphicsAccess):Void {
@@ -40,34 +42,19 @@ class SimpleShapeLayer extends PositionedLayer<ShapeStyle>
 	private var _graphicsAccess:IGraphicsAccess;
 	private var _pos:IPositionAccess;
 	
-	/*public var xValue(default, set_xValue):IValue;
-	public function set_xValue(value:IValue):IValue {
-		if (xValue != null) {
-			removeValue(xValue);
-		}
-		xValue = value;
-		return xValue;
-	}
-	public var yValue(default, set_yValue):IValue;
-	public function set_yValue(value:IValue):IValue {
-		if (yValue != null) {
-			removeValue(yValue);
-		}
-		yValue = value;
-		return yValue;
-	}*/
 
 	public function new(?layerName:String, ?normalStyle:ShapeStyle) 
 	{
 		super(layerName, normalStyle);
 	}
+	public function getAccessTypes():Array<Class<Dynamic>> {
+		return ACCESS_TYPES;
+	}
 	override private function _isReadyToDraw():Bool {
 		return _graphicsAccess != null && _pos!=null && super._isReadyToDraw();
 	}
 	override private function _drawStyle():Void {
-		//_pos.setPos(getValue(xValue, 0), getValue(yValue, 0));
 		_pos.setPos(x,y);
-		
 		
 		_graphicsAccess.clear();
 		

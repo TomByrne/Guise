@@ -20,9 +20,6 @@ class ContainerTrait extends DisplayTrait
 	}
 	override private function assumeDisplayObject():Void {
 		setContainer(new Sprite());
-		
-		//var textField = new starling.text.TextField(Std.int(Math.random()*400), Std.int(Math.random()*300), "OOps", "_sans", 16, 0xff0000, false);
-		//container.addChild(textField);
 	}
 	private function setContainer(container:DisplayObjectContainer):Void {
 		if(container!=null){
@@ -46,20 +43,16 @@ class ContainerTrait extends DisplayTrait
 	
 	@injectAdd
 	public function addLayer(display:IDisplayObjectType):Void {
-		//layers.push(layerName);
 		_layerDisplays.push(display);
 		if (container != null) {
 			container.addChild(display.getDisplayObject());
 		}
-		//LazyInst.exec(layeringChanged.dispatch(this));
 	}
 	@injectRemove
 	public function removeLayer(display:IDisplayObjectType):Void {
-		//layers.remove(layerName);
 		_layerDisplays.remove(display);
 		if (container != null) {
 			container.removeChild(display.getDisplayObject());
 		}
-		//LazyInst.exec(layeringChanged.dispatch(this));
 	}
 }

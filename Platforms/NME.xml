@@ -14,6 +14,7 @@
 			<m-mapAccessType params="guise.accessTypes.IMouseClickableAccess, guise.platform.nme.accessTypes.MouseClickableAccess"/>
 			<m-mapAccessType params="guise.accessTypes.IMouseInteractionsAccess, guise.platform.nme.accessTypes.MouseInteractionsAccess"/>
 			<m-mapAccessType params="guise.accessTypes.IKeyboardAccess, guise.platform.nme.accessTypes.KeyboardAccess"/>
+			<m-mapAccessType params="guise.layer.ILayerContainer, guise.platform.nme.display.LayerSwapper"/>
 		</var>
 
 		<!-- Core display tags -->
@@ -59,15 +60,9 @@
 
 
 		<!-- Additional control logic -->
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.logic.states.ButtonStateMapper" addCall="addTrait">
-			<var type="guise.layer.LayerAccessRequire"	 addCall="addInst">
-				<m-add params="guise.accessTypes.IMouseClickableAccess"/>
-				<m-add params="guise.accessTypes.IMouseInteractionsAccess"/>
-			</var>
-		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.platform.nme.addTypes.IDisplayObjectType" addCall="addTrait">
 			<m-addType params="guise.platform.nme.display.ContainerTrait, guise.platform.nme.display.ContainerTrait"/>
-			<m-addType params="guise.platform.nme.layers.LayerSwapper"/>
+			<!-- <m-addType params="guise.platform.nme.layers.LayerSwapper"/> -->
 		</var>
 	</meth>
 </class>

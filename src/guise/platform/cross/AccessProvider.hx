@@ -53,11 +53,18 @@ class AccessProvider extends AbstractTrait
 				klass = req;
 			}
 			if (!layerInfo.requirements.exists(key)) {
-				
-				var trait:Dynamic = item.getTrait(klass);
-				if (Std.is(trait, IAccessType)) {
-					var access:IAccessType = cast trait;
-					if(access.layerName != accessReq.layerName)trait = null;
+				var trait:Dynamic = null;
+				var traits = item.getTraits(klass);
+				for(foundTrait in traits){
+					if (Std.is(foundTrait, IAccessType)) {
+						var access:IAccessType = cast foundTrait;
+						if (access.layerName == accessReq.layerName) {
+							trait = foundTrait;
+							break;
+						}
+					}else {
+						trait = foundTrait;
+					}
 				}
 				if (trait == null ) {
 					if (req==klass) {
@@ -69,17 +76,17 @@ class AccessProvider extends AbstractTrait
 					}else {
 						trait = Type.createInstance(klass, []);
 					}
+					if (Std.is(trait, IAccessType)) {
+						var access:IAccessType = cast trait;
+						access.layerName = accessReq.layerName;
+					}
+					item.addTrait(trait);
+					if (_addTraitHandler != null) {
+						_addTraitHandler(item, accessReq.layerName, trait);
+					}
 				}
-				if (Std.is(trait, IAccessType)) {
-					var access:IAccessType = cast trait;
-					access.layerName = accessReq.layerName;
-				}
-				item.addTrait(trait);
 				layerInfo.requirements.set(key, 1);
 				layerInfo.accessors.set(key, trait);
-				if (_addTraitHandler != null) {
-					_addTraitHandler(item, accessReq.layerName, trait);
-				}
 			}else {
 				layerInfo.requirements.set(key, layerInfo.requirements.get(key)+1);
 			}

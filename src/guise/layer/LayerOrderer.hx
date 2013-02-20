@@ -1,9 +1,12 @@
 package guise.layer;
 import composure.traits.AbstractTrait;
+import guise.platform.cross.IAccessRequest;
 
 
-class LayerOrderer extends AbstractTrait
+class LayerOrderer extends AbstractTrait, implements IAccessRequest
 {
+	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [ILayerContainer];
+	
 	public var sorting(default,set_sorting):Array<String>;
 	private function set_sorting(value:Array<String>):Array<String> {
 		sorting = value;
@@ -31,11 +34,19 @@ class LayerOrderer extends AbstractTrait
 		return value;
 	}
 	
-	public function new(?sorting:Array<String>, childMode:Bool=true) 
-	{
+	@:isVar public var layerName(default, set_layerName):String;
+	private function set_layerName(value:String):String {
+		this.layerName = value;
+		return value;
+	}
+	
+	public function new(?sorting:Array<String>, childMode:Bool=true){
 		super();
 		
 		this.sorting = sorting;
+	}
+	public function getAccessTypes():Array<Class<Dynamic>> {
+		return ACCESS_TYPES;
 	}
 	
 	private function onLayeringChanged(from:ILayerContainer):Void {
@@ -46,7 +57,6 @@ class LayerOrderer extends AbstractTrait
 		var layers = layerOrderAccess.getLayers();
 		if (layers == null) return;
 		
-		trace("checkDepths: "+sorting+" "+layers);
 		var depth1:Int = 0;
 		while (depth1 < layers.length - 1) {
 			var layer1 = layers[depth1];

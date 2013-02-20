@@ -2,12 +2,15 @@ package guise.controls.logic.input;
 import guise.controls.data.IClick;
 import guise.core.IActive;
 import composure.traits.AbstractTrait;
+import guise.platform.cross.IAccessRequest;
 import msignal.Signal;
 import guise.accessTypes.IMouseClickableAccess;
 
 
-class ButtonClickTrait extends AbstractTrait, implements IClick 
+class ButtonClickTrait extends AbstractTrait, implements IClick, implements IAccessRequest
 {
+	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [IMouseClickableAccess];
+	
 	@inject
 	public var active(default, set_active):IActive;
 	public function set_active(value:IActive):IActive {
@@ -20,17 +23,25 @@ class ButtonClickTrait extends AbstractTrait, implements IClick
 	
 	private var _mouseClickable:IMouseClickableAccess;
 	private var _clickTypeBundles:Array<ClickTypeBundle>;
-	private var _layerName:String;
+	
+	@:isVar public var layerName(default, set_layerName):String;
+	private function set_layerName(value:String):String {
+		this.layerName = value;
+		return value;
+	}
 
 	public function new(?layerName:String) 
 	{
 		super();
-		_layerName = layerName;
+		this.layerName = layerName;
 		_clickTypeBundles = new Array<ClickTypeBundle>();
+	}
+	public function getAccessTypes():Array<Class<Dynamic>> {
+		return ACCESS_TYPES;
 	}
 	@injectAdd
 	private function onMouseClickAdd(access:IMouseClickableAccess):Void {
-		if (_layerName != null && access.layerName != _layerName) return;
+		if (layerName != null && access.layerName != layerName) return;
 		
 		_mouseClickable = access;
 		_mouseClickable.clicked.add(onClicked);

@@ -5,10 +5,13 @@ import guise.accessTypes.ITextInputAccess;
 import guise.accessTypes.IFocusableAccess;
 import guise.controls.data.IInputPrompt;
 import guise.accessTypes.IMouseInteractionsAccess;
+import guise.platform.cross.IAccessRequest;
 
 
-class TextInputPrompt extends AbstractTrait
+class TextInputPrompt extends AbstractTrait, implements IAccessRequest
 {
+	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [ITextInputAccess,IFocusableAccess];
+	
 	@inject
 	public var textLabel(default, set_textLabel):ITextLabel;
 	private function set_textLabel(value:ITextLabel):ITextLabel {
@@ -38,17 +41,25 @@ class TextInputPrompt extends AbstractTrait
 	private var _showingPrompt:Bool;
 	private var _ignoreChanges:Bool;
 	private var _focused:Bool;
-	private var _layerName:String;
+	
+	@:isVar public var layerName(default, set_layerName):String;
+	private function set_layerName(value:String):String {
+		this.layerName = value;
+		return value;
+	}
 
 	public function new(?layerName:String){
 		super();
 		
-		_layerName = layerName;
+		this.layerName = layerName;
+	}
+	public function getAccessTypes():Array<Class<Dynamic>> {
+		return ACCESS_TYPES;
 	}
 	
 	@injectAdd
 	private function onInputAdd(access:ITextInputAccess):Void {
-		if (access.layerName != _layerName) return;
+		if (layerName != null && access.layerName != layerName) return;
 		
 		_input = access;
 		access.inputEnabled = true;
@@ -64,7 +75,7 @@ class TextInputPrompt extends AbstractTrait
 	}
 	@injectAdd
 	private function onFocusAdd(access:IFocusableAccess):Void {
-		if (access.layerName != _layerName) return;
+		if (layerName != null && access.layerName != layerName) return;
 		
 		_focus = access;
 		access.focusedChanged.add(onFocusedChanged);

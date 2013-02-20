@@ -1,16 +1,15 @@
 package guise.skin.drawn;
-import guise.controls.data.ITextLabel;
-import guise.utils.TitleCase;
-import guise.skin.drawn.utils.DrawnStyles;
-import guise.accessTypes.ITextOutputAccess;
 import guise.accessTypes.IBoxPosAccess;
-import guise.skin.values.IValue;
-import guise.accessTypes.IMouseInteractionsAccess;
+import guise.accessTypes.ITextOutputAccess;
+import guise.controls.data.ITextLabel;
+import guise.platform.cross.IAccessRequest;
 import guise.skin.common.PositionedLayer;
+import guise.utils.TitleCase;
 
 
-class TextStyleLayer extends PositionedLayer<TextLabelStyle>
+class TextStyleLayer extends PositionedLayer<TextLabelStyle>, implements IAccessRequest
 {
+	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [ITextOutputAccess,IBoxPosAccess];
 
 
 	@injectAdd
@@ -64,6 +63,9 @@ class TextStyleLayer extends PositionedLayer<TextLabelStyle>
 	public function new(?layerName:String, ?normalStyle:TextLabelStyle) 
 	{
 		super(layerName,normalStyle);
+	}
+	public function getAccessTypes():Array<Class<Dynamic>> {
+		return ACCESS_TYPES;
 	}
 	override private function _isReadyToDraw():Bool {
 		return (textLabel != null && _textDisplay!=null);
