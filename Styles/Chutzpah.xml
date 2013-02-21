@@ -27,8 +27,6 @@
 		<var name="ButtonDownState" value="guise.states.ControlStates.ButtonDownState"/>
 		<var name="FocusState" value="guise.states.ControlStates.FocusState"/>
 
-		<!-- <var name="Meas" value="guise.meas.IMeasurement.Meas"/> -->
-
 		<!-- reused styles -->
 		<var name="styleTransitioner" type="guise.skin.drawn.utils.DrawnStyleTrans"/>
 
@@ -39,92 +37,17 @@
 		<var name="downGradient" value="FillStyle.FsHLinearGradient([ { c:0xdadada, a:1, fract:0 }, { c:0xececec, a:1, fract:1 } ])"/>
 		<var name="blueGradient" value="FillStyle.FsHLinearGradient([ { c:0xdeefff, a:1, fract:0 }, { c:0xc8d7e5, a:1, fract:1 } ])"/>
 
-		<var name="buttonBackNorm" value="BoxStyle.BsCapsule(normGradient, normStroke)"/>
-		<var name="buttonBackOver" value="BoxStyle.BsCapsule(overGradient, overStroke)"/>
-		<var name="buttonBackDownUnsel" value="BoxStyle.BsCapsule(downGradient, SsNone)"/>
-
-		<var name="buttonBackSelNorm" value="BoxStyle.BsCapsule(downGradient, normStroke)"/>
-		<var name="buttonBackSelOver" value="BoxStyle.BsCapsule(blueGradient, overStroke)"/>
-
-		<var name="inputBackNorm" value="BoxStyle.BsRectComplex(normGradient, normStroke, Corners.CSame(CornerStyle.CsCirc(5)))"/>
-		<var name="inputBackFocus" value="BoxStyle.BsRectComplex(downGradient, overStroke, Corners.CSame(CornerStyle.CsCirc(5)))"/>
-
-		<var name="hSliderBackNorm" value="BoxStyle.BsCapsule(normGradient, normStroke)"/>
-
-		<var name="sliderNorm" value="ShapeStyle.SsMulti([ShapeStyle.SsEllipse(	normGradient, normStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), new guise.skin.values.Value(-8), new guise.skin.values.Value(-8)), ShapeStyle.SsEllipse(	FillStyle.FsSolid(0xc1c1c1), SsSolid(1, FillStyle.FsHLinearGradient([ { c:0x979797, a:1, fract:0 }, { c:0xfefefe, a:1, fract:1 } ])), new guise.skin.values.Value(5), new guise.skin.values.Value(5), new guise.skin.values.Value(-2.5), new guise.skin.values.Value(-2.5))])"/>
-		<var name="sliderOver" value="ShapeStyle.SsMulti([ShapeStyle.SsEllipse(	overGradient, overStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), new guise.skin.values.Value(-8), new guise.skin.values.Value(-8)), ShapeStyle.SsEllipse(	FillStyle.FsSolid(0xc1c1c1), SsSolid(1, FillStyle.FsHLinearGradient([ { c:0x979797, a:1, fract:0 }, { c:0xfefefe, a:1, fract:1 } ])), new guise.skin.values.Value(5), new guise.skin.values.Value(5), new guise.skin.values.Value(-2.5), new guise.skin.values.Value(-2.5))])"/>
-
-		<var name="sliderX" value="new guise.skin.values.Calc(Add, [new guise.skin.values.Calc(Multiply, [new guise.skin.values.Bind(guise.controls.data.INumRange, 'valueNorm', 'rangeChanged'), new guise.skin.values.Calc(Add, [new guise.skin.values.Width(), new guise.skin.values.Value(-8)])]), new guise.skin.values.Value(4)])"/>
-		<var name="sliderY" value="new guise.skin.values.Calc(Multiply, [new guise.skin.values.Height(), new guise.skin.values.Value(0.5)])"/>
 
 		<var name="buttonFiltNorm" value="[FilterType.DropShadow(1, Math.PI/2, 2, 0x000000, 0.56)]"/>
 		<var name="buttonFiltDown" value="[FilterType.DropShadow(1, Math.PI / 2, 4, 0x000000, 0.42, true)]"/>
-
 		<var name="textFiltNorm" value="[FilterType.DropShadow(1, Math.PI/2, 1, 0xffffff, 0.65)]"/>
 
-		<var name="labelTextStyle" value="TextLabelStyle.Tls(TextStyle.Trs(font, 11, 0x8e8e8e, [TextModifier.TmBold()]), false, TextCase.TcUpper, AntiAliasType.AaSmooth)"/>
 
-		<var name="inputTextStyle" value="TextLabelStyle.Tls(TextStyle.Trs(font, 11, 0x8e8e8e, [TextModifier.TmBold()]), true, TextCase.TcUpper, AntiAliasType.AaSmooth)"/>
 
-		<var name="toggleBackNorm" value="BoxStyle.BsCapsule(normGradient, normStroke)"/>
-
-		<var name="toggleBackSelNorm" value="BoxStyle.BsCapsule(blueGradient, normStroke)"/>
-
-		<var name="toggleNormUnsel" value="ShapeStyle.SsEllipse(	normGradient, normStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), guise.macro.ValueMacro.exec(guise.skin.values.Width*0.5-15), guise.macro.ValueMacro.exec(guise.skin.values.Height*0.5-9))"/>
-		<var name="toggleOverUnsel" value="ShapeStyle.SsEllipse(	overGradient, overStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), guise.macro.ValueMacro.exec(guise.skin.values.Width*0.5-15), guise.macro.ValueMacro.exec(guise.skin.values.Height*0.5-9))"/>
-		<var name="toggleNormSel" value="ShapeStyle.SsEllipse(	normGradient, normStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), guise.macro.ValueMacro.exec(guise.skin.values.Width*0.5-1), guise.macro.ValueMacro.exec(guise.skin.values.Height*0.5-9))"/>
-		<var name="toggleOverSel" value="ShapeStyle.SsEllipse(	overGradient, overStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), guise.macro.ValueMacro.exec(guise.skin.values.Width*0.5-1), guise.macro.ValueMacro.exec(guise.skin.values.Height*0.5-9))"/>
-
-		<!-- layers -->
-		<meth name="buttonBacking" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.BoxLayer">
-			<var type="guise.skin.drawn.BoxLayer" name="layer" p-layerName="'backing'" p-normalStyle="buttonBackNorm">
-				<m-addStyle params="[SelectedState.SELECTED, ButtonOverState.OUT], buttonBackSelNorm"/>
-				<m-addStyle params="[SelectedState.SELECTED, ButtonOverState.OVER], buttonBackSelOver"/>
-				<m-addStyle params="[ButtonOverState.OVER, SelectedState.UNSELECTED], buttonBackOver"/>
-				<m-addStyle params="[ButtonDownState.DOWN, SelectableState.UNSELECTABLE], buttonBackDownUnsel, 1"/>
-			</var>
-		</meth>
-		<meth name="inputBacking" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.BoxLayer">
-			<var type="guise.skin.drawn.BoxLayer" name="layer" p-layerName="'backing'" p-normalStyle="inputBackNorm">
-				<m-addStyle params="[FocusState.FOCUSED], inputBackFocus"/>
-			</var>
-		</meth>
-		<meth name="toggleBacking" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.BoxLayer">
-			<var type="guise.skin.drawn.BoxLayer" name="layer" p-layerName="'backing'" p-normalStyle="toggleBackNorm">
-				<m-addStyle params="[SelectedState.SELECTED], toggleBackSelNorm"/>
-
-				<m-addLayout params="null, guise.skin.values.Width*0.5-13, guise.skin.values.Height*0.5-6, 26, 12"/>
-			</var>
-		</meth>
-		<meth name="hSliderBacking" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.BoxLayer">
-			<var type="guise.skin.drawn.BoxLayer" name="layer" p-layerName="'backing'" p-normalStyle="hSliderBackNorm">
-
-				<m-addLayout params="null, 0, guise.skin.values.Height*0.5-6, guise.skin.values.Width, 12"/>
-			</var>
-		</meth>
-
-		<meth name="sliderHandle" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.SimpleShapeLayer">
-			<var type="guise.skin.drawn.SimpleShapeLayer" name="layer" p-layerName="'controlHandle'" p-normalStyle="sliderNorm">
-				<m-addStyle params="[ButtonOverState.OVER], sliderOver"/>
-
-				<m-addLayout params="null, 4+guise.controls.data.INumRange.valueNorm(rangeChanged)*(guise.skin.values.Width-8), guise.skin.values.Height*0.5, 0, 0"/>
-			</var>
-		</meth>
-		<meth name="toggleHandle" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.SimpleShapeLayer">
-			<var type="guise.skin.drawn.SimpleShapeLayer" name="layer" p-layerName="'controlHandle'" p-normalStyle="toggleNormUnsel">
-				<m-addStyle params="[ButtonOverState.OVER, SelectedState.UNSELECTED], toggleOverUnsel"/>
-				<m-addStyle params="[SelectedState.SELECTED, ButtonOverState.OUT], toggleNormSel"/>
-				<m-addStyle params="[SelectedState.SELECTED, ButtonOverState.OVER], toggleOverSel"/>
-			</var>
-		</meth>
-
+		<!-- reused layers -->
 		<meth name="backingFilt" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.FilterLayer">
 			<var type="guise.skin.drawn.FilterLayer" name="layer" p-layerName="'backing'" p-normalStyle="buttonFiltNorm">
 				<m-addStyle params="[ButtonDownState.DOWN], buttonFiltDown"/>
-			</var>
-		</meth>
-		<meth name="toggleBackingFilt" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.FilterLayer">
-			<var type="guise.skin.drawn.FilterLayer" name="layer" p-layerName="'backing'" p-normalStyle="buttonFiltDown">
 			</var>
 		</meth>
 		<meth name="controlHandleFilt" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.FilterLayer">
@@ -132,26 +55,13 @@
 				<m-addStyle params="[ButtonDownState.DOWN], buttonFiltDown"/>
 			</var>
 		</meth>
-
 		<meth name="labelText" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextStyleLayer">
-			<var type="guise.skin.drawn.TextStyleLayer" name="layer" p-layerName="'labelText'" p-normalStyle="labelTextStyle">
+			<var type="guise.skin.drawn.TextStyleLayer" name="layer" p-layerName="'labelText'">
+				<m-addStyle params="[], TextLabelStyle.Tls(TextStyle.Trs(font, 11, 0x8e8e8e, [TextModifier.TmBold()]), false, TextCase.TcUpper, AntiAliasType.AaSmooth)"/>
 				<m-addLayout params="null, (guise.skin.values.Width/2)-(guise.skin.values.TextWidth<guise.skin.values.Width)/2, (guise.skin.values.Height/2)-(guise.skin.values.TextHeight<guise.skin.values.Height)/2, guise.skin.values.TextWidth<guise.skin.values.Width, guise.skin.values.TextHeight<guise.skin.values.Height"/>
 			</var>
 		</meth>
-		<meth name="inputText" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextStyleLayer">
-			<var type="guise.skin.drawn.TextStyleLayer" name="layer" p-layerName="'inputText'" p-normalStyle="inputTextStyle">
-				<m-addLayout params="null, 5, (guise.skin.values.Height/2)-(guise.skin.values.TextHeight<(guise.skin.values.Height-10))/2, guise.skin.values.Width-10, guise.skin.values.TextHeight<(guise.skin.values.Height-10)"/>
-			</var>
-		</meth>
 
-		<meth name="inputTextFilt" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.FilterLayer">
-			<var type="guise.skin.drawn.FilterLayer" name="layer" p-layerName="'inputText'" p-normalStyle="textFiltNorm">
-			</var>
-		</meth>
-		<meth name="labelTextFilt" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.FilterLayer">
-			<var type="guise.skin.drawn.FilterLayer" name="layer" p-layerName="'labelText'" p-normalStyle="textFiltNorm">
-			</var>
-		</meth>
 
 		<!-- control furnishers -->
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags" addCall="addTrait">
@@ -166,9 +76,22 @@
 				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="guise.skin.values.TextWidth+24,(guise.skin.values.TextHeight+16)>25"/>
 			</meth>
 			<m-addFact params="labelText"/>
-			<m-addFact params="labelTextFilt"/>
-			<m-addFact params="buttonBacking"/>
 			<m-addFact params="backingFilt"/>
+
+			<meth addCall="addFact" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.FilterLayer">
+				<var type="guise.skin.drawn.FilterLayer" name="layer" p-layerName="'labelText'" p-normalStyle="textFiltNorm">
+				</var>
+			</meth>
+
+			<meth addCall="addFact" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.BoxLayer">
+				<var type="guise.skin.drawn.BoxLayer" name="layer" p-layerName="'backing'">
+					<m-addStyle params="[], BoxStyle.BsCapsule(normGradient, normStroke)"/>
+					<m-addStyle params="[SelectedState.SELECTED, ButtonOverState.OUT], BoxStyle.BsCapsule(downGradient, normStroke)"/>
+					<m-addStyle params="[SelectedState.SELECTED, ButtonOverState.OVER], BoxStyle.BsCapsule(blueGradient, overStroke)"/>
+					<m-addStyle params="[ButtonOverState.OVER, SelectedState.UNSELECTED], BoxStyle.BsCapsule(overGradient, overStroke)"/>
+					<m-addStyle params="[ButtonDownState.DOWN, SelectableState.UNSELECTABLE], BoxStyle.BsCapsule(downGradient, SsNone), 1"/>
+				</var>
+			</meth>
 		</var>
 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.PanelTag" addCall="addTrait">
@@ -195,10 +118,27 @@
 			<meth addCall="addFact" ret="meas" a-cause="Dynamic">
 				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="guise.skin.values.TextWidth+24,(guise.skin.values.TextHeight+16)>25"/>
 			</meth>
-			<m-addFact params="inputText"/>
-			<m-addFact params="inputTextFilt"/>
-			<m-addFact params="inputBacking"/>
+
 			<m-addFact params="backingFilt"/>
+
+			<meth addCall="addFact" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextStyleLayer">
+				<var type="guise.skin.drawn.TextStyleLayer" name="layer" p-layerName="'inputText'">
+					<m-addStyle params="[], TextLabelStyle.Tls(TextStyle.Trs(font, 11, 0x8e8e8e, [TextModifier.TmBold()]), true, TextCase.TcUpper, AntiAliasType.AaSmooth)"/>
+					<m-addLayout params="null, 5, (guise.skin.values.Height/2)-(guise.skin.values.TextHeight<(guise.skin.values.Height-10))/2, guise.skin.values.Width-10, guise.skin.values.TextHeight<(guise.skin.values.Height-10)"/>
+				</var>
+			</meth>
+
+			<meth addCall="addFact" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.BoxLayer">
+				<var type="guise.skin.drawn.BoxLayer" name="layer" p-layerName="'backing'">
+					<m-addStyle params="[], BoxStyle.BsRectComplex(normGradient, normStroke, Corners.CSame(CornerStyle.CsCirc(5)))"/>
+					<m-addStyle params="[FocusState.FOCUSED], BoxStyle.BsRectComplex(downGradient, overStroke, Corners.CSame(CornerStyle.CsCirc(5)))"/>
+				</var>
+			</meth>
+
+			<meth addCall="addFact" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.FilterLayer">
+				<var type="guise.skin.drawn.FilterLayer" name="layer" p-layerName="'inputText'" p-normalStyle="textFiltNorm">
+				</var>
+			</meth>
 		</var>
 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag(true)" addCall="addTrait">
@@ -208,9 +148,27 @@
 			<meth addCall="addFact" ret="meas" a-cause="Dynamic">
 				<var name="meas" type="guise.meas.IMeasurement.SimpleMeas" m-set="50,16"/>
 			</meth>
-			<m-addFact params="sliderHandle"/>
+
+			<meth addCall="addFact" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.SimpleShapeLayer">
+				<var type="guise.skin.drawn.SimpleShapeLayer" name="layer" p-layerName="'controlHandle'">
+
+					<m-addStyle params="[], ShapeStyle.SsMulti([ShapeStyle.SsEllipse(	normGradient, normStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), new guise.skin.values.Value(-8), new guise.skin.values.Value(-8)), ShapeStyle.SsEllipse(	FillStyle.FsSolid(0xc1c1c1), SsSolid(1, FillStyle.FsHLinearGradient([ { c:0x979797, a:1, fract:0 }, { c:0xfefefe, a:1, fract:1 } ])), new guise.skin.values.Value(5), new guise.skin.values.Value(5), new guise.skin.values.Value(-2.5), new guise.skin.values.Value(-2.5))])"/>
+
+					<m-addStyle params="[ButtonOverState.OVER], ShapeStyle.SsMulti([ShapeStyle.SsEllipse(	overGradient, overStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), new guise.skin.values.Value(-8), new guise.skin.values.Value(-8)), ShapeStyle.SsEllipse(	FillStyle.FsSolid(0xc1c1c1), SsSolid(1, FillStyle.FsHLinearGradient([ { c:0x979797, a:1, fract:0 }, { c:0xfefefe, a:1, fract:1 } ])), new guise.skin.values.Value(5), new guise.skin.values.Value(5), new guise.skin.values.Value(-24.5), new guise.skin.values.Value(-2.5))])"/>
+
+					<m-addLayout params="null, 4+guise.controls.data.INumRange.valueNorm(rangeChanged)*(guise.skin.values.Width-8), guise.skin.values.Height*0.5, 0, 0"/>
+				</var>
+			</meth>
+
 			<m-addFact params="controlHandleFilt"/>
-			<m-addFact params="hSliderBacking"/>
+
+			<meth addCall="addFact" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.BoxLayer">
+				<var type="guise.skin.drawn.BoxLayer" name="layer" p-layerName="'backing'">
+					<m-addStyle params="[], BoxStyle.BsCapsule(normGradient, normStroke)"/>
+
+					<m-addLayout params="null, 0, guise.skin.values.Height*0.5-6, guise.skin.values.Width, 12"/>
+				</var>
+			</meth>
 		</var>
 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
@@ -220,10 +178,36 @@
 			<meth addCall="addFact" ret="meas" a-cause="Dynamic">
 				<var name="meas" type="guise.meas.IMeasurement.SimpleMeas" m-set="26,16"/>
 			</meth>
-			<m-addFact params="toggleHandle"/>
+
+			<meth addCall="addFact" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.SimpleShapeLayer">
+				<var type="guise.skin.drawn.SimpleShapeLayer" name="layer" p-layerName="'controlHandle'">
+
+					<m-addStyle params="[], ShapeStyle.SsEllipse(	normGradient, normStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), guise.macro.ValueMacro.exec(guise.skin.values.Width*0.5-15), guise.macro.ValueMacro.exec(guise.skin.values.Height*0.5-9))"/>
+
+					<m-addStyle params="[ButtonOverState.OVER, SelectedState.UNSELECTED], ShapeStyle.SsEllipse(	overGradient, overStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), guise.macro.ValueMacro.exec(guise.skin.values.Width*0.5-15), guise.macro.ValueMacro.exec(guise.skin.values.Height*0.5-9))"/>
+
+					<m-addStyle params="[SelectedState.SELECTED, ButtonOverState.OUT], ShapeStyle.SsEllipse(	normGradient, normStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), guise.macro.ValueMacro.exec(guise.skin.values.Width*0.5-1), guise.macro.ValueMacro.exec(guise.skin.values.Height*0.5-9))"/>
+
+					<m-addStyle params="[SelectedState.SELECTED, ButtonOverState.OVER], ShapeStyle.SsEllipse(	overGradient, overStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), guise.macro.ValueMacro.exec(guise.skin.values.Width*0.5-1), guise.macro.ValueMacro.exec(guise.skin.values.Height*0.5-9))"/>
+
+				</var>
+			</meth>
+
 			<m-addFact params="controlHandleFilt"/>
-			<m-addFact params="toggleBacking"/>
-			<m-addFact params="toggleBackingFilt"/>
+
+			<meth addCall="addFact" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.FilterLayer">
+				<var type="guise.skin.drawn.FilterLayer" name="layer" p-layerName="'backing'" p-normalStyle="buttonFiltDown">
+				</var>
+			</meth>
+
+			<meth addCall="addFact" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.BoxLayer">
+				<var type="guise.skin.drawn.BoxLayer" name="layer" p-layerName="'backing'">
+					<m-addStyle params="[], BoxStyle.BsCapsule(normGradient, normStroke)"/>
+					<m-addStyle params="[SelectedState.SELECTED], BoxStyle.BsCapsule(blueGradient, normStroke)"/>
+
+					<m-addLayout params="null, guise.skin.values.Width*0.5-13, guise.skin.values.Height*0.5-6, 26, 12"/>
+				</var>
+			</meth>
 		</var>
 
 	</meth>

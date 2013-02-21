@@ -42,9 +42,6 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 	
 	private var styles:Array<{states:Array<String>,style:StyleType, priority:Int}>;
 	private var states:Array<IState<EnumValue>>;
-	//private var values:Array<IValue>;
-	//private var _values:Array<IValue>;
-	//private var _valueToSignals:ObjectHash<IValue, Array<AnySignal>>;
 	private var _handlerToSignals:ObjectHash<Dynamic->Dynamic->Void, Array<AnySignal>>;
 	
 	private var transSubject:Dynamic;
@@ -58,7 +55,6 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 		if (transSubject != null) this.transSubject = transSubject;
 		else this.transSubject = this;
 		
-		//_valueToSignals = new ObjectHash();
 		_handlerToSignals = new ObjectHash();
 	}
 	
@@ -80,7 +76,11 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 		assessStyle();
 	}
 	
-	public function addStyle(states:Array<EnumValue>, style:StyleType, priority:Int=0):Void {
+	public function addStyle(states:Array<EnumValue>, style:StyleType, priority:Int = 0):Void {
+		if (states == null || states.length == 0) {
+			normalStyle = style;
+			return;
+		}
 		if (styles == null) styles = [];
 		
 		var stateStrs = [];
@@ -138,51 +138,8 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 	}
 	private function setCurrentStyle(value:StyleType):Void {
 		if (currentStyle == value) return;
-		/*if (currentStyle != null) {
-			for (value in values) {
-				removeValue(value);
-			}
-			values = null;
-		}*/
 		currentStyle = value;
-		/*if (currentStyle!=null) {
-			values = [];
-			findValues(currentStyle, values);
-		}*/
 	}
-	/*private function findValues(within:Dynamic, addTo:Array<IValue>):Void {
-		if (Std.is(within, IValue)) {
-			addTo.push(cast within);
-		}else{
-			switch(Type.typeof(within)) {
-				case TEnum(e):
-					var params:Array<Dynamic> = Type.enumParameters(cast within);
-					for (param in params) {
-						findValues(param, addTo);
-					}
-				case TObject:
-					var fields = Reflect.fields(within);
-					for ( ff in fields ) {
-						findValues(Reflect.field(within, ff), addTo);
-					}
-				case TClass(c):
-					if (Std.is(within, Array)) {
-						untyped { 
-							for( ii in 0...within.length ) 
-								findValues(within[ii], addTo); 
-						}
-					}else{
-						var type = Type.getClass(within);
-						var fields = Type.getInstanceFields(type);
-						for ( ff in fields ) {
-							findValues(Reflect.field(within, ff), addTo);
-						}
-					}
-				default:
-					// ignore 
-			}
-		}
-	}*/
 	private function getValue(value:IValue, def:Float, changeHandler:Dynamic->Dynamic->Void):Float {
 		if (value == null) return def;
 		
@@ -195,22 +152,7 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 					signal.add(changeHandler);
 				}
 				_handlerToSignals.set(changeHandler, newSignals);
-			}/*else if (newSignals == null) {
-				for (signal in signals) {
-					signal.remove(onValueChanged);
-				}
-				_valueToSignals.delete(value);
-			}*/else {
-				/*var i:Int = 0;
-				while (i < signals.length) {
-					var signal = signals[i];
-					if (!newSignals.has(signal)) {
-						signal.remove(changeHandler);
-						signals.remove(signal);
-					}else {
-						++i;
-					}
-				}*/
+			}else {
 				for (signal in newSignals) {
 					if (!signals.has(signal)) {
 						signals.push(signal);
@@ -230,18 +172,6 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 			_handlerToSignals.delete(changeHandler);
 		}
 	}
-	/*private function removeValue(value:IValue):Void {
-		var signals:Array<AnySignal> = _valueToSignals.get(value);
-		if (signals != null) {
-			for (signal in signals) {
-				signal.remove(onValueChanged);
-			}
-			_valueToSignals.delete(value);
-		}
-	}
-	private function onValueChanged(?param1:Dynamic, ?param2:Dynamic):Void {
-		invalidate();
-	}*/
 	
 	
 	private function findDestStyle():StyleType {
@@ -290,9 +220,6 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 	private function attemptDrawStyle():Void {
 
 		if (currentStyle != null && isReadyToDraw()) {
-			/*for (value in values) {
-				value.update(item);
-			}*/
 			drawStyle();
 		}
 	}

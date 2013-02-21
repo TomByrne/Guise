@@ -50,7 +50,6 @@ class TextInputPrompt extends AbstractTrait, implements IAccessRequest
 
 	public function new(?layerName:String){
 		super();
-		
 		this.layerName = layerName;
 	}
 	public function getAccessTypes():Array<Class<Dynamic>> {

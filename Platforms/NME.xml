@@ -42,8 +42,8 @@
 			<m-addType params="guise.controls.data.Selected, guise.controls.data.ISelected"/>
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextInputTag" addCall="addTrait">
-			<m-addFact params="function(into:Dynamic):Dynamic return new guise.controls.logic.input.TextInputPrompt('inputText')"/>
-			<m-addFact params="function(into:Dynamic):Dynamic return new guise.controls.logic.states.FocusStateMapper('inputText')"/>
+			<m-addFact params="function(into:Dynamic):Dynamic return new guise.controls.logic.input.TextInputPrompt()"/>
+			<m-addFact params="function(into:Dynamic):Dynamic return new guise.controls.logic.states.FocusStateMapper()"/>
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
 			<m-addType params="guise.controls.logic.input.MouseOverTrait"/>
