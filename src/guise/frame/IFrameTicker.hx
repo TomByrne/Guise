@@ -1,5 +1,5 @@
 package guise.frame;
-import haxe.Timer;
+import guise.utils.Timer;
 import msignal.Signal;
 
 interface IFrameTicker

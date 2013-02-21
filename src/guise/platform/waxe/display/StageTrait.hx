@@ -1,4 +1,5 @@
 package guise.platform.waxe.display;
+import guise.platform.waxe.controls.PanelTrait;
 
 
 class StageTrait extends PanelTrait
@@ -14,6 +15,6 @@ class StageTrait extends PanelTrait
 	public function new() 
 	{
 		super();
+		_allowSizing = false;
 	}
-	
 }

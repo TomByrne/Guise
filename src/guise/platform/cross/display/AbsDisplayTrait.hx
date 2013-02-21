@@ -18,10 +18,10 @@ class AbsDisplayTrait extends AbstractTrait
 				if (_sizeListen) {
 					position.changed.remove(onPosSizeChanged);
 				}else {
-					position.posChanged.remove(onPosChanged2);
+					position.posChanged.remove(onPosChanged);
 				}
 			}else if (_sizeListen) {
-				position.sizeChanged.remove(onSizeChanged2);
+				position.sizeChanged.remove(onSizeChanged);
 			}
 		}
 		
@@ -32,10 +32,10 @@ class AbsDisplayTrait extends AbstractTrait
 				if (_sizeListen) {
 					position.changed.add(onPosSizeChanged);
 				}else {
-					position.posChanged.add(onPosChanged2);
+					position.posChanged.add(onPosChanged);
 				}
 			}else if (_sizeListen) {
-				position.sizeChanged.add(onSizeChanged2);
+				position.sizeChanged.add(onSizeChanged);
 			}
 			onPosSizeChanged(position);
 		}
@@ -60,7 +60,7 @@ class AbsDisplayTrait extends AbstractTrait
 	private function onPosOrSizeChanged():Void {
 		// override me if drawing requires both pos and size
 	}
-	private function onPosChanged2(from:IBoxPos):Void {
+	private function onPosChanged(from:IBoxPos):Void {
 		onPosOrSizeChanged();
 		doPosChanged();
 	}
@@ -79,7 +79,7 @@ class AbsDisplayTrait extends AbstractTrait
 	}
 	
 	
-	private function onSizeChanged2(from:IBoxPos):Void {
+	private function onSizeChanged(from:IBoxPos):Void {
 		onPosOrSizeChanged();
 		doSizeChanged();
 	}

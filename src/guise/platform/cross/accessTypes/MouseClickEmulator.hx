@@ -3,7 +3,7 @@ import composure.traits.AbstractTrait;
 import guise.accessTypes.IMouseClickableAccess;
 import guise.platform.cross.IAccessRequest;
 import guise.accessTypes.IMouseInteractionsAccess;
-import haxe.Timer;
+import guise.utils.Timer;
 import msignal.Signal;
 
 /**

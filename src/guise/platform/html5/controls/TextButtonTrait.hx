@@ -41,6 +41,7 @@ class TextButtonTrait extends DisplayTrait
 			_button.removeChild(_checkbox);
 			_checkbox = null;
 		}
+		checkMeas();
 		return value;
 	}
 	
@@ -60,6 +61,7 @@ class TextButtonTrait extends DisplayTrait
 	
 	private function onTextChanged(from:ITextLabel):Void {
 		_labelElement.innerHTML = from.text;
+		checkMeas();
 	}
 	
 	private function onSelectedChanged(from:ISelected):Void {

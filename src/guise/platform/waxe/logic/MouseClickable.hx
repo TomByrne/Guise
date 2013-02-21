@@ -13,14 +13,12 @@ class MouseClickable extends AbstractTrait, implements IMouseClickableAccess
 	public var displayTrait(default, set_displayTrait):DisplayTrait<Button>;
 	private function set_displayTrait(value:DisplayTrait<Button>):DisplayTrait<Button> {
 		if (displayTrait!=null) {
-			//displayTrait.window.setHandler(wx.EventID.COMMAND_BUTTON_CLICKED, null);
 			displayTrait.clear(this);
 			
 		}
 		displayTrait = value;
 		if (displayTrait != null) {
-			displayTrait.on(this, function() { displayTrait.window.setHandler(wx.EventID.COMMAND_BUTTON_CLICKED, onClicked); }, function() { displayTrait.window.setHandler(wx.EventID.COMMAND_BUTTON_CLICKED, null); } );
-			//if(_clicked!=null && _clicked.numListeners>0)displayTrait.window.setHandler(wx.EventID.COMMAND_BUTTON_CLICKED,onClicked);
+			displayTrait.addHandler(this, wx.EventID.COMMAND_BUTTON_CLICKED, onClicked);
 		}
 		return value;
 	}

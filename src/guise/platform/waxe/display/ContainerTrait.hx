@@ -29,16 +29,16 @@ class ContainerTrait extends AbsDisplayTrait
 		if (_parentCont != null) return;
 		
 		_parentCont = parent;
-		_parentCont.posChanged.add(onPosChanged);
+		_parentCont.posChanged.add(onParentPosChanged);
 		doChange();
 	}
 	private function onParentContRemoved(parent:ContainerTrait):Void {
 		if (_parentCont != parent) return;
-		_parentCont.posChanged.remove(onPosChanged);
+		_parentCont.posChanged.remove(onParentPosChanged);
 		_parentCont = null;
 		doChange();
 	}
-	private function onPosChanged(parent:ContainerTrait ):Void {
+	private function onParentPosChanged(parent:ContainerTrait ):Void {
 		doChange();
 	}
 	

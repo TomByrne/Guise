@@ -5,7 +5,7 @@ import composure.traits.AbstractTrait;
 import guise.accessTypes.IMouseInteractionsAccess;
 import guise.platform.cross.IAccessRequest;
 import guise.skin.values.IValue;
-import haxe.Timer;
+import guise.utils.Timer;
 
 
 class MouseDragChangeValue extends AbstractTrait, implements IAccessRequest

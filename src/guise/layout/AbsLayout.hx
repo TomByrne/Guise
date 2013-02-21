@@ -55,7 +55,7 @@ class AbsLayout extends AbstractTrait, implements IMeasurement {
 	}
 	
 	private inline function addFrameCall(call:FrameCall, ?dependsOn:Array < FrameCall > , valid:Bool = true ):Void {
-		_frameTrait.addFrameCall(call, dependsOn , valid);
+		_frameTrait.add(call, dependsOn , valid);
 	}
 	private inline function invalidate(call:FrameCall):Void {
 		_frameTrait.invalidate(call);

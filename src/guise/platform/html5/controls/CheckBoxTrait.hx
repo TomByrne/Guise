@@ -65,5 +65,6 @@ class CheckBoxTrait extends DisplayTrait
 		_label.innerHTML = "";
 		_label.appendChild(_checkbox);
 		_label.appendChild(Lib.document.createTextNode(from.text));
+		checkMeas();
 	}
 }

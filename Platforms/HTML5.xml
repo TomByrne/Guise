@@ -3,18 +3,26 @@
 
 	<meth name="install" static="true" public="true" scope="within" a-within="composure.core.ComposeItem">
 
+		<var type="guise.platform.cross.AccessProvider" addCall="addTrait">
+			<m-mapAccessType params="guise.frame.IFrameTicker, guise.frame.IFrameTicker.FrameTicker"/>
+		</var>
+
 		<!-- Core display tags -->
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.WindowTag" addCall="addTrait" p-searchAscendants="true" p-searchDescendants="false">
 			<m-addInst params="guise.platform.html5.display.WindowTrait.inst()"/>
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.StageTag" addCall="addTrait" p-searchAscendants="true" p-searchDescendants="false">
 			<m-addInst params="guise.platform.html5.display.StageTrait.inst()"/>
+			<m-addType params="guise.frame.FrameExecutor"/>
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.ContainerTag" addCall="addTrait">
 			<m-addType params="guise.platform.html5.display.ContainerTrait,guise.platform.html5.display.ContainerTrait"/>
 		</var>
 
 		<!-- Core control logic -->
+		 <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.PanelTag" addCall="addTrait">
+			<m-addType params="guise.platform.html5.controls.PanelTrait"/>
+		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait">
 			<m-addType params="guise.platform.html5.controls.TextButtonTrait"/>
 			<m-addType params="guise.platform.html5.logic.MouseClickable"/>

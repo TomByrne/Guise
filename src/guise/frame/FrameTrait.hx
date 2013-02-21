@@ -1,23 +1,45 @@
 package guise.frame;
-import composure.traits.AbstractTrait;
-import cmtc.ds.hash.ObjectHash;
+
+#if macro
+import haxe.macro.Expr;
+import haxe.macro.Context;
+#end
 
 class FrameTrait
 {
-	private var _callToBundle:ObjectHash<FrameCall, FrameCallBundle>;
+	#if macro
+	private static function getName(expr:Expr):String {
+		switch(expr.expr) {
+			case EConst(c):
+				switch(c) {
+					case CIdent(s):return s;
+					default: // ignore
+				}
+			default: // ignore
+		}
+		Context.error("Should pass a method name", Context.currentPos());
+		return null;
+	}
+	#end
+	
+	private var _bundleMap:Hash<FrameCallBundle>;
 	private var _frameCalls:Array<FrameCallBundle>;
-
+	
 	public function new(){
 		_frameCalls = [];
-		_callToBundle = new ObjectHash();
+		_bundleMap = new Hash();
+	}
+	@:macro public function add(thisE:Expr, call:Expr, ?dependsOn:Expr , ?valid:Expr ):Expr {
+		var name:Expr = Context.parse('"'+getName(call)+'"', Context.currentPos());
+		return macro $thisE.addFrameCall($name, $call, $dependsOn, $valid);
 	}
 	
-	public function addFrameCall(call:FrameCall, ?dependsOn:Array < FrameCall > , valid:Bool = true ):Void {
+	public function addFrameCall(name:String, call:FrameCall, ?dependsOn:Array < FrameCall > , valid:Bool = true ):Void {
 		var depends:Array<FrameCallBundle>;
 		if (dependsOn != null) {
 			depends = [];
 			for (depCall in dependsOn) {
-				var bundle:FrameCallBundle = _callToBundle.get(depCall);
+				var bundle:FrameCallBundle = _bundleMap.get(name);
 				if (bundle==null) throw "Dependant call has not been registered (call addFrameCall for dependancies first)";
 				depends.push(bundle);
 			}
@@ -25,7 +47,7 @@ class FrameTrait
 			depends = null;
 		}
 		var bundle:FrameCallBundle = { frameCall:call, invalidates:null, dependsOn:depends, valid:valid };
-		_callToBundle.set(call, bundle);
+		_bundleMap.set(name, bundle);
 		_frameCalls.push(bundle);
 		
 		if(depends!=null){
@@ -38,8 +60,12 @@ class FrameTrait
 			}
 		}
 	}
-	public function invalidate(call:FrameCall):Void {
-		var bundle = _callToBundle.get(call);
+	@:macro public function invalidate(thisE:Expr, call:Expr):Expr{
+		var name:Expr = Context.parse('"'+getName(call)+'"', Context.currentPos());
+		return macro $thisE.invalidateByName($name);
+	}
+	public function invalidateByName(name:String):Void {
+		var bundle = _bundleMap.get(name);
 		bundle.valid = false;
 		invalidateList(bundle.invalidates);
 	}

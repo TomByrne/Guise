@@ -1,21 +1,36 @@
 package guise.platform.html5.display;
 import composure.traits.AbstractTrait;
 import guise.layout.IBoxPos;
+import guise.meas.IMeasurement;
 import js.Dom;
 import composure.injectors.Injector;
 import composure.traitCheckers.TraitTypeChecker;
 import guise.platform.cross.display.AbsDisplayTrait;
+import msignal.Signal;
 
-/**
- * @author Tom Byrne
- */
 
-class DisplayTrait extends AbsDisplayTrait
+class DisplayTrait extends AbsDisplayTrait, implements IMeasurement
 {
+	@lazyInst
+	public var measChanged:Signal1<IMeasurement>;
+	
+	
 	public var domElement(default, null):HtmlDom;
 	
 	private var _parent:ContainerTrait;
 	private var _allowSizing:Bool;
+	
+	private var _measWidth:Float;
+	public var measWidth(get_measWidth, null):Float;
+	private function get_measWidth():Float {
+		return _measWidth;
+	}
+	
+	private var _measHeight:Float;
+	public var measHeight(get_measHeight, null):Float;
+	private function get_measHeight():Float {
+		return _measHeight;
+	}
 
 	public function new(?domElement:HtmlDom) 
 	{
@@ -36,6 +51,7 @@ class DisplayTrait extends AbsDisplayTrait
 		if (domElement != null && parent.domElement != null) {
 			parent.domElement.appendChild(domElement);
 		}
+		checkMeas();
 	}
 	private function onParentRemoved(parent:ContainerTrait):Void {
 		if (_parent != parent) return;
@@ -57,7 +73,7 @@ class DisplayTrait extends AbsDisplayTrait
 	}
 	public function setAllowSizing(value:Bool):Void {
 		_allowSizing = value;
-		if(position!=null)onSizeChanged2(position);
+		if(position!=null)onSizeChanged(position);
 	}
 	private function _setPosition(x:Float, y:Float):Void {
 		if (!Math.isNaN(y) && !Math.isNaN(x)) {
@@ -82,4 +98,23 @@ class DisplayTrait extends AbsDisplayTrait
 		}
 	}
 	
+	private function checkMeas():Void{
+		var wWas = domElement.style.width;
+		var hWas = domElement.style.height;
+		var pWas = domElement.style.position;
+		domElement.style.width = null;
+		domElement.style.height = null;
+		domElement.style.position = "fixed";
+		var measWidth:Float = domElement.offsetWidth;
+		var measHeight:Float = domElement.offsetHeight;
+		domElement.style.width = wWas;
+		domElement.style.height = hWas;
+		domElement.style.position = pWas;
+		
+		if (_measWidth != measWidth || _measHeight != measHeight) {
+			_measWidth = measWidth;
+			_measHeight = measHeight;
+			LazyInst.exec(measChanged.dispatch(this));
+		}
+	}
 }

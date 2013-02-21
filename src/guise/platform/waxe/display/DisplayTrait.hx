@@ -4,11 +4,27 @@ import composure.traits.AbstractTrait;
 import guise.layout.IBoxPos;
 import composure.injectors.Injector;
 import composure.traitCheckers.TraitTypeChecker;
+import guise.meas.IMeasurement;
+import wx.EventID;
 import wx.Window;
 import cmtc.ds.hash.ObjectHash;
+import msignal.Signal;
 
-class DisplayTrait<T:Window> extends ContainerTrait{
+class DisplayTrait<T:Window> extends ContainerTrait, implements IMeasurement{
 
+	@lazyInst
+	public var measChanged:Signal1<IMeasurement>;
+	
+	public var measWidth(get_measWidth, null):Float;
+	private function get_measWidth():Float {
+		return 150;
+	}
+	public var measHeight(get_measHeight, null):Float;
+	private function get_measHeight():Float {
+		return 30;
+	}
+	
+	
 	public var window(default, null):T;
 	
 	private var _parent:DisplayTrait<Window>;
@@ -69,13 +85,16 @@ class DisplayTrait<T:Window> extends ContainerTrait{
 		if (_size == null) {
 			_size = {width:0,height:0};
 		}
+		if (w <= 0 || h <= 0) return; // setting invalid size can irrepairably damage wxWidgets
+		
+		trace(this+" "+w+" "+h);
 		_size.width = Std.int(w);
 		_size.height = Std.int(h);
 		window.setSize(_size);
 	}
 	public function setAllowSizing(value:Bool):Void {
 		_allowSizing = value;
-		if(position!=null)onSizeChanged2(position);
+		if(position!=null)onSizeChanged(position);
 	}
 	public function clear(owner:Dynamic):Void {
 		if (_executeBundles != null && _executeBundles.exists(owner)) {
@@ -101,6 +120,9 @@ class DisplayTrait<T:Window> extends ContainerTrait{
 		if (window != null) {
 			add();
 		}
+	}
+	public function addHandler(owner:Dynamic, event:EventID, handler:Dynamic->Void):Void {
+		this.on(owner, function() { this.window.setHandler(event, handler); }, function() { this.window.setHandler(event, null); } );
 	}
 	
 }

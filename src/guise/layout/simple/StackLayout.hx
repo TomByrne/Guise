@@ -184,7 +184,7 @@ class StackLayout extends AbsLayout
 	}
 	private function removeChild(child:StackLayoutInfo, item:ComposeItem):Void {
 		var bundle = _childToBundle.get(child);
-		_childToBundle.remove(child);
+		_childToBundle.delete(child);
 		item.removeTrait(bundle.boxPos);
 		
 		if (_stack.remove(bundle)) {
@@ -194,9 +194,10 @@ class StackLayout extends AbsLayout
 	
 	
 	private function doArrangeStack():Bool {
+		trace("doArrangeStack");
 		_stack = [];
 		var specific:Array<ChildBundle> = [];
-		for (layoutInfo in _childToBundle) {
+		for (layoutInfo in _childToBundle.keys()) {
 			var bundle = _childToBundle.get(layoutInfo);
 			var idealIndex:Int = layoutInfo.idealIndex;
 			if (idealIndex != -1) {
