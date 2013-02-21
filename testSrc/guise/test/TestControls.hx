@@ -9,7 +9,9 @@ import guise.controls.ControlTags;
 import guise.controls.data.ITextLabel;
 import guise.controls.data.ISelected;
 import guise.controls.data.IInputPrompt;
-import guise.layout.BoxPos;
+import guise.layout.IBoxPos;
+import guise.layout.simple.VStackLayout;
+import guise.layout.SizeByMeas;
 
 
 class TestControls 
@@ -17,39 +19,39 @@ class TestControls
 	public static function addControls(parent:ComposeGroup, x:Float = 0, y:Float = 0 ):Void {
 		
 		var item:ComposeGroup = new ComposeGroup();
-		item.addTraits([ContainerTag, new BoxPos(x, y,0,0)]);
+		item.addTraits([PanelTag, new SizeByMeas(x,y), new VStackLayout(10,10,10, 10, 10)]);
 		parent.addChild(item);
 		
-		addButton(item, "Test Button", 0, 0, 150, 30, false);
-		addButton(item, "Selectable Button", 0, 40, 150, 30, true);
-		addLabel(item, "Test Label", 0, 80, 150, 30);
-		addTextInput(item, "Test Input", 0, 120, 150, 30);
-		addToggleButton(item, "Test Toggle", 0, 155, 150, 30);
-		addSlider(item, 0, 180, 150, 30, false);
+		addButton(item, "Test Button", false);
+		addButton(item, "Selectable Button", true);
+		addLabel(item, "Test Label");
+		addTextInput(item, "Test Input");
+		addToggleButton(item, "Test Toggle");
+		addSlider(item, false);
 	}
-	public static function addButton(parent:ComposeGroup, text:String, x:Float, y:Float, w:Float, h:Float, selectable:Bool):Void {
+	public static function addButton(parent:ComposeGroup, text:String, selectable:Bool):Void {
 		var item:ComposeItem = new ComposeItem();
-		item.addTraits([TextButtonTag(selectable), new BoxPos(x, y, w, h), new TextLabel(text)]);
+		item.addTraits([TextButtonTag(selectable), new VStackLayoutInfo(), new TextLabel(text)]);
 		parent.addChild(item);
 	}
-	public static function addLabel(parent:ComposeGroup, text:String, x:Float, y:Float, w:Float, h:Float):Void {
+	public static function addLabel(parent:ComposeGroup, text:String):Void {
 		var item:ComposeItem = new ComposeItem();
-		item.addTraits([TextLabelTag, new BoxPos(x, y, w, h), new TextLabel(text)]);
+		item.addTraits([TextLabelTag, new VStackLayoutInfo(), new TextLabel(text)]);
 		parent.addChild(item);
 	}
-	public static function addTextInput(parent:ComposeGroup, prompt:String, x:Float, y:Float, w:Float, h:Float):Void {
+	public static function addTextInput(parent:ComposeGroup, prompt:String):Void {
 		var item:ComposeItem = new ComposeItem();
-		item.addTraits([TextInputTag, new BoxPos(x, y, w, h), new TextLabel(), new InputPrompt(prompt) ]);
+		item.addTraits([TextInputTag, new VStackLayoutInfo(), new TextLabel(), new InputPrompt(prompt) ]);
 		parent.addChild(item);
 	}
-	public static function addToggleButton(parent:ComposeGroup, label:String, x:Float, y:Float, w:Float, h:Float):Void {
+	public static function addToggleButton(parent:ComposeGroup, label:String):Void {
 		var item:ComposeItem = new ComposeItem();
-		item.addTraits([ToggleButtonTag, new BoxPos(x, y, w, h), new TextLabel(label)]);
+		item.addTraits([ToggleButtonTag, new VStackLayoutInfo(), new TextLabel(label)]);
 		parent.addChild(item);
 	}
-	public static function addSlider(parent:ComposeGroup, x:Float, y:Float, w:Float, h:Float, vert:Bool):Void {
+	public static function addSlider(parent:ComposeGroup, vert:Bool):Void {
 		var item:ComposeItem = new ComposeItem();
-		item.addTraits([SliderTag(vert), new BoxPos(x, y, w, h)]);
+		item.addTraits([SliderTag(vert), new VStackLayoutInfo()]);
 		parent.addChild(item);
 	}
 	

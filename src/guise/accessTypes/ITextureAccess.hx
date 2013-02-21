@@ -9,6 +9,7 @@ interface ITextureAccess implements IAccessType
 }
 
 enum TextureInfo {
+	tile(textureId:String);
 	sprite(textureId:String, ?scale9:Bool);
 	clip(textureId:String, ?fps:Int, ?scale9:Bool);
 }

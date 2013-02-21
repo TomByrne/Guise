@@ -107,7 +107,7 @@ class Scale9Sprite extends Sprite{
 		if(!Math.isNaN(mWidth))setWidth(mWidth);
 		if(!Math.isNaN(mHeight))setHeight(mHeight);
 	}
-	public function setTexturesStill(tl:Texture, tc:Texture, tr:Texture,
+	public function setTextureStill(tl:Texture, tc:Texture, tr:Texture,
 									 ml:Texture, mc:Texture, mr:Texture,
 									 bl:Texture, bc:Texture, br:Texture):Void {
 		clearOld();

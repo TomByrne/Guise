@@ -1,21 +1,21 @@
-package guise.platform.nme.core;
+package guise.platform.starling.core;
 import guise.frame.IFrameTicker;
-import nme.Lib;
-import nme.events.Event;
+import flash.Lib;
+import flash.events.Event;
 
 import msignal.Signal;
 
-class NmeFrameTicker extends FrameTicker
+class FrameTicker extends guise.frame.FrameTicker
 {
 
 	public function new(intendedFPS:Int=60) 
 	{
-		Lib.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+		Lib.current.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 		super();
 	}
 	
 	override public function setIntendedFPS(fps:Int):Void {
-		Lib.stage.frameRate = fps;
+		Lib.current.stage.frameRate = fps;
 	}
 	
 	public function onEnterFrame(e:Event):Void {

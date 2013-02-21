@@ -15,6 +15,7 @@
 			<m-mapAccessType params="guise.accessTypes.IMouseInteractionsAccess, guise.platform.nme.accessTypes.MouseInteractionsAccess"/>
 			<m-mapAccessType params="guise.accessTypes.IKeyboardAccess, guise.platform.nme.accessTypes.KeyboardAccess"/>
 			<m-mapAccessType params="guise.layer.ILayerContainer, guise.platform.nme.display.LayerSwapper"/>
+			<m-mapAccessType params="guise.frame.IFrameTicker, guise.platform.nme.core.NmeFrameTicker"/>
 		</var>
 
 		<!-- Core display tags -->
@@ -23,6 +24,7 @@
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.StageTag" addCall="addTrait" p-searchAscendants="true" p-searchDescendants="false">
 			<m-addInst params="guise.platform.nme.display.StageTrait.inst(),guise.platform.nme.display.StageTrait"/>
+			<m-addType params="guise.frame.FrameExecutor"/>
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.ContainerTag" addCall="addTrait">
 			<m-addType params="guise.platform.nme.display.ContainerTrait,guise.platform.nme.display.ContainerTrait"/>
@@ -54,7 +56,7 @@
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag(true)" addCall="addTrait">
 			<m-addType params="guise.controls.logic.input.MouseOverTrait"/>
 			<m-addType params="guise.controls.logic.states.ButtonStateMapper"/>
-			<m-addFact params="function(into:Dynamic):Dynamic return new guise.controls.logic.input.MouseDragChangeValue(null,true,guise.controls.data.INumRange,'valueNorm',null,null,new guise.skin.values.Bind(guise.layout.BoxPos, 'w', 'sizeChanged'))"/>
+			<m-addFact params="function(into:Dynamic):Dynamic return new guise.controls.logic.input.MouseDragChangeValue(null,true,guise.controls.data.INumRange,'valueNorm',null,null,new guise.skin.values.Bind(guise.layout.IBoxPos, 'w', 'sizeChanged'))"/>
 			<m-addType params="guise.controls.data.NumRange, guise.controls.data.INumRange"/>
 		</var>
 
@@ -62,7 +64,6 @@
 		<!-- Additional control logic -->
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.platform.nme.addTypes.IDisplayObjectType" addCall="addTrait">
 			<m-addType params="guise.platform.nme.display.ContainerTrait, guise.platform.nme.display.ContainerTrait"/>
-			<!-- <m-addType params="guise.platform.nme.layers.LayerSwapper"/> -->
 		</var>
 	</meth>
 </class>

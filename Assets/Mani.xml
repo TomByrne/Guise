@@ -65,6 +65,7 @@
     <SubTexture name="Progress-bc" x="307" y="42" width="22" height="16"/>
     <SubTexture name="Progress-br" x="330" y="42" width="17" height="16"/>
 
+    <SubTexture name="Panel" x="407" y="0" width="32" height="32"/>
 
    <!--  <SubTexture name="ButtonUp" x="0" y="0" width="98" height="48"/>
     <SubTexture name="ButtonOver" x="98" y="0" width="98" height="48"/>

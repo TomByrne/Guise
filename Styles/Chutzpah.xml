@@ -27,7 +27,7 @@
 		<var name="ButtonDownState" value="guise.states.ControlStates.ButtonDownState"/>
 		<var name="FocusState" value="guise.states.ControlStates.FocusState"/>
 
-		<var name="Layout" value="guise.skin.common.PositionedLayer.Layout"/>
+		<!-- <var name="Meas" value="guise.meas.IMeasurement.Meas"/> -->
 
 		<!-- reused styles -->
 		<var name="styleTransitioner" type="guise.skin.drawn.utils.DrawnStyleTrans"/>
@@ -102,6 +102,7 @@
 				<m-addLayout params="null, 0, guise.skin.values.Height*0.5-6, guise.skin.values.Width, 12"/>
 			</var>
 		</meth>
+
 		<meth name="sliderHandle" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.SimpleShapeLayer">
 			<var type="guise.skin.drawn.SimpleShapeLayer" name="layer" p-layerName="'controlHandle'" p-normalStyle="sliderNorm">
 				<m-addStyle params="[ButtonOverState.OVER], sliderOver"/>
@@ -161,19 +162,38 @@
 			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
 				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','labelText']"/>
 			</meth>
+			<meth addCall="addFact" ret="meas" a-cause="Dynamic">
+				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="guise.skin.values.TextWidth+24,(guise.skin.values.TextHeight+16)>25"/>
+			</meth>
 			<m-addFact params="labelText"/>
 			<m-addFact params="labelTextFilt"/>
 			<m-addFact params="buttonBacking"/>
 			<m-addFact params="backingFilt"/>
 		</var>
 
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.PanelTag" addCall="addTrait">
+			<meth static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.BoxLayer" addCall="addFact">
+				<var type="guise.skin.drawn.BoxLayer" name="layer" p-layerName="'backing'" p-normalStyle="BoxStyle.BsRect(FillStyle.FsSolid(0xececec), StrokeStyle.SsNone)">
+				</var>
+			</meth>
+		</var>
+
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextLabelTag" addCall="addTrait">
+			<meth addCall="addFact" ret="meas" a-cause="Dynamic">
+				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="guise.skin.values.TextWidth,guise.skin.values.TextHeight"/>
+			</meth>
+			<meth addCall="addFact" ret="meas" a-cause="Dynamic">
+				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="guise.skin.values.TextWidth,guise.skin.values.TextHeight"/>
+			</meth>
 			<m-addFact params="labelText"/>
 		</var>
 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextInputTag" addCall="addTrait">
 			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
 				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','inputText']"/>
+			</meth>
+			<meth addCall="addFact" ret="meas" a-cause="Dynamic">
+				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="guise.skin.values.TextWidth+24,(guise.skin.values.TextHeight+16)>25"/>
 			</meth>
 			<m-addFact params="inputText"/>
 			<m-addFact params="inputTextFilt"/>
@@ -185,6 +205,9 @@
 			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
 				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','controlHandle']"/>
 			</meth>
+			<meth addCall="addFact" ret="meas" a-cause="Dynamic">
+				<var name="meas" type="guise.meas.IMeasurement.SimpleMeas" m-set="50,16"/>
+			</meth>
 			<m-addFact params="sliderHandle"/>
 			<m-addFact params="controlHandleFilt"/>
 			<m-addFact params="hSliderBacking"/>
@@ -193,6 +216,9 @@
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
 			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
 				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','controlHandle']"/>
+			</meth>
+			<meth addCall="addFact" ret="meas" a-cause="Dynamic">
+				<var name="meas" type="guise.meas.IMeasurement.SimpleMeas" m-set="26,16"/>
 			</meth>
 			<m-addFact params="toggleHandle"/>
 			<m-addFact params="controlHandleFilt"/>

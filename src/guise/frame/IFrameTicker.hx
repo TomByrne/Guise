@@ -1,4 +1,4 @@
-package guise.platform.cross.core;
+package guise.frame;
 import haxe.Timer;
 import msignal.Signal;
 

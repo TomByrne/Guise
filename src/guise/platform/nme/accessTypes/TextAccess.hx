@@ -66,7 +66,7 @@ class TextAccess implements ITextInputAccess, implements ITextOutputAccess, impl
 		return _textField.textWidth;
 	}
 	public var textHeight(get_textHeight, null):Float;
-	private function get_textHeight():Float{
+	private function get_textHeight():Float {
 		return _textField.textHeight;
 	}
 	public function setAntiAliasing(type:AntiAliasType):Void {

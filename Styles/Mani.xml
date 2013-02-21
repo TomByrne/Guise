@@ -26,23 +26,23 @@
 
 
 		<!-- layers -->
-		<meth name="buttonBacking" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextureLayer">
+		<meth name="buttonBacking" static="true" a-tag="Dynamic" ret="layer">
 			<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'backing'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('ButtonUp',true), -1,-2,-6,-2)">
 				<m-addStyle params="[ButtonOverState.OVER], TextureStyle.pad(TextureInfo.sprite('ButtonOver',true), -1,-2,-6,-2)"/>
 				<m-addStyle params="[ButtonDownState.DOWN], TextureStyle.pad(TextureInfo.sprite('ButtonDown',true), -1,-2,-6,-2), 1"/>
 				<m-addStyle params="[SelectedState.SELECTED], TextureStyle.pad(TextureInfo.sprite('ButtonDown',true), -1,-2,-6,-2), 2"/>
 			</var>
 		</meth>
-		<meth name="inputTextBacking" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextureLayer">
+		<meth name="inputTextBacking" static="true" a-tag="Dynamic" ret="layer">
 			<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'backing'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('TextInput',true), -1,-2,-6,-2)">
 			</var>
 		</meth>
-		<meth name="toggleBacking" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextureLayer">
+		<meth name="toggleBacking" static="true" a-tag="Dynamic" ret="layer">
 			<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'backing'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('Track',true), -1,-1,-3,-1)">
 				<m-addLayout params="null, guise.skin.values.Width*0.5-25, guise.skin.values.Height*0.5-13, 50, 26"/>
 			</var>
 		</meth>
-		<meth name="sliderBacking" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextureLayer">
+		<meth name="sliderBacking" static="true" a-tag="Dynamic" ret="layer">
 			<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'backing'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('Track',true), -1,-1,-3,-1)">
 				<m-addLayout params="null, 0, guise.skin.values.Height*0.5-13, guise.skin.values.Width, 26"/>
 			</var>
@@ -59,7 +59,7 @@
 			</var>
 		</meth>
 
-		<meth name="toggleHandle" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextureLayer">
+		<meth name="toggleHandle" static="true" a-tag="Dynamic" ret="layer">
 			<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'controlHandle'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('ToggleRed'), -2,-2,-8,-2)">
 				<m-addStyle params="[SelectedState.SELECTED], TextureStyle.pad(TextureInfo.sprite('ToggleGreen'), -2,-2,-8,-2)"/>
 
@@ -67,7 +67,7 @@
 				<m-addLayout params="[SelectedState.SELECTED], guise.skin.values.Width*0.5+1, guise.skin.values.Height*0.5-12, 24, 24"/>
 			</var>
 		</meth>
-		<meth name="sliderHandle" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextureLayer">
+		<meth name="sliderHandle" static="true" a-tag="Dynamic" ret="layer">
 			<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'controlHandle'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('Progress',true), -2,-4,-8,-4)">
 				<m-addLayout params="null, 4, guise.skin.values.Height*0.5-10, 18+(guise.skin.values.Width-26)*guise.controls.data.INumRange.valueNorm, 18"/>
 			</var>
@@ -87,6 +87,9 @@
 			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
 				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','labelText']"/>
 			</meth>
+			<meth addCall="addFact" ret="meas" a-cause="Dynamic">
+				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="guise.skin.values.TextWidth+40,(guise.skin.values.TextHeight+26)>40"/>
+			</meth>
 			<m-addFact params="labelText"/>
 			<m-addFact params="buttonBacking"/>
 		</var>
@@ -95,17 +98,26 @@
 			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
 				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','inputText']"/>
 			</meth>
+			<meth addCall="addFact" ret="meas" a-cause="Dynamic">
+				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="(guise.skin.values.TextWidth+28)>60,(guise.skin.values.TextHeight+26)>40"/>
+			</meth>
 			<m-addFact params="inputText"/>
 			<m-addFact params="inputTextBacking"/>
 		</var>
 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextLabelTag" addCall="addTrait">
 			<m-addFact params="labelText"/>
+			<meth addCall="addFact" ret="meas" a-cause="Dynamic">
+				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="guise.skin.values.TextWidth,guise.skin.values.TextHeight"/>
+			</meth>
 		</var>
 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
 			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
 				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','controlHandle']"/>
+			</meth>
+			<meth addCall="addFact" ret="meas" a-cause="Dynamic">
+				<var name="meas" type="guise.meas.IMeasurement.SimpleMeas" m-set="50,25"/>
 			</meth>
 			<m-addFact params="toggleHandle"/>
 			<m-addFact params="toggleBacking"/>
@@ -115,8 +127,18 @@
 			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
 				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','controlHandle']"/>
 			</meth>
+			<meth addCall="addFact" ret="meas" a-cause="Dynamic">
+				<var name="meas" type="guise.meas.IMeasurement.SimpleMeas" m-set="100,25"/>
+			</meth>
 			<m-addFact params="sliderHandle"/>
 			<m-addFact params="sliderBacking"/>
+		</var>
+
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.PanelTag" addCall="addTrait">
+			<meth static="true" a-tag="Dynamic" ret="layer" addCall="addFact">
+				<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'backing'" p-normalStyle="TextureStyle.norm(TextureInfo.tile('Panel'))">
+				</var>
+			</meth>
 		</var>
 	</meth>
 </class>

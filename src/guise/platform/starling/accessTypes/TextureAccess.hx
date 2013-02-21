@@ -4,6 +4,7 @@ import guise.accessTypes.IBoxPosAccess;
 import guise.accessTypes.ITextureAccess;
 import guise.platform.starling.addTypes.IDisplayObjectType;
 import guise.platform.starling.ext.Scale9Sprite;
+import guise.platform.starling.ext.TileSprite;
 import starling.display.Image;
 import guise.skin.bitmap.utils.TexturePack;
 import starling.display.DisplayObject;
@@ -60,14 +61,20 @@ class TextureAccess extends AbstractTrait, implements ITextureAccess, implements
 		while (_sprite.numChildren>0) {
 			_sprite.removeChildAt(0);
 		}
+		var getTexture = texturePack.pack.getTexture;
+		var getTextures = texturePack.pack.getTextures;
 		
 		switch(_textureInfo) {
+			case tile(textureId):
+				var tileSprite:TileSprite = new TileSprite(getTexture(textureId));
+				sizeChild(tileSprite);
+				_sprite.addChild(tileSprite);
+				
 			case sprite(textureId, scale9):
-				var getTexture = texturePack.pack.getTexture;
 				if (scale9) {
 					var scale9 = new Scale9Sprite();
 					
-					scale9.setTexturesStill(getTexture(textureId + "-tl"), getTexture(textureId + "-tc"), getTexture(textureId + "-tr"),
+					scale9.setTextureStill(getTexture(textureId + "-tl"), getTexture(textureId + "-tc"), getTexture(textureId + "-tr"),
 											getTexture(textureId + "-ml"), getTexture(textureId + "-mc"), getTexture(textureId + "-mr"),
 											getTexture(textureId + "-bl"), getTexture(textureId + "-bc"), getTexture(textureId + "-br"));
 					_sprite.addChild(scale9);
@@ -78,7 +85,6 @@ class TextureAccess extends AbstractTrait, implements ITextureAccess, implements
 					sizeChild(img);
 				}
 			case clip(textureId, fps, scale9):
-				var getTextures = texturePack.pack.getTextures;
 				if (scale9) {
 					var scale9 = new Scale9Sprite();
 					
@@ -113,8 +119,14 @@ class TextureAccess extends AbstractTrait, implements ITextureAccess, implements
 	}
 	
 	private function sizeChild(child:DisplayObject):Void {
-		if (Std.is(child, Scale9Sprite)) {
-			var scale9 = cast child;
+		if (Math.isNaN(_width) || Math.isNaN(_height)) return;
+		
+		if (Std.is(child, TileSprite)) {
+			var tileSprite:TileSprite = cast child;
+			tileSprite.setWidth(_width);
+			tileSprite.setHeight(_height);
+		}else if (Std.is(child, Scale9Sprite)) {
+			var scale9:Scale9Sprite = cast child;
 			scale9.setWidth(_width);
 			scale9.setHeight(_height);
 		}else {

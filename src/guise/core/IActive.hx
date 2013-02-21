@@ -1,10 +1,6 @@
 package guise.core;
 import msignal.Signal;
 
-/**
- * ...
- * @author Tom Byrne
- */
 
 interface IActive 
 {

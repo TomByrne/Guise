@@ -6,6 +6,7 @@ package guise.controls;
  */
 
 enum ControlTags {
+	PanelTag;
 	TextButtonTag(selectable:Bool);
 	TextLabelTag;
 	TextInputTag;
