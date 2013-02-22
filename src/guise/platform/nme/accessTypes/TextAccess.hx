@@ -1,5 +1,6 @@
 package guise.platform.nme.accessTypes;
 import guise.accessTypes.IBoxPosAccess;
+import guise.accessTypes.IFocusableAccess;
 import guise.accessTypes.ITextInputAccess;
 import guise.accessTypes.ITextOutputAccess;
 import guise.platform.nme.addTypes.IDisplayObjectType;
@@ -16,7 +17,7 @@ import guise.platform.nme.TextFieldGutter;
 
 
 @:build(LazyInst.check())
-class TextAccess implements ITextInputAccess, implements ITextOutputAccess, implements IDisplayObjectType, implements IInteractiveObjectType, implements IBoxPosAccess
+class TextAccess implements ITextInputAccess, implements ITextOutputAccess, implements IDisplayObjectType, implements IInteractiveObjectType, implements IBoxPosAccess, implements IFocusableAccess
 {
 	@lazyInst
 	public var textMeasChanged:Signal1<ITextOutputAccess>;
@@ -113,11 +114,11 @@ class TextAccess implements ITextInputAccess, implements ITextOutputAccess, impl
 	}
 	private function onFocusIn(e:Event):Void {
 		focused = true;
-		if (focusedChanged != null) focusedChanged.dispatch(this);
+		LazyInst.exec(focusedChanged.dispatch(this));
 	}
 	private function onFocusOut(e:Event):Void {
 		focused = false;
-		if (focusedChanged != null) focusedChanged.dispatch(this);
+		LazyInst.exec(focusedChanged.dispatch(this));
 	}
 	
 	public var textChanged(get_textChanged, null):Signal1 < ITextInputAccess > ;
@@ -126,13 +127,10 @@ class TextAccess implements ITextInputAccess, implements ITextOutputAccess, impl
 		return textChanged;
 	}
 	
-	public var focused(default, null):Bool;
+	@:isVar public var focused(default, null):Bool;
 	
-	public var focusedChanged(get_focusedChanged, null):Signal1 < ITextInputAccess >;
-	private function get_focusedChanged():Signal1 < ITextInputAccess >{
-		if (focusedChanged == null) focusedChanged = new Signal1();
-		return focusedChanged;
-	}
+	
+	@lazyInst public var focusedChanged:Signal1 < IFocusableAccess >;
 	
 	
 	

@@ -33,6 +33,7 @@
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextInputTag" addCall="addTrait">
 			<m-addType params="guise.platform.waxe.controls.TextInputTrait"/>
+			<!-- <m-addType params="guise.controls.logic.input.TextInputPrompt"/> -->
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextLabelTag" addCall="addTrait">
 			<m-addType params="guise.platform.waxe.controls.TextLabelTrait"/>

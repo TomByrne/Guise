@@ -23,13 +23,11 @@ class FocusStateMapper extends AbstractTrait
 		focusedState = new State();
 		focusedState.set(FocusState.UNFOCUSED);
 		addSiblingTrait(focusedState);
-		
-		//addSiblingTrait(new PlatformAccessor(IFocusableAccess, layerName, onFocusAdd, onFocusRemove));
 	}
 	
 	@injectAdd
 	private function onFocusAdd(access:IFocusableAccess):Void {
-		if (access.layerName != layerName) return;
+		if (layerName!=null && access.layerName != layerName) return;
 		
 		_focusable = access;
 		access.focusedChanged.add(onFocusedChanged);

@@ -15,7 +15,7 @@ import starling.utils.VAlign;
 
 
 @:build(LazyInst.check())
-class TextOutputAccess /*implements ITextInputAccess,*/ implements ITextOutputAccess, implements IDisplayObjectType, implements IBoxPosAccess
+class TextOutputAccess implements ITextOutputAccess, implements IDisplayObjectType, implements IBoxPosAccess
 {
 	private static var MIN_SIZE:Float = 9;
 	
@@ -36,7 +36,8 @@ class TextOutputAccess /*implements ITextInputAccess,*/ implements ITextOutputAc
 	private var _textRun:TextRun;
 	private var _textWidth:Float;
 	private var _textHeight:Float;
-	private var _gutter:Float;
+	private var _wGutter:Float;
+	private var _hGutter:Float;
 	
 	public var layerName(default, set_layerName):String;
 	private function set_layerName(value:String):String {
@@ -47,35 +48,33 @@ class TextOutputAccess /*implements ITextInputAccess,*/ implements ITextOutputAc
 
 	public function new(?layerName:String, ?textField:TextField) 
 	{
-		_gutter = TextFieldGutter.GUTTER;
+		_wGutter = TextFieldGutter.W_GUTTER;
+		_hGutter = TextFieldGutter.H_GUTTER;
 		_textField = (textField == null?new TextField(100, 30, "", "", 12, 0, false):textField);
 		_textField.hAlign = HAlign.LEFT;
 		_textField.vAlign = VAlign.TOP;
 		FontRegistry.getChanged().add(onFontsChanged);
 		this.layerName = layerName;
-		/*_textField.addEventListener(Event.CHANGE, onChange);
-		_textField.addEventListener(FocusEvent.FOCUS_IN, onFocusIn);
-		_textField.addEventListener(FocusEvent.FOCUS_OUT, onFocusOut);*/
 	}
 	public function setPos(x:Float, y:Float):Void {
-		_textField.x = x-_gutter;
-		_textField.y = y-_gutter;
+		_textField.x = x-_wGutter;
+		_textField.y = y-_hGutter;
 	}
 	public function setSize(w:Float, h:Float):Void {
 		if (h < MIN_SIZE) h = MIN_SIZE;
 		if (w < MIN_SIZE) w = MIN_SIZE;
 		
-		_textField.width = w+_gutter*2;
-		_textField.height = h+_gutter*2;
+		_textField.width = w+_wGutter*2;
+		_textField.height = h+_hGutter*2;
 	}
 	public function set(x:Float, y:Float, w:Float, h:Float):Void {
 		if (h < MIN_SIZE) h = MIN_SIZE;
 		if (w < MIN_SIZE) w = MIN_SIZE;
 		
-		_textField.x = x-_gutter;
-		_textField.y = y-_gutter;
-		_textField.width = w+_gutter*2;
-		_textField.height = h+_gutter*2;
+		_textField.x = x-_wGutter;
+		_textField.y = y-_hGutter;
+		_textField.width = w+_wGutter*2;
+		_textField.height = h+_hGutter*2;
 	}
 	private function onFontsChanged():Void{
 		if(_textRun!=null)setText(_textRun, false);
@@ -188,7 +187,7 @@ class TextOutputAccess /*implements ITextInputAccess,*/ implements ITextOutputAc
 			_textField.height = 100;
 		}
 		newTextWidth = _textField.textBounds.width;
-		newTextHeight = _textField.textBounds.height;
+		newTextHeight = _textField.textBounds.height+1;
 		_textField.width = widthWas;
 		_textField.height = heightWas;
 		

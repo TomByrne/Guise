@@ -7,7 +7,7 @@ import xmlTools.XmlToCode;
  
 class NativePlatformAccess
 {
-	public static function install(within:ComposeItem){
+	public static inline function install(within:ComposeItem){
 		
 		#if js
 			XmlToCode.path("/../../../../Platforms/HTML5.xml").install(within);
@@ -16,8 +16,8 @@ class NativePlatformAccess
 			XmlToCode.path("/../../../../Platforms/Waxe.xml").install(within);
 		#elseif nme
 			// NME fallback
-			XmlToCode.path("/../../../../Platforms/NME.xml").install(within);
 			XmlToCode.path("/../../../../Styles/Chutzpah.xml").install(within);
+			XmlToCode.path("/../../../../Platforms/NME.xml").install(within);
 		#end
 	}
 }

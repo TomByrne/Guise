@@ -99,7 +99,7 @@
 				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','inputText']"/>
 			</meth>
 			<meth addCall="addFact" ret="meas" a-cause="Dynamic">
-				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="(guise.skin.values.TextWidth+28)>60,(guise.skin.values.TextHeight+26)>40"/>
+				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="(guise.skin.values.TextWidth+28)>100,(guise.skin.values.TextHeight+26)>40"/>
 			</meth>
 			<m-addFact params="inputText"/>
 			<m-addFact params="inputTextBacking"/>

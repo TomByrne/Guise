@@ -69,5 +69,6 @@ class TextButtonTrait extends DisplayTrait
 	}
 	private function onCheckboxClick(e:Event):Void {
 		onSelectedChanged(selected);
+		checkMeas();
 	}
 }

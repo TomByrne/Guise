@@ -169,10 +169,13 @@ class StackLayout extends AbsLayout
 	override private function onSizeChanged(from:IBoxPos):Void {
 		invalidate(doPositioning);
 	}
+	private function onChildMeasChanged(from:IMeasurement):Void {
+		invalidate(doPositioning);
+	}
 	
 	private function addChild(child:StackLayoutInfo, item:ComposeItem):Void {
 		var boxPos = new BoxPos();
-		var bundle = { layoutInfo:child, boxPos:boxPos, item:item };
+		var bundle = { layoutInfo:child, boxPos:boxPos, item:item, meas:null };
 		item.addTrait(boxPos);
 		_childToBundle.set(child, bundle);
 		if (child.idealIndex != -1) {
@@ -187,14 +190,17 @@ class StackLayout extends AbsLayout
 		_childToBundle.delete(child);
 		item.removeTrait(bundle.boxPos);
 		
+		if (bundle.meas!=null) {
+			bundle.meas.measChanged.add(onChildMeasChanged);
+		}
+		
 		if (_stack.remove(bundle)) {
 			invalidate(doPositioning);
-		}
+		}	
 	}
 	
 	
 	private function doArrangeStack():Bool {
-		trace("doArrangeStack");
 		_stack = [];
 		var specific:Array<ChildBundle> = [];
 		for (layoutInfo in _childToBundle.keys()) {
@@ -237,6 +243,15 @@ class StackLayout extends AbsLayout
 		var length:Float = getLength()-lengthAft-lengthFore;
 		for (bundle in _stack) {
 			var meas:IMeasurement = cast bundle.item.getTrait(IMeasurement);
+			if (meas != bundle.meas) {
+				if (bundle.meas!=null) {
+					bundle.meas.measChanged.remove(onChildMeasChanged);
+				}
+				bundle.meas = meas;
+				if (bundle.meas!=null) {
+					bundle.meas.measChanged.add(onChildMeasChanged);
+				}
+			}
 			
 			var boxPos = bundle.boxPos;
 			
@@ -330,6 +345,7 @@ private typedef ChildBundle = {
 	var layoutInfo:StackLayoutInfo;
 	var boxPos:BoxPos;
 	var item:ComposeItem;
+	var meas:IMeasurement;
 }
 
 class StackLayoutInfo {

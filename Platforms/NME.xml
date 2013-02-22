@@ -9,7 +9,7 @@
 			<m-mapAccessType params="guise.accessTypes.IBitmapGraphicsAccess, guise.platform.nme.accessTypes.GraphicsAccess"/>
 			<m-mapAccessType params="guise.accessTypes.ITextInputAccess, guise.platform.nme.accessTypes.TextAccess"/>
 			<m-mapAccessType params="guise.accessTypes.ITextOutputAccess, guise.platform.nme.accessTypes.TextAccess"/>
-			<m-mapAccessType params="guise.accessTypes.IFocusableAccess, guise.platform.nme.accessTypes.FocusableAccess"/>
+			<!--<m-mapAccessType params="guise.accessTypes.IFocusableAccess, guise.platform.nme.accessTypes.FocusableAccess"/>-->
 			<m-mapAccessType params="guise.accessTypes.IFilterableAccess, guise.platform.nme.accessTypes.FilterableAccess"/>
 			<m-mapAccessType params="guise.accessTypes.IMouseClickableAccess, guise.platform.nme.accessTypes.MouseClickableAccess"/>
 			<m-mapAccessType params="guise.accessTypes.IMouseInteractionsAccess, guise.platform.nme.accessTypes.MouseInteractionsAccess"/>
@@ -42,8 +42,8 @@
 			<m-addType params="guise.controls.data.Selected, guise.controls.data.ISelected"/>
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextInputTag" addCall="addTrait">
-			<m-addFact params="function(into:Dynamic):Dynamic return new guise.controls.logic.input.TextInputPrompt()"/>
-			<m-addFact params="function(into:Dynamic):Dynamic return new guise.controls.logic.states.FocusStateMapper()"/>
+			<m-addType params="guise.controls.logic.input.TextInputPrompt"/>
+			<m-addType params="guise.controls.logic.states.FocusStateMapper"/>
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
 			<m-addType params="guise.controls.logic.input.MouseOverTrait"/>

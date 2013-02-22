@@ -58,7 +58,7 @@ class AccessProvider extends AbstractTrait
 				for(foundTrait in traits){
 					if (Std.is(foundTrait, IAccessType)) {
 						var access:IAccessType = cast foundTrait;
-						if (access.layerName == accessReq.layerName) {
+						if (accessReq.layerName==null || access.layerName == accessReq.layerName) {
 							trait = foundTrait;
 							break;
 						}

@@ -87,7 +87,6 @@ class DisplayTrait<T:Window> extends ContainerTrait, implements IMeasurement{
 		}
 		if (w <= 0 || h <= 0) return; // setting invalid size can irrepairably damage wxWidgets
 		
-		trace(this+" "+w+" "+h);
 		_size.width = Std.int(w);
 		_size.height = Std.int(h);
 		window.setSize(_size);

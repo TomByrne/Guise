@@ -116,7 +116,7 @@
 				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','inputText']"/>
 			</meth>
 			<meth addCall="addFact" ret="meas" a-cause="Dynamic">
-				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="guise.skin.values.TextWidth+24,(guise.skin.values.TextHeight+16)>25"/>
+				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="(guise.skin.values.TextWidth+24)>100,(guise.skin.values.TextHeight+16)>25"/>
 			</meth>
 
 			<m-addFact params="backingFilt"/>
@@ -154,7 +154,7 @@
 
 					<m-addStyle params="[], ShapeStyle.SsMulti([ShapeStyle.SsEllipse(	normGradient, normStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), new guise.skin.values.Value(-8), new guise.skin.values.Value(-8)), ShapeStyle.SsEllipse(	FillStyle.FsSolid(0xc1c1c1), SsSolid(1, FillStyle.FsHLinearGradient([ { c:0x979797, a:1, fract:0 }, { c:0xfefefe, a:1, fract:1 } ])), new guise.skin.values.Value(5), new guise.skin.values.Value(5), new guise.skin.values.Value(-2.5), new guise.skin.values.Value(-2.5))])"/>
 
-					<m-addStyle params="[ButtonOverState.OVER], ShapeStyle.SsMulti([ShapeStyle.SsEllipse(	overGradient, overStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), new guise.skin.values.Value(-8), new guise.skin.values.Value(-8)), ShapeStyle.SsEllipse(	FillStyle.FsSolid(0xc1c1c1), SsSolid(1, FillStyle.FsHLinearGradient([ { c:0x979797, a:1, fract:0 }, { c:0xfefefe, a:1, fract:1 } ])), new guise.skin.values.Value(5), new guise.skin.values.Value(5), new guise.skin.values.Value(-24.5), new guise.skin.values.Value(-2.5))])"/>
+					<m-addStyle params="[ButtonOverState.OVER], ShapeStyle.SsMulti([ShapeStyle.SsEllipse(	overGradient, overStroke, new guise.skin.values.Value(16), new guise.skin.values.Value(16), new guise.skin.values.Value(-8), new guise.skin.values.Value(-8)), ShapeStyle.SsEllipse(	FillStyle.FsSolid(0xc1c1c1), SsSolid(1, FillStyle.FsHLinearGradient([ { c:0x979797, a:1, fract:0 }, { c:0xfefefe, a:1, fract:1 } ])), new guise.skin.values.Value(5), new guise.skin.values.Value(5), new guise.skin.values.Value(-2.5), new guise.skin.values.Value(-2.5))])"/>
 
 					<m-addLayout params="null, 4+guise.controls.data.INumRange.valueNorm(rangeChanged)*(guise.skin.values.Width-8), guise.skin.values.Height*0.5, 0, 0"/>
 				</var>
