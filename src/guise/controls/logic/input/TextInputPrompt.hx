@@ -8,12 +8,12 @@ import guise.accessTypes.IMouseInteractionsAccess;
 import guise.platform.cross.IAccessRequest;
 
 
-class TextInputPrompt extends AbstractTrait, implements IAccessRequest
+class TextInputPrompt extends AbstractTrait implements IAccessRequest
 {
 	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [ITextInputAccess,IFocusableAccess];
 	
 	@inject
-	public var textLabel(default, set_textLabel):ITextLabel;
+	@:isVar public var textLabel(default, set):ITextLabel;
 	private function set_textLabel(value:ITextLabel):ITextLabel {
 		this.textLabel = value;
 		if (_showingPrompt && textLabel!=null) {
@@ -23,7 +23,7 @@ class TextInputPrompt extends AbstractTrait, implements IAccessRequest
 	}
 	
 	@inject
-	public var inputPrompt(default, set_inputPrompt):IInputPrompt;
+	@:isVar public var inputPrompt(default, set):IInputPrompt;
 	private function set_inputPrompt(inputPrompt:IInputPrompt):IInputPrompt {
 		if (inputPrompt != null) {
 			inputPrompt.promptChanged.remove(onPromptChanged);
@@ -42,7 +42,7 @@ class TextInputPrompt extends AbstractTrait, implements IAccessRequest
 	private var _ignoreChanges:Bool;
 	private var _focused:Bool;
 	
-	@:isVar public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		return value;

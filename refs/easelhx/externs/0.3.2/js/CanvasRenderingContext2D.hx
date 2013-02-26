@@ -11,7 +11,7 @@ import js.Dom;
 extern class CanvasRenderingContext2D
 {
 	// back-reference
-	public var canvas(default, null) : DomCanvas;
+	@:isVar public var canvas(default, null) : DomCanvas;
 	
 	// state
 	public function save() : Void;

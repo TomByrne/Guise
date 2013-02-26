@@ -16,10 +16,10 @@ import guise.platform.nme.addTypes.IInteractiveObjectType;
  * @author Tom Byrne
  */
 
-class GraphicsAccess implements IBitmapGraphicsAccess, implements IDisplayObjectType, implements IInteractiveObjectType, implements IPositionAccess
+class GraphicsAccess implements IBitmapGraphicsAccess implements IDisplayObjectType implements IInteractiveObjectType implements IPositionAccess
 {
 	
-	public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		_sprite.name = value==null?"":value;

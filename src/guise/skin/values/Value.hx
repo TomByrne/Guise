@@ -9,12 +9,12 @@ import msignal.Signal;
 
 class Value implements IValue
 {
-	public var currentValue(get_currentValue, null):Float;
+	public var currentValue(get, null):Float;
 	private function get_currentValue():Float {
 		return value;
 	}
 	
-	public var value(get_value, set_value):Float;
+	public var value(get, set):Float;
 	private function get_value():Float {
 		return value;
 	}

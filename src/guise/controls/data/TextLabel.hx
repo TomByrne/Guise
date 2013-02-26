@@ -5,9 +5,9 @@ import msignal.Signal;
 // Default implementation
 class TextLabel implements ITextLabel
 {
-	public var textChanged(default, null):Signal1<ITextLabel>;
+	@:isVar public var textChanged(default, null):Signal1<ITextLabel>;
 	
-	public var text(default, null):String;
+	@:isVar public var text(default, null):String;
 
 	public function new(text:Null<String>=null) 
 	{

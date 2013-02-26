@@ -11,11 +11,11 @@ import guise.macro.ValueMacro;
 
 interface IMeasurement 
 {
-	public var measChanged(get_measChanged, null):Signal1<IMeasurement>;
+	public var measChanged(get, null):Signal1<IMeasurement>;
 	
-	public var measWidth(get_measWidth, null):Float;
+	public var measWidth(get, null):Float;
 	
-	public var measHeight(get_measHeight, null):Float;
+	public var measHeight(get, null):Float;
 	
 }
 
@@ -23,7 +23,7 @@ interface IMeasurement
 // default implementation
 class Meas
 #if !macro
-extends AbstractTrait, implements IMeasurement
+extends AbstractTrait implements IMeasurement
 #end
 {
 	#if !macro
@@ -31,13 +31,13 @@ extends AbstractTrait, implements IMeasurement
 	@lazyInst
 	public var measChanged:Signal1<IMeasurement>;
 	
-	public var measWidth(get_measWidth, null):Float;
+	public var measWidth(get, null):Float;
 	private function get_measWidth():Float {
 		validate();
 		return _measWidth;
 	}
 	
-	public var measHeight(get_measHeight, null):Float;
+	public var measHeight(get, null):Float;
 	private function get_measHeight():Float {
 		validate();
 		return _measHeight;
@@ -165,12 +165,12 @@ class SimpleMeas implements IMeasurement {
 	@lazyInst
 	public var measChanged:Signal1<IMeasurement>;
 	
-	public var measWidth(get_measWidth, null):Float;
+	public var measWidth(get, null):Float;
 	private function get_measWidth():Float {
 		return _measWidth;
 	}
 	
-	public var measHeight(get_measHeight, null):Float;
+	public var measHeight(get, null):Float;
 	private function get_measHeight():Float {
 		return _measHeight;
 	}

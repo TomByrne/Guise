@@ -9,7 +9,7 @@ import msignal.Signal;
 
 class Calc implements IValue
 {
-	public var currentValue(get_currentValue, null):Float;
+	public var currentValue(get, null):Float;
 	private function get_currentValue():Float{
 		return _value;
 	}

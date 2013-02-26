@@ -3,10 +3,10 @@ package guise.accessTypes;
 import msignal.Signal;
 
 
-interface IMouseClickableAccess implements IAccessType
+interface IMouseClickableAccess extends IAccessType
 {
-	public var clicked(get_clicked, null):Signal1<ClickInfo>;
-	public var doubleClicked(get_doubleClicked, null):Signal1<ClickInfo>;
+	public var clicked(get, null):Signal1<ClickInfo>;
+	public var doubleClicked(get, null):Signal1<ClickInfo>;
 	
 }
 class ClickInfo {

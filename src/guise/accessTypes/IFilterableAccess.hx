@@ -1,6 +1,6 @@
 package guise.accessTypes;
 
-interface IFilterableAccess implements IAccessType {
+interface IFilterableAccess extends IAccessType {
 	function setFilters(?filters:Array<FilterType>):Void;
 }
 enum FilterType {

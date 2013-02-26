@@ -8,7 +8,7 @@ import haxe.Log;
 import guise.accessTypes.IMouseInteractionsAccess;
 
 
-class ButtonStateMapper extends AbstractTrait, implements IAccessRequest
+class ButtonStateMapper extends AbstractTrait implements IAccessRequest
 {
 	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [IMouseInteractionsAccess];
 	
@@ -16,7 +16,7 @@ class ButtonStateMapper extends AbstractTrait, implements IAccessRequest
 	private var overState:State<ButtonOverState>;
 	private var _mouseInteractions:IMouseInteractionsAccess;
 	
-	@:isVar public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		return value;

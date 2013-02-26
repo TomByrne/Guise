@@ -22,7 +22,7 @@ extends StateStyledTrait<StyleType>
 {
 	#if !macro
 	
-	public var normalLayout(get_normalLayout, set_normalLayout):Layout;
+	public var normalLayout(get, set):Layout;
 	private function get_normalLayout():Layout {
 		return _layoutStyler.normalStyle;
 	}
@@ -46,7 +46,7 @@ extends StateStyledTrait<StyleType>
 	public var w:Float;
 	public var h:Float;
 	
-	@:isVar public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		return value;

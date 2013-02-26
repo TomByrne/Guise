@@ -7,10 +7,10 @@ import wx.Button;
 import msignal.Signal;
 import guise.platform.waxe.display.DisplayTrait;
 
-class MouseClickable extends AbstractTrait, implements IMouseClickableAccess
+class MouseClickable extends AbstractTrait implements IMouseClickableAccess
 {
 	@inject
-	public var displayTrait(default, set_displayTrait):DisplayTrait<Button>;
+	@:isVar public var displayTrait(default, set):DisplayTrait<Button>;
 	private function set_displayTrait(value:DisplayTrait<Button>):DisplayTrait<Button> {
 		if (displayTrait!=null) {
 			displayTrait.clear(this);
@@ -25,7 +25,7 @@ class MouseClickable extends AbstractTrait, implements IMouseClickableAccess
 	
 	private var clickInfo:ClickInfo;
 	
-	public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		return value;
@@ -61,7 +61,7 @@ class MouseClickable extends AbstractTrait, implements IMouseClickableAccess
 	}*/
 	
 	private var _clicked:Signal1<ClickInfo>;
-	public var clicked(get_clicked, null):Signal1<ClickInfo>;
+	public var clicked(get, null):Signal1<ClickInfo>;
 	private function get_clicked():Signal1<ClickInfo> {
 		if (_clicked == null) {
 			_clicked = new Signal1();
@@ -71,7 +71,7 @@ class MouseClickable extends AbstractTrait, implements IMouseClickableAccess
 	}
 	
 	private var _doubleClicked:Signal1<ClickInfo>;
-	public var doubleClicked(get_doubleClicked, null):Signal1<ClickInfo>;
+	public var doubleClicked(get, null):Signal1<ClickInfo>;
 	private function get_doubleClicked():Signal1<ClickInfo> {
 		if (_doubleClicked == null) {
 			_doubleClicked = new Signal1();

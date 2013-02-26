@@ -5,7 +5,7 @@ import guise.accessTypes.ITextureAccess;
 import guise.platform.cross.IAccessRequest;
 import guise.skin.common.PositionedLayer;
 
-class TextureLayer extends PositionedLayer<TextureStyle>, implements IAccessRequest
+class TextureLayer extends PositionedLayer<TextureStyle> implements IAccessRequest
 {
 	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [ITextureAccess, IBoxPosAccess];
 	

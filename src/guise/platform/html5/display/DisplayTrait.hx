@@ -9,25 +9,25 @@ import guise.platform.cross.display.AbsDisplayTrait;
 import msignal.Signal;
 
 
-class DisplayTrait extends AbsDisplayTrait, implements IMeasurement
+class DisplayTrait extends AbsDisplayTrait implements IMeasurement
 {
 	@lazyInst
 	public var measChanged:Signal1<IMeasurement>;
 	
 	
-	public var domElement(default, null):HtmlDom;
+	@:isVar public var domElement(default, null):HtmlDom;
 	
 	private var _parent:ContainerTrait;
 	private var _allowSizing:Bool;
 	
 	private var _measWidth:Float;
-	public var measWidth(get_measWidth, null):Float;
+	public var measWidth(get, null):Float;
 	private function get_measWidth():Float {
 		return _measWidth;
 	}
 	
 	private var _measHeight:Float;
-	public var measHeight(get_measHeight, null):Float;
+	public var measHeight(get, null):Float;
 	private function get_measHeight():Float {
 		return _measHeight;
 	}

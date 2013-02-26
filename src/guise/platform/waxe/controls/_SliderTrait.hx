@@ -6,7 +6,7 @@ import guise.platform.waxe.display.DisplayTrait;
 class SliderTrait extends DisplayTrait
 {
 	@inject
-	public var range(default, set_range):INumRange;
+	@:isVar public var range(default, set):INumRange;
 	private function set_range(value:INumRange):INumRange {
 		if (range!=null) {
 			range.rangeChanged.remove(onRangeChanged);

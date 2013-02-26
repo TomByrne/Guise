@@ -5,9 +5,9 @@ import msignal.Signal;
 // Default implementation
 class Selected implements ISelected
 {
-	public var selectedChanged(default, null):Signal1<ISelected>;
+	@:isVar public var selectedChanged(default, null):Signal1<ISelected>;
 	
-	public var selected(default, null):Bool;
+	@:isVar public var selected(default, null):Bool;
 
 	public function new(selected:Null<Bool>=null) 
 	{

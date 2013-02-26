@@ -15,7 +15,7 @@ import js.Lib;
 class TextInputTrait extends TextLabelTrait
 {
 	@inject
-	@:isVar public var textPrompt(default, set_textPrompt):IInputPrompt;
+	@:isVar public var textPrompt(default, set):IInputPrompt;
 	private function set_textPrompt(value:IInputPrompt):IInputPrompt {
 		if (textPrompt != null) {
 			textPrompt.promptChanged.remove(onPromptChanged);

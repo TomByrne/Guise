@@ -9,7 +9,7 @@ import wx.Window;
 class TextLabelTrait extends DisplayTrait<StaticText>
 {
 	@inject
-	public var textLabel(default, set_textLabel):ITextLabel;
+	@:isVar public var textLabel(default, set):ITextLabel;
 	private function set_textLabel(value:ITextLabel):ITextLabel {
 		if (textLabel!=null) {
 			textLabel.textChanged.remove(onTextChanged);

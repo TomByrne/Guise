@@ -4,16 +4,16 @@ import msignal.Signal;
 
 interface IFrameTicker
 {
-	public var frameTick(default, null):Signal0;
-	public var actualFPS(default, null):Float;
+	@:isVar public var frameTick(default, null):Signal0;
+	@:isVar public var actualFPS(default, null):Float;
 	public function setIntendedFPS(fps:Int):Void;
 }
 
 // default implementation
 class FrameTicker implements IFrameTicker
 {
-	public var frameTick(default, null):Signal0;
-	public var actualFPS(default, null):Float;
+	@:isVar public var frameTick(default, null):Signal0;
+	@:isVar public var actualFPS(default, null):Float;
 	
 	private var _timer:Timer;
 	private var _frames:Array<Float>;

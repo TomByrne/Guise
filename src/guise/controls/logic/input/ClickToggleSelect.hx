@@ -4,14 +4,14 @@ import guise.controls.data.ISelected;
 import guise.accessTypes.IMouseClickableAccess;
 import guise.platform.cross.IAccessRequest;
 
-class ClickToggleSelect extends AbstractTrait, implements IAccessRequest
+class ClickToggleSelect extends AbstractTrait implements IAccessRequest
 {
 	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [IMouseClickableAccess];
 	
 	@inject
 	public var selected:ISelected;
 	
-	@:isVar public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		return value;

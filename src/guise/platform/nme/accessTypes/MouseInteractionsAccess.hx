@@ -12,10 +12,10 @@ import msignal.Signal;
  * @author Tom Byrne
  */
 
-class MouseInteractionsAccess extends AbstractTrait, implements IMouseInteractionsAccess
+class MouseInteractionsAccess extends AbstractTrait implements IMouseInteractionsAccess
 {
 	@inject
-	public var displayTrait(default, set_displayTrait):DisplayTrait;
+	@:isVar public var displayTrait(default, set):DisplayTrait;
 	private function set_displayTrait(value:DisplayTrait):DisplayTrait {
 		if (displayTrait!=null) {
 			if (displayTrait.displayObject == interactiveObject) {
@@ -31,7 +31,7 @@ class MouseInteractionsAccess extends AbstractTrait, implements IMouseInteractio
 		return value;
 	}
 	
-	public var interactiveObject(default, set_interactiveObject):InteractiveObject;
+	@:isVar public var interactiveObject(default, set):InteractiveObject;
 	private function set_interactiveObject(value:InteractiveObject):InteractiveObject {
 		if (interactiveObject!=null) {
 			interactiveObject.removeEventListener(MouseEvent.MOUSE_DOWN, onPressed);
@@ -57,7 +57,7 @@ class MouseInteractionsAccess extends AbstractTrait, implements IMouseInteractio
 	private var mouseInfo:MouseInfo;
 	private var _isOver:Bool;
 	
-	public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		return value;
@@ -124,7 +124,7 @@ class MouseInteractionsAccess extends AbstractTrait, implements IMouseInteractio
 	}
 	
 	private var _pressed:Signal1<MouseInfo>;
-	public var pressed(get_pressed, null):Signal1<MouseInfo>;
+	public var pressed(get, null):Signal1<MouseInfo>;
 	private function get_pressed():Signal1<MouseInfo> {
 		if (_pressed == null) {
 			_pressed = new Signal1();
@@ -134,7 +134,7 @@ class MouseInteractionsAccess extends AbstractTrait, implements IMouseInteractio
 	}
 	
 	private var _released:Signal1<MouseInfo>;
-	public var released(get_released, null):Signal1<MouseInfo>;
+	public var released(get, null):Signal1<MouseInfo>;
 	private function get_released():Signal1<MouseInfo> {
 		if (_released == null) {
 			_released = new Signal1();
@@ -144,7 +144,7 @@ class MouseInteractionsAccess extends AbstractTrait, implements IMouseInteractio
 	}
 	
 	private var _rolledOver:Signal1<MouseInfo>;
-	public var rolledOver(get_rolledOver, null):Signal1<MouseInfo>;
+	public var rolledOver(get, null):Signal1<MouseInfo>;
 	private function get_rolledOver():Signal1<MouseInfo> {
 		if (_rolledOver == null) {
 			_rolledOver = new Signal1();
@@ -157,7 +157,7 @@ class MouseInteractionsAccess extends AbstractTrait, implements IMouseInteractio
 	}
 	
 	private var _rolledOut:Signal1<MouseInfo>;
-	public var rolledOut(get_rolledOut, null):Signal1<MouseInfo>;
+	public var rolledOut(get, null):Signal1<MouseInfo>;
 	private function get_rolledOut():Signal1<MouseInfo> {
 		if (_rolledOut == null) {
 			_rolledOut = new Signal1();
@@ -167,7 +167,7 @@ class MouseInteractionsAccess extends AbstractTrait, implements IMouseInteractio
 	}
 	
 	private var _moved:Signal1<MouseInfo>;
-	public var moved(get_moved, null):Signal1<MouseInfo>;
+	public var moved(get, null):Signal1<MouseInfo>;
 	private function get_moved():Signal1<MouseInfo> {
 		if (_moved == null) {
 			_moved = new Signal1();

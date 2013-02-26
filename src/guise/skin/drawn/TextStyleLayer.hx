@@ -7,7 +7,7 @@ import guise.skin.common.PositionedLayer;
 import guise.utils.TitleCase;
 
 
-class TextStyleLayer extends PositionedLayer<TextLabelStyle>, implements IAccessRequest
+class TextStyleLayer extends PositionedLayer<TextLabelStyle> implements IAccessRequest
 {
 	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [ITextOutputAccess,IBoxPosAccess];
 
@@ -43,7 +43,7 @@ class TextStyleLayer extends PositionedLayer<TextLabelStyle>, implements IAccess
 	
 	
 	@inject
-	public var textLabel(default, set_textLabel):ITextLabel;
+	@:isVar public var textLabel(default, set):ITextLabel;
 	private function set_textLabel(value:ITextLabel):ITextLabel {
 		if (textLabel != null) {
 			textLabel.textChanged.remove(onTextChanged);

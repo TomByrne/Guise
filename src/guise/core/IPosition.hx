@@ -8,20 +8,20 @@ import msignal.Signal;
 
 interface IPosition 
 {
-	public var posChanged(default, null):Signal1<IPosition>;
+	@:isVar public var posChanged(default, null):Signal1<IPosition>;
 	
-	public var x(default, null):Float;
-	public var y(default, null):Float;
+	@:isVar public var x(default, null):Float;
+	@:isVar public var y(default, null):Float;
 
 	public function set(x:Float, y:Float):Void ;
 	
 }
 class Position implements IPosition
 {
-	public var posChanged(default, null):Signal1<IPosition>;
+	@:isVar public var posChanged(default, null):Signal1<IPosition>;
 	
-	public var x(default, null):Float;
-	public var y(default, null):Float;
+	@:isVar public var x(default, null):Float;
+	@:isVar public var y(default, null):Float;
 
 	public function new(?x:Null<Float>, ?y:Null<Float>) 
 	{

@@ -5,5 +5,5 @@ import composure.core.ComposeItem;
 
 
 interface IAccessType {
-	public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 }

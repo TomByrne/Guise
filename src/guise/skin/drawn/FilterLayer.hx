@@ -3,7 +3,7 @@ import guise.accessTypes.IFilterableAccess;
 import guise.platform.cross.IAccessRequest;
 import guise.states.StateStyledTrait;
 
-class FilterLayer extends StateStyledTrait<Array<FilterType>>, implements IAccessRequest
+class FilterLayer extends StateStyledTrait<Array<FilterType>> implements IAccessRequest
 {
 	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [IFilterableAccess];
 	
@@ -21,7 +21,7 @@ class FilterLayer extends StateStyledTrait<Array<FilterType>>, implements IAcces
 		_filterable = null;
 	}
 	
-	@:isVar public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		return value;

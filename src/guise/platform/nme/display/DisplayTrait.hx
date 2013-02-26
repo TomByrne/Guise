@@ -13,7 +13,7 @@ import msignal.Signal;
 class DisplayTrait extends AbsDisplayTrait
 {
 	
-	public var displayObject(default, null):DisplayObject;
+	@:isVar public var displayObject(default, null):DisplayObject;
 	
 	private var _parent:ContainerTrait;
 

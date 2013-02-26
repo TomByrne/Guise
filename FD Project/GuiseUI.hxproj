@@ -12,6 +12,7 @@
     <movie minorVersion="0" />
     <movie platform="NME" />
     <movie background="FFFFFF" />
+    <movie preferredSDK="Haxe 3.00b;3.00b;" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>

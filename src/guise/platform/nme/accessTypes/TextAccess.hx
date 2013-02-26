@@ -17,7 +17,7 @@ import guise.platform.nme.TextFieldGutter;
 
 
 @:build(LazyInst.check())
-class TextAccess implements ITextInputAccess, implements ITextOutputAccess, implements IDisplayObjectType, implements IInteractiveObjectType, implements IBoxPosAccess, implements IFocusableAccess
+class TextAccess implements ITextInputAccess implements ITextOutputAccess implements IDisplayObjectType implements IInteractiveObjectType implements IBoxPosAccess implements IFocusableAccess
 {
 	@lazyInst
 	public var textMeasChanged:Signal1<ITextOutputAccess>;
@@ -26,7 +26,7 @@ class TextAccess implements ITextInputAccess, implements ITextOutputAccess, impl
 	private var _ignoreChanges:Bool;
 	private var _gutter:Float;
 	
-	public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		_textField.name = value == null?"":value;
@@ -62,11 +62,11 @@ class TextAccess implements ITextInputAccess, implements ITextOutputAccess, impl
 	public function getInteractiveObject():InteractiveObject {
 		return _textField;
 	}
-	public var textWidth(get_textWidth, null):Float;
+	public var textWidth(get, null):Float;
 	private function get_textWidth():Float {
 		return _textField.textWidth;
 	}
-	public var textHeight(get_textHeight, null):Float;
+	public var textHeight(get, null):Float;
 	private function get_textHeight():Float {
 		return _textField.textHeight;
 	}
@@ -94,14 +94,14 @@ class TextAccess implements ITextInputAccess, implements ITextOutputAccess, impl
 				//textField.gridFitType = GridFitType.NONE;
 		}
 	}
-	public var inputEnabled(default, set_inputEnabled):Bool;
+	@:isVar public var inputEnabled(default, set):Bool;
 	private function set_inputEnabled(value:Bool):Bool {
 		_textField.type = value?TextFieldType.INPUT:TextFieldType.DYNAMIC;
 		inputEnabled = value;
 		return value;
 	}
 	
-	public var selectable(default, set_selectable):Bool;
+	@:isVar public var selectable(default, set):Bool;
 	private function set_selectable(value:Bool):Bool{
 		_textField.selectable = value;
 		selectable = value;
@@ -121,7 +121,7 @@ class TextAccess implements ITextInputAccess, implements ITextOutputAccess, impl
 		LazyInst.exec(focusedChanged.dispatch(this));
 	}
 	
-	public var textChanged(get_textChanged, null):Signal1 < ITextInputAccess > ;
+	public var textChanged(get, null):Signal1 < ITextInputAccess > ;
 	private function get_textChanged():Signal1 < ITextInputAccess >{
 		if (textChanged == null) textChanged = new Signal1();
 		return textChanged;

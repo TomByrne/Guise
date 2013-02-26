@@ -10,12 +10,12 @@ import guise.platform.starling.display.DisplayTrait;
 import msignal.Signal;
 
 
-class MouseInteractionsAccess extends AbstractTrait, implements IMouseInteractionsAccess
+class MouseInteractionsAccess extends AbstractTrait implements IMouseInteractionsAccess
 {
 	private static var DUMMY_POINT:Point;
 	
 	@inject
-	public var displayTrait(default, set_displayTrait):DisplayTrait;
+	@:isVar public var displayTrait(default, set):DisplayTrait;
 	private function set_displayTrait(value:DisplayTrait):DisplayTrait {
 		if (displayTrait!=null) {
 			if (displayTrait.displayObject == displayObject) {
@@ -31,7 +31,7 @@ class MouseInteractionsAccess extends AbstractTrait, implements IMouseInteractio
 		return value;
 	}
 	
-	public var displayObject(default, set_displayObject):DisplayObject;
+	@:isVar public var displayObject(default, set):DisplayObject;
 	private function set_displayObject(value:DisplayObject):DisplayObject {
 		if (displayObject!=null) {
 			displayObject.removeEventListener(TouchEvent.TOUCH, onTouch);
@@ -48,7 +48,7 @@ class MouseInteractionsAccess extends AbstractTrait, implements IMouseInteractio
 	private var mouseInfo:MouseInfo;
 	private var _isOver:Bool;
 	
-	public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		return value;

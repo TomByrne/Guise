@@ -1,5 +1,5 @@
 package guise.accessTypes;
 
-interface IPositionAccess implements IAccessType {
+interface IPositionAccess extends IAccessType {
 	public function setPos(x:Float, y:Float):Void;
 }

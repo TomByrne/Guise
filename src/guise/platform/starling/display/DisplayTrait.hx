@@ -15,7 +15,7 @@ class DisplayTrait extends AbsDisplayTrait
 	@lazyInst
 	public var displayChanged:Signal1<DisplayTrait>;
 	
-	public var displayObject(default, null):DisplayObject;
+	@:isVar public var displayObject(default, null):DisplayObject;
 	
 	private var _parent:ContainerTrait;
 

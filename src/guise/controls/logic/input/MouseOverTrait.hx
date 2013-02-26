@@ -11,15 +11,15 @@ class MouseOverTrait extends AbstractTrait
 	
 	
 	@inject
-	public var active(default, set_active):IActive;
+	@:isVar public var active(default, set):IActive;
 	public function set_active(value:IActive):IActive {
 		this.active = value;
 		return value;
 	}
 	
-	public var mouseOver(default, null):Bool;
+	@:isVar public var mouseOver(default, null):Bool;
 	private var _mouseOverChanged:Signal1<MouseOverTrait>;
-	public var mouseOverChanged(get_mouseOverChanged, null):Signal1<MouseOverTrait>;
+	public var mouseOverChanged(get, null):Signal1<MouseOverTrait>;
 	private function get_mouseOverChanged():Signal1<MouseOverTrait> {
 		if (_mouseOverChanged == null) {
 			_mouseOverChanged = new Signal1();
@@ -30,7 +30,7 @@ class MouseOverTrait extends AbstractTrait
 	private var _mouseOver:Bool;
 	private var _mouseInteractions:IMouseInteractionsAccess;
 	
-	@:isVar public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		return value;

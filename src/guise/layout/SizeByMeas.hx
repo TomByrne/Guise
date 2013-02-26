@@ -3,7 +3,7 @@ import composure.traits.AbstractTrait;
 import guise.meas.IMeasurement;
 import msignal.Signal;
 
-class SizeByMeas extends AbstractTrait, implements IBoxPos
+class SizeByMeas extends AbstractTrait implements IBoxPos
 {
 	@lazyInst
 	public var changed:Signal1<IBoxPos>;
@@ -15,7 +15,7 @@ class SizeByMeas extends AbstractTrait, implements IBoxPos
 	public var sizeChanged:Signal1<IBoxPos>;
 	
 	@inject
-	@:isVar private var measurement(default, set_measurement):IMeasurement;
+	@:isVar private var measurement(default, set):IMeasurement;
 	private function set_measurement(value:IMeasurement):IMeasurement {
 		if (measurement != null) {
 			measurement.measChanged.remove(onMeasChanged);
@@ -28,10 +28,10 @@ class SizeByMeas extends AbstractTrait, implements IBoxPos
 		return value;
 	}
 	
-	public var x(default, null):Float;
-	public var y(default, null):Float;
-	public var w(default, null):Float;
-	public var h(default, null):Float;
+	@:isVar public var x(default, null):Float;
+	@:isVar public var y(default, null):Float;
+	@:isVar public var w(default, null):Float;
+	@:isVar public var h(default, null):Float;
 
 	public function new(x:Float=0, y:Float=0) 
 	{

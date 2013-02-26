@@ -2,15 +2,15 @@ package guise.accessTypes;
 
 import msignal.Signal;
 
-interface IMouseInteractionsAccess implements IAccessType
+interface IMouseInteractionsAccess extends IAccessType
 {
-	public var pressed(get_pressed, null):Signal1<MouseInfo>;
-	public var released(get_released, null):Signal1<MouseInfo>;
+	public var pressed(get, null):Signal1<MouseInfo>;
+	public var released(get, null):Signal1<MouseInfo>;
 	
-	public var rolledOver(get_rolledOver, null):Signal1<MouseInfo>;
-	public var rolledOut(get_rolledOut, null):Signal1<MouseInfo>;
+	public var rolledOver(get, null):Signal1<MouseInfo>;
+	public var rolledOut(get, null):Signal1<MouseInfo>;
 	
-	public var moved(get_moved, null):Signal1<MouseInfo>;
+	public var moved(get, null):Signal1<MouseInfo>;
 }
 class MouseInfo {
 	public var mouseX:Float;

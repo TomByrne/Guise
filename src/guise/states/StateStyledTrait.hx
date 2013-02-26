@@ -14,20 +14,20 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 {
 	
 	@inject({asc:true})
-	public var injStyleTransitioner(default, set_injStyleTransitioner):ITransitioner;
+	@:isVar public var injStyleTransitioner(default, set):ITransitioner;
 	private function set_injStyleTransitioner(value:ITransitioner):ITransitioner {
 		this.injStyleTransitioner = value;
 		return value;
 	}
 	
-	@:isVar public var styleTransitioner(default, set_styleTransitioner):ITransitioner;
+	@:isVar public var styleTransitioner(default, set):ITransitioner;
 	private function set_styleTransitioner(value:ITransitioner):ITransitioner {
 		this.styleTransitioner = value;
 		return value;
 	}
 	
 	
-	public var normalStyle(default, set_normalStyle):StyleType;
+	@:isVar public var normalStyle(default, set):StyleType;
 	private function set_normalStyle(value:StyleType):StyleType {
 		normalStyle = value;
 		assessStyle();
@@ -36,9 +36,9 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 	
 	private var currentTrans:ITransTracker;
 	
-	public var currentStyle(default, null):StyleType;
-	public var previousStyle(default, null):StyleType;
-	public var destStyle(default, null):StyleType;
+	@:isVar public var currentStyle(default, null):StyleType;
+	@:isVar public var previousStyle(default, null):StyleType;
+	@:isVar public var destStyle(default, null):StyleType;
 	
 	private var styles:Array<{states:Array<String>,style:StyleType, priority:Int}>;
 	private var states:Array<IState<EnumValue>>;

@@ -7,24 +7,24 @@ import msignal.Signal;
 import guise.accessTypes.IMouseClickableAccess;
 
 
-class ButtonClickTrait extends AbstractTrait, implements IClick, implements IAccessRequest
+class ButtonClickTrait extends AbstractTrait implements IClick implements IAccessRequest
 {
 	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [IMouseClickableAccess];
 	
 	@inject
-	public var active(default, set_active):IActive;
+	@:isVar public var active(default, set):IActive;
 	public function set_active(value:IActive):IActive {
 		this.active = value;
 		return value;
 	}
 	
 	@lazyInst
-	public var clicked(default, null):Signal1<IClick>;
+	@:isVar public var clicked(default, null):Signal1<IClick>;
 	
 	private var _mouseClickable:IMouseClickableAccess;
 	private var _clickTypeBundles:Array<ClickTypeBundle>;
 	
-	@:isVar public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		return value;

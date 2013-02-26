@@ -11,7 +11,7 @@ import msignal.Signal;
 interface IValue 
 {
 
-	public var currentValue(get_currentValue, null):Float;
+	public var currentValue(get, null):Float;
 	
 	public function update(context:ComposeItem):Array<AnySignal>;
 	

@@ -9,8 +9,8 @@ class ContainerTrait extends DisplayTrait
 	
 	private var _layerDisplays:Array<IDisplayObjectType>;
 	
-	public var container(default, null):DisplayObjectContainer;
-	public var sprite(default, null):Sprite;
+	@:isVar public var container(default, null):DisplayObjectContainer;
+	@:isVar public var sprite(default, null):Sprite;
 
 	public function new(container:DisplayObjectContainer = null) {
 		_layerDisplays = [];

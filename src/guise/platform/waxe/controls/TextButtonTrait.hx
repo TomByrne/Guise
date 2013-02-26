@@ -11,7 +11,7 @@ import wx.Window;
 class TextButtonTrait extends DisplayTrait<Button>
 {
 	@inject
-	public var textLabel(default, set_textLabel):ITextLabel;
+	@:isVar public var textLabel(default, set):ITextLabel;
 	private function set_textLabel(value:ITextLabel):ITextLabel {
 		if (textLabel!=null) {
 			textLabel.textChanged.remove(onTextChanged);
@@ -24,7 +24,7 @@ class TextButtonTrait extends DisplayTrait<Button>
 		return value;
 	}
 	@inject
-	public var selected(default, set_selected):ISelected;
+	@:isVar public var selected(default, set):ISelected;
 	private function set_selected(value:ISelected):ISelected {
 		if (selected!=null) {
 			selected.selectedChanged.remove(onSelectedChanged);

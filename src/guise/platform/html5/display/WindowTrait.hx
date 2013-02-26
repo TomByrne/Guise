@@ -2,7 +2,7 @@ package guise.platform.html5.display;
 
 import guise.layout.IBoxPos;
 
-import js.Lib;
+import js.Browser;
 import js.Dom;
 import js.Dom.HtmlDom;
 import composure.traits.AbstractTrait;
@@ -13,7 +13,7 @@ import guise.platform.cross.display.AbsDisplayTrait;
  * @author Tom Byrne
  */
 
-class WindowTrait extends AbsDisplayTrait//, implements IWindowInfo
+class WindowTrait extends AbsDisplayTrait// implements IWindowInfo
 {
 	private static var _inst:WindowTrait;
 	public static function inst():WindowTrait {
@@ -25,10 +25,10 @@ class WindowTrait extends AbsDisplayTrait//, implements IWindowInfo
 	
 	
 	/*@lazyInst
-	public var availSizeChanged(default, null):Signal1<IWindowInfo>;
+	@:isVar public var availSizeChanged(default, null):Signal1<IWindowInfo>;
 	
-	public var availWidth(default, null):Int;
-	public var availHeight(default, null):Int;*/
+	@:isVar public var availWidth(default, null):Int;
+	@:isVar public var availHeight(default, null):Int;*/
 	
 	var window:js.Window;
 
@@ -38,7 +38,7 @@ class WindowTrait extends AbsDisplayTrait//, implements IWindowInfo
 		_sizeListen = true;
 		_posListen = true;
 		
-		window = Lib.window;
+		window = Browser.window;
 		/*window.onresize = onWindowResized;
 		
 		setAvailSize(window.screen.availWidth, window.screen.availHeight);*/

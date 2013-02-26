@@ -20,7 +20,7 @@ import flash.text.TextFormatAlign;
 import starling.utils.HAlign;
 
 
-class TextInputAccess extends AbstractTrait, implements ITextInputAccess, implements IAccessRequest, implements IFocusableAccess
+class TextInputAccess extends AbstractTrait implements ITextInputAccess implements IAccessRequest implements IFocusableAccess
 {
 	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [ITextOutputAccess, IMouseInteractionsAccess];
 	private static var DUMMY_MATRIX:Matrix;
@@ -31,13 +31,13 @@ class TextInputAccess extends AbstractTrait, implements ITextInputAccess, implem
 	@lazyInst
 	public var focusedChanged:Signal1 < IFocusableAccess >;
 	
-	@:isVar public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		return value;
 	}
 	
-	public var focused(default, null):Bool ;
+	@:isVar public var focused(default, null):Bool ;
 	
 	private var _textField:TextField;
 	private var _textOutput:TextOutputAccess;
@@ -163,7 +163,7 @@ class TextInputAccess extends AbstractTrait, implements ITextInputAccess, implem
 		return _textField.text;
 	}
 	
-	@:isVar public var inputEnabled(default, set_inputEnabled):Bool;
+	@:isVar public var inputEnabled(default, set):Bool;
 	private function set_inputEnabled(value:Bool):Bool {
 		this.inputEnabled = value;
 		return value;

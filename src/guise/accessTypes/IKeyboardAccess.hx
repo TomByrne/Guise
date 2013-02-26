@@ -1,7 +1,7 @@
 package guise.accessTypes;
 import msignal.Signal;
 
-interface IKeyboardAccess implements IAccessType
+interface IKeyboardAccess extends IAccessType
 {
 
 	function keyDown(keyInfo:KeyInfo):Signal2<IKeyboardAccess, KeyInfo>;

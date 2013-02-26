@@ -21,7 +21,7 @@ class StageTrait extends ContainerTrait
 	}
 	
 	@inject
-	private var texturePack(default, set_texturePack):TexturePack;
+	private var texturePack(default, set):TexturePack;
 	private function set_texturePack(value:TexturePack):TexturePack {
 		this.texturePack = value;
 		
@@ -31,7 +31,7 @@ class StageTrait extends ContainerTrait
 		return value;
 	}
 	
-	public var stage(get_stage, null):Stage;
+	public var stage(get, null):Stage;
 	private function get_stage():Stage {
 		return _stage;
 	}

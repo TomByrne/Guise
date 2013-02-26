@@ -116,7 +116,7 @@ class TileImage extends Quad
 	}
 	
 	/** The texture that is displayed on the quad. */
-	public var texture(default, set_texture):Texture;
+	@:isVar public var texture(default, set):Texture;
 	private function set_texture(value:Texture):Texture 
 	{ 
 		if (value == null)
@@ -135,7 +135,7 @@ class TileImage extends Quad
 	/** The smoothing filter that is used for the texture. 
 	*   @default bilinear
 	*   @see starling.textures.TextureSmoothing */ 
-	public var smoothing(default, set_smoothing):String;
+	@:isVar public var smoothing(default, set):String;
 	private function set_smoothing(value:String):String 
 	{
 		if (TextureSmoothing.isValid(value))

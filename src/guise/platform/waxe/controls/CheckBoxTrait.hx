@@ -10,7 +10,7 @@ import wx.CheckBox;
 class CheckBoxTrait extends DisplayTrait<CheckBox>
 {
 	@inject
-	public var textLabel(default, set_textLabel):ITextLabel;
+	@:isVar public var textLabel(default, set):ITextLabel;
 	private function set_textLabel(value:ITextLabel):ITextLabel {
 		if (textLabel!=null) {
 			textLabel.textChanged.remove(onTextChanged);
@@ -23,7 +23,7 @@ class CheckBoxTrait extends DisplayTrait<CheckBox>
 		return value;
 	}
 	@inject
-	public var selected(default, set_selected):ISelected;
+	@:isVar public var selected(default, set):ISelected;
 	private function set_selected(value:ISelected):ISelected {
 		if (selected!=null) {
 			selected.selectedChanged.remove(onSelectedChanged);

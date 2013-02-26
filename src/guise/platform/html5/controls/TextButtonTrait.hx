@@ -4,13 +4,13 @@ import guise.controls.data.ITextLabel;
 import guise.layout.IBoxPos;
 import guise.platform.html5.display.DisplayTrait;
 import js.Dom;
-import js.Lib;
+import js.Browser;
 
 
 class TextButtonTrait extends DisplayTrait
 {
 	@inject
-	public var textLabel(default, set_textLabel):ITextLabel;
+	@:isVar public var textLabel(default, set):ITextLabel;
 	private function set_textLabel(value:ITextLabel):ITextLabel {
 		if (textLabel!=null) {
 			textLabel.textChanged.remove(onTextChanged);
@@ -23,14 +23,14 @@ class TextButtonTrait extends DisplayTrait
 		return value;
 	}
 	@inject
-	public var selected(default, set_selected):ISelected;
+	@:isVar public var selected(default, set):ISelected;
 	private function set_selected(value:ISelected):ISelected {
 		if (selected!=null) {
 			selected.selectedChanged.remove(onSelectedChanged);
 		}
 		selected = value;
 		if (selected != null) {
-			_checkbox = cast Lib.document.createElement("input");
+			_checkbox = cast Browser.document.createElement("input");
 			_checkbox.setAttribute("type", "checkbox");
 			_checkbox.onclick = onCheckboxClick;
 			_button.appendChild(_checkbox);
@@ -53,9 +53,9 @@ class TextButtonTrait extends DisplayTrait
 	public function new() 
 	{
 		_allowSizing = true;
-		_button = Lib.document.createElement("button");
+		_button = Browser.document.createElement("button");
 		super(_button);
-		_labelElement = Lib.document.createElement("label");
+		_labelElement = Browser.document.createElement("label");
 		_button.appendChild(_labelElement);
 	}
 	

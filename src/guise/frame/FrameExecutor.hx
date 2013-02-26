@@ -4,19 +4,19 @@ import composure.core.ComposeItem;
 import composure.traits.AbstractTrait;
 import guise.platform.cross.IAccessRequest;
 
-class FrameExecutor extends AbstractTrait, implements IAccessRequest
+class FrameExecutor extends AbstractTrait implements IAccessRequest
 {
 	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [IFrameTicker];
 	
 	
-	@:isVar public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		return value;
 	}
 	
 	@inject
-	@:isVar public var frameTicker(default, set_frameTicker):IFrameTicker;
+	@:isVar public var frameTicker(default, set):IFrameTicker;
 	private function set_frameTicker(value:IFrameTicker):IFrameTicker {
 		if (frameTicker != null) {
 			frameTicker.frameTick.remove(onFrameTick);

@@ -490,7 +490,7 @@ private class TransTracker implements ITransTracker {
 		finish = handler;
 	}
 	
-	public var fract(default, set_fract):Float;
+	@:isVar public var fract(default, set):Float;
 	private function set_fract(value:Float):Float {
 		fract = value;
 		if (transSpans == null) return value;

@@ -13,7 +13,7 @@ package guise.utils;
 import wx.EventHandler;
 class Timer {
 	
-	public var run(get_run, set_run):Void->Void;
+	public var run(get, set):Void->Void;
 	private function get_run():Void->Void {
 		return handler.handler;
 	}

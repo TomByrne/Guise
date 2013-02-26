@@ -4,7 +4,7 @@ import guise.geom.Matrix;
 
 
 // TODO: Split this down into more logical chunks
-interface IGraphicsAccess implements IAccessType
+interface IGraphicsAccess extends IAccessType
 {
 	
 	function beginFill(color:Int, alpha:Float = 1.0):Void;

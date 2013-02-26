@@ -5,13 +5,13 @@ import guise.platform.waxe.display.WindowTrait;
 import msignal.Signal;
 import guise.utils.Timer;
 
-class FrameTicker extends AbstractTrait, implements IFrameTicker
+class FrameTicker extends AbstractTrait implements IFrameTicker
 {
-	public var frameTick(default, null):Signal0;
-	public var actualFPS(default, null):Float;
+	@:isVar public var frameTick(default, null):Signal0;
+	@:isVar public var actualFPS(default, null):Float;
 	
 	@inject({asc:true})
-	@:isVar public var windowTrait(default, set_windowTrait):WindowTrait;
+	@:isVar public var windowTrait(default, set):WindowTrait;
 	private function set_windowTrait(value:WindowTrait):WindowTrait {
 		if(windowTrait!=null){
 			windowTrait.clear(this);

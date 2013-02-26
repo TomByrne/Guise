@@ -7,7 +7,7 @@ import nme.filters.BitmapFilter;
 import nme.filters.DropShadowFilter;
 import nme.filters.GlowFilter;
 
-class FilterableAccess extends AbstractTrait, implements IFilterableAccess
+class FilterableAccess extends AbstractTrait implements IFilterableAccess
 {
 	
 	@injectAdd
@@ -33,7 +33,7 @@ class FilterableAccess extends AbstractTrait, implements IFilterableAccess
 	
 	private var _lastFilters:Array<BitmapFilter>;
 	
-	public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		return value;

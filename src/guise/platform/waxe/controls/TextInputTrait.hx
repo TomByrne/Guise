@@ -9,7 +9,7 @@ import wx.TextCtrl;
 class TextInputTrait extends DisplayTrait<TextCtrl>
 {
 	@inject
-	public var textLabel(default, set_textLabel):ITextLabel;
+	@:isVar public var textLabel(default, set):ITextLabel;
 	private function set_textLabel(value:ITextLabel):ITextLabel {
 		if (textLabel!=null) {
 			textLabel.textChanged.remove(onTextChanged);

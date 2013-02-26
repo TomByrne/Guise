@@ -11,7 +11,7 @@ using Lambda;
 
 class StackLayout extends AbsLayout
 {
-	@:isVar private var direction(default, set_direction):StackDirection;
+	@:isVar private var direction(default, set):StackDirection;
 	private function set_direction(value:StackDirection):StackDirection {
 		this.direction = value;
 		if (direction == StackDirection.HORIZONTAL) {
@@ -49,7 +49,7 @@ class StackLayout extends AbsLayout
 		return value;
 	}
 	
-	@:isVar public var topGap(get_topGap, set_topGap):Float;
+	@:isVar public var topGap(get, set):Float;
 	private function get_topGap():Float {
 		return this.topGap;
 	}
@@ -59,7 +59,7 @@ class StackLayout extends AbsLayout
 		return value;
 	}
 	
-	@:isVar public var bottomGap(get_bottomGap, set_bottomGap):Float;
+	@:isVar public var bottomGap(get, set):Float;
 	private function get_bottomGap():Float {
 		return this.bottomGap;
 	}
@@ -69,7 +69,7 @@ class StackLayout extends AbsLayout
 		return value;
 	}
 	
-	@:isVar public var leftGap(get_leftGap, set_leftGap):Float;
+	@:isVar public var leftGap(get, set):Float;
 	private function get_leftGap():Float {
 		return this.leftGap;
 	}
@@ -79,7 +79,7 @@ class StackLayout extends AbsLayout
 		return value;
 	}
 	
-	@:isVar public var rightGap(get_rightGap, set_rightGap):Float;
+	@:isVar public var rightGap(get, set):Float;
 	private function get_rightGap():Float {
 		return this.rightGap;
 	}
@@ -89,14 +89,14 @@ class StackLayout extends AbsLayout
 		return value;
 	}
 	
-	@:isVar public var itemGap(default, set_itemGap):Float;
+	@:isVar public var itemGap(default, set):Float;
 	private function set_itemGap(value:Float):Float {
 		this.itemGap = value;
 		invalidate(doPositioning);
 		return value;
 	}
 	
-	@:isVar public var defaultWidthPolicy(get_defaultWidthPolicy, set_defaultWidthPolicy):StackSizePolicy;
+	@:isVar public var defaultWidthPolicy(get, set):StackSizePolicy;
 	private function get_defaultWidthPolicy():StackSizePolicy {
 		return this.defaultWidthPolicy;
 	}
@@ -106,7 +106,7 @@ class StackLayout extends AbsLayout
 		return value;
 	}
 	
-	@:isVar public var defaultHeightPolicy(get_defaultHeightPolicy, set_defaultHeightPolicy):StackSizePolicy;
+	@:isVar public var defaultHeightPolicy(get, set):StackSizePolicy;
 	private function get_defaultHeightPolicy():StackSizePolicy {
 		return this.defaultHeightPolicy;
 	}
@@ -116,7 +116,7 @@ class StackLayout extends AbsLayout
 		return value;
 	}
 	
-	@:isVar public var defaultAlign(default, set_defaultAlign):StackAlign;
+	@:isVar public var defaultAlign(default, set):StackAlign;
 	private function set_defaultAlign(value:StackAlign):StackAlign {
 		this.defaultAlign = value;
 		invalidate(doPositioning);

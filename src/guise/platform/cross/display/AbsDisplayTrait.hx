@@ -11,7 +11,7 @@ class AbsDisplayTrait extends AbstractTrait
 {
 	
 	@inject
-	public var position(default, set_position):IBoxPos;
+	@:isVar public var position(default, set):IBoxPos;
 	private function set_position(value:IBoxPos):IBoxPos {
 		if (position != null) {
 			if (_posListen) {

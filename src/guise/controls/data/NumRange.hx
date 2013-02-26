@@ -5,16 +5,16 @@ import msignal.Signal;
 // Default implementation
 class NumRange implements INumRange
 {
-	public var rangeChanged(default, null):Signal1<INumRange>;
+	@:isVar public var rangeChanged(default, null):Signal1<INumRange>;
 	
 	@change("rangeChanged")
-	public var min(default, null):Float;
+	@:isVar public var min(default, null):Float;
 	
 	@change("rangeChanged")
-	public var max(default, null):Float;
+	@:isVar public var max(default, null):Float;
 	
 	@change("rangeChanged")
-	public var value(default, set_value):Float;
+	@:isVar public var value(default, set):Float;
 	private function set_value(value:Float):Float {
 		if (enforceRange) {
 			if (!Math.isNaN(max) && value > max) {
@@ -33,7 +33,7 @@ class NumRange implements INumRange
 		return value;
 	}
 	@change("rangeChanged")
-	public var valueNorm(get_valueNorm, set_valueNorm):Float;
+	public var valueNorm(get, set):Float;
 	private function get_valueNorm():Float {
 		return _valueNorm;
 	}

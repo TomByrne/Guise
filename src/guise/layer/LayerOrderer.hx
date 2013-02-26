@@ -3,11 +3,11 @@ import composure.traits.AbstractTrait;
 import guise.platform.cross.IAccessRequest;
 
 
-class LayerOrderer extends AbstractTrait, implements IAccessRequest
+class LayerOrderer extends AbstractTrait implements IAccessRequest
 {
 	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [ILayerContainer];
 	
-	public var sorting(default,set_sorting):Array<String>;
+	@:isVar public var sorting(default,set_sorting):Array<String>;
 	private function set_sorting(value:Array<String>):Array<String> {
 		sorting = value;
 		if (sorting != null && layerOrderAccess!=null) {
@@ -17,7 +17,7 @@ class LayerOrderer extends AbstractTrait, implements IAccessRequest
 	}
 	
 	@inject
-	public var layerOrderAccess(default, setlayerOrderAccess):ILayerContainer;
+	@:isVar public var layerOrderAccess(default, setlayerOrderAccess):ILayerContainer;
 	private function setlayerOrderAccess(value:ILayerContainer):ILayerContainer {
 		if (layerOrderAccess != null) {
 			layerOrderAccess.layeringChanged.remove(onLayeringChanged);
@@ -34,7 +34,7 @@ class LayerOrderer extends AbstractTrait, implements IAccessRequest
 		return value;
 	}
 	
-	@:isVar public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		return value;

@@ -8,7 +8,7 @@ import guise.skin.values.IValue;
 import guise.accessTypes.IPositionAccess;
 import guise.skin.common.PositionedLayer;
 
-class BoxLayer extends PositionedLayer<BoxStyle>, implements IAccessRequest
+class BoxLayer extends PositionedLayer<BoxStyle> implements IAccessRequest
 {
 	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [IGraphicsAccess, IPositionAccess];
 	

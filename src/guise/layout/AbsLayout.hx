@@ -4,23 +4,23 @@ import guise.frame.FrameTrait;
 import guise.meas.IMeasurement;
 import msignal.Signal;
 
-class AbsLayout extends AbstractTrait, implements IMeasurement {
+class AbsLayout extends AbstractTrait implements IMeasurement {
 	
 	@lazyInst
 	public var measChanged:Signal1<IMeasurement>;
 	
-	public var measWidth(get_measWidth, null):Float;
+	public var measWidth(get, null):Float;
 	private function get_measWidth():Float {
 		return _measWidth;
 	}
 	
-	public var measHeight(get_measHeight, null):Float;
+	public var measHeight(get, null):Float;
 	private function get_measHeight():Float {
 		return _measHeight;
 	}
 	
 	@inject
-	public var boxPos(default, set_boxPos):IBoxPos;
+	@:isVar public var boxPos(default, set):IBoxPos;
 	private function set_boxPos(value:IBoxPos):IBoxPos {
 		if (boxPos != null) {
 			boxPos.sizeChanged.remove(onSizeChanged);

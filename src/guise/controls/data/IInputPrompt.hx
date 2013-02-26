@@ -9,9 +9,9 @@ import msignal.Signal;
 
 interface IInputPrompt 
 {
-	public var promptChanged(default, null):Signal1<IInputPrompt>;
+	@:isVar public var promptChanged(default, null):Signal1<IInputPrompt>;
 	
-	public var prompt(default, null):String;
+	@:isVar public var prompt(default, null):String;
 	
 	public function setPrompt(text:String):Void;
 }
@@ -19,9 +19,9 @@ interface IInputPrompt
 // Default implementation
 class InputPrompt implements IInputPrompt
 {
-	public var promptChanged(default, null):Signal1<IInputPrompt>;
+	@:isVar public var promptChanged(default, null):Signal1<IInputPrompt>;
 	
-	public var prompt(default, null):String;
+	@:isVar public var prompt(default, null):String;
 
 	public function new(prompt:Null<String>=null) 
 	{

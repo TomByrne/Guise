@@ -5,12 +5,12 @@ import guise.controls.data.ISelected;
 import guise.controls.data.ITextLabel;
 import guise.platform.html5.display.DisplayTrait;
 import js.Dom;
-import js.Lib;
+import js.Browser;
 
 class CheckBoxTrait extends DisplayTrait
 {
 	@inject
-	public var textLabel(default, set_textLabel):ITextLabel;
+	@:isVar public var textLabel(default, set):ITextLabel;
 	private function set_textLabel(value:ITextLabel):ITextLabel {
 		if (textLabel!=null) {
 			textLabel.textChanged.remove(onTextChanged);
@@ -23,7 +23,7 @@ class CheckBoxTrait extends DisplayTrait
 		return value;
 	}
 	@inject
-	public var selected(default, set_selected):ISelected;
+	@:isVar public var selected(default, set):ISelected;
 	private function set_selected(value:ISelected):ISelected {
 		if (selected!=null) {
 			selected.selectedChanged.remove(onSelectedChanged);
@@ -42,11 +42,11 @@ class CheckBoxTrait extends DisplayTrait
 	public function new() 
 	{
 		_allowSizing = true;
-		_checkbox = cast Lib.document.createElement("input");
+		_checkbox = cast Browser.document.createElement("input");
 		_checkbox.setAttribute("type", "checkbox");
 		_checkbox.onchange = onCheckBoxChange;
 		
-		_label = cast Lib.document.createElement("label");
+		_label = cast Browser.document.createElement("label");
 		_label.appendChild(_checkbox);
 		
 		super(_label);
@@ -64,7 +64,7 @@ class CheckBoxTrait extends DisplayTrait
 	private function onTextChanged(from:ITextLabel):Void {
 		_label.innerHTML = "";
 		_label.appendChild(_checkbox);
-		_label.appendChild(Lib.document.createTextNode(from.text));
+		_label.appendChild(Browser.document.createTextNode(from.text));
 		checkMeas();
 	}
 }

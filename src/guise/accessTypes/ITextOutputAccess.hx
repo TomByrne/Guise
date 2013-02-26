@@ -2,13 +2,13 @@ package guise.accessTypes;
 
 import msignal.Signal;
 
-interface ITextOutputAccess implements IAccessType {
-	var textMeasChanged(get_textMeasChanged, null):Signal1<ITextOutputAccess>;
+interface ITextOutputAccess extends IAccessType {
+	var textMeasChanged(get, null):Signal1<ITextOutputAccess>;
 	
-	var textWidth(get_textWidth, null):Float;
-	var textHeight(get_textHeight, null):Float;
+	var textWidth(get, null):Float;
+	var textHeight(get, null):Float;
 	
-	var selectable(default, set_selectable):Bool;
+	var selectable(default, set):Bool;
 	
 	function setAntiAliasing(type:AntiAliasType):Void;
 	function setText(run:TextRun, isHtml:Bool):Void;

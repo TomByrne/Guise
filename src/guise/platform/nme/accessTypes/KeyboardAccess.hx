@@ -11,7 +11,7 @@ import guise.accessTypes.IMouseInteractionsAccess;
 class KeyboardAccess implements IKeyboardAccess
 {
 	@inject
-	public var displayTrait(default, set_displayTrait):DisplayTrait;
+	@:isVar public var displayTrait(default, set):DisplayTrait;
 	private function set_displayTrait(value:DisplayTrait):DisplayTrait {
 		if (displayTrait!=null) {
 			if (displayTrait.displayObject == interactiveObject) {
@@ -27,7 +27,7 @@ class KeyboardAccess implements IKeyboardAccess
 		return value;
 	}
 	
-	public var interactiveObject(default, set_interactiveObject):InteractiveObject;
+	@:isVar public var interactiveObject(default, set):InteractiveObject;
 	private function set_interactiveObject(value:InteractiveObject):InteractiveObject {
 		if (interactiveObject!=null) {
 			interactiveObject.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
@@ -48,7 +48,7 @@ class KeyboardAccess implements IKeyboardAccess
 	private var _isDown:Hash<Bool>;
 	
 
-	public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		return value;

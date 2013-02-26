@@ -4,13 +4,13 @@ import guise.controls.data.ITextLabel;
 import guise.layout.IBoxPos;
 import guise.platform.html5.display.DisplayTrait;
 import js.Dom;
-import js.Lib;
+import js.Browser;
 
 
 class TextLabelTrait extends DisplayTrait
 {
 	@inject
-	public var textLabel(default, set_textLabel):ITextLabel;
+	@:isVar public var textLabel(default, set):ITextLabel;
 	private function set_textLabel(value:ITextLabel):ITextLabel {
 		if (textLabel!=null) {
 			textLabel.textChanged.remove(onTextChanged);
@@ -29,7 +29,7 @@ class TextLabelTrait extends DisplayTrait
 	public function new(elementType:String="label") 
 	{
 		_allowSizing = true;
-		_element = Lib.document.createElement(elementType);
+		_element = Browser.document.createElement(elementType);
 		super(_element);
 	}
 	

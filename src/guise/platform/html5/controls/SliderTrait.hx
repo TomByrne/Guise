@@ -3,12 +3,12 @@ package guise.platform.html5.controls;
 import guise.controls.data.INumRange;
 import guise.platform.html5.display.DisplayTrait;
 import js.Dom;
-import js.Lib;
+import js.Browser;
 
 class SliderTrait extends DisplayTrait
 {
 	@inject
-	public var range(default, set_range):INumRange;
+	@:isVar public var range(default, set):INumRange;
 	private function set_range(value:INumRange):INumRange {
 		if (range!=null) {
 			range.rangeChanged.remove(onRangeChanged);
@@ -26,7 +26,7 @@ class SliderTrait extends DisplayTrait
 	public function new() 
 	{
 		_allowSizing = true;
-		_slider = cast Lib.document.createElement("input");
+		_slider = cast Browser.document.createElement("input");
 		_slider.setAttribute("type", "range");
 		_slider.onchange = onSliderChange;
 		super(_slider);

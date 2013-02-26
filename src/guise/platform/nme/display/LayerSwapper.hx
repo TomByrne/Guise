@@ -7,14 +7,14 @@ import nme.events.Event;
 import nme.display.DisplayObject;
 
 
-class LayerSwapper extends AbstractTrait, implements ILayerContainer
+class LayerSwapper extends AbstractTrait implements ILayerContainer
 {
 	@lazyInst
-	public var layeringChanged(default, null):Signal1<ILayerContainer>;
+	@:isVar public var layeringChanged(default, null):Signal1<ILayerContainer>;
 	
 	
 	@inject
-	public var container(default, set_container):ContainerTrait;
+	@:isVar public var container(default, set):ContainerTrait;
 	private function set_container(value:ContainerTrait):ContainerTrait {
 		
 		if (container != null) {

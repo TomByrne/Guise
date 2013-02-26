@@ -1,5 +1,5 @@
 package guise.core;
-import haxe.FastList;
+import haxe.ds.GenericStack;
 import msignal.Signal;
 import composure.injectors.Injector;
 import composure.core.ComposeItem;
@@ -11,17 +11,17 @@ import composure.traitCheckers.TraitTypeChecker;
  * @author Tom Byrne
  */
 
-class CascadingActive extends AbstractTrait, implements IActive
+class CascadingActive extends AbstractTrait implements IActive
 {
 
-	public var activeChanged(default, null):Signal1<IActive>;
+	@:isVar public var activeChanged(default, null):Signal1<IActive>;
 	
-	public var active(default, null):Bool;
-	public var explicit(default, null):Bool;
+	@:isVar public var active(default, null):Bool;
+	@:isVar public var explicit(default, null):Bool;
 	
 	public var cascade:Bool;
 	
-	private var _children:FastList<IActive>;
+	private var _children:GenericStack<IActive>;
 
 	public function new(active:Bool = true, explicit:Bool=false , cascade:Bool = true) 
 	{
@@ -52,7 +52,7 @@ class CascadingActive extends AbstractTrait, implements IActive
 	
 	private function onChildAdded(child:IActive):Void {
 		if (_children==null) {
-			_children = new FastList<IActive>();
+			_children = new GenericStack<IActive>();
 		}
 		_children.add(child);
 		if (child.explicit) {

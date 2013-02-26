@@ -10,13 +10,13 @@ import msignal.Signal;
  * Takes an IMouseInteractionAccess and translates it's events to click events.
  */
 
-class MouseClickEmulator extends AbstractTrait, implements IMouseClickableAccess, implements IAccessRequest
+class MouseClickEmulator extends AbstractTrait implements IMouseClickableAccess implements IAccessRequest
 {
 	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [IMouseInteractionsAccess];
 	private static var DEF_MAX_CLICK_MOVEMENT:Float = 12;
 	private static var DEF_MAX_DBL_CLICK_TIME:Float = 0.3;
 
-	@:isVar public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		return value;

@@ -12,7 +12,7 @@ import guise.states.State;
 class SelectableStateMapper extends AbstractTrait
 {
 	@inject
-	public var selected(default, set_selected):ISelected;
+	@:isVar public var selected(default, set):ISelected;
 	private function set_selected(value:ISelected):ISelected {
 		if (selected != null) {
 			selected.selectedChanged.remove(onSelectedChanged);

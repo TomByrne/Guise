@@ -8,7 +8,7 @@ import guise.skin.values.IValue;
 import guise.utils.Timer;
 
 
-class MouseDragChangeValue extends AbstractTrait, implements IAccessRequest
+class MouseDragChangeValue extends AbstractTrait implements IAccessRequest
 {
 	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [IMouseInteractionsAccess];
 	
@@ -37,7 +37,7 @@ class MouseDragChangeValue extends AbstractTrait, implements IAccessRequest
 	public var normaliseX:IValue;
 	public var normaliseY:IValue;
 	
-	@:isVar public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		return value;

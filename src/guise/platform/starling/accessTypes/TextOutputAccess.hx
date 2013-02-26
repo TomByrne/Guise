@@ -15,7 +15,7 @@ import starling.utils.VAlign;
 
 
 @:build(LazyInst.check())
-class TextOutputAccess implements ITextOutputAccess, implements IDisplayObjectType, implements IBoxPosAccess
+class TextOutputAccess implements ITextOutputAccess implements IDisplayObjectType implements IBoxPosAccess
 {
 	private static var MIN_SIZE:Float = 9;
 	
@@ -26,7 +26,7 @@ class TextOutputAccess implements ITextOutputAccess, implements IDisplayObjectTy
 	@lazyInst
 	public var textRunChanged:Signal1 < ITextOutputAccess > ;
 	
-	public var textField(get_textField, null):TextField;
+	public var textField(get, null):TextField;
 	private function get_textField():TextField {
 		return _textField;
 	}
@@ -39,7 +39,7 @@ class TextOutputAccess implements ITextOutputAccess, implements IDisplayObjectTy
 	private var _wGutter:Float;
 	private var _hGutter:Float;
 	
-	public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		_textField.name = value == null?"":value;
@@ -82,11 +82,11 @@ class TextOutputAccess implements ITextOutputAccess, implements IDisplayObjectTy
 	public function getDisplayObject():DisplayObject {
 		return _textField;
 	}
-	public var textWidth(get_textWidth, null):Float;
+	public var textWidth(get, null):Float;
 	private function get_textWidth():Float {
 		return _textWidth;
 	}
-	public var textHeight(get_textHeight, null):Float;
+	public var textHeight(get, null):Float;
 	private function get_textHeight():Float{
 		return _textHeight;
 	}
@@ -105,7 +105,7 @@ class TextOutputAccess implements ITextOutputAccess, implements IDisplayObjectTy
 		}
 	}
 	
-	public var selectable(default, set_selectable):Bool;
+	@:isVar public var selectable(default, set):Bool;
 	private function set_selectable(value:Bool):Bool{
 		selectable = value;
 		return value;

@@ -12,10 +12,10 @@ import starling.display.MovieClip;
 import starling.display.Sprite;
 import starling.textures.Texture;
 
-class TextureAccess extends AbstractTrait, implements ITextureAccess, implements IDisplayObjectType, implements IBoxPosAccess
+class TextureAccess extends AbstractTrait implements ITextureAccess implements IDisplayObjectType implements IBoxPosAccess
 {
 	@inject( { asc : true } )
-	private var texturePack(default, set_texturePack):TexturePack;
+	private var texturePack(default, set):TexturePack;
 	private function set_texturePack(value:TexturePack):TexturePack {
 		if (texturePack != null) {
 			texturePack.changed.remove(onPackChanged);
@@ -28,7 +28,7 @@ class TextureAccess extends AbstractTrait, implements ITextureAccess, implements
 		return value;
 	}
 	
-	public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		_sprite.name = value == null?"":value;

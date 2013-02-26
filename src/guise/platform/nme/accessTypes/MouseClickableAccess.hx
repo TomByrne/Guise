@@ -13,10 +13,10 @@ import msignal.Signal;
  * @author Tom Byrne
  */
 
-class MouseClickableAccess extends AbstractTrait, implements IMouseClickableAccess
+class MouseClickableAccess extends AbstractTrait implements IMouseClickableAccess
 {
 	@inject
-	public var displayTrait(default, set_displayTrait):DisplayTrait;
+	@:isVar public var displayTrait(default, set):DisplayTrait;
 	private function set_displayTrait(value:DisplayTrait):DisplayTrait {
 		if (displayTrait!=null) {
 			if (displayTrait.displayObject == interactiveObject) {
@@ -32,7 +32,7 @@ class MouseClickableAccess extends AbstractTrait, implements IMouseClickableAcce
 		return value;
 	}
 	
-	public var interactiveObject(default, set_interactiveObject):InteractiveObject;
+	@:isVar public var interactiveObject(default, set):InteractiveObject;
 	private function set_interactiveObject(value:InteractiveObject):InteractiveObject {
 		if (interactiveObject!=null) {
 			interactiveObject.removeEventListener(MouseEvent.CLICK, onClicked);
@@ -48,7 +48,7 @@ class MouseClickableAccess extends AbstractTrait, implements IMouseClickableAcce
 	
 	private var clickInfo:ClickInfo;
 	
-	public var layerName(default, set_layerName):String;
+	@:isVar public var layerName(default, set):String;
 	private function set_layerName(value:String):String {
 		this.layerName = value;
 		return value;
@@ -85,7 +85,7 @@ class MouseClickableAccess extends AbstractTrait, implements IMouseClickableAcce
 	}
 	
 	private var _clicked:Signal1<ClickInfo>;
-	public var clicked(get_clicked, null):Signal1<ClickInfo>;
+	public var clicked(get, null):Signal1<ClickInfo>;
 	private function get_clicked():Signal1<ClickInfo> {
 		if (_clicked == null) {
 			_clicked = new Signal1();
@@ -95,7 +95,7 @@ class MouseClickableAccess extends AbstractTrait, implements IMouseClickableAcce
 	}
 	
 	private var _doubleClicked:Signal1<ClickInfo>;
-	public var doubleClicked(get_doubleClicked, null):Signal1<ClickInfo>;
+	public var doubleClicked(get, null):Signal1<ClickInfo>;
 	private function get_doubleClicked():Signal1<ClickInfo> {
 		if (_doubleClicked == null) {
 			_doubleClicked = new Signal1();

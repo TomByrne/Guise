@@ -7,7 +7,7 @@ import guise.skin.drawn.utils.DrawnStyleUtils;
 import guise.skin.values.IValue;
 import guise.skin.common.PositionedLayer;
 
-class SimpleShapeLayer extends PositionedLayer<ShapeStyle>, implements IAccessRequest
+class SimpleShapeLayer extends PositionedLayer<ShapeStyle> implements IAccessRequest
 {
 	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [IGraphicsAccess,IPositionAccess];
 	

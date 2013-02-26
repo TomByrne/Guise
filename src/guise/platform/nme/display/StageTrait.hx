@@ -6,7 +6,7 @@ import nme.display.StageScaleMode;
 import nme.events.Event;
 import msignal.Signal;
 
-class StageTrait extends ContainerTrait//, implements IWindowInfo
+class StageTrait extends ContainerTrait// implements IWindowInfo
 {
 	private static var _inst:StageTrait;
 	public static function inst():StageTrait {
@@ -17,12 +17,12 @@ class StageTrait extends ContainerTrait//, implements IWindowInfo
 	}
 	
 	/*@lazyInst
-	public var availSizeChanged(default, null):Signal1<IWindowInfo>;
+	@:isVar public var availSizeChanged(default, null):Signal1<IWindowInfo>;
 	
-	public var availWidth(default, null):Int;
-	public var availHeight(default, null):Int;*/
+	@:isVar public var availWidth(default, null):Int;
+	@:isVar public var availHeight(default, null):Int;*/
 	
-	public var stage(get_stage, null):Stage;
+	public var stage(get, null):Stage;
 	private function get_stage():Stage {
 		return _stage;
 	}

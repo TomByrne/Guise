@@ -6,14 +6,14 @@ import msignal.Signal;
 interface IBoxPos 
 {
 
-	public var changed(get_changed, null):Signal1<IBoxPos>;
-	public var posChanged(get_posChanged, null):Signal1<IBoxPos>;
-	public var sizeChanged(get_sizeChanged, null):Signal1<IBoxPos>;
+	public var changed(get, null):Signal1<IBoxPos>;
+	public var posChanged(get, null):Signal1<IBoxPos>;
+	public var sizeChanged(get, null):Signal1<IBoxPos>;
 	
-	public var x(default, null):Float;
-	public var y(default, null):Float;
-	public var w(default, null):Float;
-	public var h(default, null):Float;
+	@:isVar public var x(default, null):Float;
+	@:isVar public var y(default, null):Float;
+	@:isVar public var w(default, null):Float;
+	@:isVar public var h(default, null):Float;
 	
 }
 
@@ -32,10 +32,10 @@ class BoxPos implements IBoxPos
 	@lazyInst
 	public var sizeChanged:Signal1<IBoxPos>;
 	
-	public var x(default, null):Float;
-	public var y(default, null):Float;
-	public var w(default, null):Float;
-	public var h(default, null):Float;
+	@:isVar public var x(default, null):Float;
+	@:isVar public var y(default, null):Float;
+	@:isVar public var w(default, null):Float;
+	@:isVar public var h(default, null):Float;
 
 	public function new(x:Float=0, y:Float=0, ?width:Null<Float>, ?height:Null<Float>) 
 	{

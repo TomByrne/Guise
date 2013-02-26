@@ -10,22 +10,22 @@ import wx.Window;
 import cmtc.ds.hash.ObjectHash;
 import msignal.Signal;
 
-class DisplayTrait<T:Window> extends ContainerTrait, implements IMeasurement{
+class DisplayTrait<T:Window> extends ContainerTrait implements IMeasurement{
 
 	@lazyInst
 	public var measChanged:Signal1<IMeasurement>;
 	
-	public var measWidth(get_measWidth, null):Float;
+	public var measWidth(get, null):Float;
 	private function get_measWidth():Float {
 		return 150;
 	}
-	public var measHeight(get_measHeight, null):Float;
+	public var measHeight(get, null):Float;
 	private function get_measHeight():Float {
 		return 30;
 	}
 	
 	
-	public var window(default, null):T;
+	@:isVar public var window(default, null):T;
 	
 	private var _parent:DisplayTrait<Window>;
 	private var _allowSizing:Bool;
