@@ -48,9 +48,9 @@
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
 			<m-addType params="guise.controls.logic.input.MouseOverTrait"/>
 			<m-addType params="guise.controls.logic.states.ButtonStateMapper"/>
+			<m-addType params="guise.controls.logic.states.SelectableStateMapper"/>
 			<m-addType params="guise.controls.logic.input.ButtonClickTrait"/>
 			<m-addType params="guise.controls.logic.input.ClickToggleSelect"/>
-			<m-addType params="guise.controls.logic.states.SelectableStateMapper"/>
 			<m-addType params="guise.controls.data.Selected, guise.controls.data.ISelected"/>
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag(true)" addCall="addTrait">

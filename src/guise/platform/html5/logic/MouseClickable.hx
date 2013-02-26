@@ -1,16 +1,10 @@
 package guise.platform.html5.logic;
 import composure.traits.AbstractTrait;
 import guise.accessTypes.IMouseClickableAccess;
-import guise.accessTypes.IMouseInteractionsAccess;
 import js.Dom;
 
 import msignal.Signal;
 import guise.platform.html5.display.DisplayTrait;
-
-/**
- * ...
- * @author Tom Byrne
- */
 
 class MouseClickable extends AbstractTrait, implements IMouseClickableAccess
 {
