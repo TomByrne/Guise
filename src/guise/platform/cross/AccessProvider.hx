@@ -7,6 +7,7 @@ import guise.accessTypes.IAccessType;
 
 class AccessProvider extends AbstractTrait
 {
+	private var _unnamed:Hash<IAccessType>;
 	private var _accessClassMap:Hash<Class<Dynamic>>;
 	private var _itemToLayers:ObjectHash<ComposeItem, Hash<LayerInfo>>;
 	private var _addTraitHandler:ComposeItem->String->Dynamic->Void;
@@ -15,6 +16,7 @@ class AccessProvider extends AbstractTrait
 	public function new(?addTraitHandler:ComposeItem->String->Dynamic->Void, ?removeTraitHandler:ComposeItem->String->Dynamic->Void) 
 	{
 		super();
+		_unnamed = new Hash();
 		_accessClassMap = new Hash();
 		_itemToLayers = new ObjectHash();
 		_addTraitHandler = addTraitHandler;
@@ -54,6 +56,12 @@ class AccessProvider extends AbstractTrait
 			}
 			if (!layerInfo.requirements.exists(key)) {
 				var trait:Dynamic = null;
+				if (accessReq.layerName != null && _unnamed.exists(key)) {
+					var access = _unnamed.get(key);
+					access.layerName = accessReq.layerName;
+					trait = access;
+					_unnamed.remove(key);
+				}
 				var traits = item.getTraits(klass);
 				for(foundTrait in traits){
 					if (Std.is(foundTrait, IAccessType)) {
@@ -77,8 +85,12 @@ class AccessProvider extends AbstractTrait
 						trait = Type.createInstance(klass, []);
 					}
 					if (Std.is(trait, IAccessType)) {
-						var access:IAccessType = cast trait;
-						access.layerName = accessReq.layerName;
+						if(accessReq.layerName!=null){
+							var access:IAccessType = cast trait;
+							access.layerName = accessReq.layerName;
+						}else{
+							_unnamed.set(key, trait);
+						}
 					}
 					item.addTrait(trait);
 					if (_addTraitHandler != null) {

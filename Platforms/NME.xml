@@ -31,15 +31,15 @@
 		</var>
 
 		<!-- Core control logic -->
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag" addCall="addTrait">
 			<m-addType params="guise.controls.logic.input.MouseOverTrait"/>
 			<m-addType params="guise.controls.logic.states.ButtonStateMapper"/>
 			<m-addType params="guise.controls.logic.input.ButtonClickTrait"/>
 		</var>
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait" p-checkEnumParams="[0]">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag" addCall="addTrait" m-setCheckProps="{selectable:true}">
 			<m-addType params="guise.controls.logic.states.SelectableStateMapper"/>
 			<m-addType params="guise.controls.logic.input.ClickToggleSelect"/>
-			<m-addType params="guise.controls.data.Selected, guise.controls.data.ISelected"/>
+			<m-addType params="guise.controls.data.ISelected.Selected, guise.controls.data.ISelected"/>
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextInputTag" addCall="addTrait">
 			<m-addType params="guise.controls.logic.input.TextInputPrompt"/>
@@ -51,13 +51,12 @@
 			<m-addType params="guise.controls.logic.states.SelectableStateMapper"/>
 			<m-addType params="guise.controls.logic.input.ButtonClickTrait"/>
 			<m-addType params="guise.controls.logic.input.ClickToggleSelect"/>
-			<m-addType params="guise.controls.data.Selected, guise.controls.data.ISelected"/>
 		</var>
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag(true)" addCall="addTrait">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag" addCall="addTrait">
 			<m-addType params="guise.controls.logic.input.MouseOverTrait"/>
 			<m-addType params="guise.controls.logic.states.ButtonStateMapper"/>
-			<m-addFact params="function(into:Dynamic):Dynamic return new guise.controls.logic.input.MouseDragChangeValue(null,true,guise.controls.data.INumRange,'valueNorm',null,null,new guise.skin.values.Bind(guise.layout.IBoxPos, 'w', 'sizeChanged'))"/>
-			<m-addType params="guise.controls.data.NumRange, guise.controls.data.INumRange"/>
+			<m-addFact params="function(into:Dynamic):Dynamic return new guise.controls.logic.input.MouseDragChangeValue(null,true,guise.controls.data.INumRange,'valueNorm',null,null,new guise.skin.values.Calc(Multiply, [new guise.skin.values.Value(0.8), new guise.skin.values.Width()]))"/>
+			<m-addType params="guise.controls.data.INumRange.NumRange, guise.controls.data.INumRange"/>
 		</var>
 
 

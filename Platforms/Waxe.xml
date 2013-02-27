@@ -23,13 +23,13 @@
 		 <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.PanelTag" addCall="addTrait">
 			<m-addType params="guise.platform.waxe.controls.PanelTrait"/>
 		</var>
-		 <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait">
+		 <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag" addCall="addTrait">
 			<m-addType params="guise.platform.waxe.controls.TextButtonTrait"/>
 			<m-addType params="guise.platform.waxe.logic.MouseClickable"/>
 		</var>
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait" p-checkEnumParams="[0]">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag" addCall="addTrait" m-setCheckProps="{selectable:true}">
 			<m-addType params="guise.controls.logic.input.ClickToggleSelect"/>
-			<m-addType params="guise.controls.data.Selected, guise.controls.data.ISelected"/>
+			<m-addType params="guise.controls.data.ISelected.Selected, guise.controls.data.ISelected"/>
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextInputTag" addCall="addTrait">
 			<m-addType params="guise.platform.waxe.controls.TextInputTrait"/>
@@ -40,11 +40,10 @@
 		</var> 
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
 			<m-addType params="guise.platform.waxe.controls.CheckBoxTrait"/>
-			<m-addType params="guise.controls.data.Selected, guise.controls.data.ISelected"/>
 		</var>
-		<!-- <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag(true)" addCall="addTrait">
+		<!-- <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag" addCall="addTrait">
 			<m-addType params="guise.platform.waxe.controls.SliderTrait"/>
-			<m-addType params="guise.controls.data.NumRange, guise.controls.data.INumRange"/> 
+			<m-addType params="guise.controls.data.INumRange.NumRange, guise.controls.data.INumRange"/>
 		</var>-->
 
 

@@ -112,7 +112,7 @@ class TextInputAccess extends AbstractTrait, implements ITextInputAccess, implem
 				_textField.height = starField.height;
 			}
 		}else{
-			var realFontSize:Float = starField.fontSize / _textField.textHeight * (_textOutput.textHeight+TextFieldGutter.H_GUTTER*2);
+			var realFontSize:Float = starField.fontSize / _textField.textHeight * (_textOutput.textHeight*1.4);// to account for the small gaps in bitmap fonts
 			_textField.setTextFormat(new TextFormat(null, realFontSize, null, null, null, null, null, null, null));
 			_textField.height = starField.height * starField.fontSize / realFontSize;
 		}

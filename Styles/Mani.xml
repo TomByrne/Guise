@@ -83,7 +83,7 @@
 			<m-addInst params="styleTransitioner"/>
 		</var>
 
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag" addCall="addTrait">
 			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
 				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','labelText']"/>
 			</meth>
@@ -99,7 +99,7 @@
 				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','inputText']"/>
 			</meth>
 			<meth addCall="addFact" ret="meas" a-cause="Dynamic">
-				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="(guise.skin.values.TextWidth+28)>100,(guise.skin.values.TextHeight+26)>40"/>
+				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="100,(guise.skin.values.TextHeight+26)>40"/>
 			</meth>
 			<m-addFact params="inputText"/>
 			<m-addFact params="inputTextBacking"/>
@@ -123,7 +123,7 @@
 			<m-addFact params="toggleBacking"/>
 		</var>
 
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag(true)" addCall="addTrait">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag" addCall="addTrait" m-setCheckProps="{vert:false}">
 			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
 				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','controlHandle']"/>
 			</meth>

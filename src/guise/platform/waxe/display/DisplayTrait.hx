@@ -54,7 +54,8 @@ class DisplayTrait<T:Window> extends ContainerTrait, implements IMeasurement{
 		_parent = parent;
 		window = _creator(_parent.window);
 		if (_executeBundles != null) {
-			for (bundles in _executeBundles) {
+			for (owner in _executeBundles.keys()) {
+				var bundles = _executeBundles.get(owner);
 				for (bundle in bundles) {
 					bundle.add();
 				}
@@ -65,7 +66,8 @@ class DisplayTrait<T:Window> extends ContainerTrait, implements IMeasurement{
 		if (_parent != parent) return;
 		
 		if (_executeBundles != null) {
-			for (bundles in _executeBundles) {
+			for (owner in _executeBundles.keys()) {
+				var bundles = _executeBundles.get(owner);
 				for (bundle in bundles) {
 					bundle.remove();
 				}

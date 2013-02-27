@@ -1,5 +1,4 @@
 package guise.controls.logic.input;
-import guise.controls.data.IClick;
 import guise.core.IActive;
 import composure.traits.AbstractTrait;
 import guise.platform.cross.IAccessRequest;
@@ -7,7 +6,7 @@ import msignal.Signal;
 import guise.accessTypes.IMouseClickableAccess;
 
 
-class ButtonClickTrait extends AbstractTrait, implements IClick, implements IAccessRequest
+class ButtonClickTrait extends AbstractTrait, implements IAccessRequest
 {
 	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [IMouseClickableAccess];
 	
@@ -17,9 +16,6 @@ class ButtonClickTrait extends AbstractTrait, implements IClick, implements IAcc
 		this.active = value;
 		return value;
 	}
-	
-	@lazyInst
-	public var clicked(default, null):Signal1<IClick>;
 	
 	private var _mouseClickable:IMouseClickableAccess;
 	private var _clickTypeBundles:Array<ClickTypeBundle>;
@@ -85,7 +81,6 @@ class ButtonClickTrait extends AbstractTrait, implements IClick, implements IAcc
 		for (bundle in _clickTypeBundles) {
 			switch(bundle.clickType) {
 				case LeftClick:
-					LazyInst.exec(clicked.dispatch(this));
 					if(info.left)dispatchBundle(bundle);
 				case RightClick:
 					if(!info.left)dispatchBundle(bundle);
