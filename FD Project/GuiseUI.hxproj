@@ -12,15 +12,15 @@
     <movie minorVersion="0" />
     <movie platform="NME" />
     <movie background="FFFFFF" />
-    <movie preferredSDK="Haxe 3.00b;3.00b;" />
+    <movie preferredSDK="Haxe 3.0.0;3.0.0;" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="..\src" />
     <class path="..\testSrc" />
     <class path="..\..\Composure\src" />
-    <class path="C:\Motion-Twin\Haxe\lib\starling/1,2,2/" />
-    <class path="C:\Motion-Twin\Haxe\lib\nme/3,5,5/" />
+    <class path="C:\Motion-Twin\haxe/lib\starling/1,2,2/" />
+    <class path="C:\Motion-Twin\haxe/lib\nme/3,5,5/" />
     <class path="../bin/flash/haxe" />
   </classpaths>
   <!-- Build options -->

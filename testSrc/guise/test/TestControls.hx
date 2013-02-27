@@ -2,7 +2,6 @@ package guise.test;
 
 import composure.core.ComposeGroup;
 import composure.core.ComposeItem;
-import guise.controls.data.TextLabel;
 import guise.controls.logic.input.ClickToggleSelect;
 import guise.core.CoreTags;
 import guise.controls.ControlTags;
@@ -30,29 +29,19 @@ class TestControls
 		addSlider(item, false);
 	}
 	public static function addButton(parent:ComposeGroup, text:String, selectable:Bool):Void {
-		var item:ComposeItem = new ComposeItem();
-		item.addTraits([TextButtonTag(selectable), new VStackLayoutInfo(), new TextLabel(text)]);
-		parent.addChild(item);
+		parent.addChild(new ComposeItem([new TextButtonTag(selectable, text), new VStackLayoutInfo()]));
 	}
 	public static function addLabel(parent:ComposeGroup, text:String):Void {
-		var item:ComposeItem = new ComposeItem();
-		item.addTraits([TextLabelTag, new VStackLayoutInfo(), new TextLabel(text)]);
-		parent.addChild(item);
+		parent.addChild(new ComposeItem([new TextLabelTag(text), new VStackLayoutInfo()]));
 	}
 	public static function addTextInput(parent:ComposeGroup, prompt:String):Void {
-		var item:ComposeItem = new ComposeItem();
-		item.addTraits([TextInputTag, new VStackLayoutInfo(), new TextLabel(), new InputPrompt(prompt) ]);
-		parent.addChild(item);
+		parent.addChild(new ComposeItem([new TextInputTag(prompt), new VStackLayoutInfo() ]));
 	}
 	public static function addToggleButton(parent:ComposeGroup, label:String):Void {
-		var item:ComposeItem = new ComposeItem();
-		item.addTraits([ToggleButtonTag, new VStackLayoutInfo(), new TextLabel(label)]);
-		parent.addChild(item);
+		parent.addChild(new ComposeItem([new ToggleButtonTag(label), new VStackLayoutInfo()]));
 	}
 	public static function addSlider(parent:ComposeGroup, vert:Bool):Void {
-		var item:ComposeItem = new ComposeItem();
-		item.addTraits([SliderTag(vert), new VStackLayoutInfo()]);
-		parent.addChild(item);
+		parent.addChild(new ComposeItem([new SliderTag(vert), new VStackLayoutInfo()]));
 	}
 	
 }

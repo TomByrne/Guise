@@ -34,8 +34,6 @@ class ButtonStateMapper extends AbstractTrait implements IAccessRequest
 		downState = new State();
 		downState.set(ButtonDownState.UP);
 		addSiblingTrait(downState);
-		
-		//addSiblingTrait(new PlatformAccessor(IMouseInteractionsAccess, layerName, onMouseIntAdd, onMouseIntRemove));
 	}
 	public function getAccessTypes():Array<Class<Dynamic>> {
 		return ACCESS_TYPES;

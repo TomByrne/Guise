@@ -112,7 +112,6 @@ class DisplayTrait extends AbsDisplayTrait implements IMeasurement
 		domElement.style.position = pWas;
 		
 		if (_measWidth != measWidth || _measHeight != measHeight) {
-			trace("checkMeas: "+measWidth+" "+measHeight);
 			_measWidth = measWidth;
 			_measHeight = measHeight;
 			LazyInst.exec(measChanged.dispatch(this));

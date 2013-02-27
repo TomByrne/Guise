@@ -40,7 +40,7 @@ class ClickToggleSelect extends AbstractTrait implements IAccessRequest
 	}
 	
 	private function onClicked(info:ClickInfo):Void {
-		if (selected != null) selected.set(!selected.selected);
+		if (selected != null) selected.setSelected(!selected.selected);
 	}
 	public function getAccessTypes():Array<Class<Dynamic>> {
 		return ACCESS_TYPES;

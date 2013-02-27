@@ -44,32 +44,38 @@ class Calc implements IValue
 			case Add:
 				for (i in 1...values.length) {
 					var value = values[i].currentValue;
+					if (Math.isNaN(value)) continue;
 					_value += value;
 				}
 			case Subtract:
 				for (i in 1...values.length) {
 					var value = values[i].currentValue;
+					if (Math.isNaN(value)) continue;
 					_value -= value;
 				}
 			case Multiply:
 				for (i in 1...values.length) {
 					var value = values[i].currentValue;
+					if (Math.isNaN(value)) continue;
 					_value *= value;
 				}
 			case Divide:
 				for (i in 1...values.length) {
 					var value = values[i].currentValue;
+					if (Math.isNaN(value)) continue;
 					_value /= value;
 				}
 			case Max:
 				for (i in 1...values.length) {
 					var value = values[i].currentValue;
-					if (value > _value)_value = value;
+					if (Math.isNaN(value)) continue;
+					if (Math.isNaN(_value) || value > _value)_value = value;
 				}
 			case Min:
 				for (i in 1...values.length) {
 					var value = values[i].currentValue;
-					if (value < _value)_value = value;
+					if (Math.isNaN(value)) continue;
+					if (Math.isNaN(_value) || value < _value)_value = value;
 				}
 		}
 		return ret;

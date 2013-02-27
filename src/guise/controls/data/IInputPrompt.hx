@@ -2,24 +2,23 @@ package guise.controls.data;
 
 import msignal.Signal;
 
-/**
- * ...
- * @author Tom Byrne
- */
 
 interface IInputPrompt 
 {
-	@:isVar public var promptChanged(default, null):Signal1<IInputPrompt>;
+	@:isVar public var promptChanged(get, null):Signal1<IInputPrompt>;
 	
 	@:isVar public var prompt(default, null):String;
 	
 	public function setPrompt(text:String):Void;
 }
 
+
+
 // Default implementation
+@:build(LazyInst.check())
 class InputPrompt implements IInputPrompt
 {
-	@:isVar public var promptChanged(default, null):Signal1<IInputPrompt>;
+	@:isVar public var promptChanged(get, null):Signal1<IInputPrompt>;
 	
 	@:isVar public var prompt(default, null):String;
 
@@ -30,10 +29,11 @@ class InputPrompt implements IInputPrompt
 	}
 	
 	public function setPrompt(prompt:String):Void {
-		if (this.prompt != prompt) {
-			this.prompt = prompt;
-			promptChanged.dispatch(this);
-		}
+		if (this.prompt == prompt) return;
+		
+		this.prompt = prompt;
+		LazyInst.exec(promptChanged.dispatch(this));
+		
 	}
 	
 }

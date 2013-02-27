@@ -5,6 +5,9 @@
 
 		<var type="guise.platform.cross.AccessProvider" addCall="addTrait">
 			<m-mapAccessType params="guise.frame.IFrameTicker, guise.frame.IFrameTicker.FrameTicker"/>
+			<m-mapAccessType params="guise.accessTypes.IMouseInteractionsAccess, guise.platform.html5.logic.MouseInteractions"/>
+			<m-mapAccessType params="guise.accessTypes.IMouseClickableAccess, guise.platform.html5.logic.MouseClickable"/>
+			<m-mapAccessType params="guise.accessTypes.IFocusableAccess, guise.platform.html5.logic.Focusable"/>
 		</var>
 
 		<!-- Core display tags -->
@@ -23,31 +26,39 @@
 		 <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.PanelTag" addCall="addTrait">
 			<m-addType params="guise.platform.html5.controls.PanelTrait"/>
 		</var>
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag" addCall="addTrait">
 			<m-addType params="guise.platform.html5.controls.TextButtonTrait"/>
 			<m-addType params="guise.platform.html5.logic.MouseClickable"/>
-			<m-addType params="guise.controls.data.TextLabel, guise.controls.data.ITextLabel"/>
+			<m-addType params="guise.controls.logic.states.ButtonStateMapper"/>
 		</var>
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag(true)" addCall="addTrait" p-checkEnumParams="[0]">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag" addCall="addTrait" m-setCheckProps="{selectable:true}">
+			<m-addType params="guise.controls.logic.states.SelectableStateMapper"/>
 			<m-addType params="guise.controls.logic.input.ClickToggleSelect"/>
-			<m-addType params="guise.controls.data.Selected, guise.controls.data.ISelected"/>
+			<m-addType params="guise.controls.data.ISelected.Selected, guise.controls.data.ISelected"/>
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextInputTag" addCall="addTrait">
 			<m-addType params="guise.platform.html5.controls.TextInputTrait"/>
+			<m-addType params="guise.controls.logic.states.FocusStateMapper"/>
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextLabelTag" addCall="addTrait">
 			<m-addType params="guise.platform.html5.controls.TextLabelTrait"/>
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
 			<m-addType params="guise.platform.html5.controls.CheckBoxTrait"/>
-			<m-addType params="guise.controls.data.Selected, guise.controls.data.ISelected"/>
+			<m-addType params="guise.controls.data.ISelected.Selected, guise.controls.data.ISelected"/>
+			<m-addType params="guise.controls.logic.states.ButtonStateMapper"/>
+			<m-addType params="guise.controls.logic.states.SelectableStateMapper"/>
 		</var>
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag(true)" addCall="addTrait">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag" addCall="addTrait">
 			<m-addType params="guise.platform.html5.controls.SliderTrait"/>
-			<m-addType params="guise.controls.data.NumRange, guise.controls.data.INumRange"/>
+			<m-addType params="guise.controls.data.INumRange.NumRange, guise.controls.data.INumRange"/>
+			<m-addType params="guise.controls.logic.states.ButtonStateMapper"/>
 		</var>
 
 
 		<!-- Additional control logic -->
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.platform.html5.display.DisplayTrait" addCall="addTrait">
+			<m-addType params="guise.platform.html5.logic.StateToCssClass"/>
+		</var>
 	</meth>
 </class>

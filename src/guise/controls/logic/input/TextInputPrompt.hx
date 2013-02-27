@@ -17,7 +17,7 @@ class TextInputPrompt extends AbstractTrait implements IAccessRequest
 	private function set_textLabel(value:ITextLabel):ITextLabel {
 		this.textLabel = value;
 		if (_showingPrompt && textLabel!=null) {
-			if(inputPrompt!=null)textLabel.set(inputPrompt.prompt);
+			if(inputPrompt!=null)textLabel.setText(inputPrompt.prompt);
 		}
 		return value;
 	}
@@ -89,9 +89,9 @@ class TextInputPrompt extends AbstractTrait implements IAccessRequest
 	}
 	private function onTextChanged(from:ITextInputAccess):Void {
 		var text:String = from.getText();
-		if(textLabel!=null)textLabel.set(text);
+		if(textLabel!=null)textLabel.setText(text);
 		if (!_focused && (text == null || text.length == 0)) {
-			if(inputPrompt!=null)textLabel.set(inputPrompt.prompt);
+			if(inputPrompt!=null)textLabel.setText(inputPrompt.prompt);
 			_showingPrompt = true;
 		}
 	}
@@ -99,19 +99,19 @@ class TextInputPrompt extends AbstractTrait implements IAccessRequest
 	private function onPromptChanged(from:IInputPrompt):Void {
 		var prompt:String = from.prompt;
 		if (_showingPrompt && textLabel!=null) {
-			textLabel.set(prompt);
+			textLabel.setText(prompt);
 		}
 	}
 	private function onFocusedChanged(from:IFocusableAccess):Void {
 		_focused = from.focused;
 		if(_focused){
 			if (_showingPrompt) {
-				textLabel.set("");
+				textLabel.setText("");
 				_showingPrompt = false;
 			}
 		}else {
 			if (!_showingPrompt && (textLabel==null || textLabel.text=="")) {
-				if(inputPrompt!=null)textLabel.set(inputPrompt.prompt);
+				if(inputPrompt!=null)textLabel.setText(inputPrompt.prompt);
 				_showingPrompt = true;
 			}
 		}
