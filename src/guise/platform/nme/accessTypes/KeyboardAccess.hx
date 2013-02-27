@@ -32,7 +32,7 @@ class KeyboardAccess implements IKeyboardAccess
 		if (interactiveObject!=null) {
 			interactiveObject.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			interactiveObject.removeEventListener(KeyboardEvent.KEY_UP, onKeyUp);
-			_isDown = new Hash();
+			_isDown = new Map();
 		}
 		interactiveObject = value;
 		if (interactiveObject!=null) {
@@ -42,10 +42,10 @@ class KeyboardAccess implements IKeyboardAccess
 		return value;
 	}
 	
-	private var _upSignals:Hash<Signal2<IKeyboardAccess,KeyInfo>>;
-	private var _downSignals:Hash<Signal2<IKeyboardAccess,KeyInfo>>;
-	private var _keyInfos:Hash<KeyInfo>;
-	private var _isDown:Hash<Bool>;
+	private var _upSignals:Map<String, Signal2<IKeyboardAccess,KeyInfo>>;
+	private var _downSignals:Map<String, Signal2<IKeyboardAccess,KeyInfo>>;
+	private var _keyInfos:Map<String, KeyInfo>;
+	private var _isDown:Map<String, Bool>;
 	
 
 	@:isVar public var layerName(default, set):String;
@@ -61,10 +61,10 @@ class KeyboardAccess implements IKeyboardAccess
 		
 		this.layerName = layerName;
 		
-		_upSignals = new Hash();
-		_downSignals = new Hash();
-		_keyInfos = new Hash();
-		_isDown = new Hash();
+		_upSignals = new Map();
+		_downSignals = new Map();
+		_keyInfos = new Map();
+		_isDown = new Map();
 	}
 	
 	private function onKeyUp(e:KeyboardEvent):Void {
@@ -76,7 +76,7 @@ class KeyboardAccess implements IKeyboardAccess
 		dispatchSignals(e.keyCode, e.charCode, e.ctrlKey, e.altKey, e.shiftKey, _downSignals, true);
 	}
 	
-	private function dispatchSignals(keyCode:Int, charCode:Int, ctrl:Bool, alt:Bool, shift:Bool, signals:Hash<Signal2<IKeyboardAccess,KeyInfo>>, isDown:Bool):Void {
+	private function dispatchSignals(keyCode:Int, charCode:Int, ctrl:Bool, alt:Bool, shift:Bool, signals:Map<String, Signal2<IKeyboardAccess,KeyInfo>>, isDown:Bool):Void {
 		var modStrs:Array<String> = [""];
 		if (ctrl) {
 			modStrs.push(":ctrl_");
@@ -106,7 +106,7 @@ class KeyboardAccess implements IKeyboardAccess
 			_isDown.set(cStr, isDown);
 		}
 	}
-	public function dispatchFrom(key:String, signals:Hash<Signal2<IKeyboardAccess,KeyInfo>>):Void {
+	public function dispatchFrom(key:String, signals:Map<String, Signal2<IKeyboardAccess,KeyInfo>>):Void {
 		var signal = signals.get(key);
 		if (signal != null) {
 			signal.dispatch(this, _keyInfos.get(key));
@@ -119,7 +119,7 @@ class KeyboardAccess implements IKeyboardAccess
 	public function keyDown(keyInfo:KeyInfo):Signal2 < IKeyboardAccess, KeyInfo > {
 		return getSignal(keyInfo, _downSignals);
 	}
-	public function getSignal(keyInfo:KeyInfo, from:Hash<Signal2<IKeyboardAccess,KeyInfo>>):Signal2<IKeyboardAccess,KeyInfo> {
+	public function getSignal(keyInfo:KeyInfo, from:Map<String, Signal2<IKeyboardAccess,KeyInfo>>):Signal2<IKeyboardAccess,KeyInfo> {
 		var key:String = getKey(keyInfo);
 		var ret:Signal2<IKeyboardAccess,KeyInfo> = from.get(key);
 		if (ret == null) {

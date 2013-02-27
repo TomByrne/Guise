@@ -317,7 +317,7 @@ class StyleTransitioner implements ITransitioner
 			UtilFunctions.setProperty(viaParams, i, checkSpan(bundle, span, viaParams, i, viaParams[i], destParams[i], easerFact));
 		}
 	}
-	private function doObjectSwitch(bundle:TransTracker, span:TransSpan, via:Dynamic, fromParams:Hash<Dynamic>, easerFuncs:Hash<EaserFactFunc>):Void {
+	private function doObjectSwitch(bundle:TransTracker, span:TransSpan, via:Dynamic, fromParams:Map<String, Dynamic>, easerFuncs:Map<String, EaserFactFunc>):Void {
 		for (key in fromParams.keys()) {
 			var easerFact:EaserFactFunc;
 			if (easerFuncs != null) easerFact = easerFuncs.get(key);

@@ -79,7 +79,7 @@ extends StateStyledTrait<StyleType>
 	
 	#end
 	
-	@:macro public function addLayout(thisE:Expr, states:Expr, left:Expr, top:Expr, right:Expr, bottom:Expr, ?priority:Int):Expr {
+	macro public function addLayout(thisE:Expr, states:Expr, left:Expr, top:Expr, right:Expr, bottom:Expr, ?priority:Int):Expr {
 		left = ValueMacro.interpValue(left);
 		top = ValueMacro.interpValue(top);
 		right = ValueMacro.interpValue(right);

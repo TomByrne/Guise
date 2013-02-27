@@ -2,7 +2,7 @@ package guise.platform.html5.logic;
 import composure.traits.AbstractTrait;
 import guise.platform.html5.display.DisplayTrait;
 import guise.states.IState;
-import cmtc.ds.hash.ObjectHash;
+
 
 class StateToCssClass extends AbstractTrait
 {
@@ -20,13 +20,13 @@ class StateToCssClass extends AbstractTrait
 		return value;
 	}
 	
-	private var _stateToClass:ObjectHash<IState<Dynamic>, String>;
+	private var _stateToClass:Map<String, IState<Dynamic>, String>;
 	private var _classes:Array<String>;
 
 	public function new() 
 	{
 		super();
-		_stateToClass = new ObjectHash();
+		_stateToClass = new Map();
 		_classes = [];
 	}
 	

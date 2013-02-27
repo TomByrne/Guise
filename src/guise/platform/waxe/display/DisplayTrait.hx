@@ -7,7 +7,7 @@ import composure.traitCheckers.TraitTypeChecker;
 import guise.meas.IMeasurement;
 import wx.EventID;
 import wx.Window;
-import cmtc.ds.hash.ObjectHash;
+
 import msignal.Signal;
 
 class DisplayTrait<T:Window> extends ContainerTrait implements IMeasurement{
@@ -32,7 +32,7 @@ class DisplayTrait<T:Window> extends ContainerTrait implements IMeasurement{
 	private var _creator:Window->T;
 	private var _size:Size;
 	private var _position:Position;
-	private var _executeBundles:ObjectHash<Object, Array<ExecuteBundle>>;
+	private var _executeBundles:Map< Object, Array<ExecuteBundle>>;
 
 	public function new(creator:Window->T) 
 	{
@@ -111,7 +111,7 @@ class DisplayTrait<T:Window> extends ContainerTrait implements IMeasurement{
 	public function on(owner:Dynamic, add:Void->Void, remove:Void->Void):Void {
 		var bundle:ExecuteBundle = { owner:owner, add:add, remove:remove };
 		if (_executeBundles == null) {
-			_executeBundles = new ObjectHash();
+			_executeBundles = new Map();
 		}
 		var bundles:Array<ExecuteBundle> = _executeBundles.get(owner);
 		if (bundles == null) {

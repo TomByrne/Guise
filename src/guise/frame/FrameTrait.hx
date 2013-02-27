@@ -22,14 +22,14 @@ class FrameTrait
 	}
 	#end
 	
-	private var _bundleMap:Hash<FrameCallBundle>;
+	private var _bundleMap:Map<String, FrameCallBundle>;
 	private var _frameCalls:Array<FrameCallBundle>;
 	
 	public function new(){
 		_frameCalls = [];
-		_bundleMap = new Hash();
+		_bundleMap = new Map();
 	}
-	@:macro public function add(thisE:Expr, call:Expr, ?dependsOn:Expr , ?valid:Expr ):Expr {
+	macro public function add(thisE:Expr, call:Expr, ?dependsOn:Expr , ?valid:Expr ):Expr {
 		var name:Expr = Context.parse('"'+getName(call)+'"', Context.currentPos());
 		return macro $thisE.addFrameCall($name, $call, $dependsOn, $valid);
 	}
@@ -60,7 +60,7 @@ class FrameTrait
 			}
 		}
 	}
-	@:macro public function invalidate(thisE:Expr, call:Expr):Expr{
+	macro public function invalidate(thisE:Expr, call:Expr):Expr{
 		var name:Expr = Context.parse('"'+getName(call)+'"', Context.currentPos());
 		return macro $thisE.invalidateByName($name);
 	}

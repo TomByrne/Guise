@@ -151,7 +151,7 @@ extends AbstractTrait implements IMeasurement
 	}
 	#end
 	
-	@:macro public function setVal(thisE:Expr, widthVal:Expr, heightVal:Expr):Expr {
+	macro public function setVal(thisE:Expr, widthVal:Expr, heightVal:Expr):Expr {
 		widthVal = ValueMacro.interpValue(widthVal);
 		heightVal = ValueMacro.interpValue(heightVal);
 		return macro $thisE.setValues($widthVal, $heightVal);

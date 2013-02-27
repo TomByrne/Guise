@@ -3,7 +3,7 @@ import composure.traits.AbstractTrait;
 import guise.utils.Clone;
 import guise.skin.values.IValue;
 import guise.trans.ITransitioner;
-import cmtc.ds.hash.ObjectHash;
+
 import Lambda;
 
 using Lambda;
@@ -42,7 +42,7 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 	
 	private var styles:Array<{states:Array<String>,style:StyleType, priority:Int}>;
 	private var states:Array<IState<EnumValue>>;
-	private var _handlerToSignals:ObjectHash<Dynamic->Dynamic->Void, Array<AnySignal>>;
+	private var _handlerToSignals:Map<String, Dynamic->Dynamic->Void, Array<AnySignal>>;
 	
 	private var transSubject:Dynamic;
 
@@ -55,7 +55,7 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 		if (transSubject != null) this.transSubject = transSubject;
 		else this.transSubject = this;
 		
-		_handlerToSignals = new ObjectHash();
+		_handlerToSignals = new Map();
 	}
 	
 	@injectAdd

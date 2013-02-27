@@ -7,7 +7,7 @@ import haxe.macro.Expr;
 
 class ValueMacro 
 {
-	@:macro public static function exec(e:Expr):Expr {
+	macro public static function exec(e:Expr):Expr {
 		return interpValue(e);
 	}
 	#if macro

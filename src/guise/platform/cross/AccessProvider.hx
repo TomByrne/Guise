@@ -1,24 +1,24 @@
 package guise.platform.cross;
 
-import cmtc.ds.hash.ObjectHash;
+
 import composure.core.ComposeItem;
 import composure.traits.AbstractTrait;
 import guise.accessTypes.IAccessType;
 
 class AccessProvider extends AbstractTrait
 {
-	private var _unnamed:Hash<IAccessType>;
-	private var _accessClassMap:Hash<Class<Dynamic>>;
-	private var _itemToLayers:ObjectHash<ComposeItem, Hash<LayerInfo>>;
+	private var _unnamed:Map<String, IAccessType>;
+	private var _accessClassMap:Map<String, Class<Dynamic>>;
+	private var _itemToLayers:Map< ComposeItem, Map<LayerInfo>>;
 	private var _addTraitHandler:ComposeItem->String->Dynamic->Void;
 	private var _removeTraitHandler:ComposeItem->String->Dynamic->Void;
 
 	public function new(?addTraitHandler:ComposeItem->String->Dynamic->Void, ?removeTraitHandler:ComposeItem->String->Dynamic->Void) 
 	{
 		super();
-		_unnamed = new Hash();
-		_accessClassMap = new Hash();
-		_itemToLayers = new ObjectHash();
+		_unnamed = new Map();
+		_accessClassMap = new Map();
+		_itemToLayers = new Map();
 		_addTraitHandler = addTraitHandler;
 		_removeTraitHandler = removeTraitHandler;
 	}
@@ -31,12 +31,12 @@ class AccessProvider extends AbstractTrait
 	
 	@injectAdd({desc:true})
 	public function onAccessRequireAdd(accessReq:IAccessRequest, item:ComposeItem):Void {
-		var layerHash:Hash<LayerInfo> = _itemToLayers.get(item);
+		var layerHash:Map<String, LayerInfo> = _itemToLayers.get(item);
 		var layerInfo:LayerInfo;
 		if (layerHash != null) {
 			layerInfo = layerHash.get(accessReq.layerName);
 		}else {
-			layerHash = new Hash();
+			layerHash = new Map();
 			_itemToLayers.set(item, layerHash);
 			layerInfo = null;
 		}
@@ -107,7 +107,7 @@ class AccessProvider extends AbstractTrait
 	}
 	@injectRemove({desc:true})
 	public function onAccessRequireRemove(accessReq:IAccessRequest, item:ComposeItem):Void {
-		var layerHash:Hash<LayerInfo> = _itemToLayers.get(item);
+		var layerHash:Map<String, LayerInfo> = _itemToLayers.get(item);
 		var layerInfo:LayerInfo = layerHash.get(accessReq.layerName);
 		
 		for (req in accessReq.getAccessTypes()) {
@@ -142,14 +142,14 @@ class AccessProvider extends AbstractTrait
 class LayerInfo {
 	
 	public var name:String;
-	public var requirements:Hash<Int>;
-	public var accessors:Hash<IAccessType>;
+	public var requirements:Map<String, Int>;
+	public var accessors:Map<String, IAccessType>;
 	public var totalReqs:Int;
 	
 	public function new(name:String) {
 		this.name = name;
-		requirements = new Hash();
-		accessors = new Hash();
+		requirements = new Map();
+		accessors = new Map();
 		totalReqs = 0;
 	}
 }

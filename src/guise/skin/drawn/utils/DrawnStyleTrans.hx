@@ -43,7 +43,7 @@ class DrawnStyleTrans extends StyleTransitioner
 		}else {
 			via = new Value(value2.currentValue);
 		}
-		var toParams:Hash<Dynamic> = new Hash();
+		var toParams:Map<String, Dynamic> = new Map();
 		toParams.set("value", Math.isNaN(value1.currentValue)?value2.currentValue: value1.currentValue);
 		return [{ via:via, toParams:toParams, easerFuncs:null}];
 	}

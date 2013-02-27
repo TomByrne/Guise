@@ -5,7 +5,7 @@ import composure.traitCheckers.GenerationChecker;
 import guise.layout.AbsLayout;
 import guise.layout.IBoxPos;
 import guise.meas.IMeasurement;
-import cmtc.ds.hash.ObjectHash;
+
 
 using Lambda;
 
@@ -123,7 +123,7 @@ class StackLayout extends AbsLayout
 		return value;
 	}
 	
-	private var _childToBundle:ObjectHash<StackLayoutInfo, ChildBundle>;
+	private var _childToBundle:Map< StackLayoutInfo, ChildBundle>;
 	private var _stack:Array<ChildBundle>;
 	
 	private var getBreadth:Void->Float;
@@ -144,7 +144,7 @@ class StackLayout extends AbsLayout
 	public function new(direction:StackDirection) 
 	{
 		super();
-		_childToBundle = new ObjectHash();
+		_childToBundle = new Map();
 		_stack = [];
 		
 		addFrameCall(doArrangeStack);
