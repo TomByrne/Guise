@@ -32,7 +32,7 @@ class DisplayTrait<T:Window> extends ContainerTrait, implements IMeasurement{
 	private var _creator:Window->T;
 	private var _size:Size;
 	private var _position:Position;
-	private var _executeBundles:ObjectHash<Object, Array<ExecuteBundle>>;
+	private var _executeBundles:ObjectHash<Dynamic, Array<ExecuteBundle>>;
 
 	public function new(creator:Window->T) 
 	{

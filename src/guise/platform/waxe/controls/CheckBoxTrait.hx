@@ -44,7 +44,7 @@ class CheckBoxTrait extends DisplayTrait<CheckBox>
 	}
 	private function onCheckBoxChange(e:Dynamic):Void {
 		if(selected!=null){
-			selected.set(window.checked);
+			selected.setSelected(window.checked);
 		}
 	}
 	
@@ -53,7 +53,7 @@ class CheckBoxTrait extends DisplayTrait<CheckBox>
 	}
 	
 	private function onTextChanged(from:ITextLabel=null):Void {
-		//window.setLabel(textLabel.text);
+		//window.label = (textLabel.text);
 	}
 	override private function onParentAdded(parent:DisplayTrait<Window>):Void {
 		super.onParentAdded(parent);
