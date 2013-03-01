@@ -2,12 +2,11 @@ package guise.platform.html5.display;
 import composure.traits.AbstractTrait;
 import guise.layout.IBoxPos;
 import guise.meas.IMeasurement;
-import js.Dom;
 import composure.injectors.Injector;
 import composure.traitCheckers.TraitTypeChecker;
 import guise.platform.cross.display.AbsDisplayTrait;
 import msignal.Signal;
-
+import js.html.Element;
 
 class DisplayTrait extends AbsDisplayTrait implements IMeasurement
 {
@@ -15,7 +14,7 @@ class DisplayTrait extends AbsDisplayTrait implements IMeasurement
 	public var measChanged:Signal1<IMeasurement>;
 	
 	
-	@:isVar public var domElement(default, null):HtmlDom;
+	@:isVar public var domElement(default, null):Element;
 	
 	private var _parent:ContainerTrait;
 	private var _allowSizing:Bool;
@@ -32,7 +31,7 @@ class DisplayTrait extends AbsDisplayTrait implements IMeasurement
 		return _measHeight;
 	}
 
-	public function new(?domElement:HtmlDom) 
+	public function new(?domElement:Element) 
 	{
 		super();
 		_sizeListen = true;
@@ -62,7 +61,7 @@ class DisplayTrait extends AbsDisplayTrait implements IMeasurement
 		_parent = null;
 	}
 	
-	private function setDomElement(value:HtmlDom):Void {
+	private function setDomElement(value:Element):Void {
 		this.domElement = value;
 	}
 	override private function onPosValid(x:Float, y:Float):Void {

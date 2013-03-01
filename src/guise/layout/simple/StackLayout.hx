@@ -187,7 +187,7 @@ class StackLayout extends AbsLayout
 	}
 	private function removeChild(child:StackLayoutInfo, item:ComposeItem):Void {
 		var bundle = _childToBundle.get(child);
-		_childToBundle.delete(child);
+		_childToBundle.remove(child);
 		item.removeTrait(bundle.boxPos);
 		
 		if (bundle.meas!=null) {

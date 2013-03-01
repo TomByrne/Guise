@@ -30,7 +30,7 @@ class TextInputTrait extends DisplayTrait<TextCtrl>
 	
 	private function onTextChanged(from:ITextLabel = null):Void {
 		var text:String = textLabel.text;
-		window.setValue(text==null?"":text);
+		window.value = (text==null?"":text);
 	}
 	override private function onParentAdded(parent:DisplayTrait<Window>):Void {
 		super.onParentAdded(parent);

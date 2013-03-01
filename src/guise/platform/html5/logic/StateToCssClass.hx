@@ -2,6 +2,7 @@ package guise.platform.html5.logic;
 import composure.traits.AbstractTrait;
 import guise.platform.html5.display.DisplayTrait;
 import guise.states.IState;
+import haxe.ds.ObjectMap;
 
 
 class StateToCssClass extends AbstractTrait
@@ -20,13 +21,13 @@ class StateToCssClass extends AbstractTrait
 		return value;
 	}
 	
-	private var _stateToClass:Map<String, IState<Dynamic>, String>;
+	private var _stateToClass:ObjectMap<IState<Dynamic>, String>;
 	private var _classes:Array<String>;
 
 	public function new() 
 	{
 		super();
-		_stateToClass = new Map();
+		_stateToClass = new ObjectMap();
 		_classes = [];
 	}
 	
@@ -60,7 +61,7 @@ class StateToCssClass extends AbstractTrait
 		
 		var cssClass = _stateToClass.get(state);
 		if (cssClass != null) {
-			_stateToClass.delete(state);
+			_stateToClass.remove(state);
 			_classes.remove(cssClass);
 			if(displayTrait!=null)displayTrait.domElement.className = _classes.join(" ");
 		}

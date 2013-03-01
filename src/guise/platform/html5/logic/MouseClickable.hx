@@ -1,10 +1,11 @@
 package guise.platform.html5.logic;
 import composure.traits.AbstractTrait;
 import guise.accessTypes.IMouseClickableAccess;
-import js.Dom;
 
 import msignal.Signal;
 import guise.platform.html5.display.DisplayTrait;
+import js.html.MouseEvent;
+
 class MouseClickable extends AbstractTrait implements IMouseClickableAccess
 {
 	@inject
@@ -12,11 +13,12 @@ class MouseClickable extends AbstractTrait implements IMouseClickableAccess
 	private function set_displayTrait(value:DisplayTrait):DisplayTrait {
 		if (displayTrait!=null) {
 			displayTrait.domElement.onclick = null;
+			displayTrait.domElement.ondblclick = null;
 		}
 		displayTrait = value;
 		if (displayTrait != null) {
-			if(_clicked!=null && _clicked.numListeners>0)displayTrait.domElement.onclick = onClicked;
-			if (_doubleClicked != null && _doubleClicked.numListeners>0)displayTrait.domElement.ondblclick = onDoubleClicked;
+			untyped displayTrait.domElement.onclick = onClicked;
+			untyped displayTrait.domElement.ondblclick = onDoubleClicked;
 		}
 		return value;
 	}
@@ -44,36 +46,15 @@ class MouseClickable extends AbstractTrait implements IMouseClickableAccess
 		clickInfo.shiftHeld = shiftHeld;
 	}
 	
-	private function onClicked(event:Event):Void {
-		if (_clicked != null) {
-			setClickInfo(true, event.altKey, event.ctrlKey, event.shiftKey);
-			_clicked.dispatch(clickInfo);
-		}
+	private function onClicked(event:MouseEvent):Void {
+		setClickInfo(true, event.altKey, event.ctrlKey, event.shiftKey);
+		LazyInst.exec(clicked.dispatch(clickInfo));
 	}
-	private function onDoubleClicked(event:Event):Void {
-		if (_doubleClicked != null) {
-			setClickInfo(true, event.altKey, event.ctrlKey, event.shiftKey);
-			_doubleClicked.dispatch(clickInfo);
-		}
+	private function onDoubleClicked(event:MouseEvent):Void {
+		setClickInfo(true, event.altKey, event.ctrlKey, event.shiftKey);
+		LazyInst.exec(doubleClicked.dispatch(clickInfo));
 	}
 	
-	private var _clicked:Signal1<ClickInfo>;
-	public var clicked(get, null):Signal1<ClickInfo>;
-	private function get_clicked():Signal1<ClickInfo> {
-		if (_clicked == null) {
-			_clicked = new Signal1();
-			if(displayTrait!=null)displayTrait.domElement.onclick = onClicked;
-		}
-		return _clicked;
-	}
-	
-	private var _doubleClicked:Signal1<ClickInfo>;
-	public var doubleClicked(get, null):Signal1<ClickInfo>;
-	private function get_doubleClicked():Signal1<ClickInfo> {
-		if (_doubleClicked == null) {
-			_doubleClicked = new Signal1();
-			if (displayTrait != null) displayTrait.domElement.ondblclick = onDoubleClicked;
-		}
-		return _doubleClicked;
-	}
+	@lazyInst public var clicked:Signal1<ClickInfo>;
+	@lazyInst public var doubleClicked:Signal1<ClickInfo>;
 }

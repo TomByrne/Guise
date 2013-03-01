@@ -18,13 +18,12 @@ interface IInputPrompt
 @:build(LazyInst.check())
 class InputPrompt implements IInputPrompt
 {
-	@:isVar public var promptChanged(get, null):Signal1<IInputPrompt>;
+	@:isVar @lazyInst public var promptChanged:Signal1<IInputPrompt>;
 	
 	@:isVar public var prompt(default, null):String;
 
 	public function new(prompt:Null<String>=null) 
 	{
-		promptChanged = new Signal1();
 		setPrompt(prompt);
 	}
 	

@@ -6,7 +6,7 @@ import guise.states.State;
 import guise.accessTypes.IFocusableAccess;
 
 
-class FocusStateMapper extends AbstractTrait, implements IAccessRequest
+class FocusStateMapper extends AbstractTrait implements IAccessRequest
 {
 	private static var ACCESS_TYPES:Array<Class<Dynamic>> = [IFocusableAccess];
 	

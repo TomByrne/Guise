@@ -44,12 +44,12 @@ class CheckBoxTrait extends DisplayTrait<CheckBox>
 	}
 	private function onCheckBoxChange(e:Dynamic):Void {
 		if(selected!=null){
-			selected.set(window.checked);
+			selected.setSelected(window.checked);
 		}
 	}
 	
 	private function onSelectedChanged(from:ISelected=null):Void {
-		window.setChecked(selected.selected);
+		window.checked = selected.selected;
 	}
 	
 	private function onTextChanged(from:ITextLabel=null):Void {

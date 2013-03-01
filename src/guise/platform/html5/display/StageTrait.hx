@@ -1,6 +1,6 @@
 package guise.platform.html5.display;
 
-import js.Lib;
+import js.Browser;
 
 
 class StageTrait extends ContainerTrait
@@ -15,7 +15,7 @@ class StageTrait extends ContainerTrait
 
 	public function new() 
 	{
-		super(Lib.document.body);
+		super(Browser.document.body);
 	}
 	
 }

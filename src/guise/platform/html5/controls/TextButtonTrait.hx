@@ -3,9 +3,10 @@ import guise.controls.data.ISelected;
 import guise.controls.data.ITextLabel;
 import guise.layout.IBoxPos;
 import guise.platform.html5.display.DisplayTrait;
-import js.Dom;
 import js.Browser;
-
+import js.html.Element;
+import js.html.InputElement;
+import js.html.Event;
 
 class TextButtonTrait extends DisplayTrait
 {
@@ -45,10 +46,10 @@ class TextButtonTrait extends DisplayTrait
 		return value;
 	}
 	
-	private var _button:HtmlDom;
-	private var _checkbox:Checkbox;
-	private var _innerElement:HtmlDom;
-	private var _labelElement:HtmlDom;
+	private var _button:Element;
+	private var _checkbox:InputElement;
+	private var _innerElement:Element;
+	private var _labelElement:Element;
 
 	public function new() 
 	{

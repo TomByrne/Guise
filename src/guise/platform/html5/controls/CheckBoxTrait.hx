@@ -4,8 +4,10 @@ import guise.controls.data.INumRange;
 import guise.controls.data.ISelected;
 import guise.controls.data.ITextLabel;
 import guise.platform.html5.display.DisplayTrait;
-import js.Dom;
 import js.Browser;
+import js.html.Element;
+import js.html.InputElement;
+import js.html.Event;
 
 class CheckBoxTrait extends DisplayTrait
 {
@@ -36,8 +38,8 @@ class CheckBoxTrait extends DisplayTrait
 		return value;
 	}
 	
-	private var _label:HtmlDom;
-	private var _checkbox:Checkbox;
+	private var _label:Element;
+	private var _checkbox:InputElement;
 
 	public function new() 
 	{
@@ -53,7 +55,7 @@ class CheckBoxTrait extends DisplayTrait
 	}
 	private function onCheckBoxChange(e:Event):Void {
 		if(selected!=null){
-			selected.set(_checkbox.checked);
+			selected.setSelected(_checkbox.checked);
 		}
 	}
 	

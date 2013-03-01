@@ -9,7 +9,7 @@ class AccessProvider extends AbstractTrait
 {
 	private var _unnamed:Map<String, IAccessType>;
 	private var _accessClassMap:Map<String, Class<Dynamic>>;
-	private var _itemToLayers:Map< ComposeItem, Map<LayerInfo>>;
+	private var _itemToLayers:Map< ComposeItem, Map<String, LayerInfo>>;
 	private var _addTraitHandler:ComposeItem->String->Dynamic->Void;
 	private var _removeTraitHandler:ComposeItem->String->Dynamic->Void;
 

@@ -1,12 +1,12 @@
 package guise.platform.html5.logic;
 import composure.traits.AbstractTrait;
 import guise.accessTypes.IFocusableAccess;
-import js.Dom;
 
 import msignal.Signal;
 import guise.platform.html5.display.DisplayTrait;
+import js.html.Event;
 
-class Focusable extends AbstractTrait, implements IFocusableAccess
+class Focusable extends AbstractTrait implements IFocusableAccess
 {
 	@inject
 	public var displayTrait(default, set_displayTrait):DisplayTrait;

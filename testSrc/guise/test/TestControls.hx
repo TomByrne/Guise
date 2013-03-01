@@ -18,15 +18,15 @@ class TestControls
 	public static function addControls(parent:ComposeGroup, x:Float = 0, y:Float = 0 ):Void {
 		
 		var item:ComposeGroup = new ComposeGroup();
-		item.addTraits([PanelTag, new SizeByMeas(x,y), new VStackLayout(10,10,10, 10, 10)]);
+		//item.addTraits([PanelTag, new SizeByMeas(x,y), new VStackLayout(10,10,10, 10, 10)]);
 		parent.addChild(item);
 		
-		addButton(item, "Test Button", false);
+		/*addButton(item, "Test Button", false);
 		addButton(item, "Selectable Button", true);
 		addLabel(item, "Test Label");
 		addTextInput(item, "Test Input");
 		addToggleButton(item, "Test Toggle");
-		addSlider(item, false);
+		addSlider(item, false);*/
 	}
 	public static function addButton(parent:ComposeGroup, text:String, selectable:Bool):Void {
 		parent.addChild(new ComposeItem([new TextButtonTag(selectable, text), new VStackLayoutInfo()]));

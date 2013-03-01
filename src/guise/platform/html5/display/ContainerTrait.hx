@@ -1,18 +1,14 @@
 package guise.platform.html5.display;
-import js.Dom;
-import js.Lib;
 
-/**
- * ...
- * @author Tom Byrne
- */
+import js.Browser;
+import js.html.Element;
 
 class ContainerTrait extends DisplayTrait
 {
 
-	public function new(?domElement:HtmlDom) {
+	public function new(?domElement:Element) {
 		if (domElement == null) {
-			domElement = Lib.document.createElement("div");
+			domElement = Browser.document.createElement("div");
 		}
 		super(domElement);
 	}

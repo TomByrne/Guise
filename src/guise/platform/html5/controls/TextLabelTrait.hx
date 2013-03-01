@@ -3,7 +3,7 @@ import guise.controls.data.ISelected;
 import guise.controls.data.ITextLabel;
 import guise.layout.IBoxPos;
 import guise.platform.html5.display.DisplayTrait;
-import js.Dom;
+import js.html.Element;
 import js.Browser;
 
 
@@ -23,8 +23,8 @@ class TextLabelTrait extends DisplayTrait
 		return value;
 	}
 	
-	private var _element:HtmlDom;
-	private var _innerElement:HtmlDom;
+	private var _element:Element;
+	private var _innerElement:Element;
 
 	public function new(elementType:String="label") 
 	{

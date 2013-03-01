@@ -32,7 +32,7 @@ class DisplayTrait<T:Window> extends ContainerTrait implements IMeasurement{
 	private var _creator:Window->T;
 	private var _size:Size;
 	private var _position:Position;
-	private var _executeBundles:Map< Object, Array<ExecuteBundle>>;
+	private var _executeBundles:Map< Dynamic, Array<ExecuteBundle>>;
 
 	public function new(creator:Window->T) 
 	{
@@ -80,7 +80,7 @@ class DisplayTrait<T:Window> extends ContainerTrait implements IMeasurement{
 	override private function setPos(x:Float, y:Float):Void {
 		_position.x = Std.int(x);
 		_position.y = Std.int(y);
-		window.setPosition(_position);
+		window.position = _position;
 	}
 	override private function onSizeValid(w:Float, h:Float):Void {
 		if (!_allowSizing) return;
@@ -91,7 +91,7 @@ class DisplayTrait<T:Window> extends ContainerTrait implements IMeasurement{
 		
 		_size.width = Std.int(w);
 		_size.height = Std.int(h);
-		window.setSize(_size);
+		window.size = _size;
 	}
 	public function setAllowSizing(value:Bool):Void {
 		_allowSizing = value;
@@ -105,13 +105,13 @@ class DisplayTrait<T:Window> extends ContainerTrait implements IMeasurement{
 					bundle.remove();
 				}
 			}
-			_executeBundles.delete(owner);
+			_executeBundles.remove(owner);
 		}
 	}
 	public function on(owner:Dynamic, add:Void->Void, remove:Void->Void):Void {
 		var bundle:ExecuteBundle = { owner:owner, add:add, remove:remove };
 		if (_executeBundles == null) {
-			_executeBundles = new Map();
+			_executeBundles = new Map< Dynamic, Array<ExecuteBundle>>();
 		}
 		var bundles:Array<ExecuteBundle> = _executeBundles.get(owner);
 		if (bundles == null) {

@@ -3,8 +3,6 @@ package guise.platform.html5.display;
 import guise.layout.IBoxPos;
 
 import js.Browser;
-import js.Dom;
-import js.Dom.HtmlDom;
 import composure.traits.AbstractTrait;
 import msignal.Signal;
 import guise.platform.cross.display.AbsDisplayTrait;
@@ -30,7 +28,7 @@ class WindowTrait extends AbsDisplayTrait// implements IWindowInfo
 	@:isVar public var availWidth(default, null):Int;
 	@:isVar public var availHeight(default, null):Int;*/
 	
-	var window:js.Window;
+	var window:js.html.DOMWindow;
 
 	public function new() 
 	{
@@ -45,11 +43,14 @@ class WindowTrait extends AbsDisplayTrait// implements IWindowInfo
 	}
 	
 	override private function onPosValid(x:Float, y:Float):Void {
-		window.moveTo(Std.int(x), Std.int(y));
+		var xInt:Int = Std.int(x) - Std.int((window.outerWidth - window.innerWidth)/2); // this is the best we can do for now
+		var yInt:Int = Std.int(y) - Std.int((window.outerHeight - window.innerHeight)/2);
+		window.moveTo(xInt, yInt);
 	}
 	override private function onSizeValid(w:Float, h:Float):Void {
-		window.innerWidth = Std.int(w);
-		window.innerHeight = Std.int(h);
+		var wInt:Int = Std.int(w) - (window.outerWidth - window.innerWidth);
+		var hInt:Int = Std.int(h) - (window.outerHeight - window.innerHeight);
+		window.resizeTo(wInt, hInt);
 	}
 	
 	/*private function setAvailSize(width:Int, height:Int):Void {

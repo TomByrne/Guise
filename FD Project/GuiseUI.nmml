@@ -20,13 +20,11 @@
     <classpath name="..\..\Composure\src" />
 
     <haxelib name="msignal" />
-    <haxelib name="xirsys_stdjs" />
     <haxelib name="feffects" />
-    <haxelib name="mpartial" />
     <haxelib name="xmlTools" />
     <haxelib name="starling" />
-    <!--<haxelib name="waxe" />-->
-	<haxelib name="nme"/>
+    <haxelib name="waxe" />
+	<!--<haxelib name="nme"/>-->
 	
 	<assets path="../Assets" rename="assets" include="*" exclude="nme.svg" unless="html5" />
 	

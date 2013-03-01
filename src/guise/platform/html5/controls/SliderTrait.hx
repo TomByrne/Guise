@@ -2,8 +2,9 @@ package guise.platform.html5.controls;
 
 import guise.controls.data.INumRange;
 import guise.platform.html5.display.DisplayTrait;
-import js.Dom;
 import js.Browser;
+import js.html.InputElement;
+import js.html.Event;
 
 class SliderTrait extends DisplayTrait
 {
@@ -21,7 +22,7 @@ class SliderTrait extends DisplayTrait
 		return value;
 	}
 	
-	private var _slider:FormElement;
+	private var _slider:InputElement;
 
 	public function new() 
 	{
