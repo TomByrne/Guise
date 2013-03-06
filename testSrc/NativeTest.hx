@@ -6,10 +6,6 @@ import org.tbyrne.logging.LoggerList;
 import guise.test.TestControls;
 import guise.core.CoreTags;
 
-/**
- * ...
- * @author Tom Byrne
- */
 
 class NativeTest 
 {

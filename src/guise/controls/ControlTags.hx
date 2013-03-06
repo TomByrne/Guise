@@ -3,6 +3,8 @@ package guise.controls;
 
 enum ControlTags {
 	PanelTag;
+	HScrollBarTag;
+	VScrollBarTag;
 }
 
 import guise.controls.data.IInputPrompt;

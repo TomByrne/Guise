@@ -11,22 +11,24 @@ import guise.controls.data.IInputPrompt;
 import guise.layout.IBoxPos;
 import guise.layout.simple.VStackLayout;
 import guise.layout.SizeByMeas;
-
+import guise.meas.IMeasurement;
+import guise.layout.simple.StackLayout;
 
 class TestControls 
 {
 	public static function addControls(parent:ComposeGroup, x:Float = 0, y:Float = 0 ):Void {
 		
 		var item:ComposeGroup = new ComposeGroup();
-		item.addTraits([PanelTag, new SizeByMeas(x,y), new VStackLayout(10,10,10, 10, 10)]);
+		item.addTraits([/*PanelTag, */new SizeByMeas(x,y), new VStackLayout(10,10,10, 10, 10)]);
 		parent.addChild(item);
 		
-		addButton(item, "Test Button", false);
+		/*addButton(item, "Test Button", false);
 		addButton(item, "Selectable Button", true);
 		addLabel(item, "Test Label");
 		addTextInput(item, "Test Input");
 		addToggleButton(item, "Test Toggle");
-		addSlider(item, false);
+		addSlider(item, false);*/
+		addScrollPanel(item, "Scrollable Panel");
 	}
 	public static function addButton(parent:ComposeGroup, text:String, selectable:Bool):Void {
 		parent.addChild(new ComposeItem([new TextButtonTag(selectable, text), new VStackLayoutInfo()]));
@@ -42,6 +44,11 @@ class TestControls
 	}
 	public static function addSlider(parent:ComposeGroup, vert:Bool):Void {
 		parent.addChild(new ComposeItem([new SliderTag(vert), new VStackLayoutInfo()]));
+	}
+	public static function addScrollPanel(parent:ComposeGroup, label:String):Void {
+		var panel = new ComposeGroup([PanelTag, new VStackLayoutInfo(-1,StackSizePolicy.Size(150),StackSizePolicy.Size(75)), new SimpleMeas(200, 100)]);
+		panel.addChild(new ComposeItem([new TextLabelTag(label), new BoxPos(0,0,200,100)]));
+		parent.addChild(panel);
 	}
 	
 }

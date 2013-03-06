@@ -37,6 +37,8 @@ class TextInputAccess extends AbstractTrait, implements ITextInputAccess, implem
 		return value;
 	}
 	
+	public var idealDepth:Int = 0;
+	
 	public var focused(default, null):Bool ;
 	
 	private var _textField:TextField;

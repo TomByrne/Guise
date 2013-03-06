@@ -49,7 +49,10 @@ class DisplayTrait<T:Window> extends ContainerTrait, implements IMeasurement{
 		addInjector(injector);
 	}
 	private function onParentAdded(parent:DisplayTrait<Window>):Void {
-		if (_parent != null) return;
+		if (_parent != null) {
+			// parent container has been added between here and existing parent
+			onParentRemoved(_parent);
+		}
 		
 		_parent = parent;
 		window = _creator(_parent.window);

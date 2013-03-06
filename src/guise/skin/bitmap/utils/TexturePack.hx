@@ -1,7 +1,9 @@
 package guise.skin.bitmap.utils;
 
+import haxe.Resource;
 import msignal.Signal;
-
+import flash.display.BitmapData;
+import flash.display.Loader;
 
 @:build(LazyInst.check())
 class TexturePack 
@@ -42,8 +44,17 @@ class TexturePack
 		if (_imagePath == null || _dataPath == null || !_contextReady) return;
 		
 		#if starling
-		var bitmap = nme.Assets.getBitmapData(_imagePath);
-		var xml = new flash.xml.XML(nme.Assets.getText(_dataPath));
+		
+		#if nme
+			var bitmap = nme.Assets.getBitmapData(_imagePath);
+			var xml = new flash.xml.XML(nme.Assets.getText(_dataPath));
+		#else
+			var loader:Loader = new Loader();
+			loader.loadBytes(Resource.getBytes(_imagePath).getData());
+			var bitmap:BitmapData = cast loader.content;
+			var xml = new flash.xml.XML(Resource.getString(_dataPath));
+		#end
+		
 		pack = new starling.textures.TextureAtlas(starling.textures.Texture.fromBitmapData(bitmap), xml);
 		
 		#elseif tilelayer

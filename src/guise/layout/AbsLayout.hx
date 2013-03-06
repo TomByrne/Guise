@@ -4,20 +4,8 @@ import guise.frame.FrameTrait;
 import guise.meas.IMeasurement;
 import msignal.Signal;
 
-class AbsLayout extends AbstractTrait, implements IMeasurement {
+class AbsLayout extends AbstractTrait {
 	
-	@lazyInst
-	public var measChanged:Signal1<IMeasurement>;
-	
-	public var measWidth(get_measWidth, null):Float;
-	private function get_measWidth():Float {
-		return _measWidth;
-	}
-	
-	public var measHeight(get_measHeight, null):Float;
-	private function get_measHeight():Float {
-		return _measHeight;
-	}
 	
 	@inject
 	public var boxPos(default, set_boxPos):IBoxPos;
@@ -33,12 +21,12 @@ class AbsLayout extends AbstractTrait, implements IMeasurement {
 		return value;
 	}
 	
-	private var _measWidth:Float;
-	private var _measHeight:Float;
+	private var _meas:SimpleMeas;
 	private var _frameTrait:FrameTrait;
 	
 	public function new() {
 		super();
+		addSiblingTrait(_meas = new SimpleMeas());
 		addSiblingTrait(_frameTrait = new FrameTrait());
 	}
 	
@@ -47,11 +35,7 @@ class AbsLayout extends AbstractTrait, implements IMeasurement {
 	}
 	
 	private function setMeas(measWidth:Float, measHeight:Float):Void {
-		if (measWidth != _measWidth || measHeight != _measHeight) {
-			_measWidth = measWidth;
-			_measHeight = measHeight;
-			LazyInst.exec(measChanged.dispatch(this));
-		}
+		_meas.set(measWidth, measHeight);
 	}
 	
 	private inline function addFrameCall(call:FrameCall, ?dependsOn:Array < FrameCall > , valid:Bool = true ):Void {

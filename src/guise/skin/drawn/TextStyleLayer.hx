@@ -17,6 +17,9 @@ class TextStyleLayer extends PositionedLayer<TextLabelStyle>, implements IAccess
 		if (layerName != null && access.layerName != layerName) return;
 		
 		_textDisplay = access;
+		if (_textDisplay != null) {
+			_textDisplay.idealDepth = idealDepth;
+		}
 		invalidate();
 	}
 	@injectRemove
@@ -53,6 +56,16 @@ class TextStyleLayer extends PositionedLayer<TextLabelStyle>, implements IAccess
 			textLabel.textChanged.add(onTextChanged);
 		}
 		invalidate();
+		return value;
+	}
+	
+	
+	@:isVar public var idealDepth(default, set_idealDepth):Int;
+	private function set_idealDepth(value:Int):Int {
+		this.idealDepth = value;
+		if (_textDisplay != null) {
+			_textDisplay.idealDepth = idealDepth;
+		}
 		return value;
 	}
 	

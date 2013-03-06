@@ -42,15 +42,25 @@
     <SubTexture name="TextInput-bc" x="11" y="80" width="76" height="16"/>
     <SubTexture name="TextInput-br" x="87" y="80" width="11" height="16"/>
     
-    <SubTexture name="Track-tl" x="294" y="0" width="13" height="13"/>
-    <SubTexture name="Track-tc" x="307" y="0" width="26" height="13"/>
-    <SubTexture name="Track-tr" x="333" y="0" width="13" height="13"/>
-    <SubTexture name="Track-ml" x="294" y="13" width="13" height="2"/>
-    <SubTexture name="Track-mc" x="307" y="13" width="26" height="2"/>
-    <SubTexture name="Track-mr" x="333" y="13" width="13" height="2"/>
-    <SubTexture name="Track-bl" x="294" y="15" width="13" height="15"/>
-    <SubTexture name="Track-bc" x="307" y="15" width="26" height="15"/>
-    <SubTexture name="Track-br" x="333" y="15" width="13" height="15"/>
+    <SubTexture name="HTrack-tl" x="294" y="0" width="13" height="13"/>
+    <SubTexture name="HTrack-tc" x="307" y="0" width="26" height="13"/>
+    <SubTexture name="HTrack-tr" x="333" y="0" width="13" height="13"/>
+    <SubTexture name="HTrack-ml" x="294" y="13" width="13" height="2"/>
+    <SubTexture name="HTrack-mc" x="307" y="13" width="26" height="2"/>
+    <SubTexture name="HTrack-mr" x="333" y="13" width="13" height="2"/>
+    <SubTexture name="HTrack-bl" x="294" y="15" width="13" height="15"/>
+    <SubTexture name="HTrack-bc" x="307" y="15" width="26" height="15"/>
+    <SubTexture name="HTrack-br" x="333" y="15" width="13" height="15"/>
+    
+    <SubTexture name="VTrack-tl" x="347" y="32" width="12" height="14"/>
+    <SubTexture name="VTrack-tc" x="359" y="32" width="3" height="14"/>
+    <SubTexture name="VTrack-tr" x="362" y="32" width="12" height="14"/>
+    <SubTexture name="VTrack-ml" x="347" y="46" width="12" height="20"/>
+    <SubTexture name="VTrack-mc" x="359" y="46" width="3" height="20"/>
+    <SubTexture name="VTrack-mr" x="362" y="46" width="12" height="20"/>
+    <SubTexture name="VTrack-bl" x="347" y="66" width="12" height="14"/>
+    <SubTexture name="VTrack-bc" x="359" y="66" width="3" height="14"/>
+    <SubTexture name="VTrack-br" x="362" y="66" width="12" height="14"/>
 
     <SubTexture name="ToggleRed" x="346" y="0" width="29" height="34"/>
     <SubTexture name="ToggleGreen" x="375" y="0" width="29" height="34"/>
@@ -64,6 +74,26 @@
     <SubTexture name="Progress-bl" x="294" y="42" width="13" height="16"/>
     <SubTexture name="Progress-bc" x="307" y="42" width="22" height="16"/>
     <SubTexture name="Progress-br" x="330" y="42" width="17" height="16"/>
+    
+    <SubTexture name="HScrollThumb-tl" x="294" y="58" width="13" height="10"/>
+    <SubTexture name="HScrollThumb-tc" x="307" y="58" width="22" height="10"/>
+    <SubTexture name="HScrollThumb-tr" x="330" y="58" width="17" height="10"/>
+    <SubTexture name="HScrollThumb-ml" x="294" y="68" width="13" height="2"/>
+    <SubTexture name="HScrollThumb-mc" x="307" y="68" width="22" height="2"/>
+    <SubTexture name="HScrollThumb-mr" x="330" y="68" width="17" height="2"/>
+    <SubTexture name="HScrollThumb-bl" x="294" y="70" width="13" height="16"/>
+    <SubTexture name="HScrollThumb-bc" x="307" y="70" width="22" height="16"/>
+    <SubTexture name="HScrollThumb-br" x="330" y="70" width="17" height="16"/>
+    
+    <SubTexture name="VScrollThumb-tl" x="375" y="32" width="12" height="14"/>
+    <SubTexture name="VScrollThumb-tc" x="387" y="32" width="3" height="14"/>
+    <SubTexture name="VScrollThumb-tr" x="390" y="32" width="12" height="14"/>
+    <SubTexture name="VScrollThumb-ml" x="375" y="46" width="12" height="20"/>
+    <SubTexture name="VScrollThumb-mc" x="387" y="46" width="3" height="20"/>
+    <SubTexture name="VScrollThumb-mr" x="390" y="46" width="12" height="20"/>
+    <SubTexture name="VScrollThumb-bl" x="375" y="66" width="12" height="14"/>
+    <SubTexture name="VScrollThumb-bc" x="387" y="66" width="3" height="14"/>
+    <SubTexture name="VScrollThumb-br" x="390" y="66" width="12" height="14"/>
 
     <SubTexture name="Panel" x="407" y="0" width="32" height="32"/>
 

@@ -38,9 +38,13 @@ class FilterLayer extends StateStyledTrait<Array<FilterType>>, implements IAcces
 	public function getAccessTypes():Array<Class<Dynamic>> {
 		return ACCESS_TYPES;
 	}
+	override private function _isReadyToDraw():Bool {
+		return super._isReadyToDraw() && _filterable != null;
+	}
+	override private function _clearStyle():Void {
+		_filterable.setFilters(null);
+	}
 	override private function _drawStyle():Void {
-		if (_filterable == null) return;
-		
 		_filterable.setFilters(currentStyle);
 	}
 	

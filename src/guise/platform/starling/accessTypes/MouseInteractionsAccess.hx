@@ -1,14 +1,14 @@
 package guise.platform.starling.accessTypes;
 import composure.traits.AbstractTrait;
-import nme.geom.Point;
+import guise.accessTypes.IAccessType;
+import guise.accessTypes.IMouseInteractionsAccess;
+import guise.platform.starling.addTypes.IDisplayObjectType;
+import guise.platform.starling.display.DisplayTrait;
+import starling.display.DisplayObject;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
-import guise.accessTypes.IMouseInteractionsAccess;
-import starling.display.DisplayObject;
-import guise.platform.starling.display.DisplayTrait;
-
 import msignal.Signal;
-
+import flash.geom.Point;
 
 class MouseInteractionsAccess extends AbstractTrait, implements IMouseInteractionsAccess
 {
@@ -17,6 +17,8 @@ class MouseInteractionsAccess extends AbstractTrait, implements IMouseInteractio
 	@inject
 	public var displayTrait(default, set_displayTrait):DisplayTrait;
 	private function set_displayTrait(value:DisplayTrait):DisplayTrait {
+		if (layerName != null) return displayTrait;
+		
 		if (displayTrait!=null) {
 			if (displayTrait.displayObject == displayObject) {
 				displayObject = null;
@@ -62,6 +64,30 @@ class MouseInteractionsAccess extends AbstractTrait, implements IMouseInteractio
 		this.displayObject = displayObject;
 		this.coordinateSpace = coordinateSpace;
 	}
+	
+	@injectAdd
+	private function addInteractiveType(value:IDisplayObjectType):Void {
+		if (displayObject != null) return;
+		
+		if (layerName!=null && Std.is(value, IAccessType)) {
+			var access:IAccessType = cast value;
+			if (layerName != access.layerName) {
+				return;
+			}
+		}else {
+			return;
+		}
+		displayObject = value.getDisplayObject();
+		
+	}
+	@injectRemove
+	private function removeInteractiveType(value:IDisplayObjectType):Void {
+		if (value.getDisplayObject() == displayObject) {
+			displayObject = null;
+		}
+	}
+	
+	
 	private var _over:Bool;
 	private var _down:Bool;
 	private var _downCount:Int = 0;

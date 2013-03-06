@@ -3,6 +3,7 @@ import msignal.Signal;
 
 
 interface ITextInputAccess implements IAccessType {
+	
 	public function getText():String ;
 	public var textChanged(get_textChanged, null):Signal1 < ITextInputAccess > ;
 	

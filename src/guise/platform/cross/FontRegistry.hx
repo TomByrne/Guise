@@ -1,5 +1,7 @@
 package guise.platform.cross;
 
+import flash.display.BitmapData;
+import flash.display.Loader;
 import guise.accessTypes.ITextOutputAccess;
 
 class FontRegistry 
@@ -13,9 +15,13 @@ class FontRegistry
 		#end
 	}
 	public static function getBitmapFont(path:String, otherwise:Typeface):Typeface {
-		#if (starling && nme)
+		#if (starling)
+			#if nme
+				var data:String = nme.Assets.getText(path);
+			#else
+				var data:String = haxe.Resource.getString(path);
+			#end
 			
-			var data:String = nme.Assets.getText(path);
 			if (data == null) return otherwise;
 			var xml = new flash.xml.XML(data);
 			
@@ -42,7 +48,7 @@ class FontRegistry
 			return otherwise;
 		#end
 	}
-	#if (starling && nme)
+	#if (starling)
 	private static var _pendingFonts:Array<flash.xml.XML>;
 	private static var _pendingPaths:Array<String>;
 	public static function onRootCreated(e:starling.events.Event):Void {
@@ -61,7 +67,16 @@ class FontRegistry
 		if (slashIndex != -1) {
 			texturePath = path.substr(0, slashIndex + 1) + texturePath;
 		}
-		var texture = starling.textures.Texture.fromBitmapData(nme.Assets.getBitmapData(texturePath));
+		
+		#if nme
+			var bitmap:BitmapData = nme.Assets.getBitmapData(texturePath);
+		#else
+			var loader:Loader = new Loader();
+			loader.loadBytes(haxe.Resource.getBytes(texturePath).getData());
+			var bitmap:BitmapData = cast loader.content;
+		#end
+		
+		var texture = starling.textures.Texture.fromBitmapData(bitmap);
 		var font = new starling.text.BitmapFont(texture, xml);
 		starling.text.TextField.registerBitmapFont(font);
 		

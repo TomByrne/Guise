@@ -22,6 +22,8 @@ class TextAccess implements ITextInputAccess, implements ITextOutputAccess, impl
 	@lazyInst
 	public var textMeasChanged:Signal1<ITextOutputAccess>;
 	
+	public var idealDepth:Int = 0;
+	
 	private var _textField:TextField;
 	private var _ignoreChanges:Bool;
 	private var _gutter:Float;

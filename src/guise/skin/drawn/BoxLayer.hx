@@ -18,6 +18,9 @@ class BoxLayer extends PositionedLayer<BoxStyle>, implements IAccessRequest
 		if (layerName != null && access.layerName != layerName) return;
 		
 		_graphicsAccess = access;
+		if (_graphicsAccess != null) {
+			_graphicsAccess.idealDepth = idealDepth;
+		}
 		invalidate();
 	}
 	@injectRemove
@@ -41,6 +44,15 @@ class BoxLayer extends PositionedLayer<BoxStyle>, implements IAccessRequest
 		_pos = null;
 	}
 	
+	@:isVar public var idealDepth(default, set_idealDepth):Int;
+	private function set_idealDepth(value:Int):Int {
+		this.idealDepth = value;
+		if (_graphicsAccess != null) {
+			_graphicsAccess.idealDepth = idealDepth;
+		}
+		return value;
+	}
+	
 	private var _graphicsAccess:IGraphicsAccess;
 	private var _pos:IPositionAccess;
 
@@ -53,6 +65,9 @@ class BoxLayer extends PositionedLayer<BoxStyle>, implements IAccessRequest
 	}
 	override private function _isReadyToDraw():Bool {
 		return _graphicsAccess != null && super._isReadyToDraw();
+	}
+	override private function _clearStyle():Void {
+		_graphicsAccess.clear();
 	}
 	override private function _drawStyle():Void {
 		
@@ -107,7 +122,6 @@ class BoxLayer extends PositionedLayer<BoxStyle>, implements IAccessRequest
 				bl = SQUARE_CORNER;
 				br = SQUARE_CORNER;
 		}
-		
 		var centerX:Float = x + w / 2;
 		var centerY:Float = y + h / 2;
 		DrawnStyleUtils.beginFillStrokes(_graphicsAccess, fill, stroke, true, w, h, function(index:Int):Void {

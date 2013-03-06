@@ -53,7 +53,7 @@ class CheckBoxTrait extends DisplayTrait
 	}
 	private function onCheckBoxChange(e:Event):Void {
 		if(selected!=null){
-			selected.set(_checkbox.checked);
+			selected.setSelected(_checkbox.checked);
 		}
 	}
 	

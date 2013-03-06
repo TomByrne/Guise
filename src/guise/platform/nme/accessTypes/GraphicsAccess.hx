@@ -12,9 +12,6 @@ import nme.display.InteractiveObject;
 import guise.platform.nme.addTypes.IDisplayObjectType;
 import guise.platform.nme.addTypes.IInteractiveObjectType;
 
-/**
- * @author Tom Byrne
- */
 
 class GraphicsAccess implements IBitmapGraphicsAccess, implements IDisplayObjectType, implements IInteractiveObjectType, implements IPositionAccess
 {
@@ -25,6 +22,8 @@ class GraphicsAccess implements IBitmapGraphicsAccess, implements IDisplayObject
 		_sprite.name = value==null?"":value;
 		return value;
 	}
+	
+	public var idealDepth:Int = 0;
 	
 	private var _sprite:Sprite;
 	private var _graphics:Graphics;

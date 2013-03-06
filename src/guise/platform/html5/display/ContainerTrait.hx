@@ -2,10 +2,6 @@ package guise.platform.html5.display;
 import js.Dom;
 import js.Lib;
 
-/**
- * ...
- * @author Tom Byrne
- */
 
 class ContainerTrait extends DisplayTrait
 {
