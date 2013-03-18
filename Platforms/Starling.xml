@@ -57,7 +57,7 @@
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.PanelTag" addCall="addTrait">
 			<m-addType params="guise.controls.scroll.MeasSizeScroll"/>
-			<!-- <m-addFact params="function(into:Dynamic):Dynamic return new guise.platform.nme.logic.ScrollRect(new guise.skin.values.Bind(guise.controls.scroll.IScrollMetrics.IHScrollMetrics, 'scroll'), new guise.skin.values.Bind(guise.controls.scroll.IScrollMetrics.IVScrollMetrics, 'scroll'), new guise.skin.values.Width(), new guise.skin.values.Height())"/> -->
+			<m-addFact params="function(into:Dynamic):Dynamic return new guise.platform.starling.logic.ScrollRect(new guise.skin.values.Bind(guise.controls.scroll.IScrollMetrics.IHScrollMetrics, 'scroll'), new guise.skin.values.Bind(guise.controls.scroll.IScrollMetrics.IVScrollMetrics, 'scroll'), new guise.skin.values.Width(), new guise.skin.values.Height())"/>
 		</var>
 
 

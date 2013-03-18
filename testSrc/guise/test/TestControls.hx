@@ -22,12 +22,12 @@ class TestControls
 		item.addTraits([/*PanelTag, */new SizeByMeas(x,y), new VStackLayout(10,10,10, 10, 10)]);
 		parent.addChild(item);
 		
-		/*addButton(item, "Test Button", false);
+		addButton(item, "Test Button", false);
 		addButton(item, "Selectable Button", true);
 		addLabel(item, "Test Label");
 		addTextInput(item, "Test Input");
 		addToggleButton(item, "Test Toggle");
-		addSlider(item, false);*/
+		addSlider(item, false);
 		addScrollPanel(item, "Scrollable Panel");
 	}
 	public static function addButton(parent:ComposeGroup, text:String, selectable:Bool):Void {

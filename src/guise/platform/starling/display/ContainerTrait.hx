@@ -4,13 +4,14 @@ import guise.platform.starling.addTypes.IDisplayObjectType;
 import starling.display.DisplayObject;
 import starling.display.DisplayObjectContainer;
 import starling.display.Sprite;
+import flash.geom.Rectangle;
 
 class ContainerTrait extends DisplayTrait
 {
 	
 	private var _layerDisplays:Array<IDisplayObjectType>;
 	
-	public var childContainer(default, null):DisplayObjectContainer;
+	public var childContainer(default, null):Sprite;
 	public var container(default, null):DisplayObjectContainer;
 	public var sprite(default, null):Sprite;
 
@@ -43,6 +44,9 @@ class ContainerTrait extends DisplayTrait
 		}
 	}
 	
+	public function setChildScrollRect(rect:Rectangle):Void {
+		childContainer.clipRect = rect;
+	}
 	
 	@injectAdd
 	public function addLayer(display:IDisplayObjectType):Void {

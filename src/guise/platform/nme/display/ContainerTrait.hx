@@ -1,4 +1,5 @@
 package guise.platform.nme.display;
+import guise.accessTypes.IVisualAccessType;
 import guise.platform.nme.addTypes.IDisplayObjectType;
 import nme.display.DisplayObject;
 import nme.display.DisplayObjectContainer;

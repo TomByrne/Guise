@@ -15,13 +15,16 @@ class DisplayTrait<T:Window> extends ContainerTrait, implements IMeasurement{
 	@lazyInst
 	public var measChanged:Signal1<IMeasurement>;
 	
+	private var _measWidth:Float;
 	public var measWidth(get_measWidth, null):Float;
 	private function get_measWidth():Float {
-		return 150;
+		return _measWidth;
 	}
+	
+	private var _measHeight:Float;
 	public var measHeight(get_measHeight, null):Float;
 	private function get_measHeight():Float {
-		return 30;
+		return _measHeight;
 	}
 	
 	
@@ -64,6 +67,7 @@ class DisplayTrait<T:Window> extends ContainerTrait, implements IMeasurement{
 				}
 			}
 		}
+		checkMeas();
 	}
 	private function onParentRemoved(parent:DisplayTrait<Window>):Void {
 		if (_parent != parent) return;
@@ -127,6 +131,17 @@ class DisplayTrait<T:Window> extends ContainerTrait, implements IMeasurement{
 	}
 	public function addHandler(owner:Dynamic, event:EventID, handler:Dynamic->Void):Void {
 		this.on(owner, function() { this.window.setHandler(event, handler); }, function() { this.window.setHandler(event, null); } );
+	}
+	
+	
+	private function checkMeas():Void {
+		if (window == null) return;
+		var minSize:Size = window.getEffectiveMinSize();
+		if (_measWidth != minSize.width || _measHeight != minSize.height) {
+			_measWidth = minSize.width;
+			_measHeight = minSize.height;
+			LazyInst.exec(measChanged.dispatch(this));
+		}
 	}
 	
 }

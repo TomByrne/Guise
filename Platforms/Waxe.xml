@@ -41,10 +41,10 @@
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
 			<m-addType params="guise.platform.waxe.controls.CheckBoxTrait"/>
 		</var>
-		<!-- <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag" addCall="addTrait">
+		 <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag" addCall="addTrait">
 			<m-addType params="guise.platform.waxe.controls.SliderTrait"/>
 			<m-addType params="guise.controls.data.INumRange.NumRange, guise.controls.data.INumRange"/>
-		</var>-->
+		</var>
 
 
 		<!-- Additional control logic -->

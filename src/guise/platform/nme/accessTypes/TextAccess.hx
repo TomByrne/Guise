@@ -3,6 +3,7 @@ import guise.accessTypes.IBoxPosAccess;
 import guise.accessTypes.IFocusableAccess;
 import guise.accessTypes.ITextInputAccess;
 import guise.accessTypes.ITextOutputAccess;
+import guise.platform.cross.accessTypes.AbsVisualAccessType;
 import guise.platform.nme.addTypes.IDisplayObjectType;
 import guise.platform.nme.addTypes.IInteractiveObjectType;
 import nme.events.Event;
@@ -17,32 +18,28 @@ import guise.platform.nme.TextFieldGutter;
 
 
 @:build(LazyInst.check())
-class TextAccess implements ITextInputAccess, implements ITextOutputAccess, implements IDisplayObjectType, implements IInteractiveObjectType, implements IBoxPosAccess, implements IFocusableAccess
+class TextAccess extends AbsVisualAccessType, implements ITextInputAccess, implements ITextOutputAccess, implements IDisplayObjectType, implements IInteractiveObjectType, implements IBoxPosAccess, implements IFocusableAccess
 {
 	@lazyInst
 	public var textMeasChanged:Signal1<ITextOutputAccess>;
-	
-	public var idealDepth:Int = 0;
 	
 	private var _textField:TextField;
 	private var _ignoreChanges:Bool;
 	private var _gutter:Float;
 	
-	public var layerName(default, set_layerName):String;
-	private function set_layerName(value:String):String {
-		this.layerName = value;
+	override private function set_layerName(value:String):String {
 		_textField.name = value == null?"":value;
-		return value;
+		return super.set_layerName(value);
 	}
 
 	public function new(?layerName:String, ?textField:TextField) 
 	{
 		_gutter = TextFieldGutter.GUTTER;
 		_textField = (textField==null?new TextField():textField);
-		this.layerName = layerName;
 		_textField.addEventListener(Event.CHANGE, onChange);
 		_textField.addEventListener(FocusEvent.FOCUS_IN, onFocusIn);
 		_textField.addEventListener(FocusEvent.FOCUS_OUT, onFocusOut);
+		super(layerName);
 	}
 	public function setPos(x:Float, y:Float):Void {
 		_textField.x = x-_gutter;

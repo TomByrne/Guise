@@ -1,10 +1,10 @@
-package guise.platform.nme.logic;
+package guise.platform.starling.logic;
 import composure.traits.AbstractTrait;
-import guise.platform.nme.display.ContainerTrait;
+import guise.platform.starling.display.ContainerTrait;
 import guise.skin.values.IValue;
 import guise.skin.values.ValueUtils;
 import msignal.Signal;
-import nme.geom.Rectangle;
+import flash.geom.Rectangle;
 
 class ScrollRect extends AbstractTrait
 {
