@@ -288,6 +288,7 @@ class StackLayout extends AbsLayout
 				case Right:
 					pos = breadthFore + breadth - sizeBreadth;
 			}
+			
 			setChildPos(boxPos, pos, measLength, sizeBreadth, sizeLength);
 			
 			if (!Math.isNaN(itemMeasB) && measBreadth < itemMeasB) {
@@ -332,7 +333,7 @@ class StackLayout extends AbsLayout
 		return boxPos.w;
 	}
 	private function getHeight():Float {
-		return boxPos.w;
+		return boxPos.h;
 	}
 	private function getMeasWidth(meas:IMeasurement):Float {
 		return meas.measWidth;

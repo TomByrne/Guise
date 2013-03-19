@@ -2,6 +2,7 @@ package guise.platform.waxe.controls;
 
 import guise.controls.data.INumRange;
 import guise.platform.waxe.display.DisplayTrait;
+import wx.EventID;
 import wx.Window;
 import wx.Slider;
 
@@ -24,31 +25,26 @@ class SliderTrait extends DisplayTrait<Slider>
 	public function new() 
 	{
 		_allowSizing = true;
-		/*_slider = cast Lib.document.createElement("input");
-		_slider.setAttribute("type", "range");
-		_slider.onchange = onSliderChange;*/
 		super(function(parent:Window):Slider return Slider.create(parent));
+		
+		addHandler(this, EventID.SCROLL_CHANGED, onSliderChange);
 	}
-	/*private function onSliderChange(e:Event):Void {
+	private function onSliderChange(e:Dynamic):Void {
 		if(range!=null){
-			range.value = Std.parseFloat(_slider.value);
+			range.value = range.min + (window.value / window.size.width) * (range.max - range.min);
 		}
-	}*/
+	}
+	override private function onParentAdded(parent:DisplayTrait<Window>):Void {
+		super.onParentAdded(parent);
+		if (range != null) onRangeChanged(range);
+	}
 	
 	private function onRangeChanged(from:INumRange):Void {
-		//_slider.setAttribute("min", Std.string(range.min));
-		//_slider.setAttribute("max", Std.string(range.max));
-		//_slider.setAttribute("value", Std.string(range.value));
-		setIncrements();
+		if (window == null) return;
+		window.value = Std.int((range.value-range.min)/(range.max-range.min)*window.size.width);
 	}
-	/*override private function _setSize(w:Float, h:Float):Void {
-		super._setSize(w, h);
-		setIncrements();
-	}*/
-	private function setIncrements():Void {
-		if (range == null || position == null) return;
-		
-		var incr:Float = (range.max - range.min) / position.w;
-		//_slider.setAttribute("step", Std.string(incr));
+	override private function onSizeValid(w:Float, h:Float):Void {
+		super.onSizeValid(w, h);
+		window.setRange(0, Std.int(w));
 	}
 }

@@ -45,6 +45,9 @@
 			<m-addType params="guise.platform.waxe.controls.SliderTrait"/>
 			<m-addType params="guise.controls.data.INumRange.NumRange, guise.controls.data.INumRange"/>
 		</var>
+		 <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ListBoxTag" addCall="addTrait">
+			<m-addType params="guise.platform.waxe.controls.ListBoxTrait"/>
+		</var>
 
 
 		<!-- Additional control logic -->

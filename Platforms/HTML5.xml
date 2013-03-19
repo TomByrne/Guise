@@ -54,6 +54,9 @@
 			<m-addType params="guise.controls.data.INumRange.NumRange, guise.controls.data.INumRange"/>
 			<m-addType params="guise.controls.logic.states.ButtonStateMapper"/>
 		</var>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ListBoxTag" addCall="addTrait">
+			<m-addType params="guise.platform.html5.controls.ListBoxTrait"/>
+		</var>
 
 
 		<!-- Additional control logic -->
