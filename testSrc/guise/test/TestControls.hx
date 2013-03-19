@@ -31,6 +31,7 @@ class TestControls
 		addSlider(item, false);
 		addScrollPanel(item, "Scrollable Panel");
 		addListBox(item);
+		addOptionPicker(item);
 	}
 	public static function addButton(parent:ComposeGroup, text:String, selectable:Bool):Void {
 		parent.addChild(new ComposeItem([new TextButtonTag(selectable, text), new VStackLayoutInfo()]));
@@ -54,8 +55,13 @@ class TestControls
 	}
 	public static function addListBox(parent:ComposeGroup):Void {
 		var list:List<TextLabel> = new List<TextLabel>();
-		for (i in 0...20) list.add(new TextLabel("Item " + i));
+		for (i in 0...12) list.add(new TextLabel("Item " + i));
 		parent.addChild(new ComposeItem([ListBoxTag, new ListCollection(list), new VStackLayoutInfo()]));
+	}
+	public static function addOptionPicker(parent:ComposeGroup):Void {
+		var list:List<TextLabel> = new List<TextLabel>();
+		for (i in 0...12) list.add(new TextLabel("Item " + i));
+		parent.addChild(new ComposeItem([OptionPickerTag, new ListCollection(list), new VStackLayoutInfo()]));
 	}
 	
 }

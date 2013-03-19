@@ -83,6 +83,12 @@ class DisplayTrait<T:Window> extends ContainerTrait, implements IMeasurement{
 		_parent = null;
 		window = null;
 	}
+	private function rebuildWindow():Void {
+		if (_parent == null) return;
+		var parent = _parent;
+		onParentRemoved(parent);
+		onParentAdded(parent);
+	}
 	
 	override private function setPos(x:Float, y:Float):Void {
 		_position.x = Std.int(x);

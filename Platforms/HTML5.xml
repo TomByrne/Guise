@@ -57,6 +57,9 @@
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ListBoxTag" addCall="addTrait">
 			<m-addType params="guise.platform.html5.controls.ListBoxTrait"/>
 		</var>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.OptionPickerTag" addCall="addTrait">
+			<m-addType params="guise.platform.html5.controls.OptionPickerTrait"/>
+		</var>
 
 
 		<!-- Additional control logic -->

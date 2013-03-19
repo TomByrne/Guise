@@ -1,14 +1,15 @@
 package guise.platform.waxe.controls;
+
 import composure.core.ComposeItem;
 import guise.controls.data.IListCollection;
 import guise.controls.data.ITextLabel;
-import wx.ListBox;
-import wx.Window;
 import guise.platform.waxe.display.DisplayTrait;
+import wx.Window;
 
 using Lambda;
 
-class ListBoxTrait extends DisplayTrait<ListBox>
+
+class AbsListTrait<T:Window> extends DisplayTrait<T>
 {
 	private static var DUMMY_ITEM:ComposeItem;
 	
@@ -29,11 +30,11 @@ class ListBoxTrait extends DisplayTrait<ListBox>
 	private var _textLabels:Array<ITextLabel>;
 	private var _items:Array<String>;
 
-	public function new() 
+	public function new(creator:Window->T) 
 	{
-		_allowSizing = true;
-		super(function(parent:Window):ListBox return ListBox.create(parent, null, null, null, _items));
+		super(creator);
 	}
+	
 	
 	private function onListChanged(from:IListCollection<Dynamic>):Void {
 		if (_textLabels != null) {
@@ -69,17 +70,9 @@ class ListBoxTrait extends DisplayTrait<ListBox>
 		for (textLabel in _textLabels) {
 			_items.push(textLabel.text);
 		}
-		if (window != null) {
-			window.set(_items);
-			checkMeas();
-		}
 	}
 	private function onTextChanged(from:ITextLabel):Void {
 		var index:Int = _textLabels.indexOf(from);
 		_items[index] = from.text;
-		if (window != null) {
-			window.set(_items);
-			checkMeas();
-		}
 	}
 }

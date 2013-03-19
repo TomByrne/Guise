@@ -1,14 +1,15 @@
-package guise.platform.waxe.controls;
+package guise.platform.html5.controls;
+
 import composure.core.ComposeItem;
 import guise.controls.data.IListCollection;
 import guise.controls.data.ITextLabel;
-import wx.ListBox;
-import wx.Window;
-import guise.platform.waxe.display.DisplayTrait;
+import guise.platform.html5.display.DisplayTrait;
+import js.Dom;
+import js.Lib;
 
 using Lambda;
 
-class ListBoxTrait extends DisplayTrait<ListBox>
+class OptionPickerTrait extends DisplayTrait
 {
 	private static var DUMMY_ITEM:ComposeItem;
 	
@@ -27,13 +28,16 @@ class ListBoxTrait extends DisplayTrait<ListBox>
 	}
 	
 	private var _textLabels:Array<ITextLabel>;
-	private var _items:Array<String>;
+	
+	private var _element:Select;
 
 	public function new() 
 	{
 		_allowSizing = true;
-		super(function(parent:Window):ListBox return ListBox.create(parent, null, null, null, _items));
+		_element = cast Lib.document.createElement("select");
+		super(_element);
 	}
+	
 	
 	private function onListChanged(from:IListCollection<Dynamic>):Void {
 		if (_textLabels != null) {
@@ -65,21 +69,20 @@ class ListBoxTrait extends DisplayTrait<ListBox>
 		compileItems();
 	}
 	private function compileItems():Void {
-		_items = [];
+		while (_element.options.length>0) {
+			_element.removeChild(_element.options[0]);
+		}
 		for (textLabel in _textLabels) {
-			_items.push(textLabel.text);
+			var option = cast Lib.document.createElement("option");
+			option.text = textLabel.text;
+			_element.appendChild(option);
 		}
-		if (window != null) {
-			window.set(_items);
-			checkMeas();
-		}
+		checkMeas();
 	}
 	private function onTextChanged(from:ITextLabel):Void {
 		var index:Int = _textLabels.indexOf(from);
-		_items[index] = from.text;
-		if (window != null) {
-			window.set(_items);
-			checkMeas();
-		}
+		var option:Option = _element.options[index];
+		option.text = from.text;
+		checkMeas();
 	}
 }
