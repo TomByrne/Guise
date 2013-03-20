@@ -2,6 +2,7 @@ package guise.platform.starling.accessTypes;
 import composure.traits.AbstractTrait;
 import guise.accessTypes.IBoxPosAccess;
 import guise.accessTypes.ITextureAccess;
+import guise.accessTypes.IVisualAccessType;
 import guise.platform.starling.addTypes.IDisplayObjectType;
 import guise.platform.starling.ext.Scale9Sprite;
 import guise.platform.starling.ext.TileSprite;
@@ -11,6 +12,7 @@ import starling.display.DisplayObject;
 import starling.display.MovieClip;
 import starling.display.Sprite;
 import starling.textures.Texture;
+import msignal.Signal;
 
 class TextureAccess extends AbstractTrait implements ITextureAccess implements IDisplayObjectType implements IBoxPosAccess
 {
@@ -35,12 +37,20 @@ class TextureAccess extends AbstractTrait implements ITextureAccess implements I
 		return value;
 	}
 	
+	@:isVar public var idealDepth(default, set_idealDepth):Int;
+	private function set_idealDepth(value:Int):Int {
+		this.idealDepth = value;
+		LazyInst.exec(idealDepthChanged.dispatch(this));
+		return value;
+	}
+	@lazyInst public var idealDepthChanged:Signal1<IVisualAccessType>;
+	
 	private var _sprite:Sprite;
 	private var _textureInfo:TextureInfo;
 	private var _width:Float;
 	private var _height:Float;
 
-	public function new(?layerName:String) 
+	public function new(?layerName:String)
 	{
 		super();
 		_sprite = new Sprite();

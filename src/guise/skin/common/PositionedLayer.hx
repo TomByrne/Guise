@@ -112,15 +112,15 @@ extends StateStyledTrait<StyleType>
 		var newH:Float;
 		switch(layout) {
 			case edge(l, t, r, b):
-				newX = getValue(l, 0, onLayoutValueChanged);
-				newY = getValue(t, 0, onLayoutValueChanged);
-				newW = getValue(r, 0, onLayoutValueChanged) - this.x;
-				newH = getValue(b, 0, onLayoutValueChanged) - this.y;
+				newX = getValue(l, 0, onLayoutValueChanged, false);
+				newY = getValue(t, 0, onLayoutValueChanged, false);
+				newW = getValue(r, 0, onLayoutValueChanged, false) - this.x;
+				newH = getValue(b, 0, onLayoutValueChanged, false) - this.y;
 			case size(x, y, w, h):
-				newX = getValue(x, 0, onLayoutValueChanged);
-				newY = getValue(y, 0, onLayoutValueChanged);
-				newW = getValue(w, 0, onLayoutValueChanged);
-				newH = getValue(h, 0, onLayoutValueChanged);
+				newX = getValue(x, 0, onLayoutValueChanged, false);
+				newY = getValue(y, 0, onLayoutValueChanged, false);
+				newW = getValue(w, 0, onLayoutValueChanged, false);
+				newH = getValue(h, 0, onLayoutValueChanged, false);
 			
 		}
 		if (this.x != newX || this.y != newY || this.w != newW || this.h != newH) {

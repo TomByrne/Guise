@@ -28,6 +28,9 @@ class TextureLayer extends PositionedLayer<TextureStyle> implements IAccessReque
 		if (layerName != null && access.layerName != layerName) return;
 		
 		_textureAccess = access;
+		if (_textureAccess != null) {
+			_textureAccess.idealDepth = idealDepth;
+		}
 		invalidate();
 	}
 	@injectRemove
@@ -35,6 +38,16 @@ class TextureLayer extends PositionedLayer<TextureStyle> implements IAccessReque
 		if (access != _textureAccess) return;
 		
 		_textureAccess = null;
+	}
+	
+	
+	@:isVar public var idealDepth(default, set_idealDepth):Int;
+	private function set_idealDepth(value:Int):Int {
+		this.idealDepth = value;
+		if (_textureAccess != null) {
+			_textureAccess.idealDepth = idealDepth;
+		}
+		return value;
 	}
 	
 	private var _pos:IBoxPosAccess;
@@ -50,6 +63,9 @@ class TextureLayer extends PositionedLayer<TextureStyle> implements IAccessReque
 	
 	override private function _isReadyToDraw():Bool {
 		return _pos!=null && _textureAccess != null && super._isReadyToDraw();
+	}
+	override private function _clearStyle():Void {
+		_textureAccess.setTexture(null);
 	}
 
 	override private function _drawStyle():Void {

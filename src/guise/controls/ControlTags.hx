@@ -1,13 +1,21 @@
 package guise.controls;
 
 import guise.controls.data.IInputPrompt;
+import guise.controls.data.IListCollection;
 import guise.controls.data.ISelected;
 import guise.controls.data.ITextLabel;
 import msignal.Signal;
 
+
 enum ControlTags {
 	PanelTag;
+	ListBoxTag;
+	OptionPickerTag(editable:Bool);
+	HScrollBarTag;
+	VScrollBarTag;
 }
+
+
 
 
 class TextButtonTag extends TextLabel

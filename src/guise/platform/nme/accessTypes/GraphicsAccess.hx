@@ -2,6 +2,7 @@ package guise.platform.nme.accessTypes;
 
 import guise.accessTypes.IBitmapGraphicsAccess;
 import guise.accessTypes.IPositionAccess;
+import guise.platform.cross.accessTypes.AbsVisualAccessType;
 import nme.display.Graphics;
 import nme.display.BitmapData;
 import guise.accessTypes.IGraphicsAccess;
@@ -12,18 +13,12 @@ import nme.display.InteractiveObject;
 import guise.platform.nme.addTypes.IDisplayObjectType;
 import guise.platform.nme.addTypes.IInteractiveObjectType;
 
-/**
- * @author Tom Byrne
- */
 
-class GraphicsAccess implements IBitmapGraphicsAccess implements IDisplayObjectType implements IInteractiveObjectType implements IPositionAccess
+class GraphicsAccess extends AbsVisualAccessType implements IBitmapGraphicsAccess implements IDisplayObjectType implements IInteractiveObjectType implements IPositionAccess
 {
-	
-	@:isVar public var layerName(default, set):String;
-	private function set_layerName(value:String):String {
-		this.layerName = value;
-		_sprite.name = value==null?"":value;
-		return value;
+	override private function set_layerName(value:String):String {
+		_sprite.name = value == null?"":value;
+		return super.set_layerName(value);
 	}
 	
 	private var _sprite:Sprite;
@@ -32,7 +27,7 @@ class GraphicsAccess implements IBitmapGraphicsAccess implements IDisplayObjectT
 	public function new(?layerName:String) {
 		_sprite = new Sprite();
 		_graphics = _sprite.graphics;
-		this.layerName = layerName;
+		super(layerName);
 	}
 	
 	public function getDisplayObject():DisplayObject {

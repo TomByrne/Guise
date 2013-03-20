@@ -53,7 +53,8 @@ class CheckBoxTrait extends DisplayTrait<CheckBox>
 	}
 	
 	private function onTextChanged(from:ITextLabel=null):Void {
-		//window.setLabel(textLabel.text);
+		window.label = (textLabel.text);
+		checkMeas();
 	}
 	override private function onParentAdded(parent:DisplayTrait<Window>):Void {
 		super.onParentAdded(parent);

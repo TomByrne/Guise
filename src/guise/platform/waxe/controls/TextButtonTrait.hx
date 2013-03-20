@@ -51,6 +51,7 @@ class TextButtonTrait extends DisplayTrait<Button>
 	private function onTextChanged(from:ITextLabel=null):Void {
 		var text:String = textLabel.text;
 		//window.label = (text==null?"":text);
+		checkMeas();
 	}
 	
 	private function onSelectedChanged(from:ISelected):Void {

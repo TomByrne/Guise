@@ -6,7 +6,6 @@ import guise.layout.IBoxPos;
 import guise.platform.html5.display.DisplayTrait;
 import js.Lib;
 
-
 class TextInputTrait extends TextLabelTrait
 {
 	@inject

@@ -2,7 +2,7 @@ package guise.accessTypes;
 
 import msignal.Signal;
 
-interface ITextOutputAccess extends IAccessType {
+interface ITextOutputAccess extends IVisualAccessType {
 	var textMeasChanged(get, null):Signal1<ITextOutputAccess>;
 	
 	var textWidth(get, null):Float;

@@ -2,10 +2,7 @@ package guise.skin.values;
 import composure.core.ComposeItem;
 
 import msignal.Signal;
-/**
- * ...
- * @author Tom Byrne
- */
+
 
 class Calc implements IValue
 {

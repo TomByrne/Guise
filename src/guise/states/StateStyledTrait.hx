@@ -1,5 +1,6 @@
 package guise.states;
 import composure.traits.AbstractTrait;
+import guise.skin.values.ValueUtils;
 import guise.utils.Clone;
 import guise.skin.values.IValue;
 import guise.trans.ITransitioner;
@@ -100,31 +101,30 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 		}
 	}
 	private function assessStyle():Void {
-		if (currentStyle == null) {
-			if (normalStyle == null) return;
-			setCurrentStyle(Clone.clone(normalStyle));
-			previousStyle = normalStyle;
+		destStyle = findDestStyle();
+		
+		if (previousStyle == null) {
+			setCurrentStyle(Clone.clone(destStyle));
+			previousStyle = destStyle;
 			attemptDrawStyle();
-		}else {
-			destStyle = findDestStyle();
-			if (destStyle != previousStyle) {
-				if (currentTrans != null) {
-					currentTrans.stopTrans(false);
-					currentTrans = null;
-				}
-				
-				if (styleTransitioner != null) {
-					currentTrans = styleTransitioner.doTrans(currentStyle, destStyle,transSubject,null, updateTrans, finishTrans);
-				}else if (injStyleTransitioner != null) {
-					currentTrans = injStyleTransitioner.doTrans(currentStyle, destStyle,transSubject,null, updateTrans, finishTrans);
-				}else{
-					//previousStyle = currentStyle;
-					setCurrentStyle(destStyle);
-					attemptDrawStyle();
-				}
-				previousStyle = destStyle;
+		}else if (destStyle != previousStyle) {
+			if (currentTrans != null) {
+				currentTrans.stopTrans(false);
+				currentTrans = null;
 			}
+			
+			if (styleTransitioner != null) {
+				currentTrans = styleTransitioner.doTrans(currentStyle, destStyle,transSubject,null, updateTrans, finishTrans);
+			}else if (injStyleTransitioner != null) {
+				currentTrans = injStyleTransitioner.doTrans(currentStyle, destStyle,transSubject,null, updateTrans, finishTrans);
+			}else{
+				//previousStyle = currentStyle;
+				setCurrentStyle(destStyle);
+				attemptDrawStyle();
+			}
+			previousStyle = destStyle;
 		}
+		
 	}
 	private function updateTrans(current:StyleType):Void {
 		setCurrentStyle(current);
@@ -140,30 +140,20 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 		if (currentStyle == value) return;
 		currentStyle = value;
 	}
-	private function getValue(value:IValue, def:Float, changeHandler:Dynamic->Dynamic->Void):Float {
+	private function getValue(value:IValue, def:Float, changeHandler:Dynamic->Dynamic->Void, doRemoveListeners:Bool):Float {
 		if (value == null) return def;
 		
 		var signals:Array<AnySignal> = _handlerToSignals.get(changeHandler);
-		var newSignals:Array<AnySignal> = value.update(item);
-		
-		if (newSignals != null) {
-			if (signals == null) {
-				for (signal in newSignals) {
-					signal.add(changeHandler);
-				}
-				_handlerToSignals.set(changeHandler, newSignals);
-			}else {
-				for (signal in newSignals) {
-					if (!signals.has(signal)) {
-						signals.push(signal);
-						signal.add(changeHandler);
-					}
-				}
-			}
+		if (signals == null) {
+			signals = new Array<AnySignal>();
+			_handlerToSignals.set(changeHandler, signals);
 		}
+		ValueUtils.update(value, item, signals, changeHandler, doRemoveListeners);
 		return value.currentValue;
 	}
 	private function removeValuesByHandler(changeHandler:Dynamic->Dynamic->Void):Void {
+		if (_handlerToSignals == null) return;
+		
 		var signals:Array<AnySignal> = _handlerToSignals.get(changeHandler);
 		if (signals != null) {
 			for (signal in signals) {
@@ -218,9 +208,9 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 		attemptDrawStyle();
 	}
 	private function attemptDrawStyle():Void {
-
-		if (currentStyle != null && isReadyToDraw()) {
-			drawStyle();
+		if (isReadyToDraw()) {
+			if (currentStyle != null) drawStyle();
+			else clearStyle();
 		}
 	}
 	private function getStateKey(state:EnumValue):String {
@@ -240,12 +230,18 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 	private dynamic function drawStyle():Void {
 		_drawStyle();
 	}
+	private dynamic function clearStyle():Void {
+		_clearStyle();
+	}
 	
 	private function _isReadyToDraw():Bool {
 		// override
 		return true;
 	}
 	private function _drawStyle():Void {
+		// override
+	}
+	private function _clearStyle():Void {
 		// override
 	}
 	

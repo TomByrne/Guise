@@ -1,9 +1,6 @@
 package guise.platform.starling.ext;
 
 
-import nme.display.BitmapData;
-import nme.geom.Point;
-import nme.geom.Rectangle;
 import starling.display.DisplayObject;
 import starling.display.MovieClip;
 

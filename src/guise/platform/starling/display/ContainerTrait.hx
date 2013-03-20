@@ -1,19 +1,23 @@
 package guise.platform.starling.display;
+import guise.accessTypes.IVisualAccessType;
 import guise.platform.starling.addTypes.IDisplayObjectType;
 import starling.display.DisplayObject;
 import starling.display.DisplayObjectContainer;
 import starling.display.Sprite;
+import flash.geom.Rectangle;
 
 class ContainerTrait extends DisplayTrait
 {
 	
 	private var _layerDisplays:Array<IDisplayObjectType>;
 	
+	@:isVar public var childContainer(default, null):Sprite;
 	@:isVar public var container(default, null):DisplayObjectContainer;
 	@:isVar public var sprite(default, null):Sprite;
 
 	public function new(container:DisplayObjectContainer = null) {
 		_layerDisplays = [];
+		childContainer = new Sprite();
 		if (container != null)setContainer(container);
 		super(container);
 		
@@ -22,9 +26,10 @@ class ContainerTrait extends DisplayTrait
 		setContainer(new Sprite());
 	}
 	private function setContainer(container:DisplayObjectContainer):Void {
-		if(container!=null){
-			for (disp in _layerDisplays) {
-				container.removeChild(disp.getDisplayObject());
+		if(this.container!=null){
+			this.container.removeChild(childContainer);
+			for (display in _layerDisplays) {
+				this.container.removeChild(display.getDisplayObject());
 			}
 		}
 		
@@ -34,25 +39,60 @@ class ContainerTrait extends DisplayTrait
 		setDisplayObject(container);
 		
 		if (container != null) {
-			for (disp in _layerDisplays) {
-				container.addChild(disp.getDisplayObject());
-			}
+			container.addChild(childContainer);
+			sortLayers();
 		}
 	}
 	
+	public function setChildScrollRect(rect:Rectangle):Void {
+		childContainer.clipRect = rect;
+	}
 	
 	@injectAdd
 	public function addLayer(display:IDisplayObjectType):Void {
 		_layerDisplays.push(display);
+		_layerDisplays.sort(sortLayerFunc);
+		container.addChild(display.getDisplayObject());
+		display.idealDepthChanged.add(onLayerDepthChange);
 		if (container != null) {
-			container.addChild(display.getDisplayObject());
+			sortLayers();
 		}
+	}
+	private function onLayerDepthChange(from:IVisualAccessType):Void {
+		_layerDisplays.sort(sortLayerFunc);
+		if (container != null) {
+			sortLayers();
+		}
+	}
+	private function sortLayerFunc(display1:IDisplayObjectType, display2:IDisplayObjectType):Int{
+		if (display1.idealDepth < display2.idealDepth) return -1;
+		else if (display1.idealDepth > display2.idealDepth) return 1;
+		else return 0;
 	}
 	@injectRemove
 	public function removeLayer(display:IDisplayObjectType):Void {
 		_layerDisplays.remove(display);
+		display.idealDepthChanged.remove(onLayerDepthChange);
 		if (container != null) {
 			container.removeChild(display.getDisplayObject());
+		}
+	}
+	
+	private function sortLayers():Void {
+		container.setChildIndex(childContainer, 0);
+		var containerDepth:Int = 0;
+		var totalDepth:Int = 1;
+		for (display in _layerDisplays) {
+			var idealDepth:Int = display.idealDepth;
+			var disp = display.getDisplayObject();
+			if (idealDepth > 0) {
+				container.setChildIndex(disp, totalDepth);
+				++totalDepth;
+			}else {
+				container.setChildIndex(disp, containerDepth);
+				++totalDepth;
+				++containerDepth;
+			}
 		}
 	}
 }

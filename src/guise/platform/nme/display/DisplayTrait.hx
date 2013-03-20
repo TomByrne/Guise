@@ -34,18 +34,21 @@ class DisplayTrait extends AbsDisplayTrait
 		}
 	}
 	private function onParentAdded(parent:ContainerTrait):Void {
-		if (_parent != null) return;
+		if (_parent != null) {
+			// parent container has been added between here and existing parent
+			onParentRemoved(_parent);
+		}
 		
 		_parent = parent;
-		if(displayObject!=null && parent.container!=null){
-			parent.container.addChild(displayObject);
+		if(displayObject!=null && parent.childContainer!=null){
+			parent.childContainer.addChild(displayObject);
 		}
 	}
 	private function onParentRemoved(parent:ContainerTrait):Void {
 		if (_parent != parent) return;
 		
-		if(displayObject!=null && parent.container!=null){
-			parent.container.removeChild(displayObject);
+		if(displayObject!=null && parent.childContainer!=null){
+			parent.childContainer.removeChild(displayObject);
 		}
 		_parent = null;
 	}
@@ -55,14 +58,14 @@ class DisplayTrait extends AbsDisplayTrait
 	
 	private function setDisplayObject(value:DisplayObject):Void {
 		if (displayObject != null) {
-			if(_parent!=null && _parent.container!=null){
-				_parent.container.removeChild(displayObject);
+			if(_parent!=null && _parent.childContainer!=null){
+				_parent.childContainer.removeChild(displayObject);
 			}
 		}
 		this.displayObject = value;
 		if (displayObject!=null) {
-			if(_parent!=null && _parent.container!=null){
-				_parent.container.addChild(displayObject);
+			if(_parent!=null && _parent.childContainer!=null){
+				_parent.childContainer.addChild(displayObject);
 			}
 		}
 	}

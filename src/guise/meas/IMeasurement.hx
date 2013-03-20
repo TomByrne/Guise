@@ -1,6 +1,7 @@
 package guise.meas;
 import msignal.Signal;
 #if !macro
+import guise.skin.values.ValueUtils;
 import composure.traits.AbstractTrait;
 import guise.skin.values.IValue;
 #else
@@ -56,18 +57,23 @@ extends AbstractTrait implements IMeasurement
 	
 	public function new(?measWidth:Float, ?measHeight:Float) {
 		super();
+		_sigWidth = [];
+		_sigHeight = [];
 		set(measWidth, measHeight);
 	}
 	
 	override private function onItemAdd():Void {
 		super.onItemAdd();
-		addListeners();
+		//addListeners();
+		invalidate();
 	}
 	override private function onItemRemove():Void {
 		super.onItemRemove();
-		removeListeners();
+		//removeListeners();
+		ValueUtils.clear(_sigHeight, onSignalChange);
+		ValueUtils.clear(_sigWidth, onSignalChange);
 	}
-	private function addListeners():Void {
+	/*private function addListeners():Void {
 		var doInval:Bool = false;
 		if (_valWidth != null) {
 			_sigWidth = _valWidth.update(item);
@@ -100,7 +106,7 @@ extends AbstractTrait implements IMeasurement
 				signal.remove(onSignalChange);
 			}
 		}
-	}
+	}*/
 	private function onSignalChange(?param1:Dynamic, ?param2:Dynamic):Void {
 		invalidate();
 	}
@@ -112,15 +118,17 @@ extends AbstractTrait implements IMeasurement
 	private function validate():Void {
 		if (_invalid) {
 			var newWidth:Float;
-			_valWidth.update(item); // this should respond to changes in signals
+			//_valWidth.update(item); 
 			if (_valWidth != null) {
+				if(item!=null)ValueUtils.update(_valWidth, item, _sigWidth, onSignalChange, true);
 				newWidth = _valWidth.currentValue;
 			}else {
 				newWidth = _measWidth;
 			}
 			var newHeight:Float;
-			_valHeight.update(item);// this should respond to changes in signals
+			//_valHeight.update(item);
 			if (_valHeight != null) {
+				if(item!=null)ValueUtils.update(_valHeight, item, _sigHeight, onSignalChange, true);
 				newHeight = _valHeight.currentValue;
 			}else {
 				newHeight = _measHeight;
@@ -140,14 +148,14 @@ extends AbstractTrait implements IMeasurement
 	}
 	
 	public function setValues(widthVal:IValue, heightVal:IValue):Void {
-		removeListeners();
+		//removeListeners();
 		
 		_valWidth = widthVal;
 		_valHeight = heightVal;
 		
-		if (item!=null) {
+		/*if (item!=null) {
 			addListeners();
-		}
+		}*/
 	}
 	#end
 	

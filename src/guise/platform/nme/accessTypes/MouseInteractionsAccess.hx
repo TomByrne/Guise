@@ -1,5 +1,7 @@
 package guise.platform.nme.accessTypes;
 import composure.traits.AbstractTrait;
+import guise.accessTypes.IAccessType;
+import guise.platform.nme.addTypes.IInteractiveObjectType;
 import nme.events.MouseEvent;
 import guise.accessTypes.IMouseInteractionsAccess;
 import nme.display.InteractiveObject;
@@ -7,16 +9,14 @@ import guise.platform.nme.display.DisplayTrait;
 
 import msignal.Signal;
 
-/**
- * ...
- * @author Tom Byrne
- */
 
 class MouseInteractionsAccess extends AbstractTrait implements IMouseInteractionsAccess
 {
 	@inject
 	@:isVar public var displayTrait(default, set):DisplayTrait;
 	private function set_displayTrait(value:DisplayTrait):DisplayTrait {
+		if (layerName != null) return displayTrait;
+		
 		if (displayTrait!=null) {
 			if (displayTrait.displayObject == interactiveObject) {
 				interactiveObject = null;
@@ -70,6 +70,28 @@ class MouseInteractionsAccess extends AbstractTrait implements IMouseInteraction
 		
 		this.interactiveObject = interactiveObject;
 		this.coordinateSpace = coordinateSpace;
+	}
+	
+	@injectAdd
+	private function addInteractiveType(value:IInteractiveObjectType):Void {
+		if (interactiveObject != null) return;
+			
+		
+		if (layerName!=null && Std.is(value, IAccessType)) {
+			var access:IAccessType = cast value;
+			if (layerName != access.layerName) {
+				return;
+			}
+		}else {
+			return;
+		}
+		interactiveObject = value.getInteractiveObject();
+	}
+	@injectRemove
+	private function removeInteractiveType(value:IInteractiveObjectType):Void {
+		if (value.getInteractiveObject() == interactiveObject) {
+			interactiveObject = null;
+		}
 	}
 	
 	private function onPressed(event:MouseEvent):Void {

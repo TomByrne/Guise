@@ -15,13 +15,16 @@ class DisplayTrait<T:Window> extends ContainerTrait implements IMeasurement{
 	@lazyInst
 	public var measChanged:Signal1<IMeasurement>;
 	
+	private var _measWidth:Float;
 	public var measWidth(get, null):Float;
 	private function get_measWidth():Float {
-		return 150;
+		return _measWidth;
 	}
+	
+	private var _measHeight:Float;
 	public var measHeight(get, null):Float;
 	private function get_measHeight():Float {
-		return 30;
+		return _measHeight;
 	}
 	
 	
@@ -32,7 +35,7 @@ class DisplayTrait<T:Window> extends ContainerTrait implements IMeasurement{
 	private var _creator:Window->T;
 	private var _size:Size;
 	private var _position:Position;
-	private var _executeBundles:Map< Dynamic, Array<ExecuteBundle>>;
+	private var _executeBundles:Map<Dynamic, Array<ExecuteBundle>>;
 
 	public function new(creator:Window->T) 
 	{
@@ -49,7 +52,10 @@ class DisplayTrait<T:Window> extends ContainerTrait implements IMeasurement{
 		addInjector(injector);
 	}
 	private function onParentAdded(parent:DisplayTrait<Window>):Void {
-		if (_parent != null) return;
+		if (_parent != null) {
+			// parent container has been added between here and existing parent
+			onParentRemoved(_parent);
+		}
 		
 		_parent = parent;
 		window = _creator(_parent.window);
@@ -61,6 +67,7 @@ class DisplayTrait<T:Window> extends ContainerTrait implements IMeasurement{
 				}
 			}
 		}
+		checkMeas();
 	}
 	private function onParentRemoved(parent:DisplayTrait<Window>):Void {
 		if (_parent != parent) return;
@@ -75,6 +82,12 @@ class DisplayTrait<T:Window> extends ContainerTrait implements IMeasurement{
 		}
 		_parent = null;
 		window = null;
+	}
+	private function rebuildWindow():Void {
+		if (_parent == null) return;
+		var parent = _parent;
+		onParentRemoved(parent);
+		onParentAdded(parent);
 	}
 	
 	override private function setPos(x:Float, y:Float):Void {
@@ -124,6 +137,17 @@ class DisplayTrait<T:Window> extends ContainerTrait implements IMeasurement{
 	}
 	public function addHandler(owner:Dynamic, event:EventID, handler:Dynamic->Void):Void {
 		this.on(owner, function() { this.window.setHandler(event, handler); }, function() { this.window.setHandler(event, null); } );
+	}
+	
+	
+	private function checkMeas():Void {
+		if (window == null) return;
+		var minSize:Size = window.getEffectiveMinSize();
+		if (_measWidth != minSize.width || _measHeight != minSize.height) {
+			_measWidth = minSize.width;
+			_measHeight = minSize.height;
+			LazyInst.exec(measChanged.dispatch(this));
+		}
 	}
 	
 }

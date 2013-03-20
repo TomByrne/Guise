@@ -240,7 +240,10 @@ class StackLayout extends AbsLayout
 		var measLength:Float = lengthFore;
 		
 		var breadth:Float = getBreadth()-breadthAft-breadthFore;
-		var length:Float = getLength()-lengthAft-lengthFore;
+		var length:Float = getLength() - lengthAft - lengthFore;
+		
+		var policyB = getBreadthPolicy();
+		var policyL = getLengthPolicy();
 		for (bundle in _stack) {
 			var meas:IMeasurement = cast bundle.item.getTrait(IMeasurement);
 			if (meas != bundle.meas) {
@@ -266,8 +269,14 @@ class StackLayout extends AbsLayout
 			}
 			var layoutInfo = bundle.layoutInfo;
 			
-			var sizeBreadth = getSize(breadth, getItemBreadthPolicy(layoutInfo), getBreadthPolicy(), itemMeasB);
-			var sizeLength = getSize(length, getItemLengthPolicy(layoutInfo), getLengthPolicy(), itemMeasL);
+			var itemPolB = getItemBreadthPolicy(layoutInfo);
+			var itemPolL = getItemLengthPolicy(layoutInfo);
+			
+			var sizeBreadth = getSize(breadth, itemPolB, policyB, itemMeasB);
+			var sizeLength = getSize(length, itemPolL, policyL, itemMeasL);
+			
+			itemMeasB = getMeas(itemPolB, policyB, sizeBreadth, itemMeasB);
+			itemMeasL = getMeas(itemPolL, policyL, sizeLength, itemMeasL);
 			
 			var align:StackAlign = (layoutInfo.align != null?layoutInfo.align:defaultAlign);
 			var pos:Float;
@@ -306,6 +315,17 @@ class StackLayout extends AbsLayout
 					return meas;
 				}
 			case Fill: return dim;
+			case Size(val): return val;
+		}
+	}
+	private function getMeas(itemPolicy:StackSizePolicy, defPolicy:StackSizePolicy, size:Float, meas:Float):Float {
+		if (itemPolicy == null) {
+			itemPolicy = defPolicy;
+		}
+		switch(itemPolicy) {
+			case Meas(_): return meas;
+			case Fill: return 0;
+			case Size(_): return size;
 		}
 	}
 	
@@ -313,7 +333,7 @@ class StackLayout extends AbsLayout
 		return boxPos.w;
 	}
 	private function getHeight():Float {
-		return boxPos.w;
+		return boxPos.h;
 	}
 	private function getMeasWidth(meas:IMeasurement):Float {
 		return meas.measWidth;
@@ -370,6 +390,7 @@ enum StackAlign {
 enum StackSizePolicy {
 	Fill;
 	Meas(capAtFill:Bool);
+	Size(val:Float);
 }
 
 enum StackDirection {

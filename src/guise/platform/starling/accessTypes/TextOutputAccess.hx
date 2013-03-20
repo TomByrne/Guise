@@ -1,6 +1,7 @@
 package guise.platform.starling.accessTypes;
 import guise.accessTypes.IBoxPosAccess;
 import guise.accessTypes.ITextOutputAccess;
+import guise.platform.cross.accessTypes.AbsVisualAccessType;
 import guise.platform.cross.FontRegistry;
 import guise.platform.starling.addTypes.IDisplayObjectType;
 import guise.platform.starling.TextFieldGutter;
@@ -15,7 +16,7 @@ import starling.utils.VAlign;
 
 
 @:build(LazyInst.check())
-class TextOutputAccess implements ITextOutputAccess implements IDisplayObjectType implements IBoxPosAccess
+class TextOutputAccess extends AbsVisualAccessType implements ITextOutputAccess implements IDisplayObjectType implements IBoxPosAccess
 {
 	private static var MIN_SIZE:Float = 9;
 	
@@ -39,11 +40,9 @@ class TextOutputAccess implements ITextOutputAccess implements IDisplayObjectTyp
 	private var _wGutter:Float;
 	private var _hGutter:Float;
 	
-	@:isVar public var layerName(default, set):String;
-	private function set_layerName(value:String):String {
-		this.layerName = value;
+	override private function set_layerName(value:String):String {
 		_textField.name = value == null?"":value;
-		return value;
+		return super.set_layerName(value);
 	}
 
 	public function new(?layerName:String, ?textField:TextField) 
@@ -54,7 +53,7 @@ class TextOutputAccess implements ITextOutputAccess implements IDisplayObjectTyp
 		_textField.hAlign = HAlign.LEFT;
 		_textField.vAlign = VAlign.TOP;
 		FontRegistry.getChanged().add(onFontsChanged);
-		this.layerName = layerName;
+		super(layerName);
 	}
 	public function setPos(x:Float, y:Float):Void {
 		_textField.x = x-_wGutter;

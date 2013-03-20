@@ -44,7 +44,10 @@ class DisplayTrait extends AbsDisplayTrait implements IMeasurement
 		addInjector(injector);
 	}
 	private function onParentAdded(parent:ContainerTrait):Void {
-		if (_parent != null) return;
+		if (_parent != null) {
+			// parent container has been added between here and existing parent
+			onParentRemoved(_parent);
+		}
 		
 		_parent = parent;
 		if (domElement != null && parent.domElement != null) {
@@ -110,6 +113,9 @@ class DisplayTrait extends AbsDisplayTrait implements IMeasurement
 		domElement.style.height = hWas;
 		domElement.style.position = pWas;
 		
+		setMeas(measWidth, measHeight);
+	}
+	private function setMeas(measWidth:Float, measHeight:Float):Void {
 		if (_measWidth != measWidth || _measHeight != measHeight) {
 			_measWidth = measWidth;
 			_measHeight = measHeight;

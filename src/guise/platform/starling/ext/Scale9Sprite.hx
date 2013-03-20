@@ -22,9 +22,6 @@ package guise.platform.starling.ext;
 //
 // Last edited Aug 21 2012
 
-import nme.display.BitmapData;
-import nme.geom.Point;
-import nme.geom.Rectangle;
 import starling.display.DisplayObject;
 import starling.display.MovieClip;
 

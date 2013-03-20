@@ -31,18 +31,14 @@ class Bind implements IValue
 		var trait:Dynamic = context.getTrait(traitType);
 		if (!trait) {
 			//throw "No trait of type " + Type.getClassName(traitType) + " was found for style binding";
-			return [];
+			return [context.traitAdded];
 		}
 		_value = Reflect.getProperty(trait, prop);
 		if (modifier != null) {
 			_value = modifier(_value);
 		}
 		if (changeSignal == null) {
-			var type = Meta.getFields(Type.getClass(trait));
-			var fieldMeta = Reflect.getProperty(type, prop);
-			if (fieldMeta!=null && fieldMeta.change!=null) {
-				changeSignal = fieldMeta.change[0];
-			}
+			changeSignal = getChangeSignalMeta(Type.getClass(trait), prop);
 		}
 		
 		if (changeSignal != null) {
@@ -53,5 +49,15 @@ class Bind implements IValue
 		}
 		return null;
 		
+	}
+	private function getChangeSignalMeta(type:Class<Dynamic>, prop:String):Null<String> {
+		
+		var meta = Meta.getFields(type);
+		var fieldMeta = Reflect.getProperty(meta, prop);
+		if (fieldMeta!=null && fieldMeta.change!=null) {
+			return fieldMeta.change[0];
+		}else {
+			return getChangeSignalMeta(Type.getSuperClass(type), prop );
+		}
 	}
 }

@@ -16,6 +16,9 @@ class SimpleShapeLayer extends PositionedLayer<ShapeStyle> implements IAccessReq
 		if (layerName != null && access.layerName != layerName) return;
 		
 		_graphicsAccess = access;
+		if (_graphicsAccess != null) {
+			_graphicsAccess.idealDepth = idealDepth;
+		}
 		invalidate();
 	}
 	@injectRemove
@@ -39,6 +42,15 @@ class SimpleShapeLayer extends PositionedLayer<ShapeStyle> implements IAccessReq
 		_pos = null;
 	}
 	
+	@:isVar public var idealDepth(default, set_idealDepth):Int;
+	private function set_idealDepth(value:Int):Int {
+		this.idealDepth = value;
+		if (_graphicsAccess != null) {
+			_graphicsAccess.idealDepth = idealDepth;
+		}
+		return value;
+	}
+	
 	private var _graphicsAccess:IGraphicsAccess;
 	private var _pos:IPositionAccess;
 	
@@ -52,6 +64,9 @@ class SimpleShapeLayer extends PositionedLayer<ShapeStyle> implements IAccessReq
 	}
 	override private function _isReadyToDraw():Bool {
 		return _graphicsAccess != null && _pos!=null && super._isReadyToDraw();
+	}
+	override private function _clearStyle():Void {
+		_graphicsAccess.clear();
 	}
 	override private function _drawStyle():Void {
 		_pos.setPos(x,y);
@@ -73,10 +88,10 @@ class SimpleShapeLayer extends PositionedLayer<ShapeStyle> implements IAccessReq
 					drawShape(childShape);
 				}
 			case SsEllipse(f, s, w, h, x, y):
-				var xVal:Float = getValue(x, 0, onShapeValueChanged);
-				var yVal:Float = getValue(y, 0, onShapeValueChanged);
-				var wVal:Float = getValue(w, this.w, onShapeValueChanged);
-				var hVal:Float = getValue(h, this.h, onShapeValueChanged);
+				var xVal:Float = getValue(x, 0, onShapeValueChanged, false);
+				var yVal:Float = getValue(y, 0, onShapeValueChanged, false);
+				var wVal:Float = getValue(w, this.w, onShapeValueChanged, false);
+				var hVal:Float = getValue(h, this.h, onShapeValueChanged, false);
 				DrawnStyleUtils.beginFillStrokes(_graphicsAccess, f, s, false, wVal, hVal, function(index:Int):Void{_graphicsAccess.drawEllipse(xVal, yVal, wVal, hVal);});
 		}
 	}
