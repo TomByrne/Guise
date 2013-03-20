@@ -1,0 +1,23 @@
+<target name="main">
+	<appName value="GuiseBasisAndroid" />
+
+	<source path="../../src" />
+	<source path="../../testSrc" />
+
+	<builddir path="bin" />
+	<target name="android" type="android">
+		<appBuildNumber value="1" />
+		<appVersion value="1.0" />
+		<appPackage value="guise.test.basisAndroid" />
+		<main classpath="NativeTest" />
+		
+		<resourceDir path="Assets" />
+		<emulator use="true" />
+		<debug value="true" />
+		<runWhenFinished value="true" />
+	</target>
+
+	<haxelib name="msignal"/>
+	<haxelib name="composure"/>
+	<haxelib name="xmlTools"/>
+</target>

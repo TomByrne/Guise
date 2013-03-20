@@ -35,10 +35,11 @@ class DisplayTrait<T:Window> extends ContainerTrait implements IMeasurement{
 	private var _creator:Window->T;
 	private var _size:Size;
 	private var _position:Position;
-	private var _executeBundles:Map<Dynamic, Array<ExecuteBundle>>;
+	private var _executeBundles:Map<AbstractTrait, Array<ExecuteBundle>>;
 
 	public function new(creator:Window->T) 
 	{
+		trace("new: "+this);
 		super();
 		_sizeListen = true;
 		_posListen = true;
@@ -56,7 +57,7 @@ class DisplayTrait<T:Window> extends ContainerTrait implements IMeasurement{
 			// parent container has been added between here and existing parent
 			onParentRemoved(_parent);
 		}
-		
+		trace("par: "+this+" "+parent);
 		_parent = parent;
 		window = _creator(_parent.window);
 		if (_executeBundles != null) {
@@ -121,10 +122,10 @@ class DisplayTrait<T:Window> extends ContainerTrait implements IMeasurement{
 			_executeBundles.remove(owner);
 		}
 	}
-	public function on(owner:Dynamic, add:Void->Void, remove:Void->Void):Void {
+	public function on(owner:AbstractTrait, add:Void->Void, remove:Void->Void):Void {
 		var bundle:ExecuteBundle = { owner:owner, add:add, remove:remove };
 		if (_executeBundles == null) {
-			_executeBundles = new Map< Dynamic, Array<ExecuteBundle>>();
+			_executeBundles = new Map< AbstractTrait, Array<ExecuteBundle>>();
 		}
 		var bundles:Array<ExecuteBundle> = _executeBundles.get(owner);
 		if (bundles == null) {
@@ -135,7 +136,7 @@ class DisplayTrait<T:Window> extends ContainerTrait implements IMeasurement{
 			add();
 		}
 	}
-	public function addHandler(owner:Dynamic, event:EventID, handler:Dynamic->Void):Void {
+	public function addHandler(owner:AbstractTrait, event:EventID, handler:Dynamic->Void):Void {
 		this.on(owner, function() { this.window.setHandler(event, handler); }, function() { this.window.setHandler(event, null); } );
 	}
 	

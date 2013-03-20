@@ -1,0 +1,703 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"no",
+				"noUnitsY"
+			],
+			[
+				"View",
+				"ViewGroup"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Build, Install & Run.bat",
+			"settings":
+			{
+				"buffer_size": 218,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "build.xml",
+			"settings":
+			{
+				"buffer_size": 476,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/TomRoot/Projects/HaxeProjects/GuiseUI/testSrc/StarlingTest.hx",
+			"settings":
+			{
+				"buffer_size": 851,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 127.0,
+		"selected_items":
+		[
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: List Packages"
+			],
+			[
+				"",
+				"Package Control: Discover Packages"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 410.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/src/guise/platform/native/NativePlatformAccess.hx",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/Projects/Starling/GuiseStarling.nmml",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/Projects/Starling/GuiseStarling.hxproj",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/Platforms/Waxe.xml",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/Projects/HTML5/GuiseHTML5.hxproj",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/Projects/HTML5/GuiseHTML5.nmml",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/Projects/BasisAndroid/build.xml",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/Platforms/NME.xml",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/Platforms/HTML5.xml",
+		"/C/TomRoot/Projects/HaxeProjects/wxwidgets/include/wx/defs.h",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/wx/clay/StyleFlags.hx",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/Projects/NME/GuiseNME.nmml",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/Projects/NME/GuiseNME.hxproj",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/Projects/Waxe/GuiseWaxe.nmml",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/Projects/Waxe/GuiseWaxe.hxproj",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/Projects/Waxe/Waxe.nmml",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/Projects/Waxe/Waxe.hxproj",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/Projects/Waxe/Waxe.build",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/Projects/Waxe/.build",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/FD Project/GuiseUI.nmml",
+		"/C/TomRoot/Projects/HaxeProjects/Starling-hx/README.md",
+		"/C/TomRoot/Projects/HaxeProjects/BasisAndroid/example/src/example/MainView.hx",
+		"/C/TomRoot/Projects/HaxeProjects/BasisAndroid/example/src/example/ApplicationMain.hx",
+		"/C/TomRoot/Projects/HaxeProjects/BasisAndroid/example/build.xml",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/wx/ComboBox.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/ComboBox.cpp",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/.git/config",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/.git/config",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/README.md",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/ScrolledWindow.cpp",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/Slider.cpp",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/Window.cpp",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/wx/Window.hx",
+		"/C/TomRoot/Projects/HaxeProjects/wxwidgets/build/msw/config.vc",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/HaxeAPI.cpp",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/wx/Slider.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/Build.xml",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/ListBox.cpp",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/CheckBox.cpp",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/MDI.cpp",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/GLCanvas.cpp",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/Clay.cpp",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/Button.cpp",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/Sizer.cpp",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/Notebook.cpp",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/ControlWithItems.cpp",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/Control.cpp",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/Menu.cpp",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/Pen.cpp",
+		"/C/TomRoot/Projects/NRL e-learning/Repository/admin/admin/settings.py",
+		"/C/TomRoot/Projects/NRL e-learning/Repository/admin/admin/urls.py",
+		"/C/TomRoot/Projects/NRL e-learning/Repository/admin/polls/models.py",
+		"/C/TomRoot/Projects/NRL e-learning/Repository/admin/polls/admin.py",
+		"/C/TomRoot/Projects/NRL e-learning/Repository/admin/templates/admin/base_site.html",
+		"/C/TomRoot/Projects/NRL e-learning/Repository/admin/polls/views.py",
+		"/C/TomRoot/Projects/NRL e-learning/Repository/admin/polls/templates/polls/index.html",
+		"/C/TomRoot/Projects/NRL e-learning/Repository/admin/polls/templates/polls/detail.html",
+		"/C/TomRoot/Projects/NRL e-learning/Repository/admin/polls/urls.py",
+		"/C/Program Files/Python_2_7/Lib/site-packages/django/contrib/admin/templates/admin/base_site.html",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/Platforms/Starling.xml",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/wxwidgets/build/msw/config.vc",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/Styles/Chutzpah.xml",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/Styles/Mani.xml",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/Assets/Mani.xml",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/wx/Menu.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Starling-hx/starling/display/DisplayObject.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Starling-hx/starling/display/Sprite.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/wx/Button.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/wx/Control.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/wx/ScrolledWindow.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/Dialog.cpp",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/wx/MenuBar.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/wx/Rect.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/wx/Notebook.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/wx/CheckBox.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/App.cpp",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/clay/main.cpp",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/samples/01-Simple/Simple.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Starling-hx/include.nmml",
+		"/C/TomRoot/Projects/HaxeProjects/Starling/starling.patch",
+		"/C/TomRoot/Projects/HaxeProjects/Starling/README.md",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/src/guise/meas/IMeasurement.hx",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/src/guise/states/StateStyledTrait.hx",
+		"/C/Users/Tom/AppData/Local/FlashDevelop/Templates/ProjectFiles/HaxeProject/Class.hx.fdt.wizard",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/src/guise/skin/values/Calc.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/readme.txt",
+		"/C/Motion-Twin/haxe-3.0.0/lib/waxe/1,0,1/include.nmml",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/haxelib.xml",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/HaxeAPI.h",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/all_objs",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/wxwidgets/build/msw/config.vc",
+		"/C/Motion-Twin/neko-2.0.0/CHANGES",
+		"/C/Motion-Twin/neko-1.8.2/CHANGES",
+		"/C/Motion-Twin-old/neko/CHANGES",
+		"/C/Motion-Twin/neko/CHANGES",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/src/waxe/Scintilla.cpp",
+		"/C/TomRoot/Projects/HaxeProjects/XMLTools/src/xmlTools/XmlPrettyPrint.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Waxe/sys$command",
+		"/C/Users/Tom/AppData/Roaming/FDT/projectTemplates/Haxe/Basic JS/description.xml",
+		"/C/Motion-Twin/haxe-3.0.0/std/StdTypes.hx",
+		"/C/Motion-Twin/haxe-3.0.0/std/IntIterator.hx",
+		"/C/Motion-Twin/haxe-3.0.0/lib/nme/.current",
+		"/C/TomRoot/Projects/HaxeProjects/StringParser/src/stringParser/parsers/AbstractCharacterParser.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Composure/src/composure/utilTraits/Furnisher.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Composure/src/haxelib.xml",
+		"/C/TomRoot/Projects/HaxeProjects/XMLTools/src/xmlTools/XmlPosParser.hx",
+		"/C/TomRoot/Projects/HaxeProjects/XMLTools/projects/XmlIncluder/src/XmlIncluderShell.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Sushi/Source/org/tbyrne/sushi/engine/GameEngine.hx",
+		"/C/TomRoot/Projects/HaxeProjects/SpaceJunkie/Source/guiseEngine/flump/FlumpSkinCreator.hx",
+		"/C/TomRoot/Projects/HaxeProjects/SpaceJunkie/Source/guiseEngine/display/DisplayStateSwitcher.hx",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/src/guise/platform/nme/accessTypes/KeyboardAccess.hx",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/src/guise/platform/cross/AccessProvider.hx",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/src/guise/layout/simple/StackLayout.hx",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/src/guise/platform/waxe/display/DisplayTrait.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Composure/src/composure/utilTraits/TraitTypeLimiter.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Composure/src/composure/core/ComposeItem.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Composure/src/composure/injectors/InjectorMarrier.hx",
+		"/C/TomRoot/Projects/HaxeProjects/GuiseUI/src/guise/platform/html5/logic/StateToCssClass.hx",
+		"/C/TomRoot/Projects/HaxeProjects/SpaceJunkie/Source/guiseEngine/actionState/ActionStateSwitcher.hx",
+		"/C/TomRoot/Projects/HaxeProjects/XMLTools/bin/xmlTools/xmlTools/include/XmlIncludeTask.hx",
+		"/C/TomRoot/Projects/HaxeProjects/XMLTools/src/xmlTools/include/XmlIncludeTask.hx",
+		"/C/TomRoot/Projects/HaxeProjects/ReactiveHaxe/Source/org/tbyrne/reactive/Reactive.hx",
+		"/C/TomRoot/Projects/HaxeProjects/Composure/src/LazyInst.hx",
+		"/C/TomRoot/Projects/HaxeProjects/NME/browser/media/Sound.hx",
+		"/C/TomRoot/Projects/HaxeProjects/NME/browser/text/Font.hx",
+		"/C/TomRoot/Projects/HaxeProjects/NME/native/display/Stage.hx",
+		"/C/TomRoot/Projects/HaxeProjects/NME/samples/12-MultiTouch/Sample.hx",
+		"/C/TomRoot/Projects/HaxeProjects/NME/tools/command-line-old/src/format/tools/Huffman.hx"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			"C:\\TomRoot\\Projects\\HaxeProjects\\wxwidgets",
+			"C:\\TomRoot\\Projects\\HaxeProjects\\Waxe",
+			"C:\\TomRoot\\Projects\\HaxeProjects\\Starling-Framework, *.as",
+			"C:\\TomRoot\\Projects\\HaxeProjects\\Starling-Framework, *.hx",
+			"C:\\TomRoot\\Projects\\HaxeProjects\\Starling, *.hx",
+			"C:\\TomRoot\\Projects\\HaxeProjects\\GuiseUI, *.hx",
+			"C:\\TomRoot\\Projects\\HaxeProjects\\Guise",
+			"C:\\TomRoot\\Projects\\HaxeProjects\\Waxe",
+			"C:\\Motion-Twin\\haxe-3.0.0\\lib\\nme",
+			"C:\\TomRoot\\Projects\\HaxeProjects,*.hx",
+			"<open files>",
+			"C:\\TomRoot\\Projects\\HaxeProjects,*.hx",
+			"C:\\TomRoot\\Projects\\HaxeProjects",
+			"C:\\Motion-Twin\\haxe\\lib\\waxe",
+			"C:\\TomRoot\\Projects\\HaxeProjects\\",
+			"C:\\TomRoot\\Projects\\HaxeProjects\\SpaceJunkie\\Source",
+			"C:\\TomRoot\\Projects\\HaxeProjects",
+			"C:\\Motion-Twin\\haxe\\lib\\waxe",
+			"C:\\TomRoot\\Projects\\HaxeProjects,*.hx",
+			"C:\\TomRoot\\Projects\\HaxeProjects",
+			"C:\\TomRoot\\Projects\\HaxeProjects\\Tinkerbell",
+			"C:\\Motion-Twin\\haxe\\lib",
+			"C:\\TomRoot\\Projects\\HaxeProjects, *.hx",
+			"C:\\TomRoot\\Projects\\HaxeProjects",
+			"C:\\Motion-Twin",
+			"C:\\TomRoot\\Projects\\HaxeProjects,*.hx",
+			"C:\\TomRoot\\Projects\\HaxeProjects",
+			"C:\\TomRoot\\Projects\\StringParserAS3",
+			"C:\\TomRoot\\Projects\\HaxeProjects\\StringParser",
+			"C:\\TomRoot\\Projects\\HaxeProjects\\",
+			"C:\\TomRoot\\Projects\\HaxeProjects\\,*.hx",
+			"C:\\TomRoot\\Projects\\HaxeProjects\\,-*.cpp,-*.h",
+			"C:\\TomRoot\\Projects\\HaxeProjects\\",
+			"C:\\TomRoot\\Projects\\HaxeProjects\\Flambe",
+			"C:\\TomRoot\\Projects\\HaxeProjects",
+			"C:\\Motion-Twin\\haxe\\lib\\flambe",
+			"C:\\TomRoot\\Projects\\HaxeProjects\\Composure",
+			"C:\\TomRoot\\Projects\\HaxeProjects",
+			"C:\\Motion-Twin\\haxe\\lib\\nme",
+			"C:\\Motion-Twin\\haxe\\lib\\nme\\3,4,0",
+			"C:\\TomRoot\\Projects\\Haxe Projects\\GuiseUI",
+			"C:\\TomRoot\\Projects\\Haxe Projects",
+			"C:\\TomRoot\\Projects\\DVD Lounge\\Repository\\MainApplications\\bin-debug",
+			"C:\\TomRoot\\Projects\\GuiseUI\\bin",
+			"C:\\TomRoot\\Projects\\GuiseUI\\refs\\EaselJS",
+			"C:\\Motion-Twin\\haxe\\lib\\hsl-1",
+			"C:\\TomRoot\\Projects\\Composure\\src",
+			"C:\\TomRoot\\Projects\\Sushi\\Source",
+			"C:\\TomRoot\\Projects\\DVD Lounge\\Repository",
+			"<open files>",
+			"<open files>,C:\\TomRoot\\Projects\\DVD Lounge\\Repository\\MainApplications\\bin-debug",
+			"<open files>",
+			"C:\\TomRoot\\Projects\\Evolvex\\Repository\\FlexProject\\bin-debug\\xml"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"Waxe",
+			"..\\",
+			"wxHORIZONTAL",
+			"HORIZONTAL",
+			" wx",
+			"wx",
+			"\\n",
+			"var wx",
+			" 0x",
+			"#define",
+			"CB_READONLY",
+			"READONLY",
+			"_get_selection",
+			"wx_list_box_get_string",
+			"CreationParams",
+			"parent",
+			"]",
+			"[",
+			" val_array_i(",
+			"val_array_i",
+			"template",
+			"bool",
+			"wx_menu_append",
+			"clipRect",
+			"<m-addFact params=\"function(into:Dynamic):Dynamic return new guise.platform.nme.logic.ScrollRect(new guise.skin.values.Bind(guise.controls.scroll.IScrollMetrics.IHScrollMetrics, 'scroll'), new guise.skin.values.Bind(guise.controls.scroll.IScrollMetrics.IVScrollMetrics, 'scroll'), new guise.skin.values.Width(), new guise.skin.values.Height())\"/>",
+			"clipRect",
+			"override",
+			"35>",
+			"389",
+			"362",
+			"359",
+			"347",
+			"VTrack",
+			"HScrollThumb",
+			"Track",
+			"Width",
+			"IHScrollMetrics",
+			"sliderBacking",
+			"Progress",
+			"sliderBacking",
+			"haxe.Resource",
+			"Resource",
+			"IHScrollMetrics",
+			"buttonFiltNorm",
+			"normGradient",
+			"buttonFiltNorm",
+			"PanelTag",
+			"panel",
+			".update(",
+			"wx_button",
+			"label",
+			"get_label",
+			"wx_button_get_label",
+			"wx_checkbox_create",
+			"DEFINE_PRIM",
+			"window",
+			"swf9",
+			"Prolog",
+			"ObjectHash",
+			"cmtc.ds.hash.ObjectHash",
+			"Http",
+			"http",
+			"Map< Dynamic",
+			"Map < Dynamic",
+			"Map <Dynamic",
+			"Map<Dynamic",
+			"Map<String,([^<>]*?),([^<>]*?)>",
+			"Map<String,([^>]*?),([^>]*?)>",
+			"Map<([^>]*?),([^>]*?),([^>]*?)>",
+			"Map<(.*?),(.*?),(.*?)>",
+			"ObjectMap",
+			"CType",
+			"EType",
+			"EField",
+			"EType",
+			"Hash",
+			"Hash<(.*)>",
+			"Hash",
+			"IntMap<String",
+			"Hash",
+			"Hash <(.*?)>",
+			"IntHash<(.*?)>",
+			"IntHash <(.*?)>",
+			"Hash",
+			"ObjectHash",
+			"import cmtc.ds.hash.ObjectHash;",
+			"Hash",
+			"new Hash\\(",
+			"new Hash(",
+			"Hash<(.*?)>",
+			"Hash<(.*)>",
+			"Hash",
+			"@:macro",
+			"TITLE_EXPR",
+			"Slider",
+			"TextButtonTag",
+			"TextInputTag",
+			"inputText",
+			"IClick",
+			"guise.controls.data.IClick",
+			"Std.format",
+			"\\tpublic var (\\w*)\\(default,",
+			"var (\\w*)\\(default,",
+			"var (\\w*)\\(get,",
+			"var (\\w*)\\(never",
+			"var (\\w*)\\(get_(\\w*), never\\)",
+			"var (\\w*)\\(get_(\\w*), null\\)",
+			"var (\\w*)\\(default, set_(\\w*)\\)",
+			"var (\\w*)\\(get_(\\w*), set_(\\w*)\\)",
+			"Lib",
+			"Lib.window",
+			"Lib",
+			"Lib.document",
+			"js.Lib.document",
+			", implements",
+			"interface (\\w*) implements",
+			"(I\\w*) implements",
+			", implements",
+			"FastList",
+			"callback(",
+			"labelTextStyle",
+			"textFiltNorm",
+			"inputBackFocus",
+			"inputBackNorm",
+			"buttonBackDownUnsel",
+			"buttonBackOver",
+			"buttonBackSelOver",
+			"buttonBackSelNorm"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"Starling",
+			" ../",
+			" ",
+			"",
+			";\\n",
+			"var ",
+			" = 0x",
+			"public static var",
+			"",
+			",",
+			"wx_scrolled_window_set_scrollbars",
+			"25>",
+			"387",
+			"390",
+			"389",
+			"375",
+			"VScrollThumb",
+			"HTrack",
+			"Height",
+			"IVScrollMetrics",
+			"HScrollThumb",
+			"IVScrollMetrics",
+			"ObjectMap",
+			"ObjectHash<Dynamic",
+			"Map",
+			"Map<Int",
+			"Map<String, $1>",
+			"Map<Int, $1>",
+			"Map",
+			"",
+			"new Map(",
+			"Map<String, $1>",
+			"macro",
+			"\\t@:isVar public var $1(default,",
+			"var $1(get, null)",
+			"var $1(default, set)",
+			"var $1(get, set)",
+			"js.Browser.document",
+			" implements",
+			"interface $1 extends",
+			"GenericStack",
+			"",
+			" p-sorting",
+			"inputTextBacking",
+			"TextInput",
+			"ButtonDown",
+			"ButtonOver",
+			"starling",
+			"48",
+			"tilelayer",
+			"ValueMacro",
+			"pos",
+			"Layout.edge",
+			"values",
+			"Width()",
+			"Height()",
+			"StyledLayer",
+			"backingFilt",
+			"guise.layout.IBoxPos",
+			"ShapeStyle.SsEllipse",
+			"controlHandleFilt",
+			"FilterType",
+			"textFiltNorm",
+			"SelectableState",
+			"Value",
+			"VAlign",
+			"HAlign",
+			"AntiAliasType",
+			"TextCase",
+			"TextModifier",
+			"TextStyle",
+			"IFilterableAccess.",
+			"IFilterableAccess,",
+			"IFilterableAccess\"",
+			"IFilterableAcces",
+			"ButtonDownState",
+			"ButtonOverState",
+			"SelectedState",
+			"ITextOutputAccess",
+			"TextLabelStyle",
+			"BoxStyle",
+			"/var>",
+			"<var",
+			"/var>",
+			"<var",
+			"pos",
+			"obj",
+			"waxe",
+			"html5",
+			"pos",
+			"type=\"Furnisher\"",
+			"er\" p-concernedTraitType=\"",
+			"p-concernedTraitType=\"",
+			"pos",
+			":",
+			"m-mapAccessType",
+			":BoxPos;",
+			"new BoxPos(",
+			":Pos ",
+			":BoxPos ",
+			"guise.core",
+			"IBoxPos",
+			"guise.macro.FurnisherMacro",
+			"FurnisherMacro",
+			".utils.DrawnStyles",
+			".utils.DrawnStyleUtils",
+			".utils.DrawnStyleTrans",
+			"guise.skin.drawn.utils",
+			"guise.skin.drawn",
+			"DrawnStyleUtils",
+			"DrawnStyleTrans",
+			"guise.skin.common.AbsStyledLayer",
+			"guise.skin.values",
+			"guise.trans",
+			"pos",
+			"guise.platform.nme.accessTypes.FilterableAccess",
+			"guise.platform.nme.accessTypes",
+			"accessTypes",
+			"pos",
+			":",
+			"guise.accessTypes.IGraphicsAccess",
+			"guise.accessTypes.IMouseInteractionsAccess",
+			"IMouseInteractionsAccess",
+			"IGraphicsLayer",
+			"IGraphicsAccess",
+			"IMouseClickableAccess",
+			"guise.accessTypes",
+			"DisplayTrait"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Build, Install & Run.bat",
+					"settings":
+					{
+						"buffer_size": 218,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Batch File/Batch File.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "build.xml",
+					"settings":
+					{
+						"buffer_size": 476,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/TomRoot/Projects/HaxeProjects/GuiseUI/testSrc/StarlingTest.hx",
+					"settings":
+					{
+						"buffer_size": 851,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								777,
+								781
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"native",
+				"src/guise/platform/native/NativePlatformAccess.hx"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 290.0,
+	"status_bar_visible": true
+}
