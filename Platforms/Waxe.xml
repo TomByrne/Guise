@@ -48,8 +48,11 @@
 		 <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ListBoxTag" addCall="addTrait">
 			<m-addType params="guise.platform.waxe.controls.ListBoxTrait"/>
 		</var>
-		 <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.OptionPickerTag" addCall="addTrait">
+		 <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.OptionPickerTag(false)" addCall="addTrait" p-checkEnumParams="[0]">
 			<m-addType params="guise.platform.waxe.controls.OptionPickerTrait"/>
+		</var>
+		 <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.OptionPickerTag(true)" addCall="addTrait" p-checkEnumParams="[0]">
+			<m-addFact params="function(into:Dynamic):Dynamic return new guise.platform.waxe.controls.OptionPickerTrait(true)"/>
 		</var>
 
 

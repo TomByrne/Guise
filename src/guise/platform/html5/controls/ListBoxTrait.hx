@@ -1,6 +1,6 @@
 package guise.platform.html5.controls;
 
-class ListBoxTrait extends OptionPickerTrait
+class ListBoxTrait extends DropDownTrait
 {
 
 	public function new() 
@@ -8,7 +8,7 @@ class ListBoxTrait extends OptionPickerTrait
 		super();
 	}
 	override private function compileItems():Void {
-		_element.setAttribute("size", Std.string(_textLabels.length));
+		_select.setAttribute("size", Std.string(_textLabels.length));
 		super.compileItems();
 	}
 }

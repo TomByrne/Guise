@@ -4,6 +4,7 @@ import composure.core.ComposeGroup;
 import composure.core.ComposeItem;
 import guise.controls.data.IListCollection;
 import guise.controls.logic.input.ClickToggleSelect;
+import guise.controls.logic.input.TextInputPrompt;
 import guise.core.CoreTags;
 import guise.controls.ControlTags;
 import guise.controls.data.ITextLabel;
@@ -31,7 +32,8 @@ class TestControls
 		addSlider(item, false);
 		addScrollPanel(item, "Scrollable Panel");
 		addListBox(item);
-		addOptionPicker(item);
+		addOptionPicker(item, false, "Option Picker");
+		addOptionPicker(item, true, "Editable Option Picker");
 	}
 	public static function addButton(parent:ComposeGroup, text:String, selectable:Bool):Void {
 		parent.addChild(new ComposeItem([new TextButtonTag(selectable, text), new VStackLayoutInfo()]));
@@ -58,10 +60,10 @@ class TestControls
 		for (i in 0...12) list.add(new TextLabel("Item " + i));
 		parent.addChild(new ComposeItem([ListBoxTag, new ListCollection(list), new VStackLayoutInfo()]));
 	}
-	public static function addOptionPicker(parent:ComposeGroup):Void {
+	public static function addOptionPicker(parent:ComposeGroup, editable:Bool, prompt:String):Void {
 		var list:List<TextLabel> = new List<TextLabel>();
 		for (i in 0...12) list.add(new TextLabel("Item " + i));
-		parent.addChild(new ComposeItem([OptionPickerTag, new ListCollection(list), new VStackLayoutInfo()]));
+		parent.addChild(new ComposeItem([OptionPickerTag(editable), new ListCollection(list), new VStackLayoutInfo(), new InputPrompt(prompt)]));
 	}
 	
 }

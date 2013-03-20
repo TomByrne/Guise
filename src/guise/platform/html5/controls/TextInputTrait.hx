@@ -7,11 +7,6 @@ import guise.platform.html5.display.DisplayTrait;
 import js.Dom;
 import js.Lib;
 
-/**
- * ...
- * @author Tom Byrne
- */
-
 class TextInputTrait extends TextLabelTrait
 {
 	@inject

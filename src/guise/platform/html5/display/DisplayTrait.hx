@@ -114,6 +114,9 @@ class DisplayTrait extends AbsDisplayTrait, implements IMeasurement
 		domElement.style.height = hWas;
 		domElement.style.position = pWas;
 		
+		setMeas(measWidth, measHeight);
+	}
+	private function setMeas(measWidth:Float, measHeight:Float):Void {
 		if (_measWidth != measWidth || _measHeight != measHeight) {
 			_measWidth = measWidth;
 			_measHeight = measHeight;

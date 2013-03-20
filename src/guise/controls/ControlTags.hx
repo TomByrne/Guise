@@ -4,7 +4,7 @@ package guise.controls;
 enum ControlTags {
 	PanelTag;
 	ListBoxTag;
-	OptionPickerTag;
+	OptionPickerTag(editable:Bool);
 	HScrollBarTag;
 	VScrollBarTag;
 }

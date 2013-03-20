@@ -19,16 +19,16 @@
     <class path="..\testSrc" />
     <class path="..\..\Composure\src" />
     <class path="C:\TomRoot\Projects\HaxeProjects\Starling-hx/" />
-    <class path="C:\TomRoot\Projects\HaxeProjects\Waxe/" />
-    <class path="../bin/windows/cpp/haxe" />
+    <class path="C:\Motion-Twin\haxe-2.1.0\lib\nme/3,5,5/" />
+    <class path="../bin/html5/haxe" />
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="as3_native&#xA;nme_install_tool&#xA;windows&#xA;desktop" />
+    <option directives="as3_native&#xA;nme_install_tool&#xA;html5&#xA;web&#xA;html5&#xA;html" />
     <option flashStrict="False" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="True" />
-    <option additional="--remap flash:nme&#xA;--remap browser:native" />
+    <option additional="--remap flash:nme&#xA;--remap native:browser&#xA;--js-modern" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>
@@ -36,7 +36,7 @@
     <library name="feffects" />
     <library name="xmlTools" />
     <library name="starling" />
-    <library name="waxe" />
+    <library name="nme" />
   </haxelib>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>

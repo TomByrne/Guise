@@ -57,8 +57,11 @@
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ListBoxTag" addCall="addTrait">
 			<m-addType params="guise.platform.html5.controls.ListBoxTrait"/>
 		</var>
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.OptionPickerTag" addCall="addTrait">
-			<m-addType params="guise.platform.html5.controls.OptionPickerTrait"/>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.OptionPickerTag(false)" addCall="addTrait" p-checkEnumParams="[0]">
+			<m-addType params="guise.platform.html5.controls.DropDownTrait"/>
+		</var>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.OptionPickerTag(true)" addCall="addTrait" p-checkEnumParams="[0]">
+			<m-addType params="guise.platform.html5.controls.ComboBoxTrait"/>
 		</var>
 
 

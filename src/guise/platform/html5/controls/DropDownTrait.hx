@@ -1,6 +1,7 @@
 package guise.platform.html5.controls;
 
 import composure.core.ComposeItem;
+import guise.controls.data.IInputPrompt;
 import guise.controls.data.IListCollection;
 import guise.controls.data.ITextLabel;
 import guise.platform.html5.display.DisplayTrait;
@@ -9,9 +10,10 @@ import js.Lib;
 
 using Lambda;
 
-class OptionPickerTrait extends DisplayTrait
+class DropDownTrait extends DisplayTrait
 {
 	private static var DUMMY_ITEM:ComposeItem;
+	
 	
 	@inject
 	@:isVar public var listCollection(default, set_listCollection):IListCollection<Dynamic>;
@@ -29,13 +31,17 @@ class OptionPickerTrait extends DisplayTrait
 	
 	private var _textLabels:Array<ITextLabel>;
 	
-	private var _element:Select;
+	private var _select:Select;
 
 	public function new() 
 	{
 		_allowSizing = true;
-		_element = cast Lib.document.createElement("select");
-		super(_element);
+		super(createSelectElement());
+	}
+	
+	private function createSelectElement():HtmlDom {
+		_select = cast Lib.document.createElement("select");
+		return _select;
 	}
 	
 	
@@ -69,19 +75,19 @@ class OptionPickerTrait extends DisplayTrait
 		compileItems();
 	}
 	private function compileItems():Void {
-		while (_element.options.length>0) {
-			_element.removeChild(_element.options[0]);
+		while (_select.options.length>0) {
+			_select.removeChild(_select.options[0]);
 		}
 		for (textLabel in _textLabels) {
 			var option = cast Lib.document.createElement("option");
 			option.text = textLabel.text;
-			_element.appendChild(option);
+			_select.appendChild(option);
 		}
 		checkMeas();
 	}
 	private function onTextChanged(from:ITextLabel):Void {
 		var index:Int = _textLabels.indexOf(from);
-		var option:Option = _element.options[index];
+		var option:Option = _select.options[index];
 		option.text = from.text;
 		checkMeas();
 	}
