@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<launchConfiguration type="com.powerflasher.fdt.ui.ViewerLaunchGroup">
-<booleanAttribute key="KILL_PREVIOUS_VIEWER" value="true"/>
-<stringAttribute key="MAIN_CLASS" value="bin/GraphicsComparisonTest.swf"/>
-<intAttribute key="PLAYER_HEIGHT" value="400"/>
-<intAttribute key="PLAYER_WIDTH" value="550"/>
-<stringAttribute key="PROJECT_NAME" value="GuiseUI"/>
-<stringAttribute key="START_SWF_WITH" value="External SWF Viewer"/>
-</launchConfiguration>

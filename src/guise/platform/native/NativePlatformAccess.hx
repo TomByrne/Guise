@@ -14,6 +14,10 @@ class NativePlatformAccess
 		#elseif waxe
 			// Waxe fallback
 			XmlToCode.path("/../../../../Platforms/Waxe.xml").install(within);
+		#elseif starling
+			// Starling fallback
+			XmlToCode.path("/../../../../Platforms/Starling.xml").install(within);
+			XmlToCode.path("/../../../../Styles/Mani.xml").install(within);
 		#elseif nme
 			// NME fallback
 			XmlToCode.path("/../../../../Styles/Chutzpah.xml").install(within);

@@ -4,7 +4,7 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="GuiseUI.nmml" />
+    <movie path="GuiseNME.nmml" />
     <movie fps="30" />
     <movie width="800" />
     <movie height="600" />
@@ -15,9 +15,8 @@
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
-    <class path="..\src" />
-    <class path="..\testSrc" />
-    <class path="..\..\Composure\src" />
+    <class path="..\..\src" />
+    <class path="..\..\testSrc" />
     <class path="C:\TomRoot\Projects\HaxeProjects\Starling-hx/" />
     <class path="C:\Motion-Twin\haxe-2.1.0\lib\nme/3,5,5/" />
     <class path="../bin/html5/haxe" />
@@ -40,9 +39,7 @@
   </haxelib>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="..\testSrc\NmeTest.hx" />
     <compile path="..\testSrc\NativeTest.hx" />
-    <compile path="..\testSrc\TileLayerTest.hx" />
   </compileTargets>
   <!-- Assets to embed into the output SWF -->
   <library>

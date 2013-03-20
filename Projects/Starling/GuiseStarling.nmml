@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<app title="GuiseStarling" file="GuiseStarling" main="NativeTest" package="org.tbyrne.guise.starling" version="1.0.0" company="Tom Byrne" />
+	
+	<window
+		width="800"
+		height="600"
+		orientation="landscape"
+		fps="30"
+		background="0xffffff"
+		resizeable="true"
+		hardware="true"
+		/>
+ 	
+	<set name="BUILD_DIR" value="bin" />
+	
+    <classpath name="../../src" />
+    <classpath name="../../testSrc" />
+
+    <haxelib name="msignal" />
+    <haxelib name="composure" />
+    <haxelib name="feffects" />
+    <haxelib name="xmlTools" />
+    <haxelib name="starling" />
+    <haxelib name="nme" />
+	
+	<assets path="../../Assets" rename="assets" include="*" exclude="nme.svg" unless="html5" />
+	
+	<icon name="../../Assets/nme.svg" />
+	
+	<ndll name="std" />
+	<ndll name="regexp" />
+	<ndll name="zlib" />
+	<ndll name="nme" haxelib="nme" />
+	
+</project>
