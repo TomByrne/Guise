@@ -2,7 +2,10 @@ package guise.data;
 
 import msignal.Signal;
 
-
+/**
+ * IInputPrompt is the text shown in an input control before the user has
+ * entered any information (called a placeholder or hint on some platforms).
+ */
 interface IInputPrompt 
 {
 	public var promptChanged(get_promptChanged, null):Signal1<IInputPrompt>;
@@ -22,9 +25,8 @@ class InputPrompt implements IInputPrompt
 	
 	public var prompt(default, null):String;
 
-	public function new(prompt:Null<String>=null) 
+	public function new(?prompt:Null<String>) 
 	{
-		promptChanged = new Signal1();
 		setPrompt(prompt);
 	}
 	

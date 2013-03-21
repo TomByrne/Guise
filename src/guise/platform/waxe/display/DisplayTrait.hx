@@ -35,7 +35,7 @@ class DisplayTrait<T:Window> extends ContainerTrait, implements IMeasurement{
 	private var _creator:Window->T;
 	private var _size:Size;
 	private var _position:Position;
-	private var _executeBundles:ObjectHash<Dynamic, Array<ExecuteBundle>>;
+	private var _executeBundles:ObjectHash<Dynamic, Array<ExecuteBundle<T>>>;
 
 	public function new(creator:Window->T) 
 	{
@@ -63,7 +63,7 @@ class DisplayTrait<T:Window> extends ContainerTrait, implements IMeasurement{
 			for (owner in _executeBundles.keys()) {
 				var bundles = _executeBundles.get(owner);
 				for (bundle in bundles) {
-					bundle.add();
+					bundle.add(window);
 				}
 			}
 		}
@@ -76,7 +76,7 @@ class DisplayTrait<T:Window> extends ContainerTrait, implements IMeasurement{
 			for (owner in _executeBundles.keys()) {
 				var bundles = _executeBundles.get(owner);
 				for (bundle in bundles) {
-					bundle.remove();
+					bundle.remove(window);
 				}
 			}
 		}
@@ -112,31 +112,31 @@ class DisplayTrait<T:Window> extends ContainerTrait, implements IMeasurement{
 	}
 	public function clear(owner:Dynamic):Void {
 		if (_executeBundles != null && _executeBundles.exists(owner)) {
-			var bundles:Array<ExecuteBundle> = _executeBundles.get(owner);
+			var bundles:Array<ExecuteBundle<T>> = _executeBundles.get(owner);
 			if(window!=null){
 				for (bundle in bundles) {
-					bundle.remove();
+					bundle.remove(window);
 				}
 			}
 			_executeBundles.delete(owner);
 		}
 	}
-	public function on(owner:Dynamic, add:Void->Void, remove:Void->Void):Void {
-		var bundle:ExecuteBundle = { owner:owner, add:add, remove:remove };
+	public function on(owner:Dynamic, add:T->Void, remove:T->Void):Void {
+		var bundle:ExecuteBundle<T> = { owner:owner, add:add, remove:remove };
 		if (_executeBundles == null) {
 			_executeBundles = new ObjectHash();
 		}
-		var bundles:Array<ExecuteBundle> = _executeBundles.get(owner);
+		var bundles:Array<ExecuteBundle<T>> = _executeBundles.get(owner);
 		if (bundles == null) {
 			bundles = [bundle];
 			_executeBundles.set(owner, bundles);
 		}
 		if (window != null) {
-			add();
+			add(window);
 		}
 	}
 	public function addHandler(owner:Dynamic, event:EventID, handler:Dynamic->Void):Void {
-		this.on(owner, function() { this.window.setHandler(event, handler); }, function() { this.window.setHandler(event, null); } );
+		this.on(owner, function(window:T) { this.window.setHandler(event, handler); }, function(window:T) { this.window.setHandler(event, null); } );
 	}
 	
 	
@@ -151,8 +151,8 @@ class DisplayTrait<T:Window> extends ContainerTrait, implements IMeasurement{
 	}
 	
 }
-typedef ExecuteBundle = {
+typedef ExecuteBundle<T : Window> = {
 	var owner:Dynamic;
-	var add:Void->Void;
-	var remove:Void->Void;
+	var add:T->Void;
+	var remove:T->Void;
 }

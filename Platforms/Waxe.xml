@@ -57,5 +57,8 @@
 
 
 		<!-- Additional control logic -->
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.data.IControlInfo" addCall="addTrait" m-setCheckProps="{type:guise.data.IControlInfo.ControlInfoType.FocusTip}">
+			<m-addType params="guise.platform.waxe.logic.ToolTipAdder"/>
+		</var>
 	</meth>
 </class>
