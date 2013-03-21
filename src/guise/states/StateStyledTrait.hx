@@ -1,8 +1,8 @@
 package guise.states;
 import composure.traits.AbstractTrait;
-import guise.skin.values.ValueUtils;
+import guise.values.ValueUtils;
 import guise.utils.Clone;
-import guise.skin.values.IValue;
+import guise.values.IValue;
 import guise.trans.ITransitioner;
 import cmtc.ds.hash.ObjectHash;
 import Lambda;

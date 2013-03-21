@@ -1,9 +1,9 @@
 package guise.meas;
 import msignal.Signal;
 #if !macro
-import guise.skin.values.ValueUtils;
+import guise.values.ValueUtils;
 import composure.traits.AbstractTrait;
-import guise.skin.values.IValue;
+import guise.values.IValue;
 #else
 import haxe.macro.Expr;
 import guise.macro.ValueMacro;

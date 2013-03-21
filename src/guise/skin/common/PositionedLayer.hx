@@ -7,10 +7,10 @@ import haxe.macro.Expr;
 import haxe.macro.Context;
 #else
 import guise.layout.IBoxPos;
-import guise.skin.values.Height;
-import guise.skin.values.IValue;
-import guise.skin.values.Value;
-import guise.skin.values.Width;
+import guise.values.Height;
+import guise.values.IValue;
+import guise.values.Value;
+import guise.values.Width;
 import guise.trans.ITransitioner;
 import guise.states.StateStyledTrait;
 #end

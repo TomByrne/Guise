@@ -1,8 +1,8 @@
 package guise.platform.nme.logic;
 import composure.traits.AbstractTrait;
 import guise.platform.nme.display.ContainerTrait;
-import guise.skin.values.IValue;
-import guise.skin.values.ValueUtils;
+import guise.values.IValue;
+import guise.values.ValueUtils;
 import msignal.Signal;
 import nme.geom.Rectangle;
 

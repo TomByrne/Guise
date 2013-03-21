@@ -1,7 +1,7 @@
 package guise.platform.waxe.controls;
 import composure.core.ComposeItem;
-import guise.controls.data.IListCollection;
-import guise.controls.data.ITextLabel;
+import guise.data.IListCollection;
+import guise.data.ITextLabel;
 import wx.ListBox;
 import wx.Window;
 import guise.platform.waxe.display.DisplayTrait;

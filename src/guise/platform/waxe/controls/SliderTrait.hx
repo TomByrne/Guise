@@ -1,6 +1,6 @@
 package guise.platform.waxe.controls;
 
-import guise.controls.data.INumRange;
+import guise.data.INumRange;
 import guise.platform.waxe.display.DisplayTrait;
 import wx.EventID;
 import wx.Window;

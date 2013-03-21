@@ -1,8 +1,8 @@
 package guise.platform.starling.logic;
 import composure.traits.AbstractTrait;
 import guise.platform.starling.display.ContainerTrait;
-import guise.skin.values.IValue;
-import guise.skin.values.ValueUtils;
+import guise.values.IValue;
+import guise.values.ValueUtils;
 import msignal.Signal;
 import flash.geom.Rectangle;
 

@@ -4,7 +4,7 @@ import guise.skin.drawn.utils.DrawnStyles;
 import guise.skin.drawn.utils.DrawnStyleUtils;
 import guise.accessTypes.IGraphicsAccess;
 import guise.geom.Matrix;
-import guise.skin.values.IValue;
+import guise.values.IValue;
 import guise.accessTypes.IPositionAccess;
 import guise.skin.common.PositionedLayer;
 

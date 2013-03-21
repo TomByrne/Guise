@@ -21,28 +21,28 @@ class ValueMacro
 				}else if (getClassPath(e1) != null) {
 					// this is for the Class.prop notation (i.e. wrapping in a Bind object)
 					var fieldE:Expr = Context.parse('"' + field + '"', Context.currentPos());
-					return macro new guise.skin.values.Bind($e1, $fieldE);
+					return macro new guise.values.Bind($e1, $fieldE);
 				}
 			case EConst(c):
 				// This wraps raw numbers and variables in Value objects
-				return macro new guise.skin.values.Value($e);
+				return macro new guise.values.Value($e);
 			case EBinop(op, e1, e2):
 				// This wraps mathemathical expressions in Calc objects
 				e1 = interpValue(e1);
 				e2 = interpValue(e2);
 				switch(op) {
 					case OpAdd:
-						return macro new guise.skin.values.Calc(guise.skin.values.Calc.Operator.Add, [$e1, $e2]);
+						return macro new guise.values.Calc(guise.values.Calc.Operator.Add, [$e1, $e2]);
 					case OpSub:
-						return macro new guise.skin.values.Calc(guise.skin.values.Calc.Operator.Subtract, [$e1, $e2]);
+						return macro new guise.values.Calc(guise.values.Calc.Operator.Subtract, [$e1, $e2]);
 					case OpDiv:
-						return macro new guise.skin.values.Calc(guise.skin.values.Calc.Operator.Divide, [$e1, $e2]);
+						return macro new guise.values.Calc(guise.values.Calc.Operator.Divide, [$e1, $e2]);
 					case OpMult:
-						return macro new guise.skin.values.Calc(guise.skin.values.Calc.Operator.Multiply, [$e1, $e2]);
+						return macro new guise.values.Calc(guise.values.Calc.Operator.Multiply, [$e1, $e2]);
 					case OpLt:
-						return macro new guise.skin.values.Calc(guise.skin.values.Calc.Operator.Min, [$e1, $e2]);
+						return macro new guise.values.Calc(guise.values.Calc.Operator.Min, [$e1, $e2]);
 					case OpGt:
-						return macro new guise.skin.values.Calc(guise.skin.values.Calc.Operator.Max, [$e1, $e2]);
+						return macro new guise.values.Calc(guise.values.Calc.Operator.Max, [$e1, $e2]);
 					default:
 						Context.error("Unsupported operator: " + op, Context.currentPos());
 				}
@@ -58,7 +58,7 @@ class ValueMacro
 								if (firstChar == firstChar.toLowerCase()) {
 									var fieldE:Expr = Context.parse('"' + field + '"', Context.currentPos());
 									var signalE:Expr = Context.parse('"' + signal + '"', Context.currentPos());
-									return macro new guise.skin.values.Bind($e2, $fieldE, $signalE);
+									return macro new guise.values.Bind($e2, $fieldE, $signalE);
 								}
 							default: // ignore
 						}

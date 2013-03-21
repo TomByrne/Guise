@@ -15,7 +15,7 @@
 		<var name="TextureInfo" value="guise.accessTypes.ITextureAccess.TextureInfo"/>
 		
 		<var name="DimMod" value="guise.meas.MeasOverride.DimMod"/>
-		<var name="Op" value="guise.skin.values.Calc.Operator"/>
+		<var name="Op" value="guise.values.Calc.Operator"/>
 
 		<var name="SelectedState" value="guise.states.ControlStates.SelectedState"/>
 		<var name="ButtonOverState" value="guise.states.ControlStates.ButtonOverState"/>
@@ -44,23 +44,23 @@
 		</meth>
 		<meth name="toggleBacking" static="true" a-tag="Dynamic" ret="layer">
 			<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'backing'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('HTrack',true), -1,-1,-3,-1)">
-				<m-addLayout params="null, guise.skin.values.Width*0.5-25, guise.skin.values.Height*0.5-13, 50, 26"/>
+				<m-addLayout params="null, guise.values.Width*0.5-25, guise.values.Height*0.5-13, 50, 26"/>
 			</var>
 		</meth>
 		<meth name="sliderBacking" static="true" a-tag="Dynamic" ret="layer">
 			<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'backing'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('HTrack',true), -1,-1,-3,-1)">
-				<m-addLayout params="null, 0, guise.skin.values.Height*0.5-13, guise.skin.values.Width, 26"/>
+				<m-addLayout params="null, 0, guise.values.Height*0.5-13, guise.values.Width, 26"/>
 			</var>
 		</meth>
 
 		<meth name="labelText" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextStyleLayer">
 			 <var type="guise.skin.drawn.TextStyleLayer" name="layer" p-layerName="'labelText'" p-normalStyle="labelTextStyle">
-				<m-addLayout params="null, (guise.skin.values.Width/2)-(guise.skin.values.TextWidth<guise.skin.values.Width)/2, (guise.skin.values.Height/2)-(guise.skin.values.TextHeight<guise.skin.values.Height)/2, guise.skin.values.TextWidth<guise.skin.values.Width, guise.skin.values.TextHeight<guise.skin.values.Height"/>
+				<m-addLayout params="null, (guise.values.Width/2)-(guise.values.TextWidth<guise.values.Width)/2, (guise.values.Height/2)-(guise.values.TextHeight<guise.values.Height)/2, guise.values.TextWidth<guise.values.Width, guise.values.TextHeight<guise.values.Height"/>
 			</var> 
 		</meth>
 		<meth name="inputText" static="true" a-tag="Dynamic" ret="layer" ret-type="guise.skin.drawn.TextStyleLayer">
 			<var type="guise.skin.drawn.TextStyleLayer" name="layer" p-layerName="'inputText'" p-normalStyle="inputTextStyle">
-				<m-addLayout params="null, 8, (guise.skin.values.Height/2)-(guise.skin.values.TextHeight<(guise.skin.values.Height-10))/2, guise.skin.values.Width-16, guise.skin.values.TextHeight<(guise.skin.values.Height-10)"/>
+				<m-addLayout params="null, 8, (guise.values.Height/2)-(guise.values.TextHeight<(guise.values.Height-10))/2, guise.values.Width-16, guise.values.TextHeight<(guise.values.Height-10)"/>
 			</var>
 		</meth>
 
@@ -68,13 +68,13 @@
 			<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'controlHandle'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('ToggleRed'), -2,-2,-8,-2)">
 				<m-addStyle params="[SelectedState.SELECTED], TextureStyle.pad(TextureInfo.sprite('ToggleGreen'), -2,-2,-8,-2)"/>
 
-				<m-addLayout params="null, guise.skin.values.Width*0.5-25, guise.skin.values.Height*0.5-12, 24, 24"/>
-				<m-addLayout params="[SelectedState.SELECTED], guise.skin.values.Width*0.5+1, guise.skin.values.Height*0.5-12, 24, 24"/>
+				<m-addLayout params="null, guise.values.Width*0.5-25, guise.values.Height*0.5-12, 24, 24"/>
+				<m-addLayout params="[SelectedState.SELECTED], guise.values.Width*0.5+1, guise.values.Height*0.5-12, 24, 24"/>
 			</var>
 		</meth>
 		<meth name="sliderHandle" static="true" a-tag="Dynamic" ret="layer">
 			<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'controlHandle'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('Progress',true), -2,-4,-8,-4)">
-				<m-addLayout params="null, 4, guise.skin.values.Height*0.5-10, 18+(guise.skin.values.Width-26)*guise.controls.data.INumRange.valueNorm, 18"/>
+				<m-addLayout params="null, 4, guise.values.Height*0.5-10, 18+(guise.values.Width-26)*guise.data.INumRange.valueNorm, 18"/>
 			</var>
 		</meth>
 
@@ -84,40 +84,40 @@
 		</var>
 
 		<!-- control furnishers -->
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags" addCall="addTrait">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.ControlTags" addCall="addTrait">
 			<m-addInst params="styleTransitioner"/>
 		</var>
 
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag" addCall="addTrait">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.ControlTags.TextButtonTag" addCall="addTrait">
 			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
 				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','labelText']"/>
 			</meth>
 			<meth addCall="addFact" ret="meas" a-cause="Dynamic">
-				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="guise.skin.values.TextWidth+40,(guise.skin.values.TextHeight+26)>40"/>
+				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="guise.values.TextWidth+40,(guise.values.TextHeight+26)>40"/>
 			</meth>
 			<m-addFact params="labelText"/>
 			<m-addFact params="buttonBacking"/>
 		</var>
 
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextInputTag" addCall="addTrait">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.ControlTags.TextInputTag" addCall="addTrait">
 			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
 				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','inputText']"/>
 			</meth>
 			<meth addCall="addFact" ret="meas" a-cause="Dynamic">
-				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="100,(guise.skin.values.TextHeight+26)>40"/>
+				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="100,(guise.values.TextHeight+26)>40"/>
 			</meth>
 			<m-addFact params="inputText"/>
 			<m-addFact params="inputTextBacking"/>
 		</var>
 
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextLabelTag" addCall="addTrait">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.ControlTags.TextLabelTag" addCall="addTrait">
 			<m-addFact params="labelText"/>
 			<meth addCall="addFact" ret="meas" a-cause="Dynamic">
-				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="guise.skin.values.TextWidth,guise.skin.values.TextHeight"/>
+				<var name="meas" type="guise.meas.IMeasurement.Meas" m-setVal="guise.values.TextWidth,guise.values.TextHeight"/>
 			</meth>
 		</var>
 
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.ControlTags.ToggleButtonTag" addCall="addTrait">
 			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
 				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','controlHandle']"/>
 			</meth>
@@ -128,7 +128,7 @@
 			<m-addFact params="toggleBacking"/>
 		</var>
 
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag" addCall="addTrait" m-setCheckProps="{vert:false}">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.ControlTags.SliderTag" addCall="addTrait" m-setCheckProps="{vert:false}">
 			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
 				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','controlHandle']"/>
 			</meth>
@@ -140,70 +140,70 @@
 			<m-addFact params="sliderBacking"/>
 		</var>
 
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.PanelTag" addCall="addTrait">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.ControlTags.PanelTag" addCall="addTrait">
 			<meth static="true" a-tag="Dynamic" ret="layer" addCall="addFact">
 				<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'backing'" p-normalStyle="TextureStyle.norm(TextureInfo.tile('Panel'))">
 				</var>
 			</meth>
 
-			<m-addInst params="guise.controls.ControlTags.HScrollBarTag"/>
-			<m-addInst params="guise.controls.ControlTags.VScrollBarTag"/>
+			<m-addInst params="guise.ControlTags.HScrollBarTag"/>
+			<m-addInst params="guise.ControlTags.VScrollBarTag"/>
 
 			<meth static="true" a-tag="Dynamic" ret="scrollLimiter" addCall="addFact">
-				<var type="guise.controls.scroll.ScrollLimiter" name="scrollLimiter"/>
+				<var type="guise.scroll.ScrollLimiter" name="scrollLimiter"/>
 			</meth>
 
 			<meth static="true" a-tag="Dynamic" ret="meas" addCall="addFact">
 				<var type="guise.meas.MeasOverride" name="meas" p-normalStyle="{width:DimMod.None, height:DimMod.None}">
-					<m-addStyle params="[HScrollState.ACTIVE], {width:DimMod.Add(new guise.skin.values.Value(32)), height:DimMod.None}"/>
-					<m-addStyle params="[VScrollState.ACTIVE], {width:DimMod.None, height:DimMod.Add(new guise.skin.values.Value(32))}"/>
-					<m-addStyle params="[VScrollState.ACTIVE, HScrollState.ACTIVE], {width:DimMod.Add(new guise.skin.values.Value(32)), height:DimMod.Add(new guise.skin.values.Value(32))}, 2"/>
+					<m-addStyle params="[HScrollState.ACTIVE], {width:DimMod.Add(new guise.values.Value(32)), height:DimMod.None}"/>
+					<m-addStyle params="[VScrollState.ACTIVE], {width:DimMod.None, height:DimMod.Add(new guise.values.Value(32))}"/>
+					<m-addStyle params="[VScrollState.ACTIVE, HScrollState.ACTIVE], {width:DimMod.Add(new guise.values.Value(32)), height:DimMod.Add(new guise.values.Value(32))}, 2"/>
 				</var>
 			</meth>
 		</var>
 
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.HScrollBarTag" addCall="addTrait">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.ControlTags.HScrollBarTag" addCall="addTrait">
 
 			<meth addCall="addFact" static="true" a-tag="Dynamic" ret="layer">
 				<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'hScrollHandle'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('HScrollThumb',true), -2,-4,-8,-4)" p-idealDepth="2">
 
-					<m-addLayout params="null, 7+(guise.controls.scroll.IScrollMetrics.IHScrollMetrics.validScrollNorm*(guise.skin.values.Width-14-(25>((guise.skin.values.Width-14)*guise.controls.scroll.IScrollMetrics.IHScrollMetrics.validPageSizeNorm)))), guise.skin.values.Height-26, 25>(guise.skin.values.Width-14)*guise.controls.scroll.IScrollMetrics.IHScrollMetrics.validPageSizeNorm, 18"/>
+					<m-addLayout params="null, 7+(guise.scroll.IScrollMetrics.IHScrollMetrics.validScrollNorm*(guise.values.Width-14-(25>((guise.values.Width-14)*guise.scroll.IScrollMetrics.IHScrollMetrics.validPageSizeNorm)))), guise.values.Height-26, 25>(guise.values.Width-14)*guise.scroll.IScrollMetrics.IHScrollMetrics.validPageSizeNorm, 18"/>
 
-					<m-addLayout params="[VScrollState.ACTIVE], 7+(guise.controls.scroll.IScrollMetrics.IHScrollMetrics.validScrollNorm*(guise.skin.values.Width-40-(25>((guise.skin.values.Width-40)*guise.controls.scroll.IScrollMetrics.IHScrollMetrics.validPageSizeNorm)))), guise.skin.values.Height-26, 25>(guise.skin.values.Width-40)*guise.controls.scroll.IScrollMetrics.IHScrollMetrics.validPageSizeNorm, 18, 1"/>
+					<m-addLayout params="[VScrollState.ACTIVE], 7+(guise.scroll.IScrollMetrics.IHScrollMetrics.validScrollNorm*(guise.values.Width-40-(25>((guise.values.Width-40)*guise.scroll.IScrollMetrics.IHScrollMetrics.validPageSizeNorm)))), guise.values.Height-26, 25>(guise.values.Width-40)*guise.scroll.IScrollMetrics.IHScrollMetrics.validPageSizeNorm, 18, 1"/>
 				</var>
 			</meth>
 
 			<meth addCall="addFact" static="true" a-tag="Dynamic" ret="layer">
 				<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'hScrollTrack'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('HTrack',true), -1,-1,-3,-1)" p-idealDepth="1">
 
-					<m-addLayout params="null, 3, guise.skin.values.Height-29, guise.skin.values.Width-6, 26"/>
-					<m-addLayout params="[VScrollState.ACTIVE], 3, guise.skin.values.Height-29, guise.skin.values.Width-32, 26, 1"/>
+					<m-addLayout params="null, 3, guise.values.Height-29, guise.values.Width-6, 26"/>
+					<m-addLayout params="[VScrollState.ACTIVE], 3, guise.values.Height-29, guise.values.Width-32, 26, 1"/>
 				</var>
 			</meth>
 
-			<m-addFact params="function(into:Dynamic):Dynamic return new guise.controls.logic.input.MouseDragChangeValue('hScrollHandle',true,guise.controls.scroll.IScrollMetrics.IHScrollMetrics,'validScrollNorm',null,null, new guise.skin.values.Calc(Op.Max, [new guise.skin.values.Calc(Op.Add, [new guise.skin.values.Calc(Op.Divide, [new guise.skin.values.Height(), new guise.skin.values.Value(2)]), new guise.skin.values.Value(-40)]), new guise.skin.values.Value(25)]))"/>
+			<m-addFact params="function(into:Dynamic):Dynamic return new guise.logic.input.MouseDragChangeValue('hScrollHandle',true,guise.scroll.IScrollMetrics.IHScrollMetrics,'validScrollNorm',null,null, new guise.values.Calc(Op.Max, [new guise.values.Calc(Op.Add, [new guise.values.Calc(Op.Divide, [new guise.values.Height(), new guise.values.Value(2)]), new guise.values.Value(-40)]), new guise.values.Value(25)]))"/>
 		</var>
 
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.VScrollBarTag" addCall="addTrait">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.ControlTags.VScrollBarTag" addCall="addTrait">
 
 			<meth addCall="addFact" static="true" a-tag="Dynamic" ret="layer">
 				<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'vScrollHandle'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('VScrollThumb',true), -2,-4,-8,-4)" p-idealDepth="2">
 
-					<m-addLayout params="null, guise.skin.values.Width-25, 7+(guise.controls.scroll.IScrollMetrics.IVScrollMetrics.validScrollNorm*(guise.skin.values.Height-14-(25>((guise.skin.values.Height-14)*guise.controls.scroll.IScrollMetrics.IVScrollMetrics.validPageSizeNorm)))), 18, 25>(guise.skin.values.Height-14)*guise.controls.scroll.IScrollMetrics.IVScrollMetrics.validPageSizeNorm"/>
+					<m-addLayout params="null, guise.values.Width-25, 7+(guise.scroll.IScrollMetrics.IVScrollMetrics.validScrollNorm*(guise.values.Height-14-(25>((guise.values.Height-14)*guise.scroll.IScrollMetrics.IVScrollMetrics.validPageSizeNorm)))), 18, 25>(guise.values.Height-14)*guise.scroll.IScrollMetrics.IVScrollMetrics.validPageSizeNorm"/>
 
-					<m-addLayout params="[HScrollState.ACTIVE], guise.skin.values.Width-25, 7+(guise.controls.scroll.IScrollMetrics.IVScrollMetrics.validScrollNorm*(guise.skin.values.Height-40-(25>((guise.skin.values.Height-40)*guise.controls.scroll.IScrollMetrics.IVScrollMetrics.validPageSizeNorm)))), 18, 25>(guise.skin.values.Height-40)*guise.controls.scroll.IScrollMetrics.IVScrollMetrics.validPageSizeNorm, 1"/>
+					<m-addLayout params="[HScrollState.ACTIVE], guise.values.Width-25, 7+(guise.scroll.IScrollMetrics.IVScrollMetrics.validScrollNorm*(guise.values.Height-40-(25>((guise.values.Height-40)*guise.scroll.IScrollMetrics.IVScrollMetrics.validPageSizeNorm)))), 18, 25>(guise.values.Height-40)*guise.scroll.IScrollMetrics.IVScrollMetrics.validPageSizeNorm, 1"/>
 				</var>
 			</meth>
 
 			<meth addCall="addFact" static="true" a-tag="Dynamic" ret="layer">
 				<var type="guise.skin.bitmap.TextureLayer" name="layer" p-layerName="'vScrollTrack'" p-normalStyle="TextureStyle.pad(TextureInfo.sprite('VTrack',true), -1,-1,-3,-1)" p-idealDepth="1">
 
-					<m-addLayout params="null, guise.skin.values.Width-29, 3, 26, guise.skin.values.Height-6"/>
-					<m-addLayout params="[HScrollState.ACTIVE], guise.skin.values.Width-29, 3, 26, guise.skin.values.Height-32, 1"/>
+					<m-addLayout params="null, guise.values.Width-29, 3, 26, guise.values.Height-6"/>
+					<m-addLayout params="[HScrollState.ACTIVE], guise.values.Width-29, 3, 26, guise.values.Height-32, 1"/>
 				</var>
 			</meth>
 
-			<m-addFact params="function(into:Dynamic):Dynamic return new guise.controls.logic.input.MouseDragChangeValue('vScrollHandle',true,null,null,guise.controls.scroll.IScrollMetrics.IVScrollMetrics,'validScrollNorm',null, new guise.skin.values.Calc(Op.Max, [new guise.skin.values.Calc(Op.Add, [new guise.skin.values.Calc(Op.Divide, [new guise.skin.values.Height(), new guise.skin.values.Value(2)]), new guise.skin.values.Value(-40)]), new guise.skin.values.Value(25)]))"/>
+			<m-addFact params="function(into:Dynamic):Dynamic return new guise.logic.input.MouseDragChangeValue('vScrollHandle',true,null,null,guise.scroll.IScrollMetrics.IVScrollMetrics,'validScrollNorm',null, new guise.values.Calc(Op.Max, [new guise.values.Calc(Op.Add, [new guise.values.Calc(Op.Divide, [new guise.values.Height(), new guise.values.Value(2)]), new guise.values.Value(-40)]), new guise.values.Value(25)]))"/>
 		</var>
 	</meth>
 </class>

@@ -1,5 +1,5 @@
 package guise.platform.waxe.controls;
-import guise.controls.data.ITextLabel;
+import guise.data.ITextLabel;
 import guise.platform.waxe.display.ContainerTrait;
 import guise.platform.waxe.display.DisplayTrait;
 import wx.Window;

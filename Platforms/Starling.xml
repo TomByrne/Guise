@@ -28,36 +28,36 @@
 		</var>
 
 		<!-- Core control logic -->
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag" addCall="addTrait">
-			<m-addType params="guise.controls.logic.input.MouseOverTrait"/>
-			<m-addType params="guise.controls.logic.states.ButtonStateMapper"/>
-			<m-addType params="guise.controls.logic.input.ButtonClickTrait"/>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.ControlTags.TextButtonTag" addCall="addTrait">
+			<m-addType params="guise.logic.input.MouseOverTrait"/>
+			<m-addType params="guise.logic.states.ButtonStateMapper"/>
+			<m-addType params="guise.logic.input.ButtonClickTrait"/>
 		</var>
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag" addCall="addTrait" m-setCheckProps="{selectable:true}">
-			<m-addType params="guise.controls.logic.states.SelectableStateMapper"/>
-			<m-addType params="guise.controls.logic.input.ClickToggleSelect"/>
-			<m-addType params="guise.controls.data.ISelected.Selected, guise.controls.data.ISelected"/>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.ControlTags.TextButtonTag" addCall="addTrait" m-setCheckProps="{selectable:true}">
+			<m-addType params="guise.logic.states.SelectableStateMapper"/>
+			<m-addType params="guise.logic.input.ClickToggleSelect"/>
+			<m-addType params="guise.data.ISelected.Selected, guise.data.ISelected"/>
 		</var>
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextInputTag" addCall="addTrait">
-			<m-addType params="guise.controls.logic.input.TextInputPrompt"/>
-			<m-addType params="guise.controls.logic.states.FocusStateMapper"/>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.ControlTags.TextInputTag" addCall="addTrait">
+			<m-addType params="guise.logic.input.TextInputPrompt"/>
+			<m-addType params="guise.logic.states.FocusStateMapper"/>
 		</var>
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
-			<m-addType params="guise.controls.logic.input.MouseOverTrait"/>
-			<m-addType params="guise.controls.logic.states.ButtonStateMapper"/>
-			<m-addType params="guise.controls.logic.input.ButtonClickTrait"/>
-			<m-addType params="guise.controls.logic.input.ClickToggleSelect"/>
-			<m-addType params="guise.controls.logic.states.SelectableStateMapper"/>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.ControlTags.ToggleButtonTag" addCall="addTrait">
+			<m-addType params="guise.logic.input.MouseOverTrait"/>
+			<m-addType params="guise.logic.states.ButtonStateMapper"/>
+			<m-addType params="guise.logic.input.ButtonClickTrait"/>
+			<m-addType params="guise.logic.input.ClickToggleSelect"/>
+			<m-addType params="guise.logic.states.SelectableStateMapper"/>
 		</var>
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag" addCall="addTrait">
-			<m-addType params="guise.controls.logic.input.MouseOverTrait"/>
-			<m-addType params="guise.controls.logic.states.ButtonStateMapper"/>
-			<m-addFact params="function(into:Dynamic):Dynamic return new guise.controls.logic.input.MouseDragChangeValue(null,true,guise.controls.data.INumRange,'valueNorm',null,null,new guise.skin.values.Calc(Multiply, [new guise.skin.values.Value(0.8), new guise.skin.values.Width()]))"/>
-			<m-addType params="guise.controls.data.INumRange.NumRange, guise.controls.data.INumRange"/>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.ControlTags.SliderTag" addCall="addTrait">
+			<m-addType params="guise.logic.input.MouseOverTrait"/>
+			<m-addType params="guise.logic.states.ButtonStateMapper"/>
+			<m-addFact params="function(into:Dynamic):Dynamic return new guise.logic.input.MouseDragChangeValue(null,true,guise.data.INumRange,'valueNorm',null,null,new guise.values.Calc(Multiply, [new guise.values.Value(0.8), new guise.values.Width()]))"/>
+			<m-addType params="guise.data.INumRange.NumRange, guise.data.INumRange"/>
 		</var>
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.PanelTag" addCall="addTrait">
-			<m-addType params="guise.controls.scroll.MeasSizeScroll"/>
-			<m-addFact params="function(into:Dynamic):Dynamic return new guise.platform.starling.logic.ScrollRect(new guise.skin.values.Bind(guise.controls.scroll.IScrollMetrics.IHScrollMetrics, 'scroll'), new guise.skin.values.Bind(guise.controls.scroll.IScrollMetrics.IVScrollMetrics, 'scroll'), new guise.skin.values.Width(), new guise.skin.values.Height())"/>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.ControlTags.PanelTag" addCall="addTrait">
+			<m-addType params="guise.scroll.MeasSizeScroll"/>
+			<m-addFact params="function(into:Dynamic):Dynamic return new guise.platform.starling.logic.ScrollRect(new guise.values.Bind(guise.scroll.IScrollMetrics.IHScrollMetrics, 'scroll'), new guise.values.Bind(guise.scroll.IScrollMetrics.IVScrollMetrics, 'scroll'), new guise.values.Width(), new guise.values.Height())"/>
 		</var>
 
 
@@ -65,11 +65,11 @@
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.platform.starling.addTypes.IDisplayObjectType" addCall="addTrait">
 			<m-addType params="guise.platform.starling.display.ContainerTrait, guise.platform.starling.display.ContainerTrait"/>
 		</var>
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.scroll.IScrollMetrics.IHScrollMetrics" addCall="addTrait">
-			<m-addType params="guise.controls.logic.states.ScrollStateMapper, guise.controls.logic.states.ScrollStateMapper"/>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.scroll.IScrollMetrics.IHScrollMetrics" addCall="addTrait">
+			<m-addType params="guise.logic.states.ScrollStateMapper, guise.logic.states.ScrollStateMapper"/>
 		</var>
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.scroll.IScrollMetrics.IVScrollMetrics" addCall="addTrait">
-			<m-addType params="guise.controls.logic.states.ScrollStateMapper, guise.controls.logic.states.ScrollStateMapper"/>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.scroll.IScrollMetrics.IVScrollMetrics" addCall="addTrait">
+			<m-addType params="guise.logic.states.ScrollStateMapper, guise.logic.states.ScrollStateMapper"/>
 		</var>
 	</meth>
 </class>

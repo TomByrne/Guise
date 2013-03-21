@@ -1,9 +1,9 @@
 package guise.platform.html5.controls;
 
 import composure.core.ComposeItem;
-import guise.controls.data.IInputPrompt;
-import guise.controls.data.IListCollection;
-import guise.controls.data.ITextLabel;
+import guise.data.IInputPrompt;
+import guise.data.IListCollection;
+import guise.data.ITextLabel;
 import guise.platform.html5.display.DisplayTrait;
 import js.Dom;
 import js.Lib;

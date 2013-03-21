@@ -1,6 +1,6 @@
 package guise.platform.html5.controls;
 
-import guise.controls.data.INumRange;
+import guise.data.INumRange;
 import guise.platform.html5.display.DisplayTrait;
 import js.Dom;
 import js.Lib;

@@ -1,6 +1,6 @@
 package guise.platform.html5.controls;
-import guise.controls.data.ISelected;
-import guise.controls.data.ITextLabel;
+import guise.data.ISelected;
+import guise.data.ITextLabel;
 import guise.layout.IBoxPos;
 import guise.platform.html5.display.DisplayTrait;
 import js.Dom;

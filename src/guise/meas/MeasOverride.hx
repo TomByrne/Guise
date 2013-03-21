@@ -1,5 +1,5 @@
 package guise.meas;
-import guise.skin.values.IValue;
+import guise.values.IValue;
 import guise.states.StateStyledTrait;
 import msignal.Signal;
 

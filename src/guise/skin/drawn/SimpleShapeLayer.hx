@@ -4,7 +4,7 @@ import guise.accessTypes.IGraphicsAccess;
 import guise.platform.cross.IAccessRequest;
 import guise.skin.drawn.utils.DrawnStyles;
 import guise.skin.drawn.utils.DrawnStyleUtils;
-import guise.skin.values.IValue;
+import guise.values.IValue;
 import guise.skin.common.PositionedLayer;
 
 class SimpleShapeLayer extends PositionedLayer<ShapeStyle>, implements IAccessRequest

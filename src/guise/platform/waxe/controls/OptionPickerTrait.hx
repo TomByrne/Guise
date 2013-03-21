@@ -3,7 +3,7 @@ import wx.clay.StyleFlags;
 import wx.Window;
 import wx.ComboBox;
 import guise.platform.waxe.display.DisplayTrait;
-import guise.controls.data.ITextLabel;
+import guise.data.ITextLabel;
 
 class OptionPickerTrait extends AbsListTrait<ComboBox>
 {

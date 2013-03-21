@@ -1,7 +1,7 @@
 package guise.skin.drawn;
 import guise.accessTypes.IBoxPosAccess;
 import guise.accessTypes.ITextOutputAccess;
-import guise.controls.data.ITextLabel;
+import guise.data.ITextLabel;
 import guise.platform.cross.IAccessRequest;
 import guise.skin.common.PositionedLayer;
 import guise.utils.TitleCase;

@@ -1,8 +1,8 @@
 package guise.platform.waxe.controls;
 
-import guise.controls.data.INumRange;
-import guise.controls.data.ISelected;
-import guise.controls.data.ITextLabel;
+import guise.data.INumRange;
+import guise.data.ISelected;
+import guise.data.ITextLabel;
 import guise.platform.waxe.display.DisplayTrait;
 import wx.Window;
 import wx.CheckBox;

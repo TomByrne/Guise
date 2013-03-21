@@ -1,6 +1,6 @@
 package guise.skin.drawn.utils;
-import guise.skin.values.IValue;
-import guise.skin.values.Value;
+import guise.values.IValue;
+import guise.values.Value;
 import guise.trans.StyleTransitioner;
 import composure.traits.AbstractTrait;
 import guise.trans.IPropEaser;
