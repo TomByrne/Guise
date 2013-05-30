@@ -7,16 +7,16 @@ import guise.accessTypes.IAccessType;
 
 class AccessProvider extends AbstractTrait
 {
-	private var _unnamed:Hash<IAccessType>;
 	private var _accessClassMap:Hash<Class<Dynamic>>;
 	private var _itemToLayers:ObjectHash<ComposeItem, Hash<LayerInfo>>;
+	private var _itemToUnnamed:ObjectHash<ComposeItem, Hash<IAccessType>>;
 	private var _addTraitHandler:ComposeItem->String->Dynamic->Void;
 	private var _removeTraitHandler:ComposeItem->String->Dynamic->Void;
 
 	public function new(?addTraitHandler:ComposeItem->String->Dynamic->Void, ?removeTraitHandler:ComposeItem->String->Dynamic->Void) 
 	{
 		super();
-		_unnamed = new Hash();
+		_itemToUnnamed = new ObjectHash();
 		_accessClassMap = new Hash();
 		_itemToLayers = new ObjectHash();
 		_addTraitHandler = addTraitHandler;
@@ -45,6 +45,7 @@ class AccessProvider extends AbstractTrait
 			layerInfo = new LayerInfo(accessReq.layerName);
 			layerHash.set(accessReq.layerName, layerInfo);
 		}
+		var unnamed:Hash<IAccessType> = _itemToUnnamed.get(item);
 		for (req in accessReq.getAccessTypes()) {
 			var klass:Class<Dynamic>;
 			var key:String = Type.getClassName(req);
@@ -56,11 +57,11 @@ class AccessProvider extends AbstractTrait
 			}
 			if (!layerInfo.requirements.exists(key)) {
 				var trait:Dynamic = null;
-				if (accessReq.layerName != null && _unnamed.exists(key)) {
-					var access = _unnamed.get(key);
+				if (accessReq.layerName != null && unnamed!=null && unnamed.exists(key)) {
+					var access = unnamed.get(key);
 					access.layerName = accessReq.layerName;
 					trait = access;
-					_unnamed.remove(key);
+					unnamed.remove(key);
 				}
 				var traits = item.getTraits(klass);
 				for(foundTrait in traits){
@@ -88,8 +89,12 @@ class AccessProvider extends AbstractTrait
 						if(accessReq.layerName!=null){
 							var access:IAccessType = cast trait;
 							access.layerName = accessReq.layerName;
-						}else{
-							_unnamed.set(key, trait);
+						}else {
+							if (unnamed == null) {
+								unnamed = new Hash<IAccessType>();
+								_itemToUnnamed.set(item, unnamed);
+							}
+							unnamed.set(key, trait);
 						}
 					}
 					item.addTrait(trait);

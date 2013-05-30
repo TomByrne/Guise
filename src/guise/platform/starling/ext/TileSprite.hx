@@ -35,14 +35,6 @@ class TileSprite extends Sprite {
 	private var _cols:Float;
 	private var _texture:Texture;
 	
-	/**
-	 * Creates a new <code>Scale9Sprite</code> instance whose image
-	 * is contained in <code>data</code> and whose center slice is
-	 * <code>rect</code>.
-	 * 
-	 * @param data The image to display
-	 * @param rect The center slice
-	 * */
 	public function new(?texture:Texture){
 		super();
 		if (DUMMY_POINT == null) {
@@ -50,7 +42,6 @@ class TileSprite extends Sprite {
 		}
 		slices = [[]];
 		setTextureStill(texture);
-		//addChild(new starling.display.Quad(100, 100, 0xff0000));
 	}
 	private function clearOld():Void {
 		if (slices.length>0) {

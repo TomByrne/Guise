@@ -6,7 +6,7 @@ import composure.traits.AbstractTrait;
 import guise.values.IValue;
 #else
 import haxe.macro.Expr;
-import guise.macro.ValueMacro;
+import guise.Macro;
 #end
 
 
@@ -32,12 +32,14 @@ extends AbstractTrait, implements IMeasurement
 	@lazyInst
 	public var measChanged:Signal1<IMeasurement>;
 	
+	@change("measChanged")
 	public var measWidth(get_measWidth, null):Float;
 	private function get_measWidth():Float {
 		validate();
 		return _measWidth;
 	}
 	
+	@change("measChanged")
 	public var measHeight(get_measHeight, null):Float;
 	private function get_measHeight():Float {
 		validate();
@@ -160,8 +162,8 @@ extends AbstractTrait, implements IMeasurement
 	#end
 	
 	@:macro public function setVal(thisE:Expr, widthVal:Expr, heightVal:Expr):Expr {
-		widthVal = ValueMacro.interpValue(widthVal);
-		heightVal = ValueMacro.interpValue(heightVal);
+		widthVal = Macro.interpValue(widthVal);
+		heightVal = Macro.interpValue(heightVal);
 		return macro $thisE.setValues($widthVal, $heightVal);
 	}
 }
@@ -173,11 +175,13 @@ class SimpleMeas implements IMeasurement {
 	@lazyInst
 	public var measChanged:Signal1<IMeasurement>;
 	
+	@change("measChanged")
 	public var measWidth(get_measWidth, null):Float;
 	private function get_measWidth():Float {
 		return _measWidth;
 	}
 	
+	@change("measChanged")
 	public var measHeight(get_measHeight, null):Float;
 	private function get_measHeight():Float {
 		return _measHeight;

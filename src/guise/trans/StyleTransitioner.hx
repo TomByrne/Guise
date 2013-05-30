@@ -5,11 +5,6 @@ import guise.trans.ITransitioner;
 import guise.utils.Clone;
 import guise.trans.PropEaser;
 
-/**
- * ...
- * @author Tom Byrne
- */
-
 class StyleTransitioner implements ITransitioner
 {
 	public var normalTransStyle:TransStyle;

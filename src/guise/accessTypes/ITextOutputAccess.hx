@@ -13,6 +13,7 @@ interface ITextOutputAccess implements IVisualAccessType {
 	
 	function setAntiAliasing(type:AntiAliasType):Void;
 	function setText(run:TextRun, isHtml:Bool):Void;
+	function setAlpha(alpha:Float):Void;
 	
 }
 class TextRun {

@@ -15,6 +15,8 @@ class TexturePack
 	public var pack:starling.textures.TextureAtlas;
 	#elseif tilelayer
 	public var pack:aze.display.TilesheetEx;
+	#elseif nme
+	public var pack:guise.platform.nme.ext.TilesheetEx;
 	#end
 	
 	
@@ -24,6 +26,9 @@ class TexturePack
 
 	public function new(?imagePath:String, dataPath:String) 
 	{
+		#if (nme && !starling)
+		_contextReady = true;
+		#end
 		if (imagePath != null && dataPath != null) {
 			setTexture(imagePath, dataPath);
 		}
@@ -45,20 +50,23 @@ class TexturePack
 		
 		#if starling
 		
-		#if nme
-			var bitmap = nme.Assets.getBitmapData(_imagePath);
-			var xml = new flash.xml.XML(nme.Assets.getText(_dataPath));
-		#else
-			var loader:Loader = new Loader();
-			loader.loadBytes(Resource.getBytes(_imagePath).getData());
-			var bitmap:BitmapData = cast loader.content;
-			var xml = new flash.xml.XML(Resource.getString(_dataPath));
-		#end
+			#if nme
+				var bitmap = nme.Assets.getBitmapData(_imagePath);
+				var xml = new flash.xml.XML(nme.Assets.getText(_dataPath));
+			#else
+				var loader:Loader = new Loader();
+				loader.loadBytes(Resource.getBytes(_imagePath).getData());
+				var bitmap:BitmapData = cast loader.content;
+				var xml = new flash.xml.XML(Resource.getString(_dataPath));
+			#end
 		
 		pack = new starling.textures.TextureAtlas(starling.textures.Texture.fromBitmapData(bitmap), xml);
 		
 		#elseif tilelayer
 		pack = new aze.display.SparrowTilesheet(nme.Assets.getBitmapData(_imagePath), nme.Assets.getText(_dataPath));
+		
+		#elseif nme
+		pack = new guise.platform.nme.ext.SparrowTilesheet(nme.Assets.getBitmapData(_imagePath), nme.Assets.getText(_dataPath));
 		
 		#end
 		

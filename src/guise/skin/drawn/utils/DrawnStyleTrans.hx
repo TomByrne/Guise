@@ -24,10 +24,10 @@ class DrawnStyleTrans extends StyleTransitioner
 		addStyleSwitch(TypeSwitch(valueSwitch, IValue, IValue));
 		addStyleSwitch(EnumValueSwitch(StyleTransitioner.ease([SwitchEase(), UseStyle, UseStyle]), SsSolid(0.0001, null, null),SsNone));
 		addStyleSwitch(EnumValueSwitch(StyleTransitioner.goVia([SwitchEase(), NormalEase(), SwitchEase(), NormalEase(ColorEaser.getNew), NormalEase(), UseStyle]), DropShadow(0, -1, 0, -1, -1), DropShadow(0, -1, 0, -1, -1), function(s1:Dynamic, p1:Array<Dynamic>, s2:Dynamic, p2:Array<Dynamic>):Bool { return p1[5] != p2[5]; } ));
-		addStyleSwitch(EnumValueSwitch(easeCapsuleToRoundedRect, BsCapsule(null,null), BsRectComplex(null,null,null), checkCapsultToRoundedRect));
+		addStyleSwitch(EnumValueSwitch(easeCapsuleToRoundedRect, BsCapsule(null,null), BsRectComplex(null,null,null), checkCapsuleToRoundedRect));
 		addStyleSwitch(EnumValueSwitch(StyleTransitioner.ease([SwitchEase()]), CsCirc(0),CsSquare));
 		addStyleSwitch(EnumTypeSwitch(easeFillToDiffFill,FillStyle, FillStyle, checkFillToDiffFill));
-		addStyleSwitch(EnumTypeSwitch(easeFillToFill,FillStyle, FillStyle, checkFillToFill));
+		addStyleSwitch(EnumTypeSwitch(easeGradientColours,FillStyle, FillStyle, checkGradientColours));
 		addPropEaser(FsSolid(0, 0), 0, ColorEaser.getNew);
 	}
 	private function valueSwitch(subject:Dynamic, direction:Bool, style1:Dynamic, style2:Dynamic):Array<SwitchSpanInfo> {
@@ -95,7 +95,7 @@ class DrawnStyleTrans extends StyleTransitioner
 		var toParams:Array<Dynamic> = [[fill1End, fill2End]];
 		return [{ via:via, toParams:toParams, easerFuncs:null}];
 	}
-	private function checkFillToFill(style1:Dynamic, params1:Array<Dynamic>, style2:Dynamic, params2:Array<Dynamic>):Bool{
+	private function checkGradientColours(style1:Dynamic, params1:Array<Dynamic>, style2:Dynamic, params2:Array<Dynamic>):Bool{
 		var const1:Int = Type.enumIndex(style1);
 		var const2:Int = Type.enumIndex(style2);
 		if (const1 == const2) {
@@ -104,12 +104,12 @@ class DrawnStyleTrans extends StyleTransitioner
 				case FsNone: return false;
 				case FsTransparent: return false;
 				default:
-					var gp1:Array<GradPoint> = params1[0];
-					var gp2:Array<GradPoint> = params2[0];
-					if (gp1.length != gp2.length) return false; // can't trans between different amount of points
+					var col1:Array<Int> = params1[0];
+					var col2:Array<Int> = params2[0];
+					if (col1.length != col2.length) return false; // can't trans between different amount of points
 					
-					for (i in 0...gp1.length) {
-						if (gp1[i].c != gp2[i].c) return true;
+					for (i in 0...col1.length) {
+						if (col1[i] != col2[i]) return true;
 					}
 					return false; // if all colors are the same, no need for this interpolation
 			}
@@ -118,12 +118,12 @@ class DrawnStyleTrans extends StyleTransitioner
 		}
 	}
 	
-	private function easeFillToFill(subject:Dynamic, direction:Bool, enum1:Enum<Dynamic>, style1Match:Dynamic, enum2:Enum<Dynamic>, style2Match:Dynamic):Array<SwitchSpanInfo> {
+	private function easeGradientColours(subject:Dynamic, direction:Bool, enum1:Enum<Dynamic>, style1Match:Dynamic, enum2:Enum<Dynamic>, style2Match:Dynamic):Array<SwitchSpanInfo> {
 		setFillOpacity(cast style1Match, 1, true);
 		setFillOpacity(cast style2Match, 1, true);
 		var via = Clone.clone(style1Match);
 		var toParams:Array<Dynamic> = Type.enumParameters(style2Match);
-		var easerFuncs:Array<EaserFactFunc> = [GradientEaser.getNew];
+		var easerFuncs:Array<EaserFactFunc> = [ColorArrayEaser.getNew];
 		return [{ via:via, toParams:toParams, easerFuncs:easerFuncs}];
 	}
 	private function setFillOpacity(fill:FillStyle, to:Float, onlyIfNull:Bool):Void {
@@ -133,29 +133,29 @@ class DrawnStyleTrans extends StyleTransitioner
 				if (onlyIfNull) {
 					if(a==null)params[1] = to;
 				}else params[1] = (a == null?to:a * to);
-			case FsLinearGradient(gp, mat):
-				setGradPointOpacity(gp, to, onlyIfNull);
-			case FsRadialGradient(gp, mat, fpr):
-				setGradPointOpacity(gp, to, onlyIfNull);
-			case FsHLinearGradient(gp):
-				setGradPointOpacity(gp, to, onlyIfNull);
-			case FsVLinearGradient(gp):
-				setGradPointOpacity(gp, to, onlyIfNull);
+			case FsLinearGradient(c, a, r, mat):
+				setGradPointOpacity(a, to, onlyIfNull);
+			case FsRadialGradient(c, a, r, mat, fpr):
+				setGradPointOpacity(a, to, onlyIfNull);
+			case FsHLinearGradient(c, a, r):
+				setGradPointOpacity(a, to, onlyIfNull);
+			case FsVLinearGradient(c, a, r):
+				setGradPointOpacity( a, to, onlyIfNull);
 			case FsMulti(fills):
 				for (fill in fills) setFillOpacity(fill, to, onlyIfNull);
 			default:
 		}
 	}
-	private function setGradPointOpacity(gp:Array<{c:Int, a:Null<Float>, fract:Float}>, to:Float, onlyIfNull:Bool):Void {
+	private function setGradPointOpacity( alphas:Array<Null<Float>>, to:Float, onlyIfNull:Bool):Void {
 		if(onlyIfNull){
-			for (g in gp) {
-				var a:Float = g.a;
-				if(g.a==null || Math.isNaN(a))g.a = to;
+			for (i in 0...alphas.length) {
+				var a = alphas[i];
+				if(a==null || Math.isNaN(a))alphas[i] = to;
 			}
 		}else {
-			for (g in gp) {
-				var a:Float = g.a;
-				g.a = (g.a==null || Math.isNaN(a)?to:a * to);
+			for (i in 0...alphas.length) {
+				var a = alphas[i];
+				alphas[i] = (a==null || Math.isNaN(a)?to:a * to);
 			}
 		}
 	}
@@ -197,9 +197,9 @@ class DrawnStyleTrans extends StyleTransitioner
 		
 		return [{via:via,toParams:toParams,easerFuncs:null}];
 	}
-	private function checkCapsultToRoundedRect(style1:BoxStyle, params1:Array<Dynamic>, style2:BoxStyle, params2:Array<Dynamic>):Bool {
+	private function checkCapsuleToRoundedRect(style1:BoxStyle, params1:Array<Dynamic>, style2:BoxStyle, params2:Array<Dynamic>):Bool {
 		switch(style2) {
-			case BsRectComplex(f,s,c):
+			case BsRectComplex(f,s,c,e):
 				var circIndex:Int = Type.enumIndex(CsCirc(0));
 				var squaIndex:Int = Type.enumIndex(CsSquare);
 				switch(c) {
@@ -223,12 +223,12 @@ class DrawnStyleTrans extends StyleTransitioner
 }
 
 import guise.trans.IPropEaser;
-class GradientEaser implements IPropEaser {
-	private static var _pool:Array<GradientEaser>;
-	public static function getNew(subject:Dynamic, prop:Dynamic, start:Array<GradPoint>, end:Array<GradPoint>):GradientEaser {
+class ColorArrayEaser implements IPropEaser {
+	private static var _pool:Array<ColorArrayEaser>;
+	public static function getNew(subject:Dynamic, prop:Dynamic, start:Array<Int>, end:Array<Int>):ColorArrayEaser {
 		if (_pool == null) {
 			_pool = [];
-			return new GradientEaser(subject, prop, start, end);
+			return new ColorArrayEaser(subject, prop, start, end);
 		}else if (_pool.length>0) {
 			var ret =  _pool.pop();
 			ret.subject = subject;
@@ -237,21 +237,21 @@ class GradientEaser implements IPropEaser {
 			ret.end = end;
 			return ret;
 		}else {
-			return new GradientEaser(subject, prop, start, end);
+			return new ColorArrayEaser(subject, prop, start, end);
 		}
 	}
 	
 	public var subject:Dynamic;
 	public var prop:Dynamic;
-	public var start:Array<GradPoint>;
-	public var end:Array<GradPoint>;
+	public var start:Array<Int>;
+	public var end:Array<Int>;
 	
 	public var inited:Bool;
-	public var curr:Array<GradPoint>;
-	public var colStart:Array<{r:Int,g:Int,b:Int,a:Float,fract:Float}>;
-	public var colDiff:Array<{r:Int,g:Int,b:Int,a:Float,fract:Float}>;
+	public var curr:Array<Int>;
+	public var colStart:Array<{r:Int,g:Int,b:Int}>;
+	public var colDiff:Array<{r:Int,g:Int,b:Int}>;
 	
-	public function new(subject:Dynamic, prop:Dynamic, start:Array<GradPoint>, end:Array<GradPoint>) {
+	public function new(subject:Dynamic, prop:Dynamic, start:Array<Int>, end:Array<Int>) {
 		this.subject = subject;
 		this.prop = prop;
 		this.start = start;
@@ -270,35 +270,28 @@ class GradientEaser implements IPropEaser {
 			colStart = [];
 			colDiff = [];
 			for (i in 0...start.length) {
-				var staPoint = start[i];
-				var endPoint = end[i];
-				curr.push(Clone.clone(staPoint));
+				var sta = start[i];
+				var fin = end[i];
+				curr.push(sta);
 				
-				var sta = {	r:(( staPoint.c >> 16 ) & 0xFF),
-								g:(( staPoint.c >> 8 ) & 0xFF),
-								b:(( staPoint.c ) & 0xFF),
-								a:staPoint.a,
-								fract:staPoint.fract };
+				var sta = {	r:(( sta >> 16 ) & 0xFF),
+								g:(( sta >> 8 ) & 0xFF),
+								b:(( sta ) & 0xFF)};
 				colStart.push(sta);
 				
-				colDiff.push({	r:(( endPoint.c >> 16 ) & 0xFF)-sta.r,
-								g:(( endPoint.c >> 8 ) & 0xFF)-sta.g,
-								b:(( endPoint.c ) & 0xFF) - sta.b,
-								a:endPoint.a-staPoint.a,
-								fract:endPoint.fract-staPoint.fract } );
+				colDiff.push({	r:(( fin >> 16 ) & 0xFF)-sta.r,
+								g:(( fin >> 8 ) & 0xFF)-sta.g,
+								b:(( fin ) & 0xFF) - sta.b} );
 			}
 		}
 		for (i in 0...start.length) {
-			var curPoint = curr[i];
 			var sta = colStart[i];
 			var dif = colDiff[i];
 			
 			var newR:Int = Std.int(sta.r + dif.r * fract);
 			var newG:Int = Std.int(sta.g + dif.g * fract);
 			var newB:Int = Std.int(sta.b + dif.b * fract);
-			curPoint.c = ( ( newR << 16 ) | ( newG << 8 ) | newB );
-			curPoint.a = sta.a + dif.a * fract;
-			curPoint.fract = sta.fract + dif.fract * fract;
+			curr[i] = ( ( newR << 16 ) | ( newG << 8 ) | newB );
 		}
 		UtilFunctions.setProperty(subject, prop, curr);
 	}

@@ -1,22 +1,22 @@
 package guise.skin.drawn.utils;
-import guise.geom.Matrix;
+import guise.platform.GeomApi;
 import guise.accessTypes.IGraphicsAccess;
+import guise.platform.GraphicsApi;
 
 
 class DrawnStyles 
 {
 	
 }
-typedef GradPoint = { fract:Float, c:Int, a:Float };
 enum FillStyle {
 	FsNone;
 	FsMulti(fs:Array<FillStyle>);
 	FsTransparent; // blocks clicks
 	FsSolid(c:Int, ?a:Float);
-	FsLinearGradient(gp:Array<GradPoint>, ?mat:Matrix);
-	FsRadialGradient(gp:Array<GradPoint>, ?mat:Matrix, ?focalPointRatio:Float);
-	FsHLinearGradient(gp:Array<GradPoint>);
-	FsVLinearGradient(gp:Array<GradPoint>);
+	FsLinearGradient(colors : Array<UInt>, alphas : Array<Float>, ratios : Array<Float>, ?mat:Matrix);
+	FsRadialGradient(colors : Array<UInt>, alphas : Array<Float>, ratios : Array<Float>, ?mat:Matrix, ?focalPointRatio:Float);
+	FsHLinearGradient(colors : Array<UInt>, alphas : Array<Float>, ratios : Array<Float>);
+	FsVLinearGradient(colors : Array<UInt>, alphas : Array<Float>, ratios : Array<Float>);
 }
 enum StrokeStyle {
 	SsNone;

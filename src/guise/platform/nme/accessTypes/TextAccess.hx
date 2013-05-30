@@ -1,24 +1,17 @@
 package guise.platform.nme.accessTypes;
 import guise.accessTypes.IBoxPosAccess;
-import guise.accessTypes.IFocusableAccess;
 import guise.accessTypes.ITextInputAccess;
 import guise.accessTypes.ITextOutputAccess;
-import guise.platform.cross.accessTypes.AbsVisualAccessType;
-import guise.platform.nme.addTypes.IDisplayObjectType;
-import guise.platform.nme.addTypes.IInteractiveObjectType;
+import guise.platform.nme.TextFieldGutter;
 import nme.events.Event;
-import nme.events.FocusEvent;
 import nme.text.TextField;
-import nme.display.DisplayObject;
-import nme.display.InteractiveObject;
-import msignal.Signal;
 import nme.text.TextFieldType;
 import nme.text.TextFormat;
-import guise.platform.nme.TextFieldGutter;
+import msignal.Signal;
 
 
 @:build(LazyInst.check())
-class TextAccess extends AbsVisualAccessType, implements ITextInputAccess, implements ITextOutputAccess, implements IDisplayObjectType, implements IInteractiveObjectType, implements IBoxPosAccess, implements IFocusableAccess
+class TextAccess extends AbsIntObjAccess, implements ITextInputAccess, implements ITextOutputAccess, implements IBoxPosAccess
 {
 	@lazyInst
 	public var textMeasChanged:Signal1<ITextOutputAccess>;
@@ -37,8 +30,7 @@ class TextAccess extends AbsVisualAccessType, implements ITextInputAccess, imple
 		_gutter = TextFieldGutter.GUTTER;
 		_textField = (textField==null?new TextField():textField);
 		_textField.addEventListener(Event.CHANGE, onChange);
-		_textField.addEventListener(FocusEvent.FOCUS_IN, onFocusIn);
-		_textField.addEventListener(FocusEvent.FOCUS_OUT, onFocusOut);
+		setInteractiveObject(_textField);
 		super(layerName);
 	}
 	public function setPos(x:Float, y:Float):Void {
@@ -54,12 +46,6 @@ class TextAccess extends AbsVisualAccessType, implements ITextInputAccess, imple
 		_textField.y = y-_gutter;
 		_textField.width = w+_gutter*2;
 		_textField.height = h+_gutter*2;
-	}
-	public function getDisplayObject():DisplayObject {
-		return _textField;
-	}
-	public function getInteractiveObject():InteractiveObject {
-		return _textField;
 	}
 	public var textWidth(get_textWidth, null):Float;
 	private function get_textWidth():Float {
@@ -111,25 +97,12 @@ class TextAccess extends AbsVisualAccessType, implements ITextInputAccess, imple
 		if (_ignoreChanges) return;
 		if (textChanged != null) textChanged.dispatch(this);
 	}
-	private function onFocusIn(e:Event):Void {
-		focused = true;
-		LazyInst.exec(focusedChanged.dispatch(this));
-	}
-	private function onFocusOut(e:Event):Void {
-		focused = false;
-		LazyInst.exec(focusedChanged.dispatch(this));
-	}
 	
 	public var textChanged(get_textChanged, null):Signal1 < ITextInputAccess > ;
 	private function get_textChanged():Signal1 < ITextInputAccess >{
 		if (textChanged == null) textChanged = new Signal1();
 		return textChanged;
 	}
-	
-	@:isVar public var focused(default, null):Bool;
-	
-	
-	@lazyInst public var focusedChanged:Signal1 < IFocusableAccess >;
 	
 	
 	
@@ -139,37 +112,42 @@ class TextAccess extends AbsVisualAccessType, implements ITextInputAccess, imple
 	public function setText(run:TextRun, isHtml:Bool):Void {
 		if (_ignoreChanges) return;
 		
+		var text:String;
 		var format:TextFormat = new TextFormat();
-		var text:String = createHtml(run.runs, isHtml);
-		switch(run.style) {
-			case Trs(font,size,color,mods,align):
-				if(size!=null)format.size = size;
-				if(color!=null)format.color = color;
-				switch(font) {
-					case TfSans:		format.font = "_sans";
-										_textField.embedFonts = false;
-					case TfSerif:		format.font = "_serif";
-										_textField.embedFonts = false;
-					case TfTypewriter:	format.font = "_typewriter";
-										_textField.embedFonts = false;
-					case Tf(name):		format.font = name;
-										_textField.embedFonts = true;
-				}
-				if(mods!=null){
-					for (mod in mods) {
-						switch(mod) {
-							case TmBold(bold):
-								format.bold = (bold==null?true:bold);
-							case TmItalic(italic):
-								format.italic = (italic==null?true:italic);
-							case TmUnderline(underline):
-								format.underline = (underline==null?true:underline);
-							default:
-								throw "Unsupported Text Mod: " + mod;
+		if (run != null) {
+			text = createHtml(run.runs, isHtml);
+			switch(run.style) {
+				case Trs(font,size,color,mods,align):
+					if(size!=null)format.size = size;
+					if (color != null) format.color = color;
+					switch(font) {
+						case TfSans:		format.font = "_sans";
+											_textField.embedFonts = false;
+						case TfSerif:		format.font = "_serif";
+											_textField.embedFonts = false;
+						case TfTypewriter:	format.font = "_typewriter";
+											_textField.embedFonts = false;
+						case Tf(name):		format.font = name;
+											_textField.embedFonts = true;
+					}
+					if(mods!=null){
+						for (mod in mods) {
+							switch(mod) {
+								case TmBold(bold):
+									format.bold = (bold==null?true:bold);
+								case TmItalic(italic):
+									format.italic = (italic==null?true:italic);
+								case TmUnderline(underline):
+									format.underline = (underline==null?true:underline);
+								default:
+									throw "Unsupported Text Mod: " + mod;
+							}
 						}
 					}
-				}
-				text = wrapInAlign(align, text);
+					text = wrapInAlign(align, text);
+			}
+		}else {
+			text = "";
 		}
 		_textField.defaultTextFormat = format;
 		if (text.indexOf("<") == -1)_textField.text = text; // jeash has issues with 'htmlText'
@@ -179,6 +157,9 @@ class TextAccess extends AbsVisualAccessType, implements ITextInputAccess, imple
 		LazyInst.exec(textMeasChanged.dispatch(this));
 		_ignoreChanges = false;
 		
+	}
+	public function setAlpha(alpha:Float):Void {
+		_textField.alpha = alpha;
 	}
 	private function createHtml(runs:Array<TextRunData>, isHtml:Bool):String {
 		var ret:String = "";

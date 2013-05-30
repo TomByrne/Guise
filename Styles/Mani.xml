@@ -24,7 +24,6 @@
 		<var name="VScrollState" value="guise.states.ControlStates.VScrollState"/>
 
 		<!-- reused styles -->
-		<var name="styleTransitioner" type="guise.skin.drawn.utils.DrawnStyleTrans"/>
 
 		<var name="labelTextStyle" value="TextLabelStyle.Tls(TextStyle.Trs(font, 12, 0x737a87, [TextModifier.TmBold()]), false, TextCase.TcUpper, AntiAliasType.AaSmooth)"/>
 		<var name="inputTextStyle" value="TextLabelStyle.Tls(TextStyle.Trs(font, 12, 0x737a87, [TextModifier.TmBold()]), true , TextCase.TcUpper, AntiAliasType.AaSmooth)"/>
@@ -79,15 +78,12 @@
 		</meth>
 
 		<!-- core furnishers -->
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.StageTag" addCall="addTrait" p-searchAscendants="true" p-searchDescendants="false">
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.WindowTag" addCall="addTrait" p-searchAscendants="true" p-searchDescendants="false">
 			<m-addInst params="new guise.skin.bitmap.utils.TexturePack('assets/Mani.png', 'assets/Mani.xml')"/>
+			<m-addType params="guise.skin.drawn.utils.DrawnStyleTrans"/>
 		</var>
 
 		<!-- control furnishers -->
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.ControlTags" addCall="addTrait">
-			<m-addInst params="styleTransitioner"/>
-		</var>
-
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.ControlTags.TextButtonTag" addCall="addTrait">
 			<meth addCall="addFact" ret="layerOrder" a-cause="Dynamic">
 				<var name="layerOrder" type="guise.layer.LayerOrderer" p-sorting="['backing','labelText']"/>

@@ -1,16 +1,14 @@
 package guise.platform.waxe.display;
 
-import guise.layout.IBoxPos;
-import wx.Button;
-import wx.Panel;
-
-import composure.traits.AbstractTrait;
-import msignal.Signal;
-import guise.platform.cross.display.AbsDisplayTrait;
+import guise.core.IWindowInfo;
+import guise.platform.waxe.controls.PanelTrait;
 import wx.Frame;
+import msignal.Signal;
+import wx.Panel;
+import wx.Window;
 
 
-class WindowTrait extends DisplayTrait<Frame>//, implements IWindowInfo
+class WindowTrait extends DisplayTrait<Frame>, implements IWindowInfo
 {
 	private static var _inst:WindowTrait;
 	public static function inst():WindowTrait {
@@ -20,27 +18,23 @@ class WindowTrait extends DisplayTrait<Frame>//, implements IWindowInfo
 		return _inst;
 	}
 	
-	/*@lazyInst
-	public var availSizeChanged(default, null):Signal1<IWindowInfo>;
+	@lazyInst
+	public var availSizeChanged:Signal1<IWindowInfo>;
 	
 	public var availWidth(default, null):Int;
-	public var availHeight(default, null):Int;*/
-	
-	private var frame:Frame;
+	public var availHeight(default, null):Int;
 
 	public function new() 
 	{
 		super(null);
+		_allowSizing = false;
 		_sizeListen = true;
 		_posListen = true;
 		
-		frame = ApplicationMain.frame;
-		window = frame;
+		window = ApplicationMain.frame;
+		window.onSize = onWindowResized;
 		
-		//window = wx.Panel.create(frame);
-		/*window.onresize = onWindowResized;
-		
-		setAvailSize(window.screen.availWidth, window.screen.availHeight);*/
+		setAvailSize(window.size.width, window.size.height);
 	}
 	
 	override private function onPosValid(x:Float, y:Float):Void {
@@ -51,7 +45,7 @@ class WindowTrait extends DisplayTrait<Frame>//, implements IWindowInfo
 		//window.innerHeight = Std.int(h);
 	}
 	
-	/*private function setAvailSize(width:Int, height:Int):Void {
+	private function setAvailSize(width:Int, height:Int):Void {
 		if (this.availWidth != width || this.availHeight != height) {
 			this.availWidth = width;
 			this.availHeight = height;
@@ -59,7 +53,7 @@ class WindowTrait extends DisplayTrait<Frame>//, implements IWindowInfo
 			LazyInst.exec(availSizeChanged.dispatch(this));
 		}
 	}
-	private function onWindowResized(e:Event):Void {
-		setAvailSize(window.screen.availWidth, window.screen.availHeight);
-	}*/
+	private function onWindowResized(e:Dynamic):Void {
+		setAvailSize(window.size.width, window.size.height);
+	}
 }

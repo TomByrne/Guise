@@ -2,7 +2,7 @@ package guise.skin.common;
 
 
 #if macro
-import guise.macro.ValueMacro;
+import guise.Macro;
 import haxe.macro.Expr;
 import haxe.macro.Context;
 #else
@@ -80,10 +80,10 @@ extends StateStyledTrait<StyleType>
 	#end
 	
 	@:macro public function addLayout(thisE:Expr, states:Expr, left:Expr, top:Expr, right:Expr, bottom:Expr, ?priority:Int):Expr {
-		left = ValueMacro.interpValue(left);
-		top = ValueMacro.interpValue(top);
-		right = ValueMacro.interpValue(right);
-		bottom = ValueMacro.interpValue(bottom);
+		left = Macro.interpValue(left);
+		top = Macro.interpValue(top);
+		right = Macro.interpValue(right);
+		bottom = Macro.interpValue(bottom);
 		if (priority != null) {
 			var priorityE = Context.parse(Std.string(priority), Context.currentPos());
 			return macro $thisE.addStateLayout($states, $left, $top, $right, $bottom, $priorityE);
@@ -95,7 +95,7 @@ extends StateStyledTrait<StyleType>
 	#if !macro
 	public function addStateLayout(states:Array<EnumValue>, left:IValue, top:IValue, right:IValue, bottom:IValue, priority:Int = 0):Void {
 		var layout = Layout.size(left, top, right, bottom);
-		if (states == null) {
+		if (states == null || states.length==0) {
 			normalLayout = layout;
 		}else {
 			_layoutStyler.addStyle(states, layout, priority);
@@ -104,7 +104,6 @@ extends StateStyledTrait<StyleType>
 	
 	private function doLayoutDraw():Void {
 		removeValuesByHandler(onLayoutValueChanged);
-		
 		var layout:Layout = _layoutStyler.currentStyle;
 		var newX:Float;
 		var newY:Float;

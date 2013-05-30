@@ -1,5 +1,0 @@
-haXe externs for v0.3.2 of easeljs
-
-download easeljs from http://easeljs.com/
-
-note: not given a thorough test.  Works with the bar graph example and added onPress, onClick, onMouseOver, onMouseOut, onMouseMove functionality to the example.

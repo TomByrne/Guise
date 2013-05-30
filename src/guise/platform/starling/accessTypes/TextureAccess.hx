@@ -66,11 +66,11 @@ class TextureAccess extends AbstractTrait, implements ITextureAccess, implements
 		checkTexture();
 	}
 	public function checkTexture():Void {
-		if (texturePack == null || texturePack.pack==null || _textureInfo == null) return;
-		
 		while (_sprite.numChildren>0) {
 			_sprite.removeChildAt(0);
 		}
+		if (texturePack == null || texturePack.pack==null || _textureInfo == null) return;
+		
 		var getTexture = texturePack.pack.getTexture;
 		var getTextures = texturePack.pack.getTextures;
 		

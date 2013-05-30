@@ -101,11 +101,15 @@ class TextStyleLayer extends PositionedLayer<TextLabelStyle>, implements IAccess
 		var text = textLabel.text;
 		if (text == null) text = "";
 		switch(currentStyle) {
-			case Tls(ts, selectable, tc, aa):
+			case Tls(ts, selectable, tc, aa, alpha):
 				_textDisplay.selectable = selectable;
 				_textDisplay.setAntiAliasing(aa);
 				_textDisplay.setText(new TextRun(ts, [Text(toCase(text, tc))]), true);
+				_textDisplay.setAlpha(alpha==null?1:alpha);
 		}
+	}
+	override private function _clearStyle():Void {
+		_textDisplay.setText(null, true);
 	}
 	private function toCase(str:String, textCase:TextCase):String{
 			if (textCase != null) {
@@ -125,7 +129,7 @@ class TextStyleLayer extends PositionedLayer<TextLabelStyle>, implements IAccess
 	
 }
 enum TextLabelStyle {
-	Tls(ts:TextStyle, selectable:Bool, ?tc:TextCase, ?antiAliasing:AntiAliasType);
+	Tls(ts:TextStyle, selectable:Bool, ?tc:TextCase, ?antiAliasing:AntiAliasType, ?alpha:Null<Float>);
 }
 enum TextCase {
 	TcNormal;

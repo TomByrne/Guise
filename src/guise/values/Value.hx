@@ -2,10 +2,7 @@ package guise.values;
 import composure.core.ComposeItem;
 
 import msignal.Signal;
-/**
- * ...
- * @author Tom Byrne
- */
+
 
 class Value implements IValue
 {
@@ -29,5 +26,9 @@ class Value implements IValue
 	
 	public function update(context:ComposeItem):Array<AnySignal> {
 		return null;
+	}
+	
+	public function toString():String {
+		return Std.string(value);
 	}
 }

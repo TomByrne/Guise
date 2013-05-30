@@ -119,60 +119,65 @@ class TextOutputAccess extends AbsVisualAccessType, implements ITextOutputAccess
 		
 		if (_textField.stage == null ) return;
 		
-		switch(run.style) {
-			case Trs(tf, size, color, mods, align):
-				switch(tf) {
-					case TfSans:
-						_textField.fontName = "_sans";
-					case TfSerif:
-						_textField.fontName = "_serif";
-					case TfTypewriter:
-						_textField.fontName = "_typewriter";
-					case Tf(fontName):
-						_textField.fontName = fontName;
-				}
+		if (run != null) {
 				
-				if(align!=null){
-					switch(align) {
-						case Left:
-							_textField.hAlign = HAlign.LEFT;
-						case Right:
-							_textField.hAlign = HAlign.RIGHT;
-						case Justify, Center:
-							_textField.hAlign = HAlign.CENTER;
+			switch(run.style) {
+				case Trs(tf, size, color, mods, align):
+					switch(tf) {
+						case TfSans:
+							_textField.fontName = "_sans";
+						case TfSerif:
+							_textField.fontName = "_serif";
+						case TfTypewriter:
+							_textField.fontName = "_typewriter";
+						case Tf(fontName):
+							_textField.fontName = fontName;
 					}
-				}else {
-					_textField.hAlign = HAlign.LEFT;
-				}
-				
-				_textField.fontSize = size;
-				_textField.color = color;
-				var boldFound:Bool = false;
-				var italicFound:Bool = false;
-				var underlineFound:Bool = false;
-				for (mod in mods) {
-					switch(mod){
-						case TmBold(bold):
-							if (bold==null || bold) {
-								boldFound = true;
-							}
-						case TmItalic(italic):
-							if (italic==null || italic) {
-								italicFound = true;
-							}
-						case TmUnderline(underline):
-							if (underline==null || underline) {
-								underlineFound = true;
-							}
-						default:
-							//ignore
+					
+					if(align!=null){
+						switch(align) {
+							case Left:
+								_textField.hAlign = HAlign.LEFT;
+							case Right:
+								_textField.hAlign = HAlign.RIGHT;
+							case Justify, Center:
+								_textField.hAlign = HAlign.CENTER;
+						}
+					}else {
+						_textField.hAlign = HAlign.LEFT;
 					}
-				}
-				_textField.bold = boldFound;
-				_textField.italic = italicFound;
-				_textField.underline = underlineFound;
+					
+					_textField.fontSize = size;
+					_textField.color = color;
+					var boldFound:Bool = false;
+					var italicFound:Bool = false;
+					var underlineFound:Bool = false;
+					for (mod in mods) {
+						switch(mod){
+							case TmBold(bold):
+								if (bold==null || bold) {
+									boldFound = true;
+								}
+							case TmItalic(italic):
+								if (italic==null || italic) {
+									italicFound = true;
+								}
+							case TmUnderline(underline):
+								if (underline==null || underline) {
+									underlineFound = true;
+								}
+							default:
+								//ignore
+						}
+					}
+					_textField.bold = boldFound;
+					_textField.italic = italicFound;
+					_textField.underline = underlineFound;
+			}
+			_textField.text = getTextStr(run.runs);
+		}else {
+			_textField.text = "";
 		}
-		_textField.text = getTextStr(run.runs);
 		_ignoreChanges = true;
 		//_textField.dispatchEvent(new Event(Event.CHANGE));
 		
@@ -196,7 +201,6 @@ class TextOutputAccess extends AbsVisualAccessType, implements ITextOutputAccess
 		if (_textWidth != newTextWidth || _textHeight != newTextHeight) {
 			_textWidth = newTextWidth;
 			_textHeight = newTextHeight;
-			//trace("text meas: "+_textWidth+" "+_textHeight+" '"+_textField.text+"' "+_textField.width+"x"+_textField.height);
 			LazyInst.exec(textMeasChanged.dispatch(this));
 		}
 		LazyInst.exec(textRunChanged.dispatch(this));
@@ -215,5 +219,8 @@ class TextOutputAccess extends AbsVisualAccessType, implements ITextOutputAccess
 			}
 		}
 		return ret;
+	}
+	public function setAlpha(alpha:Float):Void {
+		_textField.alpha = alpha;
 	}
 }

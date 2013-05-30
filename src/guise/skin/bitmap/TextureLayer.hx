@@ -73,6 +73,9 @@ class TextureLayer extends PositionedLayer<TextureStyle>, implements IAccessRequ
 			case norm(texture):
 				_textureAccess.setTexture(texture);
 				_pos.set(x,y,w,h);
+			case icon(texture):
+				_textureAccess.setTexture(texture);
+				_pos.set(x, y, Math.NaN, Math.NaN);
 			case pad(texture, padT, padL, padB, padR):
 				if (Math.isNaN(padT)) padT = 0;
 				if (Math.isNaN(padL)) padL = 0;
@@ -87,4 +90,5 @@ class TextureLayer extends PositionedLayer<TextureStyle>, implements IAccessRequ
 enum TextureStyle {
 	norm(texture:TextureInfo);
 	pad(texture:TextureInfo, ?padT:Float, ?padL:Float, ?padB:Float, ?padR:Float);
+	icon(texture:TextureInfo);
 }

@@ -38,7 +38,11 @@ class Bind implements IValue
 			_value = modifier(_value);
 		}
 		if (changeSignal == null) {
-			changeSignal = getChangeSignalMeta(Type.getClass(trait), prop);
+			changeSignal = getChangeSignalMeta(traitType, prop);
+			if (changeSignal == null) {
+				var type = Type.getClass(trait);
+				if (type != traitType) changeSignal = getChangeSignalMeta(type, prop);
+			}
 		}
 		
 		if (changeSignal != null) {
@@ -46,6 +50,8 @@ class Bind implements IValue
 			if(trait!=null){
 				return [Reflect.getProperty(trait, changeSignal)];
 			}
+		}else {
+			trace("WARNING: no change signal found for bound value: "+Type.getClassName(traitType)+"."+prop);
 		}
 		return null;
 		
@@ -57,7 +63,13 @@ class Bind implements IValue
 		if (fieldMeta!=null && fieldMeta.change!=null) {
 			return fieldMeta.change[0];
 		}else {
-			return getChangeSignalMeta(Type.getSuperClass(type), prop );
+			var superclass = Type.getSuperClass(type);
+			if (superclass != null) return getChangeSignalMeta(superclass, prop );
+			else return null;
 		}
+	}
+	
+	public function toString():String {
+		return Type.getClassName(traitType) + "." + prop;
 	}
 }

@@ -59,6 +59,14 @@ class TextLabelTag extends TextLabel
 	}
 }
 
+class ToolTipTag extends TextLabel
+{
+	public function new(?text:String) 
+	{
+		super(text);
+	}
+}
+
 
 @:build(LazyInst.check())
 class ToggleButtonTag extends TextLabel, implements ISelected

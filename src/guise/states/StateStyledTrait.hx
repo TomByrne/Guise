@@ -1,5 +1,7 @@
 package guise.states;
+import composure.core.ComposeItem;
 import composure.traits.AbstractTrait;
+import guise.frame.FrameTrait;
 import guise.values.ValueUtils;
 import guise.utils.Clone;
 import guise.values.IValue;
@@ -36,6 +38,7 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 	}
 	
 	private var currentTrans:ITransTracker;
+	private var _frameTrait:FrameTrait;
 	
 	public var currentStyle(default, null):StyleType;
 	public var previousStyle(default, null):StyleType;
@@ -56,11 +59,15 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 		if (transSubject != null) this.transSubject = transSubject;
 		else this.transSubject = this;
 		
+		_frameTrait = new FrameTrait();
+		_frameTrait.add(attemptDrawStyle, true);
+		addSiblingTrait(_frameTrait);
+		
 		_handlerToSignals = new ObjectHash();
 	}
 	
 	@injectAdd
-	public function addState(state:IState<EnumValue>):Void {
+	private function addState(state:IState<EnumValue>):Void {
 		if (states == null) states = [];
 		
 		state.stateChanged.add(onStateChanged);
@@ -68,7 +75,7 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 		assessStyle();
 	}
 	@injectRemove
-	public function removeState(state:IState<EnumValue>):Void {
+	private function removeState(state:IState<EnumValue>):Void {
 		state.stateChanged.remove(onStateChanged);
 		states.remove(state);
 		assessStyle();
@@ -102,20 +109,16 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 	}
 	private function assessStyle():Void {
 		destStyle = findDestStyle();
-		
 		if (previousStyle == null) {
+			clearTrans();
 			setCurrentStyle(Clone.clone(destStyle));
 			previousStyle = destStyle;
 			attemptDrawStyle();
 		}else if (destStyle != previousStyle) {
-			if (currentTrans != null) {
-				currentTrans.stopTrans(false);
-				currentTrans = null;
-			}
-			
-			if (styleTransitioner != null) {
+			clearTrans();
+			if (destStyle!=null && styleTransitioner != null) {
 				currentTrans = styleTransitioner.doTrans(currentStyle, destStyle,transSubject,null, updateTrans, finishTrans);
-			}else if (injStyleTransitioner != null) {
+			}else if (destStyle!=null && injStyleTransitioner != null) {
 				currentTrans = injStyleTransitioner.doTrans(currentStyle, destStyle,transSubject,null, updateTrans, finishTrans);
 			}else{
 				//previousStyle = currentStyle;
@@ -125,6 +128,12 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 			previousStyle = destStyle;
 		}
 		
+	}
+	private function clearTrans():Void{
+		if (currentTrans != null) {
+			currentTrans.stopTrans(false);
+			currentTrans = null;
+		}
 	}
 	private function updateTrans(current:StyleType):Void {
 		setCurrentStyle(current);
@@ -140,8 +149,10 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 		if (currentStyle == value) return;
 		currentStyle = value;
 	}
-	private function getValue(value:IValue, def:Float, changeHandler:Dynamic->Dynamic->Void, doRemoveListeners:Bool):Float {
+	private function getValue(value:IValue, def:Float, changeHandler:Dynamic->Dynamic->Void, doRemoveListeners:Bool, ?item:ComposeItem):Float {
 		if (value == null) return def;
+		
+		if (item == null) item = this.item;
 		
 		var signals:Array<AnySignal> = _handlerToSignals.get(changeHandler);
 		if (signals == null) {
@@ -189,6 +200,7 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 		}
 		if (styles.length>0) {
 			styles.sort(sortStyles);
+			//trace(this+" "+styles[0].states+" "+styles[0].style);
 			return styles[0].style;
 		}else{
 			return normalStyle;
@@ -204,13 +216,15 @@ class StateStyledTrait<StyleType> extends AbstractTrait
 		}
 	}
 	public function invalidate():Void {
-		// should add invalidation loop here
-		attemptDrawStyle();
+		_frameTrait.invalidate(attemptDrawStyle);
 	}
-	private function attemptDrawStyle():Void {
+	private function attemptDrawStyle():Bool {
 		if (isReadyToDraw()) {
 			if (currentStyle != null) drawStyle();
 			else clearStyle();
+			return true;
+		}else {
+			return false;
 		}
 	}
 	private function getStateKey(state:EnumValue):String {

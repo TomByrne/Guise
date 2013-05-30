@@ -1,0 +1,154 @@
+package guise.platform.nme.accessTypes;
+
+import composure.traits.AbstractTrait;
+import guise.accessTypes.IBoxPosAccess;
+import guise.accessTypes.ITextureAccess;
+import guise.accessTypes.IVisualAccessType;
+import guise.platform.nme.addTypes.IDisplayObjectType;
+import guise.platform.nme.ext.Scale9Sprite;
+import guise.platform.nme.ext.TextureAnim;
+import guise.platform.nme.ext.TileSprite;
+import guise.skin.bitmap.utils.TexturePack;
+import nme.display.Bitmap;
+import nme.display.DisplayObject;
+import nme.display.Graphics;
+import nme.display.Sprite;
+import nme.display.Tilesheet;
+import msignal.Signal;
+
+
+class TextureAccess extends AbstractTrait, implements ITextureAccess, implements IDisplayObjectType, implements IBoxPosAccess
+{
+	@inject( { asc : true } )
+	private var texturePack(default, set_texturePack):TexturePack;
+	private function set_texturePack(value:TexturePack):TexturePack {
+		if (texturePack != null) {
+			texturePack.changed.remove(onPackChanged);
+		}
+		texturePack = value;
+		if (texturePack != null) {
+			texturePack.changed.add(onPackChanged);
+			checkTexture();
+		}
+		return value;
+	}
+	
+	public var layerName(default, set_layerName):String;
+	private function set_layerName(value:String):String {
+		this.layerName = value;
+		_sprite.name = value == null?"":value;
+		return value;
+	}
+	
+	@:isVar public var idealDepth(default, set_idealDepth):Int;
+	private function set_idealDepth(value:Int):Int {
+		this.idealDepth = value;
+		LazyInst.exec(idealDepthChanged.dispatch(this));
+		return value;
+	}
+	@lazyInst public var idealDepthChanged:Signal1<IVisualAccessType>;
+	
+	private var _sprite:Sprite;
+	private var _graphics:Graphics;
+	private var _tilesheet:Tilesheet;
+	private var _textureInfo:TextureInfo;
+	private var _width:Float;
+	private var _height:Float;
+
+	public function new(?layerName:String) {
+		super();
+		_sprite = new Sprite();
+		this.layerName = layerName;
+	}
+	
+	public function setTexture(value:TextureInfo):Void {
+		if (_textureInfo == value) return;
+		_textureInfo = value;
+		checkTexture();
+	}
+	private function onPackChanged(from:TexturePack):Void {
+		checkTexture();
+	}
+	public function checkTexture():Void {
+		while (_sprite.numChildren>0) {
+			_sprite.removeChildAt(0);
+		}
+		if (texturePack == null || texturePack.pack==null || _textureInfo == null) return;
+		
+		var getTexture = texturePack.pack.getTexture;
+		var getTextures = texturePack.pack.getTextures;
+		
+		switch(_textureInfo) {
+			case tile(textureId):
+				var tileSprite:TileSprite = new TileSprite(getTexture(textureId));
+				sizeChild(tileSprite);
+				_sprite.addChild(tileSprite);
+				
+			case sprite(textureId, scale9):
+				if (scale9) {
+					var scale9 = new Scale9Sprite();
+					
+					scale9.setTextureStill(getTexture(textureId + "-tl"), getTexture(textureId + "-tc"), getTexture(textureId + "-tr"),
+											getTexture(textureId + "-ml"), getTexture(textureId + "-mc"), getTexture(textureId + "-mr"),
+											getTexture(textureId + "-bl"), getTexture(textureId + "-bc"), getTexture(textureId + "-br"));
+					_sprite.addChild(scale9);
+					sizeChild(scale9);
+				}else {
+					var img = new Bitmap(getTexture(textureId));
+					_sprite.addChild(img);
+					sizeChild(img);
+				}
+			case clip(textureId, fps, scale9):
+				if (scale9) {
+					var scale9 = new Scale9Sprite();
+					
+					scale9.setTexturesAnim(fps, getTextures(textureId + "-tl"), getTextures(textureId + "-tc"), getTextures(textureId + "-tr"),
+												getTextures(textureId + "-ml"), getTextures(textureId + "-mc"), getTextures(textureId + "-mr"),
+												getTextures(textureId + "-bl"), getTextures(textureId + "-bc"), getTextures(textureId + "-br"));
+					_sprite.addChild(scale9);
+					sizeChild(scale9);
+				}else {
+					var clip = new TextureAnim(getTextures(textureId), fps);
+					_sprite.addChild(clip);
+					sizeChild(clip);
+				}
+		}
+	}
+	public function setPos(x:Float, y:Float):Void {
+		_sprite.x = x;
+		_sprite.y = y;
+	}
+	public function set(x:Float, y:Float, w:Float, h:Float):Void {
+		_sprite.x = x;
+		_sprite.y = y;
+		setSize(w,h);
+	}
+	public function setSize(width:Float, height:Float):Void {
+		_width = width;
+		_height = height;
+		for (i in 0..._sprite.numChildren) {
+			var child = _sprite.getChildAt(i);
+			sizeChild(child);
+		}
+	}
+	
+	private function sizeChild(child:DisplayObject):Void {
+		if (Math.isNaN(_width) || Math.isNaN(_height)) return;
+		
+		if (Std.is(child, TileSprite)) {
+			var tileSprite:TileSprite = cast child;
+			tileSprite.setWidth(_width);
+			tileSprite.setHeight(_height);
+		}else if (Std.is(child, Scale9Sprite)) {
+			var scale9:Scale9Sprite = cast child;
+			scale9.setWidth(_width);
+			scale9.setHeight(_height);
+		}else {
+			child.width = _width;
+			child.height = _height;
+		}
+	}
+	public function getDisplayObject():DisplayObject{
+		return _sprite;
+	}
+}

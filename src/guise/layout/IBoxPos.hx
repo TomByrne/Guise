@@ -10,9 +10,13 @@ interface IBoxPos
 	public var posChanged(get_posChanged, null):Signal1<IBoxPos>;
 	public var sizeChanged(get_sizeChanged, null):Signal1<IBoxPos>;
 	
+	@change("posChanged")
 	public var x(default, null):Float;
+	@change("posChanged")
 	public var y(default, null):Float;
+	@change("sizeChanged")
 	public var w(default, null):Float;
+	@change("sizeChanged")
 	public var h(default, null):Float;
 	
 }

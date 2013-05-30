@@ -1,23 +1,21 @@
 package guise.platform.starling.accessTypes;
 import composure.traits.AbstractTrait;
+import flash.events.Event;
+import flash.events.FocusEvent;
+import flash.geom.Matrix;
+import flash.text.TextField;
+import flash.text.TextFieldType;
+import flash.text.TextFormat;
+import flash.text.TextFormatAlign;
+import flash.ui.Mouse;
+import flash.ui.MouseCursor;
 import guise.accessTypes.IFocusableAccess;
 import guise.accessTypes.IMouseInteractionsAccess;
 import guise.accessTypes.ITextInputAccess;
 import guise.accessTypes.ITextOutputAccess;
 import guise.platform.cross.IAccessRequest;
-import guise.platform.starling.display.StageTrait;
-import guise.platform.starling.TextFieldGutter;
-import msignal.Signal;
-import flash.text.TextField;
-import flash.text.TextFieldType;
-import flash.ui.Mouse;
-import flash.ui.MouseCursor;
-import flash.geom.Matrix;
-import flash.events.Event;
-import flash.events.FocusEvent;
-import flash.text.TextFormat;
-import flash.text.TextFormatAlign;
 import starling.utils.HAlign;
+import msignal.Signal;
 
 
 class TextInputAccess extends AbstractTrait, implements ITextInputAccess, implements IAccessRequest, implements IFocusableAccess

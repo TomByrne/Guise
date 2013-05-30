@@ -2,10 +2,6 @@ package guise.platform.cross.display;
 import composure.traits.AbstractTrait;
 import guise.layout.IBoxPos;
 
-/**
- * ...
- * @author Tom Byrne
- */
 
 class AbsDisplayTrait extends AbstractTrait
 {

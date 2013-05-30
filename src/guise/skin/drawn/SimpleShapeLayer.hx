@@ -2,6 +2,7 @@ package guise.skin.drawn;
 import guise.accessTypes.IPositionAccess;
 import guise.accessTypes.IGraphicsAccess;
 import guise.platform.cross.IAccessRequest;
+import guise.platform.GraphicsApi;
 import guise.skin.drawn.utils.DrawnStyles;
 import guise.skin.drawn.utils.DrawnStyleUtils;
 import guise.values.IValue;
@@ -75,24 +76,28 @@ class SimpleShapeLayer extends PositionedLayer<ShapeStyle>, implements IAccessRe
 		
 		var style:ShapeStyle = currentStyle;
 		
-		drawShape(currentStyle);
-		
-		_graphicsAccess.endFill();
-	}
-	private function drawShape(style:ShapeStyle):Void {
+		var draw:GraphArray<IGraphicsData> = new GraphArray<IGraphicsData>();
 		removeValuesByHandler(onShapeValueChanged);
+		drawShape(draw, currentStyle);
+		draw.push(new GraphicsEndFill());
+		
+		_graphicsAccess.drawGraphicsData(draw);
+	}
+	private function drawShape(commands:GraphArray<IGraphicsData>, style:ShapeStyle):Void {
 		
 		switch(style) {
 			case SsMulti(shapes):
 				for (childShape in shapes) {
-					drawShape(childShape);
+					drawShape(commands, childShape);
 				}
 			case SsEllipse(f, s, w, h, x, y):
 				var xVal:Float = getValue(x, 0, onShapeValueChanged, false);
 				var yVal:Float = getValue(y, 0, onShapeValueChanged, false);
 				var wVal:Float = getValue(w, this.w, onShapeValueChanged, false);
 				var hVal:Float = getValue(h, this.h, onShapeValueChanged, false);
-				DrawnStyleUtils.beginFillStrokes(_graphicsAccess, f, s, false, wVal, hVal, function(index:Int):Void{_graphicsAccess.drawEllipse(xVal, yVal, wVal, hVal);});
+				var path:GraphArray<IGraphicsData> = new GraphArray<IGraphicsData>();
+				path.push(DrawnStyleUtils.drawEllipse(null, xVal, yVal, wVal, hVal));
+				DrawnStyleUtils.beginFillStrokes(f, s, false, wVal, hVal, path, commands);
 		}
 	}
 	private function onShapeValueChanged(?param1:Dynamic, ?param2:Dynamic):Void {

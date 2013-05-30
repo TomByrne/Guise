@@ -9,7 +9,6 @@
 		<var type="guise.platform.cross.AccessProvider" addCall="addTrait">
 			<m-mapAccessType params="guise.accessTypes.IFilterableAccess, guise.platform.nme.accessTypes.FilterableAccess"/>
 			<m-mapAccessType params="guise.accessTypes.IGraphicsAccess, guise.platform.nme.accessTypes.GraphicsAccess"/>
-			<m-mapAccessType params="guise.accessTypes.IBitmapGraphicsAccess, guise.platform.nme.accessTypes.GraphicsAccess"/>
 			<m-mapAccessType params="guise.accessTypes.ITextInputAccess, guise.platform.nme.accessTypes.TextAccess"/>
 			<m-mapAccessType params="guise.accessTypes.ITextOutputAccess, guise.platform.nme.accessTypes.TextAccess"/>
 			<!--<m-mapAccessType params="guise.accessTypes.IFocusableAccess, guise.platform.nme.accessTypes.FocusableAccess"/>-->
@@ -17,20 +16,22 @@
 			<m-mapAccessType params="guise.accessTypes.IMouseClickableAccess, guise.platform.nme.accessTypes.MouseClickableAccess"/>
 			<m-mapAccessType params="guise.accessTypes.IMouseInteractionsAccess, guise.platform.nme.accessTypes.MouseInteractionsAccess"/>
 			<m-mapAccessType params="guise.accessTypes.IKeyboardAccess, guise.platform.nme.accessTypes.KeyboardAccess"/>
+			<m-mapAccessType params="guise.accessTypes.ITextureAccess, guise.platform.nme.accessTypes.TextureAccess"/>
 			<m-mapAccessType params="guise.layer.ILayerContainer, guise.platform.nme.display.LayerSwapper"/>
 			<m-mapAccessType params="guise.frame.IFrameTicker, guise.platform.nme.core.NmeFrameTicker"/>
 		</var>
 
 		<!-- Core display tags -->
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.WindowTag" addCall="addTrait" p-searchAscendants="true" p-searchDescendants="false">
-			<m-addInst params="guise.platform.nme.display.StageTrait.inst(),guise.platform.nme.display.StageTrait"/>
-		</var>
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.StageTag" addCall="addTrait" p-searchAscendants="true" p-searchDescendants="false">
-			<m-addInst params="guise.platform.nme.display.StageTrait.inst(),guise.platform.nme.display.StageTrait"/>
+			<m-addInst params="guise.platform.nme.display.WindowTrait.inst(),guise.platform.nme.display.WindowTrait"/>
 			<m-addType params="guise.frame.FrameExecutor"/>
+			<m-addType params="guise.logic.topLevel.TopLevelManager"/>
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.ContainerTag" addCall="addTrait">
 			<m-addType params="guise.platform.nme.display.ContainerTrait,guise.platform.nme.display.ContainerTrait"/>
+		</var>
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.TopLevelTag" addCall="addTrait">
+			<m-addFact params="function(into:Dynamic):Dynamic return new guise.platform.nme.display.ContainerTrait(null, true)"/>
 		</var>
 
 		<!-- Core control logic -->
@@ -38,6 +39,7 @@
 			<m-addType params="guise.logic.input.MouseOverTrait"/>
 			<m-addType params="guise.logic.states.ButtonStateMapper"/>
 			<m-addType params="guise.logic.input.ButtonClickTrait"/>
+			<m-addType params="guise.logic.states.FocusStateMapper"/>
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.ControlTags.TextButtonTag" addCall="addTrait" m-setCheckProps="{selectable:true}">
 			<m-addType params="guise.logic.states.SelectableStateMapper"/>
@@ -54,12 +56,14 @@
 			<m-addType params="guise.logic.states.SelectableStateMapper"/>
 			<m-addType params="guise.logic.input.ButtonClickTrait"/>
 			<m-addType params="guise.logic.input.ClickToggleSelect"/>
+			<m-addType params="guise.logic.states.FocusStateMapper"/>
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.ControlTags.SliderTag" addCall="addTrait">
 			<m-addType params="guise.logic.input.MouseOverTrait"/>
 			<m-addType params="guise.logic.states.ButtonStateMapper"/>
 			<m-addFact params="function(into:Dynamic):Dynamic return new guise.logic.input.MouseDragChangeValue(null,true,guise.data.INumRange,'valueNorm',null,null,new guise.values.Calc(Multiply, [new guise.values.Value(0.8), new guise.values.Width()]))"/>
 			<m-addType params="guise.data.INumRange.NumRange, guise.data.INumRange"/>
+			<m-addType params="guise.logic.states.FocusStateMapper"/>
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.ControlTags.PanelTag" addCall="addTrait">
 			<m-addType params="guise.scroll.MeasSizeScroll"/>

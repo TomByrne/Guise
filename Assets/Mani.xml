@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://texturepacker.com-->
 <!-- $TexturePacker:SmartUpdate:2828d5b06d193c039ea5d8a19aac3ba8$ -->
-<TextureAtlas imagePath="RunnerMark.png">
+<TextureAtlas imagePath="Mani.png">
     <SubTexture name="ButtonUp-tl" x="0" y="0" width="11" height="10"/>
     <SubTexture name="ButtonUp-tc" x="11" y="0" width="76" height="10"/>
     <SubTexture name="ButtonUp-tr" x="87" y="0" width="11" height="10"/>

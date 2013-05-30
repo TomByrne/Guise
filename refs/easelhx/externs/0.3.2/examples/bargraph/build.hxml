@@ -1,4 +1,0 @@
--cp src
--cp ../../
--main Test
--js bin/Test.js

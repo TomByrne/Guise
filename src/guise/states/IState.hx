@@ -2,9 +2,6 @@ package guise.states;
 
 import msignal.Signal;
 
-/**
- * @author Tom Byrne
- */
 
 interface IState<StateEnum:EnumValue> 
 {

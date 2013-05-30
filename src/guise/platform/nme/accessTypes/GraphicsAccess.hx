@@ -1,20 +1,19 @@
 package guise.platform.nme.accessTypes;
 
-import guise.accessTypes.IBitmapGraphicsAccess;
-import guise.accessTypes.IPositionAccess;
-import guise.platform.cross.accessTypes.AbsVisualAccessType;
-import nme.display.Graphics;
-import nme.display.BitmapData;
 import guise.accessTypes.IGraphicsAccess;
-import guise.geom.Matrix;
-import nme.display.Sprite;
+import guise.accessTypes.IPositionAccess;
+import guise.platform.GeomApi;
+import nme.display.BitmapData;
 import nme.display.DisplayObject;
+import nme.display.Graphics;
 import nme.display.InteractiveObject;
-import guise.platform.nme.addTypes.IDisplayObjectType;
-import guise.platform.nme.addTypes.IInteractiveObjectType;
+import nme.display.Sprite;
+import guise.platform.GraphicsApi;
+import nme.Vector;
 
+using guise.platform.nme.VectorUtils;
 
-class GraphicsAccess extends AbsVisualAccessType, implements IBitmapGraphicsAccess, implements IDisplayObjectType, implements IInteractiveObjectType, implements IPositionAccess
+class GraphicsAccess extends AbsIntObjAccess, implements IGraphicsAccess, implements IPositionAccess
 {
 	override private function set_layerName(value:String):String {
 		_sprite.name = value == null?"":value;
@@ -26,18 +25,29 @@ class GraphicsAccess extends AbsVisualAccessType, implements IBitmapGraphicsAcce
 
 	public function new(?layerName:String) {
 		_sprite = new Sprite();
+		_sprite.buttonMode = true; // allows focus
+		_sprite.useHandCursor = false;
+		
 		_graphics = _sprite.graphics;
+		setInteractiveObject(_sprite);
 		super(layerName);
 	}
 	
-	public function getDisplayObject():DisplayObject {
-		return _sprite;
-	}
-	public function getInteractiveObject():InteractiveObject {
-		return _sprite;
+	public function setPos(x:Float, y:Float):Void {
+		_sprite.x = x;
+		_sprite.y = y;
 	}
 	
-	public function beginFill(color:Int, alpha:Float = 1.0)
+	public function clear()
+	{	
+		_graphics.clear();	
+	}
+	
+	public function drawGraphicsData(graphicsData:GraphArray<IGraphicsData>):Void {
+		_graphics.drawGraphicsData(graphicsData);
+	}
+	
+	/*public function beginFill(color:Int, alpha:Float = 1.0)
 	{	
 		_graphics.beginFill(color, alpha);
 	}
@@ -47,7 +57,7 @@ class GraphicsAccess extends AbsVisualAccessType, implements IBitmapGraphicsAcce
 	}
 
 	public function beginGradientFill(type:GradientType, gp:Array<{fract:Float, c:Int, a:Null<Float>}>, ?matrix:Matrix, ?spreadMethod:Null<SpreadMethod>, ?interpolationMethod:Null<InterpolationMethod>):Void
-	{	
+	{
 		// flash has a problem with the ratios being out of order
 		gp.sort(sortGradPoints);
 		
@@ -95,16 +105,6 @@ class GraphicsAccess extends AbsVisualAccessType, implements IBitmapGraphicsAcce
 				focalPointRatio = fpr;
 		}
 		_graphics.beginGradientFill(nmeType, colors, alphas, ratios, nmeMat, spread, interp, focalPointRatio);
-	}
-	
-	public function setPos(x:Float, y:Float):Void {
-		_sprite.x = x;
-		_sprite.y = y;
-	}
-	
-	public function clear()
-	{	
-		_graphics.clear();	
 	}
 	
 	
@@ -250,5 +250,5 @@ class GraphicsAccess extends AbsVisualAccessType, implements IBitmapGraphicsAcce
 		if (gp1.fract < gp2.fract) return -1;
 		else if (gp2.fract < gp1.fract) return 1;
 		else return 0;
-	}
+	}*/
 }

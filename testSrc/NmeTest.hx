@@ -27,11 +27,8 @@ class NmeTest
 		window.addTrait(WindowTag);
 		root.addChild(window);
 		
-		var stage = new ComposeGroup();
-		stage.addTrait(StageTag);
-		window.addChild(stage);
-		XmlToCode.path("/../Platforms/NME.xml").install(stage);
-		XmlToCode.path("/../Styles/Chutzpah.xml").install(stage);
-		TestControls.addControls(stage, 10, 10);
+		XmlToCode.path("/../Platforms/NME.xml").install(window);
+		XmlToCode.path("/../Styles/Chutzpah.xml").install(window);
+		TestControls.addControls(window, 10, 10);
 	}
 }

@@ -4,6 +4,7 @@ import guise.data.IControlInfo;
 import guise.platform.waxe.display.DisplayTrait;
 import wx.Window;
 import wx.ToolTip;
+import guise.states.IState;
 
 class ToolTipAdder extends AbstractTrait
 {

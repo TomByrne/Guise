@@ -1,9 +1,5 @@
 package guise.states;
 
-/**
- * ...
- * @author Tom Byrne
- */
 
 class ControlStates {}
 enum ControlActiveState		{ ACTIVE; INACTIVE; }

@@ -13,9 +13,6 @@
 		<!-- Core display tags -->
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.WindowTag" addCall="addTrait" p-searchAscendants="true" p-searchDescendants="false">
 			<m-addInst params="guise.platform.html5.display.WindowTrait.inst()"/>
-		</var>
-		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.StageTag" addCall="addTrait" p-searchAscendants="true" p-searchDescendants="false">
-			<m-addInst params="guise.platform.html5.display.StageTrait.inst()"/>
 			<m-addType params="guise.frame.FrameExecutor"/>
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.core.CoreTags.ContainerTag" addCall="addTrait">

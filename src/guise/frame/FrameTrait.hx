@@ -29,12 +29,12 @@ class FrameTrait
 		_frameCalls = [];
 		_bundleMap = new Hash();
 	}
-	@:macro public function add(thisE:Expr, call:Expr, ?dependsOn:Expr , ?valid:Expr ):Expr {
-		var name:Expr = Context.parse('"'+getName(call)+'"', Context.currentPos());
-		return macro $thisE.addFrameCall($name, $call, $dependsOn, $valid);
+	@:macro public function add(thisE:Expr, call:Expr, valid:Expr, ?dependsOn:Expr ):Expr {
+		var name:Expr = Context.parse('"' + getName(call) + '"', Context.currentPos());
+		return macro $thisE.addFrameCall($name, $call, $valid, $dependsOn);
 	}
 	
-	public function addFrameCall(name:String, call:FrameCall, ?dependsOn:Array < FrameCall > , valid:Bool = true ):Void {
+	public function addFrameCall(name:String, call:FrameCall, valid:Bool = true, ?dependsOn:Array < FrameCall > ):Void {
 		var depends:Array<FrameCallBundle>;
 		if (dependsOn != null) {
 			depends = [];

@@ -26,10 +26,7 @@ class NativeTest
 		window.addTrait(WindowTag);
 		root.addChild(window);
 		
-		var stage = new ComposeGroup();
-		stage.addTrait(StageTag);
-		window.addChild(stage);
-		NativePlatformAccess.install(stage);
-		TestControls.addControls(stage, 10, 10);
+		NativePlatformAccess.install(window);
+		TestControls.addControls(window, 0, 0);
 	}
 }

@@ -4,6 +4,7 @@ import guise.platform.nme.addTypes.IDisplayObjectType;
 import nme.display.DisplayObject;
 import nme.display.DisplayObjectContainer;
 import nme.display.Sprite;
+import nme.events.Event;
 import nme.geom.Rectangle;
 
 using Lambda;
@@ -12,13 +13,15 @@ class ContainerTrait extends DisplayTrait
 {
 	
 	private var _layerDisplays:Array<IDisplayObjectType>;
+	private var keepOnTop:Bool;
 	
 	public var childContainer(default, null):DisplayObjectContainer;
 	public var container(default, null):DisplayObjectContainer;
 	public var sprite(default, null):Sprite;
 
-	public function new(container:DisplayObjectContainer = null) {
+	public function new(container:DisplayObjectContainer = null, keepOnTop:Bool=false) {
 		_layerDisplays = [];
+		this.keepOnTop = keepOnTop;
 		childContainer = new Sprite();
 		if (container != null)setContainer(container);
 		super(container);
@@ -55,6 +58,19 @@ class ContainerTrait extends DisplayTrait
 			}
 		}
 		return false;
+	}
+	override private function onParentAdded(parent:ContainerTrait):Void {
+		super.onParentAdded(parent);
+		if(keepOnTop)parent.childContainer.addEventListener(Event.ADDED, onChildAdded);
+	}
+	override private function onParentRemoved(parent:ContainerTrait):Void {
+		super.onParentRemoved(parent);
+		if(keepOnTop)parent.childContainer.removeEventListener(Event.ADDED, onChildAdded);
+	}
+	private function onChildAdded(e:Event):Void {
+		if (e.currentTarget == _parent.childContainer && container!=null) {
+			_parent.childContainer.setChildIndex(container, _parent.childContainer.numChildren - 1);
+		}
 	}
 	
 	@injectAdd

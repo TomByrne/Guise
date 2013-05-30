@@ -77,6 +77,23 @@ class Calc implements IValue
 		}
 		return ret;
 	}
+	
+	public function toString():String {
+		switch(operator) {
+			case Add:
+				return values.join("+");
+			case Subtract:
+				return values.join("-");
+			case Multiply:
+				return values.join("*");
+			case Divide:
+				return values.join("/");
+			case Max:
+				return values.join(">");
+			case Min:
+				return values.join("<");
+		}
+	}
 }
 
 enum Operator {
