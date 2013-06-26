@@ -1,0 +1,8 @@
+-main NativeTest
+-js bin/NativeTest.js
+-debug
+-cp ../../src
+-cp ../../testSrc
+-lib msignal
+-lib composure
+-lib xmlTools

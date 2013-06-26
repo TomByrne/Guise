@@ -24,7 +24,7 @@ class AccessProvider extends AbstractTrait
 	}
 	
 	
-	public function mapAccessType<T>(accessType:T, klass:Class<T>):Void {
+	public function mapAccessType<T>(accessType:Class<T>, klass:Class<T>):Void {
 		var key:String = Type.getClassName(cast accessType);
 		_accessClassMap.set(key, klass);
 	}

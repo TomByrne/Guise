@@ -2,8 +2,6 @@ package guise.platform.html5.controls;
 import guise.platform.html5.display.ContainerTrait;
 import js.html.Element;
 
-import js.Dom;
-
 class PanelTrait extends ContainerTrait
 {
 

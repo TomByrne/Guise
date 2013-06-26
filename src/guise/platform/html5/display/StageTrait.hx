@@ -16,6 +16,7 @@ class StageTrait extends ContainerTrait
 	public function new() 
 	{
 		super(Browser.document.body);
+		trace("StageTrait: "+domElement+" "+Browser.document.body);
 	}
 	
 }

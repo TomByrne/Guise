@@ -37,6 +37,7 @@ class DisplayTrait extends AbsDisplayTrait implements IMeasurement
 		_sizeListen = true;
 		_posListen = true;
 		setDomElement(domElement);
+		trace("DisplayTrait: "+domElement);
 		
 		var injector = new Injector(ContainerTrait, onParentAdded, onParentRemoved, true, false, true);
 		injector.stopAscendingAt = TraitTypeChecker.create(DisplayTrait);
@@ -44,6 +45,7 @@ class DisplayTrait extends AbsDisplayTrait implements IMeasurement
 		addInjector(injector);
 	}
 	private function onParentAdded(parent:ContainerTrait):Void {
+		trace("onParentAdded: "+Type.getClassName(Type.getClass(parent))+" "+parent.domElement+" "+domElement);
 		if (_parent != null) {
 			// parent container has been added between here and existing parent
 			onParentRemoved(_parent);

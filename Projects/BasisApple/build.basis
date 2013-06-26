@@ -1,0 +1,48 @@
+<target name="main">
+	<appName value="GuiseBasisApple" />
+
+	<!-- <source path="src" /> -->
+    <source path="../../src" />
+    <source path="../../testSrc" />
+
+	<asset path="../../Platforms" />
+	<builddir path="build" />
+	<main classpath="NativeTest" />
+
+    <haxeArg value="-lib basis" />
+    <haxeArg value="-lib basisApple" />
+    <haxeArg value="-lib msignal" />
+    <haxeArg value="-lib composure" />
+    <haxeArg value="-lib feffects" />
+    <haxeArg value="-lib xmlTools" />
+
+    <haxeArg value="-D absolute-path" />
+
+	<target name="ios" type="Apple">
+		<os type="ios" />
+		<framework name="UIKit" />
+		<framework name="Foundation" />
+		<framework name="CoreGraphics" />
+		<framework name="QuartzCore" />
+		<target name="iphone">
+			<simulator use="true" type="iphone"/>
+			<debug value="true" />
+			<runWhenFinished value="true" />
+		</target>
+		<!-- <target name="iphonedev">
+			<simulator use="false" type="iphone"/>
+			<haxeArg value="-D HXCPP_ARMV7" />
+			<debug value="true" />
+		</target> -->
+	</target>
+
+	<target name="osx" type="Apple">
+		<os type="osx" />
+		<framework name="Foundation" />
+		<framework name="CoreGraphics" />
+		<framework name="QuartzCore" />
+		<main classpath="example.ApplicationMain" />
+		<debug value="true" />
+		<runWhenFinished value="true" />
+	</target>
+</target>

@@ -1,0 +1,694 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"pos",
+				"position"
+			],
+			[
+				"Uni",
+				"UniqueList	org.tbyrne.collections"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/Users/thomasbyrne/Projects/Guise/Projects/HTML5/GuiseHTML5.nmml",
+			"settings":
+			{
+				"buffer_size": 790,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "build.basis",
+			"settings":
+			{
+				"buffer_size": 1287,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/thomasbyrne/Projects/XmlTools/src/xmlTools/XmlPosParser.hx",
+			"settings":
+			{
+				"buffer_size": 10053,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/thomasbyrne/Projects/Guise/Platforms/BasisApple.xml",
+			"settings":
+			{
+				"buffer_size": 3847,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/example/ApplicationMain.hx",
+			"settings":
+			{
+				"buffer_size": 283,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/example/ComponentExample.hx",
+			"settings":
+			{
+				"buffer_size": 7115,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/example/MainView.hx",
+			"settings":
+			{
+				"buffer_size": 6909,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/thomasbyrne/Projects/Guise/src/guise/platform/basisApple/display/DisplayTrait.hx",
+			"settings":
+			{
+				"buffer_size": 4022,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/thomasbyrne/Projects/Guise/src/guise/platform/basisApple/display/WindowTrait.hx",
+			"settings":
+			{
+				"buffer_size": 1594,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/thomasbyrne/Projects/Guise/src/guise/platform/native/NativePlatformAccess.hx",
+			"settings":
+			{
+				"buffer_size": 918,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/thomasbyrne/Projects/XmlTools/src/xmlTools/XmlToCode.hx",
+			"settings":
+			{
+				"buffer_size": 11437,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/thomasbyrne/Projects/Guise/src/guise/platform/cross/display/AbsDisplayTrait.hx",
+			"settings":
+			{
+				"buffer_size": 2260,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/usr/lib/haxe/lib/basisApple/0,0,3/apple/ui/UIView.hx",
+			"settings":
+			{
+				"buffer_size": 28788,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 267.0,
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/thomasbyrne/Projects/Guise/testSrc/NativeTest.hx",
+		"/usr/lib/haxe/lib/basisApple/0,0,3/basis/ios/IOSApplication.hx",
+		"/usr/lib/haxe/lib/basisApple/0,0,3/basis/osx/OSXApplication.hx",
+		"/usr/lib/haxe/lib/basisApple/0,0,3/basis/BasisApplication.hx",
+		"/Users/thomasbyrne/Projects/Guise/src/guise/platform/basisApple/display/StageTrait.hx",
+		"/Users/thomasbyrne/Projects/Guise/src/guise/platform/basisApple/display/ContainerTrait.hx",
+		"/Users/thomasbyrne/Projects/Guise/src/guise/platform/basisApple/display/WindowTrait.hx",
+		"/Users/thomasbyrne/Projects/Guise/src/guise/platform/native/NativePlatformAccess.hx",
+		"/usr/lib/haxe/lib/basisApple/.current",
+		"/usr/lib/haxe/lib/basis/.current",
+		"/usr/lib/haxe/lib/basisApple/.dev",
+		"/Users/thomasbyrne/Projects/Composure/build/Package haxelib.command",
+		"/Users/thomasbyrne/Projects/XmlTools/projects/XmlIncluder/nekoc.hxml",
+		"/Users/thomasbyrne/Projects/XmlTools/projects/XmlIncluder/bin/Test Neko.command",
+		"/Users/thomasbyrne/Projects/XmlTools/projects/XmlIncluder/cppc.hxml",
+		"/Users/thomasbyrne/Projects/XmlTools/projects/XmlIncluder/bin/Test CPP.command",
+		"/Users/thomasbyrne/Projects/XmlTools/projects/XmlIncluder/bin/Test Neko.bat",
+		"/Users/thomasbyrne/Projects/XmlTools/projects/XmlIncluder/bin/Test CPP.bat",
+		"/Users/thomasbyrne/Projects/XmlTools/projects/XmlIncluder/XmlIncluder.hxproj",
+		"/Users/thomasbyrne/Projects/XmlTools/projects/XmlIncluder/compile.hxml",
+		"/Users/thomasbyrne/Projects/XmlTools/projects/TestE4XMacro/compile.hxml",
+		"/Users/thomasbyrne/Projects/XmlTools/projects/TestE4XMacro/TestE4XMacro.hxproj",
+		"/Users/thomasbyrne/Projects/XmlTools/build/Submit haxelib.bat",
+		"/Users/thomasbyrne/Projects/XmlTools/build/Package haxelib.bat",
+		"/Users/thomasbyrne/Projects/XmlTools/src/haxelib.json",
+		"/Users/thomasbyrne/Projects/Composure/FDT Project/compile.hxml",
+		"/Users/thomasbyrne/Projects/XmlTools/build/Package haxelib.command",
+		"/Users/thomasbyrne/Projects/XmlTools/build/Submit haxelib.command",
+		"/Users/thomasbyrne/Projects/Composure/testSrc/composureTest/ListTest.hx",
+		"/Users/thomasbyrne/Projects/Composure/src/org/tbyrne/collections/UniqueList.hx",
+		"/Users/thomasbyrne/Projects/XmlTools/build/haxelib.json",
+		"/Users/thomasbyrne/Projects/Composure/src/haxelib.json",
+		"/Users/thomasbyrne/Projects/XmlTools/build/Package & Submit to haxelib.command",
+		"/Users/thomasbyrne/Projects/Composure/README.md",
+		"/Users/thomasbyrne/Projects/Composure/build/Submit haxelib.command",
+		"/usr/lib/haxe/lib/polygonal/.current",
+		"/Users/thomasbyrne/Projects/Composure/testBin/HelloWorld.exe/src/org/tbyrne/collections/UniqueList.cpp",
+		"/usr/local/bin/git-disable-filemode",
+		"/Users/thomasbyrne/Projects/Composure/FD Project/Composure.hxproj",
+		"/Users/thomasbyrne/Projects/Guise/Projects/HTML5/GuiseHTML5.hxproj",
+		"/Users/thomasbyrne/Projects/Guise/Projects/BasisApple/Build & Run in Sim.command",
+		"/Users/thomasbyrne/Projects/Basis/build.xml",
+		"/Users/thomasbyrne/Projects/Basis/build.hxml",
+		"/Users/thomasbyrne/Projects/Guise/Projects/BasisApple/src/example/WebViewExample.hx",
+		"/Users/thomasbyrne/Projects/Guise/Projects/BasisApple/build.basis",
+		"/Users/thomasbyrne/Projects/Guise/Projects/BasisApple/Build, Install & Run.command",
+		"/Users/thomasbyrne/Projects/Guise/Projects/BasisAndroid/Build, Install & Run.bat",
+		"/Users/thomasbyrne/Projects/BasisApple/example/src/example/ComponentExample.hx",
+		"/Users/thomasbyrne/Projects/BasisApple/example/src/example/MainView.hx",
+		"/Users/thomasbyrne/Projects/BasisApple/example/src/example/WebViewExample.hx",
+		"/Users/thomasbyrne/Projects/BasisApple/example/src/example/ApplicationMain.hx",
+		"/Users/thomasbyrne/Projects/BasisAndroid/example/src/example/MainView.hx",
+		"/usr/lib/haxe/lib/Basis/git/build.xml",
+		"/usr/lib/haxe/lib/xapi/.current",
+		"/usr/lib/haxe/lib/BasisApple/git/buildtool/src/basisapple/AppleBuildTool.hx",
+		"/usr/lib/haxe/lib/BasisApple/git/src/basisapple/AppleBuildTool.hx",
+		"/usr/lib/haxe/lib/BasisApple/git/src/basisapple/Main.hx",
+		"/usr/lib/haxe/lib/BasisApple/git/example/build.basis",
+		"/usr/lib/haxe/lib/Basis/git/buildtool/src/basis/Main.hx",
+		"/usr/lib/haxe/lib/Basis/git/README.md",
+		"/usr/lib/haxe/lib/Basis/git/haxelib.json",
+		"/Users/thomasbyrne/Projects/Composure/build/Submit haxelib.bat",
+		"/Users/thomasbyrne/Projects/XmlTools/build/Package & Submit to haxelib.bat",
+		"/Users/thomasbyrne/Projects/Composure/build/Package haxelib.bat",
+		"/Users/thomasbyrne/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/Users/thomasbyrne/Projects/Composure/build/Package haxelib.sh",
+		"/Users/thomasbyrne/Projects/Composure/src/haxelib.xml",
+		"/Users/thomasbyrne/Projects/Composure/build/Submit haxelib"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"_attLookup",
+			"AbstractTrait",
+			"AbsDisplayTrait",
+			"IBoxPos",
+			"Button",
+			"window",
+			"onPosOrSizeChanged",
+			"move",
+			"window",
+			"Window",
+			"print"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"view",
+			"UIView"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 7,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/Users/thomasbyrne/Projects/Guise/Projects/HTML5/GuiseHTML5.nmml",
+					"settings":
+					{
+						"buffer_size": 790,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								573,
+								445
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/NMML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "build.basis",
+					"settings":
+					{
+						"buffer_size": 1287,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								189,
+								189
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/thomasbyrne/Projects/XmlTools/src/xmlTools/XmlPosParser.hx",
+					"settings":
+					{
+						"buffer_size": 10053,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9344,
+								9344
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4660.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/thomasbyrne/Projects/Guise/Platforms/BasisApple.xml",
+					"settings":
+					{
+						"buffer_size": 3847,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								82,
+								82
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/example/ApplicationMain.hx",
+					"settings":
+					{
+						"buffer_size": 283,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								239,
+								182
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/example/ComponentExample.hx",
+					"settings":
+					{
+						"buffer_size": 7115,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								122,
+								103
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/example/MainView.hx",
+					"settings":
+					{
+						"buffer_size": 6909,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/Users/thomasbyrne/Projects/Guise/src/guise/platform/basisApple/display/DisplayTrait.hx",
+					"settings":
+					{
+						"buffer_size": 4022,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2496,
+								2496
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1182.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/Users/thomasbyrne/Projects/Guise/src/guise/platform/basisApple/display/WindowTrait.hx",
+					"settings":
+					{
+						"buffer_size": 1594,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								804,
+								804
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 250.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "/Users/thomasbyrne/Projects/Guise/src/guise/platform/native/NativePlatformAccess.hx",
+					"settings":
+					{
+						"buffer_size": 918,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								410,
+								410
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "/Users/thomasbyrne/Projects/XmlTools/src/xmlTools/XmlToCode.hx",
+					"settings":
+					{
+						"buffer_size": 11437,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2371,
+								2371
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 590.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "/Users/thomasbyrne/Projects/Guise/src/guise/platform/cross/display/AbsDisplayTrait.hx",
+					"settings":
+					{
+						"buffer_size": 2260,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1448,
+								1448
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 456.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "/usr/lib/haxe/lib/basisApple/0,0,3/apple/ui/UIView.hx",
+					"settings":
+					{
+						"buffer_size": 28788,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7012,
+								7017
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1912.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}

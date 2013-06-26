@@ -55,13 +55,13 @@ class AbsDisplayTrait extends AbstractTrait
 	private function onPosSizeChanged(from:IBoxPos):Void {
 		doPosChanged();
 		doSizeChanged();
-		onPosOrSizeChanged();
+		onPosOrSizeChanged(position.x,position.y,position.w,position.h);
 	}
-	private function onPosOrSizeChanged():Void {
+	private function onPosOrSizeChanged(x:Float, y:Float, w:Float, h:Float):Void {
 		// override me if drawing requires both pos and size
 	}
 	private function onPosChanged(from:IBoxPos):Void {
-		onPosOrSizeChanged();
+		onPosOrSizeChanged(position.x,position.y,position.w,position.h);
 		doPosChanged();
 	}
 	inline private function doPosChanged():Void {
@@ -80,7 +80,7 @@ class AbsDisplayTrait extends AbstractTrait
 	
 	
 	private function onSizeChanged(from:IBoxPos):Void {
-		onPosOrSizeChanged();
+		onPosOrSizeChanged(position.x,position.y,position.w,position.h);
 		doSizeChanged();
 	}
 	inline private function doSizeChanged():Void {

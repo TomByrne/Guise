@@ -42,7 +42,7 @@ class TestControls
 		parent.addChild(new ComposeItem([new TextLabelTag(text), new VStackLayoutInfo()]));
 	}
 	public static function addTextInput(parent:ComposeGroup, prompt:String):Void {
-		parent.addChild(new ComposeItem([new TextInputTag(prompt), new VStackLayoutInfo() ]));
+		parent.addChild(new ComposeItem([new TextInputTag(prompt), new VStackLayoutInfo(-1, StackSizePolicy.Fill) ]));
 	}
 	public static function addToggleButton(parent:ComposeGroup, label:String):Void {
 		parent.addChild(new ComposeItem([new ToggleButtonTag(label), new VStackLayoutInfo()]));

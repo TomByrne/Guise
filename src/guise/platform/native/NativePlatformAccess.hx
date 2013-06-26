@@ -8,9 +8,11 @@ import xmlTools.XmlToCode;
 class NativePlatformAccess
 {
 	public static inline function install(within:ComposeItem){
-		
 		#if js
 			XmlToCode.path("/../../../../Platforms/HTML5.xml").install(within);
+		#elseif basisApple
+			//XmlToCode.path("/../../../../Platforms/BasisApple.xml").install(within);
+			XmlToCode.path("/../../../../Files/assets/BasisApple.xml").install(within);
 		#elseif waxe
 			// Waxe fallback
 			XmlToCode.path("/../../../../Platforms/Waxe.xml").install(within);
