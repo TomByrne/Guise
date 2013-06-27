@@ -4,6 +4,7 @@ import guise.controls.data.ITextLabel;
 import guise.layout.IBoxPos;
 import guise.platform.basisApple.display.DisplayTrait;
 import apple.ui.*;
+import basis.object.IObject;
 
 class TextInputTrait extends DisplayTrait<UITextField>
 {
@@ -40,8 +41,14 @@ class TextInputTrait extends DisplayTrait<UITextField>
 	{
 		_allowSizing = true;
 		super(new UITextField());
+		view.addEventListener(UITextField.UITextFieldTextDidChange, onTextInputChanged);
 	}
 	
+	private function onTextInputChanged(object:IObject, type:String):Void {
+		/*if(textLabel!=null){
+			textLabel.text = view.text;
+		}*/
+	}
 	private function onTextChanged(from:ITextLabel):Void {
 		view.text = from.text==null?"":from.text;
 	}

@@ -3,6 +3,7 @@ package guise.platform.basisApple.controls;
 import guise.controls.data.INumRange;
 import guise.platform.basisApple.display.DisplayTrait;
 import apple.ui.*;
+import basis.object.IObject;
 
 class SliderTrait extends DisplayTrait<UISlider>
 {
@@ -25,14 +26,15 @@ class SliderTrait extends DisplayTrait<UISlider>
 		_allowSizing = true;
 		super(new UISlider());
 		view.enabled = true;
+		view.addEventListener(UIControl.UIControlValueChanged, onSliderChange);
 		this._measWidth = 100;
 		this._measHeight = 23;
 	}
-	/*private function onSliderChange(e:Event):Void {
+	private function onSliderChange(object:IObject, type:String):Void {
 		if(range!=null){
-			range.value = Std.parseFloat(view.value);
+			range.value = view.value;
 		}
-	}*/
+	}
 	override private function checkMeas():Void {
 		//super.checkMeas();
 	}

@@ -28,7 +28,7 @@
 			<m-addType params="guise.platform.basisApple.logic.MouseClickable"/>
 		</var>
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextButtonTag" addCall="addTrait" m-setCheckProps="{selectable:true}">
-			<!-- <m-addType params="guise.controls.logic.input.ClickToggleSelect"/> -->
+			<m-addType params="guise.controls.logic.input.ClickToggleSelect"/>
 			<m-addType params="guise.controls.data.ISelected.Selected, guise.controls.data.ISelected"/>
 		</var>
 		 <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextInputTag" addCall="addTrait">
@@ -37,22 +37,22 @@
 		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.TextLabelTag" addCall="addTrait">
 			<m-addType params="guise.platform.basisApple.controls.TextLabelTrait"/>
 		</var> 
-		<!--<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
-			<m-addType params="guise.platform.basisApple.controls.CheckBoxTrait"/>
-		</var>-->
+		<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ToggleButtonTag" addCall="addTrait">
+			<m-addType params="guise.platform.basisApple.controls.ToggleButtonTrait"/>
+		</var>
 		 <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.SliderTag" addCall="addTrait">
 			<m-addType params="guise.platform.basisApple.controls.SliderTrait"/>
 			<m-addType params="guise.controls.data.INumRange.NumRange, guise.controls.data.INumRange"/>
 		</var>
-		 <!--<var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ListBoxTag" addCall="addTrait">
+		 <!-- <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ListBoxTag" addCall="addTrait">
 			<m-addType params="guise.platform.basisApple.controls.ListBoxTrait"/>
-		</var>
-		 <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.OptionPickerTag(false)" addCall="addTrait" p-checkEnumParams="[0]">
-			<m-addType params="guise.platform.basisApple.controls.OptionPickerTrait"/>
-		</var>
-		 <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.OptionPickerTag(true)" addCall="addTrait" p-checkEnumParams="[0]">
-			<m-addFact params="function(into:Dynamic):Dynamic return new guise.platform.basisApple.controls.OptionPickerTrait(true)"/>
 		</var> -->
+		<!--  <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.OptionPickerTag(false)" addCall="addTrait" p-checkEnumParams="[0]">
+			<m-addType params="guise.platform.basisApple.controls.OptionPickerTrait"/>
+		</var> -->
+		 <!-- <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.OptionPickerTag(true)" addCall="addTrait" p-checkEnumParams="[0]">
+			<m-addFact params="function(into:Dynamic):Dynamic return new guise.platform.basisApple.controls.OptionPickerTrait(true)"/>
+		</var>  -->
 
 
 		<!-- Additional control logic -->
