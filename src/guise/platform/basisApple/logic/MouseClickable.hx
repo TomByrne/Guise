@@ -13,7 +13,7 @@ class MouseClickable extends AbstractTrait implements IMouseClickableAccess
 	@:isVar public var displayTrait(default, set):DisplayTrait<UIControl>;
 	private function set_displayTrait(value:DisplayTrait<UIControl>):DisplayTrait<UIControl> {
 		if (displayTrait!=null) {
-			//displayTrait.view.removeEventListener(UIControl.UIControlTouchUpInside, onClicked);
+			displayTrait.view.removeEventListener(UIControl.UIControlTouchUpInside, onClicked);
 		}
 		displayTrait = value;
 		if (displayTrait != null) {

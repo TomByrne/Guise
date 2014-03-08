@@ -44,9 +44,9 @@
 			<m-addType params="guise.platform.basisApple.controls.SliderTrait"/>
 			<m-addType params="guise.controls.data.INumRange.NumRange, guise.controls.data.INumRange"/>
 		</var>
-		 <!-- <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ListBoxTag" addCall="addTrait">
+		 <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.ListBoxTag" addCall="addTrait">
 			<m-addType params="guise.platform.basisApple.controls.ListBoxTrait"/>
-		</var> -->
+		</var>
 		<!--  <var type="composure.utilTraits.Furnisher" p-concernedTraitType="guise.controls.ControlTags.OptionPickerTag(false)" addCall="addTrait" p-checkEnumParams="[0]">
 			<m-addType params="guise.platform.basisApple.controls.OptionPickerTrait"/>
 		</var> -->
